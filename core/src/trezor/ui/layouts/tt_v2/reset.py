@@ -1,20 +1,20 @@
 from typing import TYPE_CHECKING
 
-from trezor.enums import ButtonRequestType
-from trezor.wire import ActionCancelled
+from detahard.enums import ButtonRequestType
+from detahard.wire import ActionCancelled
 
-import trezorui2
+import detahardui2
 
 from ..common import interact
 from . import RustLayout
 
 if TYPE_CHECKING:
     from typing import Callable, Sequence
-    from trezor.enums import BackupType
-    from trezor.wire import GenericContext
+    from detahard.enums import BackupType
+    from detahard.wire import GenericContext
 
 
-CONFIRMED = trezorui2.CONFIRMED  # global_import_cache
+CONFIRMED = detahardui2.CONFIRMED  # global_import_cache
 
 
 def _split_share_into_pages(share_words: Sequence[str], per_page: int = 4) -> list[str]:
@@ -52,7 +52,7 @@ async def show_share_words(
     # result = await interact(
     #     ctx,
     #     RustLayout(
-    #         trezorui2.show_simple(
+    #         detahardui2.show_simple(
     #             title=title,
     #             description=f"Write down these {len(share_words)} words in the exact order:",
     #             button="SHOW WORDS",
@@ -69,7 +69,7 @@ async def show_share_words(
     result = await interact(
         ctx,
         RustLayout(
-            trezorui2.show_share_words(
+            detahardui2.show_share_words(
                 title=title,
                 pages=pages,
             ),
@@ -105,7 +105,7 @@ async def select_word(
 
     result = await ctx.wait(
         RustLayout(
-            trezorui2.select_word(
+            detahardui2.select_word(
                 title=title,
                 description=f"Select word {checked_index + 1} of {count}:",
                 words=(words[0], words[1], words[2]),
@@ -121,7 +121,7 @@ async def select_word(
 async def slip39_show_checklist(
     ctx: GenericContext, step: int, backup_type: BackupType
 ) -> None:
-    from trezor.enums import BackupType
+    from detahard.enums import BackupType
 
     assert backup_type in (BackupType.Slip39_Basic, BackupType.Slip39_Advanced)
 
@@ -142,7 +142,7 @@ async def slip39_show_checklist(
     result = await interact(
         ctx,
         RustLayout(
-            trezorui2.show_checklist(
+            detahardui2.show_checklist(
                 title="BACKUP CHECKLIST",
                 button="CONTINUE",
                 active=step,
@@ -167,7 +167,7 @@ async def _prompt_number(
     br_name: str,
 ) -> int:
     num_input = RustLayout(
-        trezorui2.request_number(
+        detahardui2.request_number(
             title=title.upper(),
             description=description,
             count=count,
@@ -196,7 +196,7 @@ async def _prompt_number(
 
         await ctx.wait(
             RustLayout(
-                trezorui2.show_simple(
+                detahardui2.show_simple(
                     title=None, description=info(value), button="OK, I UNDERSTAND"
                 )
             )
@@ -344,7 +344,7 @@ async def show_warning_backup(ctx: GenericContext, slip39: bool) -> None:
     result = await interact(
         ctx,
         RustLayout(
-            trezorui2.show_info(
+            detahardui2.show_info(
                 title=description,
                 button="OK, I UNDERSTAND",
                 allow_cancel=False,

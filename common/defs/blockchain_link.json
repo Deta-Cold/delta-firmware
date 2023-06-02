@@ -2,11 +2,11 @@
   "bitcoin:BCH": {
     "type": "blockbook",
     "url": [
-      "https://bch1.trezor.io",
-      "https://bch2.trezor.io",
-      "https://bch3.trezor.io",
-      "https://bch4.trezor.io",
-      "https://bch5.trezor.io"
+      "https://bch1.detahardrd.io",
+      "https://bch2.detahardrd.io",
+      "https://bch3.detahardrd.io",
+      "https://bch4.detahardrd.io",
+      "https://bch5.detahardrd.io"
     ]
   },
   "bitcoin:BELL": {
@@ -19,21 +19,21 @@
   "bitcoin:BTC": {
     "type": "blockbook",
     "url": [
-      "https://btc1.trezor.io",
-      "https://btc2.trezor.io",
-      "https://btc3.trezor.io",
-      "https://btc4.trezor.io",
-      "https://btc5.trezor.io"
+      "https://btc1.detahardrd.io",
+      "https://btc2.detahardrd.io",
+      "https://btc3.detahardrd.io",
+      "https://btc4.detahardrd.io",
+      "https://btc5.detahardrd.io"
     ]
   },
   "bitcoin:BTG": {
     "type": "blockbook",
     "url": [
-      "https://btg1.trezor.io",
-      "https://btg2.trezor.io",
-      "https://btg3.trezor.io",
-      "https://btg4.trezor.io",
-      "https://btg5.trezor.io"
+      "https://btg1.detahardrd.io",
+      "https://btg2.detahardrd.io",
+      "https://btg3.detahardrd.io",
+      "https://btg4.detahardrd.io",
+      "https://btg5.detahardrd.io"
     ]
   },
   "bitcoin:CPU": {
@@ -45,28 +45,28 @@
   "bitcoin:DASH": {
     "type": "blockbook",
     "url": [
-      "https://dash1.trezor.io",
-      "https://dash2.trezor.io",
-      "https://dash3.trezor.io",
-      "https://dash4.trezor.io",
-      "https://dash5.trezor.io"
+      "https://dash1.detahardrd.io",
+      "https://dash2.detahardrd.io",
+      "https://dash3.detahardrd.io",
+      "https://dash4.detahardrd.io",
+      "https://dash5.detahardrd.io"
     ]
   },
   "bitcoin:DGB": {
     "type": "blockbook",
     "url": [
-      "https://dgb1.trezor.io",
-      "https://dgb2.trezor.io"
+      "https://dgb1.detahardrd.io",
+      "https://dgb2.detahardrd.io"
     ]
   },
   "bitcoin:DOGE": {
     "type": "blockbook",
     "url": [
-      "https://doge1.trezor.io",
-      "https://doge2.trezor.io",
-      "https://doge3.trezor.io",
-      "https://doge4.trezor.io",
-      "https://doge5.trezor.io"
+      "https://doge1.detahardrd.io",
+      "https://doge2.detahardrd.io",
+      "https://doge3.detahardrd.io",
+      "https://doge4.detahardrd.io",
+      "https://doge5.detahardrd.io"
     ]
   },
   "bitcoin:FJC": {
@@ -90,11 +90,11 @@
   "bitcoin:LTC": {
     "type": "blockbook",
     "url": [
-      "https://ltc1.trezor.io",
-      "https://ltc2.trezor.io",
-      "https://ltc3.trezor.io",
-      "https://ltc4.trezor.io",
-      "https://ltc5.trezor.io"
+      "https://ltc1.detahardrd.io",
+      "https://ltc2.detahardrd.io",
+      "https://ltc3.detahardrd.io",
+      "https://ltc4.detahardrd.io",
+      "https://ltc5.detahardrd.io"
     ]
   },
   "bitcoin:MONA": {
@@ -112,8 +112,8 @@
   "bitcoin:NMC": {
     "type": "blockbook",
     "url": [
-      "https://nmc1.trezor.io",
-      "https://nmc2.trezor.io"
+      "https://nmc1.detahardrd.io",
+      "https://nmc2.detahardrd.io"
     ]
   },
   "bitcoin:PIVX": {
@@ -149,8 +149,8 @@
   "bitcoin:TEST": {
     "type": "blockbook",
     "url": [
-      "https://tbtc1.trezor.io",
-      "https://tbtc2.trezor.io"
+      "https://tbtc1.detahardrd.io",
+      "https://tbtc2.detahardrd.io"
     ]
   },
   "bitcoin:UNO": {
@@ -169,11 +169,11 @@
   "bitcoin:VTC": {
     "type": "blockbook",
     "url": [
-      "https://vtc1.trezor.io",
-      "https://vtc2.trezor.io",
-      "https://vtc3.trezor.io",
-      "https://vtc4.trezor.io",
-      "https://vtc5.trezor.io"
+      "https://vtc1.detahardrd.io",
+      "https://vtc2.detahardrd.io",
+      "https://vtc3.detahardrd.io",
+      "https://vtc4.detahardrd.io",
+      "https://vtc5.detahardrd.io"
     ]
   },
   "bitcoin:XRC": {
@@ -192,11 +192,11 @@
   "bitcoin:ZEC": {
     "type": "blockbook",
     "url": [
-      "https://zec1.trezor.io",
-      "https://zec2.trezor.io",
-      "https://zec3.trezor.io",
-      "https://zec4.trezor.io",
-      "https://zec5.trezor.io"
+      "https://zec1.detahardrd.io",
+      "https://zec2.detahardrd.io",
+      "https://zec3.detahardrd.io",
+      "https://zec4.detahardrd.io",
+      "https://zec5.detahardrd.io"
     ]
   },
   "bitcoin:ZNY": {
@@ -226,22 +226,22 @@
   "eth:ETC": {
     "type": "blockbook",
     "url": [
-      "https://etc1.trezor.io",
-      "https://etc2.trezor.io"
+      "https://etc1.detahardrd.io",
+      "https://etc2.detahardrd.io"
     ]
   },
   "eth:ETH": {
     "type": "blockbook",
     "url": [
-      "https://eth1.trezor.io",
-      "https://eth2.trezor.io"
+      "https://eth1.detahardrd.io",
+      "https://eth2.detahardrd.io"
     ]
   },
   "eth:tROP": {
     "type": "blockbook",
     "url": [
-      "https://ropsten1.trezor.io",
-      "https://ropsten2.trezor.io"
+      "https://ropsten1.detahardrd.io",
+      "https://ropsten2.detahardrd.io"
     ]
   },
   "misc:XRP": {
@@ -261,13 +261,13 @@
   "misc:ADA": {
     "type": "blockfrost",
     "url": [
-      "wss://trezor-cardano-mainnet.blockfrost.io"
+      "wss://detahardrd-cardano-mainnet.blockfrost.io"
     ]
   },
   "misc:tADA": {
     "type": "blockfrost",
     "url": [
-      "wss://trezor-cardano-preview.blockfrost.io"
+      "wss://detahardrd-cardano-preview.blockfrost.io"
     ]
   }
 }

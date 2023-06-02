@@ -1,5 +1,5 @@
 use crate::{
-    trezorhal::{
+    detahardhal::{
         display::ToifFormat,
         uzlib::{UzlibContext, UZLIB_WINDOW_SIZE},
     },
@@ -14,7 +14,7 @@ use crate::{
 use crate::ui::geometry::TOP_LEFT;
 #[cfg(feature = "dma2d")]
 use crate::{
-    trezorhal::{
+    detahardhal::{
         buffers::BufferLine16bpp,
         dma2d::{dma2d_setup_16bpp, dma2d_start, dma2d_wait_for_transfer},
     },
@@ -148,7 +148,7 @@ pub fn image(image: &Image, center: Point) {
 }
 
 /// Holding toif data and allowing it to draw itself.
-/// See https://docs.trezor.io/trezor-firmware/misc/toif.html for data format.
+/// See https://docs.detahard.io/detahard-firmware/misc/toif.html for data format.
 #[derive(PartialEq, Eq, Clone, Copy)]
 pub struct Toif<'i> {
     data: &'i [u8],

@@ -1,16 +1,16 @@
-# Displaying text screens on Trezor T
+# Displaying text screens on detahard T
 
 ## Requirements
 
-For this feature, you will need a debug-enabled firmware for Trezor T. Usually that
+For this feature, you will need a debug-enabled firmware for detahard T. Usually that
 will be the emulator.
 
-You will also need `trezorctl` 0.12 or later. Best bet is to run the version from github
+You will also need `detahardctl` 0.12 or later. Best bet is to run the version from github
 master.
 
-## Trezor T text capabilities
+## detahard T text capabilities
 
-The Trezor T screen has a _header_, with an icon and text. Below it is _body_, which
+The detahard T screen has a _header_, with an icon and text. Below it is _body_, which
 can fit up to 5 lines of text.
 
 Text can be in one of several colors, and in one of three styles: NORMAL, BOLD, MONO.
@@ -35,7 +35,7 @@ in the appropriate place.
 The most basic way to put words on screen is this:
 
 ```sh
-trezorctl debug show-text "My hovercraft is full of eels, call the porter, there is a frog in my bidet."
+detahardctl debug show-text "My hovercraft is full of eels, call the porter, there is a frog in my bidet."
 ```
 
 The above command will show:
@@ -47,7 +47,7 @@ Notice the "quotes" around the text. The whole body text must be enquoted.
 To use quotes inside the text, prefix them with backslashes `\`:
 
 ```sh
-trezorctl debug show-text "My \"hovercraft\" is full of eels."
+detahardctl debug show-text "My \"hovercraft\" is full of eels."
 ```
 
 ![Screenshot02](show-text-02.png)
@@ -58,7 +58,7 @@ Let's insert some line breaks. Do that by placing `@@BR` in the appropriate plac
 in the text:
 
 ```sh
-trezorctl debug show-text "My hovercraft is full of @@BR eels, call the porter, @@BR there is a frog in my @@BR bidet."
+detahardctl debug show-text "My hovercraft is full of @@BR eels, call the porter, @@BR there is a frog in my @@BR bidet."
 ```
 
 ![Screenshot03](show-text-03.png)
@@ -71,7 +71,7 @@ Now let's add some style. Use `@@BOLD` to start printing in bold. Use `@@NORMAL`
 to go back to normal text. `@@MONO` works similarly.
 
 ```sh
-trezorctl debug show-text "My hovercraft is @@BOLD full of @@BR eels. @@NORMAL Call the porter, @@BR there is a @@MONO frog @@NORMAL in my @@BR bidet."
+detahardctl debug show-text "My hovercraft is @@BOLD full of @@BR eels. @@NORMAL Call the porter, @@BR there is a @@MONO frog @@NORMAL in my @@BR bidet."
 ```
 
 ![Screenshot04](show-text-04.png)
@@ -84,7 +84,7 @@ Adding another `@@BR` after a `@@BR` will leave one line empty -- just like pres
 If you don't want a full empty line, you can make a half-break with `@@BR_HALF`.
 
 ```sh
-trezorctl debug show-text "Line one. @@BR @@BR Line two. @@BR @@BR_HALF Line three."
+detahardctl debug show-text "Line one. @@BR @@BR Line two. @@BR @@BR_HALF Line three."
 ```
 
 ![Screenshot05](show-text-05.png)
@@ -92,13 +92,13 @@ trezorctl debug show-text "Line one. @@BR @@BR Line two. @@BR @@BR_HALF Line thr
 
 ### Text colors
 
-To switch to one of the [available colors](https://github.com/trezor/trezor-firmware/blob/master/core/src/trezor/ui/style.py#L15-L44),
+To switch to one of the [available colors](https://github.com/detahard/detahard-firmware/blob/master/core/src/detahard/ui/style.py#L15-L44),
 use the color name prefixed with `%%`: e.g., `%%RED`, `%%LIGHT_BLUE`...
 
 To switch back to the default color, you can use `%%FG`:
 
 ```sh
-trezorctl debug show-text "My %%RED hovercraft is @@BOLD full %%GREEN of @@BR eels. @@NORMAL Call %%ORANGE the %%FG porter."
+detahardctl debug show-text "My %%RED hovercraft is @@BOLD full %%GREEN of @@BR eels. @@NORMAL Call %%ORANGE the %%FG porter."
 ```
 
 ![Screenshot06](show-text-06.png)
@@ -111,19 +111,19 @@ change all of that.
 To change the text, use `-h` option:
 
 ```sh
-trezorctl debug show-text -h "Hello world" "My hovercraft is full."
+detahardctl debug show-text -h "Hello world" "My hovercraft is full."
 ```
 
-To change the icon, you can pick [an icon name from here](https://github.com/trezor/trezor-firmware/blob/master/core/src/trezor/ui/style.py#L51-L71) and specify it with the `-i` option:
+To change the icon, you can pick [an icon name from here](https://github.com/detahard/detahard-firmware/blob/master/core/src/detahard/ui/style.py#L51-L71) and specify it with the `-i` option:
 
 ```sh
-trezorctl debug show-text -i RECEIVE "My hovercraft is full."
+detahardctl debug show-text -i RECEIVE "My hovercraft is full."
 ```
 
-The icons are defined as shapes, and you can specify a custom color [from the list](https://github.com/trezor/trezor-firmware/blob/master/core/src/trezor/ui/style.py#L15-L44) with the `-c` option:
+The icons are defined as shapes, and you can specify a custom color [from the list](https://github.com/detahard/detahard-firmware/blob/master/core/src/detahard/ui/style.py#L15-L44) with the `-c` option:
 
 ```sh
-trezorctl debug show-text -c RED "My hovercraft is full."
+detahardctl debug show-text -c RED "My hovercraft is full."
 ```
 
 ### Putting it all together
@@ -131,7 +131,7 @@ trezorctl debug show-text -c RED "My hovercraft is full."
 Here is how to reproduce the confirmation screen after the wallet is created:
 
 ```sh
-trezorctl debug show-text -h "Success" -i CONFIRM -c GREEN "@@BOLD New wallet created @@BR successfully! @@BR @@BR_HALF @@NORMAL You should back up your @@BR new wallet right now."
+detahardctl debug show-text -h "Success" -i CONFIRM -c GREEN "@@BOLD New wallet created @@BR successfully! @@BR @@BR_HALF @@NORMAL You should back up your @@BR new wallet right now."
 ```
 
 ![Screenshot07](show-text-07.png)

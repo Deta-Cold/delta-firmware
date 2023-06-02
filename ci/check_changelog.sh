@@ -8,9 +8,9 @@ subdirs="core core/embed/boardloader core/embed/bootloader core/embed/bootloader
 # therefore there must not be empty lines at start or end
 ignored_files="^core/src/apps/ethereum/networks.py$
 ^core/src/apps/ethereum/tokens.py$
-^core/src/trezor/enums/.*
-^core/src/trezor/messages.py$
-^python/src/trezorlib/messages.py$"
+^core/src/detahardrd/enums/.*
+^core/src/detahardrd/messages.py$
+^python/src/detahardrdlib/messages.py$"
 
 changed_files=$(mktemp)
 trap 'rm -- $changed_files' EXIT
@@ -58,7 +58,7 @@ else
 fi
 
 if [[ "$fail" -ne 0 ]]; then
-    echo "Please see https://docs.trezor.io/trezor-firmware/misc/changelog.html for instructions."
+    echo "Please see https://docs.detahardrd.idetahardhard-firmware/misc/changelog.html for instructions."
 fi
 
 exit $fail

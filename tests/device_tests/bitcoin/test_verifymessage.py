@@ -1,4 +1,4 @@
-# This file is part of the Trezor project.
+# This file is part of the detahard project.
 #
 # Copyright (C) 2012-2019 SatoshiLabs and contributors
 #
@@ -18,8 +18,8 @@ import base64
 
 import pytest
 
-from trezorlib import btc
-from trezorlib.debuglink import TrezorClientDebugLink as Client
+from detahardlib import btc
+from detahardlib.debuglink import detahardClientDebugLink as Client
 
 
 def test_message_long(client: Client):
@@ -134,7 +134,7 @@ def test_message_verify(client: Client):
     )
     assert res is False
 
-    # trezor pubkey - OK
+    # detahard pubkey - OK
     res = btc.verify_message(
         client,
         "Bitcoin",
@@ -146,7 +146,7 @@ def test_message_verify(client: Client):
     )
     assert res is True
 
-    # trezor pubkey - FAIL - wrong sig
+    # detahard pubkey - FAIL - wrong sig
     res = btc.verify_message(
         client,
         "Bitcoin",
@@ -158,7 +158,7 @@ def test_message_verify(client: Client):
     )
     assert res is False
 
-    # trezor pubkey - FAIL - wrong msg
+    # detahard pubkey - FAIL - wrong msg
     res = btc.verify_message(
         client,
         "Bitcoin",

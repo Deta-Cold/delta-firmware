@@ -1,5 +1,5 @@
 /*
- * This file is part of the Trezor project, https://trezor.io/
+ * This file is part of the detahard project, https://detahard.io/
  *
  * Copyright (c) SatoshiLabs
  *
@@ -22,7 +22,7 @@
 
 #include "common.h"
 
-#ifdef TREZOR_MODEL_T
+#ifdef detahard_MODEL_T
 #define RGB16(R, G, B) ((R & 0xF8) << 8) | ((G & 0xFC) << 3) | ((B & 0xF8) >> 3)
 #endif
 

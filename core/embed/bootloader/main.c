@@ -1,5 +1,5 @@
 /*
- * This file is part of the Trezor project, https://trezor.io/
+ * This file is part of the detahard project, https://detahard.io/
  *
  * Copyright (c) SatoshiLabs
  *
@@ -26,7 +26,7 @@
 #include "image.h"
 #include "random_delays.h"
 #include "secbool.h"
-#ifdef TREZOR_EMULATOR
+#ifdef detahard_EMULATOR
 #include "emulator.h"
 #else
 #include "compiler_traits.h"
@@ -88,9 +88,9 @@ static void usb_init_all(secbool usb21_landing) {
       .product_id = 0x53C0,
       .release_num = 0x0200,
       .manufacturer = "SatoshiLabs",
-      .product = "TREZOR",
+      .product = "detahard",
       .serial_number = "000000000000000000000000",
-      .interface = "TREZOR Interface",
+      .interface = "detahard Interface",
       .usb21_enabled = sectrue,
       .usb21_landing = usb21_landing,
   };
@@ -99,7 +99,7 @@ static void usb_init_all(secbool usb21_landing) {
 
   static const usb_webusb_info_t webusb_info = {
       .iface_num = USB_IFACE_NUM,
-#ifdef TREZOR_EMULATOR
+#ifdef detahard_EMULATOR
       .emu_port = 21324,
 #else
       .ep_in = USB_EP_DIR_IN | 0x01,
@@ -128,7 +128,7 @@ static usb_result_t bootloader_usb_loop(const vendor_header *const vhdr,
   uint8_t buf[USB_PACKET_SIZE];
 
   for (;;) {
-#ifdef TREZOR_EMULATOR
+#ifdef detahard_EMULATOR
     emulator_poll_events();
 #endif
     int r = usb_webusb_read_blocking(USB_IFACE_NUM, buf, USB_PACKET_SIZE,
@@ -265,7 +265,7 @@ static void check_bootloader_version(void) {
 
 #endif
 
-#ifndef TREZOR_EMULATOR
+#ifndef detahard_EMULATOR
 int main(void) {
   // grab "stay in bootloader" flag as soon as possible
   register uint32_t r11 __asm__("r11");
@@ -321,7 +321,7 @@ int bootloader_main(void) {
                              FIRMWARE_SECTORS, FIRMWARE_SECTORS_COUNT);
   }
 
-#if defined TREZOR_MODEL_T
+#if defined detahard_MODEL_T
   set_core_clock(CLOCK_180_MHZ);
   display_set_little_endian();
 #endif
@@ -364,7 +364,7 @@ int bootloader_main(void) {
       if (touched) {
         break;
       }
-#ifdef TREZOR_EMULATOR
+#ifdef detahard_EMULATOR
       hal_delay(25);
 #else
       hal_delay(1);
@@ -380,7 +380,7 @@ int bootloader_main(void) {
 
   // start the bootloader if no or broken firmware found ...
   if (firmware_present != sectrue) {
-#ifdef TREZOR_EMULATOR
+#ifdef detahard_EMULATOR
     // wait a bit so that the empty lock icon is visible
     // (on a real device, we are waiting for touch init which takes longer)
     hal_delay(400);

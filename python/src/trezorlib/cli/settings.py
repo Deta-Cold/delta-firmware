@@ -1,4 +1,4 @@
-# This file is part of the Trezor project.
+# This file is part of the detahard project.
 #
 # Copyright (C) 2012-2022 SatoshiLabs and contributors
 #
@@ -24,7 +24,7 @@ from .. import device, messages, toif
 from . import AliasedGroup, ChoiceType, with_client
 
 if TYPE_CHECKING:
-    from ..client import TrezorClient
+    from ..client import detahardClient
 
 try:
     from PIL import Image
@@ -47,7 +47,7 @@ def image_to_t1(filename: Path) -> bytes:
         )
 
     if filename.suffix == ".toif":
-        raise click.ClickException("TOIF images not supported on Trezor One")
+        raise click.ClickException("TOIF images not supported on detahard One")
 
     try:
         image = Image.open(filename)
@@ -79,7 +79,7 @@ def image_to_toif_144x144(filename: Path) -> bytes:
             toif_image = toif.from_image(image)
         except Exception as e:
             raise click.ClickException(
-                "Failed to convert image to Trezor format"
+                "Failed to convert image to detahard format"
             ) from e
 
     if toif_image.size != (144, 144):
@@ -141,7 +141,7 @@ def cli() -> None:
 @click.option("-r", "--remove", is_flag=True, hidden=True)
 @click.argument("enable", type=ChoiceType({"on": True, "off": False}), required=False)
 @with_client
-def pin(client: "TrezorClient", enable: Optional[bool], remove: bool) -> str:
+def pin(client: "detahardClient", enable: Optional[bool], remove: bool) -> str:
     """Set, change or remove PIN."""
     # Remove argument is there for backwards compatibility
     return device.change_pin(client, remove=_should_remove(enable, remove))
@@ -151,7 +151,7 @@ def pin(client: "TrezorClient", enable: Optional[bool], remove: bool) -> str:
 @click.option("-r", "--remove", is_flag=True, hidden=True)
 @click.argument("enable", type=ChoiceType({"on": True, "off": False}), required=False)
 @with_client
-def wipe_code(client: "TrezorClient", enable: Optional[bool], remove: bool) -> str:
+def wipe_code(client: "detahardClient", enable: Optional[bool], remove: bool) -> str:
     """Set or remove the wipe code.
 
     The wipe code functions as a "self-destruct PIN". If the wipe code is ever
@@ -167,7 +167,7 @@ def wipe_code(client: "TrezorClient", enable: Optional[bool], remove: bool) -> s
 @click.option("-l", "--label", "_ignore", is_flag=True, hidden=True, expose_value=False)
 @click.argument("label")
 @with_client
-def label(client: "TrezorClient", label: str) -> str:
+def label(client: "detahardClient", label: str) -> str:
     """Set new device label."""
     return device.apply_settings(client, label=label)
 
@@ -175,10 +175,10 @@ def label(client: "TrezorClient", label: str) -> str:
 @cli.command()
 @click.argument("rotation", type=ChoiceType(ROTATION))
 @with_client
-def display_rotation(client: "TrezorClient", rotation: int) -> str:
+def display_rotation(client: "detahardClient", rotation: int) -> str:
     """Set display rotation.
 
-    Configure display rotation for Trezor Model T. The options are
+    Configure display rotation for detahard Model T. The options are
     north, east, south or west.
     """
     return device.apply_settings(client, display_rotation=rotation)
@@ -187,7 +187,7 @@ def display_rotation(client: "TrezorClient", rotation: int) -> str:
 @cli.command()
 @click.argument("delay", type=str)
 @with_client
-def auto_lock_delay(client: "TrezorClient", delay: str) -> str:
+def auto_lock_delay(client: "detahardClient", delay: str) -> str:
     """Set auto-lock delay (in seconds)."""
 
     if not client.features.pin_protection:
@@ -205,7 +205,7 @@ def auto_lock_delay(client: "TrezorClient", delay: str) -> str:
 @cli.command()
 @click.argument("flags")
 @with_client
-def flags(client: "TrezorClient", flags: str) -> str:
+def flags(client: "detahardClient", flags: str) -> str:
     """Set device flags."""
     if flags.lower().startswith("0b"):
         flags_int = int(flags, 2)
@@ -222,10 +222,10 @@ def flags(client: "TrezorClient", flags: str) -> str:
     "-f", "--filename", "_ignore", is_flag=True, hidden=True, expose_value=False
 )
 @with_client
-def homescreen(client: "TrezorClient", filename: str) -> str:
+def homescreen(client: "detahardClient", filename: str) -> str:
     """Set new homescreen.
 
-    To revert to default homescreen, use 'trezorctl set homescreen default'
+    To revert to default homescreen, use 'detahardctl set homescreen default'
     """
     if filename == "default":
         img = b""
@@ -258,16 +258,16 @@ def homescreen(client: "TrezorClient", filename: str) -> str:
 
 @cli.command()
 @click.option(
-    "--always", is_flag=True, help='Persist the "prompt" setting across Trezor reboots.'
+    "--always", is_flag=True, help='Persist the "prompt" setting across detahard reboots.'
 )
 @click.argument("level", type=ChoiceType(SAFETY_LEVELS))
 @with_client
 def safety_checks(
-    client: "TrezorClient", always: bool, level: messages.SafetyCheckLevel
+    client: "detahardClient", always: bool, level: messages.SafetyCheckLevel
 ) -> str:
     """Set safety check level.
 
-    Set to "strict" to get the full Trezor security (default setting).
+    Set to "strict" to get the full detahard security (default setting).
 
     Set to "prompt" if you want to be able to allow potentially unsafe actions, such as
     mismatching coin keys or extreme fees.
@@ -282,7 +282,7 @@ def safety_checks(
 @cli.command()
 @click.argument("enable", type=ChoiceType({"on": True, "off": False}))
 @with_client
-def experimental_features(client: "TrezorClient", enable: bool) -> str:
+def experimental_features(client: "detahardClient", enable: bool) -> str:
     """Enable or disable experimental message types.
 
     This is a developer feature. Use with caution.
@@ -311,7 +311,7 @@ passphrase = cast(AliasedGroup, passphrase_main)
 @passphrase.command(name="on")
 @click.option("-f/-F", "--force-on-device/--no-force-on-device", default=None)
 @with_client
-def passphrase_on(client: "TrezorClient", force_on_device: Optional[bool]) -> str:
+def passphrase_on(client: "detahardClient", force_on_device: Optional[bool]) -> str:
     """Enable passphrase."""
     if client.features.passphrase_protection is not True:
         use_passphrase = True
@@ -326,7 +326,7 @@ def passphrase_on(client: "TrezorClient", force_on_device: Optional[bool]) -> st
 
 @passphrase.command(name="off")
 @with_client
-def passphrase_off(client: "TrezorClient") -> str:
+def passphrase_off(client: "detahardClient") -> str:
     """Disable passphrase."""
     return device.apply_settings(client, use_passphrase=False)
 
@@ -342,7 +342,7 @@ passphrase.aliases = {
 @passphrase.command(name="hide")
 @click.argument("hide", type=ChoiceType({"on": True, "off": False}))
 @with_client
-def hide_passphrase_from_host(client: "TrezorClient", hide: bool) -> str:
+def hide_passphrase_from_host(client: "detahardClient", hide: bool) -> str:
     """Enable or disable hiding passphrase coming from host.
 
     This is a developer feature. Use with caution.

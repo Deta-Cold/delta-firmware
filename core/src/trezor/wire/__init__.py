@@ -5,7 +5,7 @@ Handles on-the-wire communication with a host computer. The communication is:
 
 - Request / response.
 - Protobuf-encoded, see `protobuf.py`.
-- Wrapped in a simple envelope format, see `trezor/wire/codec_v1.py`.
+- Wrapped in a simple envelope format, see `detahard/wire/codec_v1.py`.
 - Transferred over USB interface, or UDP in case of Unix emulation.
 
 This module:
@@ -39,15 +39,15 @@ from micropython import const
 from typing import TYPE_CHECKING
 
 from storage.cache import InvalidSessionError
-from trezor import log, loop, protobuf, utils, workflow
-from trezor.enums import FailureType
-from trezor.messages import Failure
-from trezor.wire import codec_v1
-from trezor.wire.errors import ActionCancelled, DataError, Error
+from detahard import log, loop, protobuf, utils, workflow
+from detahard.enums import FailureType
+from detahard.messages import Failure
+from detahard.wire import codec_v1
+from detahard.wire.errors import ActionCancelled, DataError, Error
 
 # Import all errors into namespace, so that `wire.Error` is available from
 # other packages.
-from trezor.wire.errors import *  # isort:skip # noqa: F401,F403
+from detahard.wire.errors import *  # isort:skip # noqa: F401,F403
 
 
 if TYPE_CHECKING:
@@ -61,7 +61,7 @@ if TYPE_CHECKING:
         Protocol,
         TypeVar,
     )
-    from trezorio import WireInterface
+    from detahardio import WireInterface
 
     Msg = TypeVar("Msg", bound=protobuf.MessageType)
     HandlerTask = Coroutine[Any, Any, protobuf.MessageType]

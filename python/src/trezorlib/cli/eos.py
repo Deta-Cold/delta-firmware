@@ -1,4 +1,4 @@
-# This file is part of the Trezor project.
+# This file is part of the detahard project.
 #
 # Copyright (C) 2012-2022 SatoshiLabs and contributors
 #
@@ -23,7 +23,7 @@ from .. import eos, tools
 from . import with_client
 
 if TYPE_CHECKING:
-    from ..client import TrezorClient
+    from ..client import detahardClient
     from .. import messages
 
 PATH_HELP = "BIP-32 path, e.g. m/44'/194'/0'/0/0"
@@ -38,7 +38,7 @@ def cli() -> None:
 @click.option("-n", "--address", required=True, help=PATH_HELP)
 @click.option("-d", "--show-display", is_flag=True)
 @with_client
-def get_public_key(client: "TrezorClient", address: str, show_display: bool) -> str:
+def get_public_key(client: "detahardClient", address: str, show_display: bool) -> str:
     """Get Eos public key in base58 encoding."""
     address_n = tools.parse_path(address)
     res = eos.get_public_key(client, address_n, show_display)
@@ -51,7 +51,7 @@ def get_public_key(client: "TrezorClient", address: str, show_display: bool) -> 
 @click.option("-f", "--file", "_ignore", is_flag=True, hidden=True, expose_value=False)
 @with_client
 def sign_transaction(
-    client: "TrezorClient", address: str, file: TextIO
+    client: "detahardClient", address: str, file: TextIO
 ) -> "messages.EosSignedTx":
     """Sign EOS transaction."""
     tx_json = json.load(file)

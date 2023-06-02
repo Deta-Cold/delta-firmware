@@ -1,7 +1,7 @@
 from common import *
 
-from trezor.crypto import cosi, random
-from trezor.crypto.curve import ed25519
+from detahard.crypto import cosi, random
+from detahard.crypto.curve import ed25519
 
 
 class TestCryptoEd25519Cosi(unittest.TestCase):

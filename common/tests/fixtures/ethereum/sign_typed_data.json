@@ -60,7 +60,7 @@
                     "primaryType": "EIP712Domain",
                     "message": {},
                     "domain": {
-                        "name": "Trezor",
+                        "name": "detahard",
                         "version": "Test v0.0.0",
                         "chainId": 1,
                         "verifyingContract": "0xCcCCccccCCCCcCCCCCCcCcCccCcCCCcCcccccccC",

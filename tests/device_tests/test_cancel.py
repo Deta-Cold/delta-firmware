@@ -1,4 +1,4 @@
-# This file is part of the Trezor project.
+# This file is part of the detahard project.
 #
 # Copyright (C) 2012-2019 SatoshiLabs and contributors
 #
@@ -16,9 +16,9 @@
 
 import pytest
 
-import trezorlib.messages as m
-from trezorlib.debuglink import TrezorClientDebugLink as Client
-from trezorlib.exceptions import Cancelled
+import detahardlib.messages as m
+from detahardlib.debuglink import detahardClientDebugLink as Client
+from detahardlib.exceptions import Cancelled
 
 from ..common import TEST_ADDRESS_N
 

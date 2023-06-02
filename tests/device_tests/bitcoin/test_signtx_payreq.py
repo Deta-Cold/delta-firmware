@@ -1,4 +1,4 @@
-# This file is part of the Trezor project.
+# This file is part of the detahard project.
 #
 # Copyright (C) 2020 SatoshiLabs and contributors
 #
@@ -18,10 +18,10 @@ from collections import namedtuple
 
 import pytest
 
-from trezorlib import btc, messages, misc
-from trezorlib.debuglink import TrezorClientDebugLink as Client
-from trezorlib.exceptions import TrezorFailure
-from trezorlib.tools import parse_path
+from detahardlib import btc, messages, misc
+from detahardlib.debuglink import detahardClientDebugLink as Client
+from detahardlib.exceptions import detahardFailure
+from detahardlib.tools import parse_path
 
 from ...input_flows import InputFlowPaymentRequestDetails
 from .payment_req import CoinPurchaseMemo, RefundMemo, TextMemo, make_payment_request
@@ -145,7 +145,7 @@ def test_payment_request(client: Client, payment_request_params):
         payment_reqs.append(
             make_payment_request(
                 client,
-                recipient_name="trezor.io",
+                recipient_name="detahard.io",
                 outputs=request_outputs,
                 change_addresses=["tb1qkvwu9g3k2pdxewfqr7syz89r3gj557l3uuf9r9"],
                 memos=params.memos,
@@ -165,7 +165,7 @@ def test_payment_request(client: Client, payment_request_params):
     assert serialized_tx.hex() == SERIALIZED_TX
 
     # Ensure that the nonce has been invalidated.
-    with pytest.raises(TrezorFailure, match="Invalid nonce in payment request"):
+    with pytest.raises(detahardFailure, match="Invalid nonce in payment request"):
         btc.sign_tx(
             client,
             "Testnet",
@@ -185,7 +185,7 @@ def test_payment_request_details(client: Client):
     payment_reqs = [
         make_payment_request(
             client,
-            recipient_name="trezor.io",
+            recipient_name="detahard.io",
             outputs=outputs[:2],
             memos=[TextMemo("Invoice #87654321.")],
             nonce=nonce,
@@ -215,7 +215,7 @@ def test_payment_req_wrong_amount(client: Client):
     outputs[2].payment_req_index = None
     payment_req = make_payment_request(
         client,
-        recipient_name="trezor.io",
+        recipient_name="detahard.io",
         outputs=outputs[:2],
         nonce=misc.get_nonce(client),
     )
@@ -223,7 +223,7 @@ def test_payment_req_wrong_amount(client: Client):
     # Decrease the total amount of the payment request.
     payment_req.amount -= 1
 
-    with pytest.raises(TrezorFailure, match="Invalid amount in payment request"):
+    with pytest.raises(detahardFailure, match="Invalid amount in payment request"):
         btc.sign_tx(
             client,
             "Testnet",
@@ -242,7 +242,7 @@ def test_payment_req_wrong_mac_refund(client: Client):
     outputs[2].payment_req_index = None
     payment_req = make_payment_request(
         client,
-        recipient_name="trezor.io",
+        recipient_name="detahard.io",
         outputs=outputs[:2],
         memos=[memo],
         nonce=misc.get_nonce(client),
@@ -253,7 +253,7 @@ def test_payment_req_wrong_mac_refund(client: Client):
     mac[0] ^= 1
     payment_req.memos[0].refund_memo.mac = mac
 
-    with pytest.raises(TrezorFailure, match="Invalid address MAC"):
+    with pytest.raises(detahardFailure, match="Invalid address MAC"):
         btc.sign_tx(
             client,
             "Testnet",
@@ -278,7 +278,7 @@ def test_payment_req_wrong_mac_purchase(client: Client):
     outputs[2].payment_req_index = None
     payment_req = make_payment_request(
         client,
-        recipient_name="trezor.io",
+        recipient_name="detahard.io",
         outputs=outputs[:2],
         memos=[memo],
         nonce=misc.get_nonce(client),
@@ -289,7 +289,7 @@ def test_payment_req_wrong_mac_purchase(client: Client):
     mac[0] ^= 1
     payment_req.memos[0].coin_purchase_memo.mac = mac
 
-    with pytest.raises(TrezorFailure, match="Invalid address MAC"):
+    with pytest.raises(detahardFailure, match="Invalid address MAC"):
         btc.sign_tx(
             client,
             "Testnet",
@@ -307,7 +307,7 @@ def test_payment_req_wrong_output(client: Client):
     outputs[2].payment_req_index = None
     payment_req = make_payment_request(
         client,
-        recipient_name="trezor.io",
+        recipient_name="detahard.io",
         outputs=outputs[:2],
         nonce=misc.get_nonce(client),
     )
@@ -324,7 +324,7 @@ def test_payment_req_wrong_output(client: Client):
         outputs[2],
     ]
 
-    with pytest.raises(TrezorFailure, match="Invalid signature in payment request"):
+    with pytest.raises(detahardFailure, match="Invalid signature in payment request"):
         btc.sign_tx(
             client,
             "Testnet",

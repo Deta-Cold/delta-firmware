@@ -1,5 +1,5 @@
 use crate::{
-    trezorhal::display::ToifFormat,
+    detahardhal::display::ToifFormat,
     ui::{
         component::{Component, Event, EventCtx, Never},
         display,

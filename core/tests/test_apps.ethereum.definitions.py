@@ -1,7 +1,7 @@
 from common import *
 import unittest
 import typing as t
-from trezor import utils, wire
+from detahard import utils, wire
 from ubinascii import hexlify  # noqa: F401
 
 if not utils.BITCOIN_ONLY:
@@ -9,9 +9,9 @@ if not utils.BITCOIN_ONLY:
     from apps.ethereum import networks, tokens
     from apps.ethereum.definitions import decode_definition, Definitions
     from ethereum_common import *
-    from trezor import protobuf
-    from trezor.enums import EthereumDefinitionType
-    from trezor.messages import (
+    from detahard import protobuf
+    from detahard.enums import EthereumDefinitionType
+    from detahard.messages import (
         EthereumDefinitions,
         EthereumNetworkInfo,
         EthereumTokenInfo,

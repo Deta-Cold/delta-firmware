@@ -2,7 +2,7 @@ use super::ffi;
 use core::{ops::DerefMut, ptr};
 use cty::c_int;
 
-use crate::trezorhal::buffers::BufferText;
+use crate::detahardhal::buffers::BufferText;
 
 #[derive(PartialEq, Debug, Eq, FromPrimitive, Clone, Copy)]
 pub enum ToifFormat {

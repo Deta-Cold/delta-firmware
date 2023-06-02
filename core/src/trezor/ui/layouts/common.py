@@ -1,8 +1,8 @@
 from typing import TYPE_CHECKING
 
-from trezor import log, wire, workflow
-from trezor.enums import ButtonRequestType
-from trezor.messages import ButtonAck, ButtonRequest
+from detahard import log, wire, workflow
+from detahard.enums import ButtonRequestType
+from detahard.messages import ButtonAck, ButtonRequest
 
 if TYPE_CHECKING:
     from typing import Any, Awaitable, Protocol

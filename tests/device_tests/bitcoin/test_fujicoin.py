@@ -1,4 +1,4 @@
-# This file is part of the Trezor project.
+# This file is part of the detahard project.
 #
 # Copyright (C) 2012-2021 SatoshiLabs and contributors
 #
@@ -16,9 +16,9 @@
 
 import pytest
 
-from trezorlib import btc, messages
-from trezorlib.debuglink import TrezorClientDebugLink as Client
-from trezorlib.tools import parse_path
+from detahardlib import btc, messages
+from detahardlib.debuglink import detahardClientDebugLink as Client
+from detahardlib.tools import parse_path
 
 TXHASH_33043a = bytes.fromhex(
     "33043a28cfa924ca701983e628615559ed2b68c0c14eb706b3970fa8dd4b5209"

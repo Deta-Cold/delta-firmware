@@ -3,8 +3,8 @@ from typing import TYPE_CHECKING
 from .keychain import with_keychain
 
 if TYPE_CHECKING:
-    from trezor.messages import SignMessage, MessageSignature
-    from trezor.wire import Context
+    from detahard.messages import SignMessage, MessageSignature
+    from detahard.wire import Context
 
     from apps.common.coininfo import CoinInfo
     from apps.common.keychain import Keychain
@@ -14,11 +14,11 @@ if TYPE_CHECKING:
 async def sign_message(
     ctx: Context, msg: SignMessage, keychain: Keychain, coin: CoinInfo
 ) -> MessageSignature:
-    from trezor import wire
-    from trezor.crypto.curve import secp256k1
-    from trezor.enums import InputScriptType
-    from trezor.messages import MessageSignature
-    from trezor.ui.layouts import confirm_signverify
+    from detahard import wire
+    from detahard.crypto.curve import secp256k1
+    from detahard.enums import InputScriptType
+    from detahard.messages import MessageSignature
+    from detahard.ui.layouts import confirm_signverify
 
     from apps.common.paths import validate_path
     from apps.common.signverify import decode_message, message_digest

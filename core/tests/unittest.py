@@ -1,6 +1,6 @@
 import sys
 
-from trezor.utils import ensure
+from detahard.utils import ensure
 
 
 class SkipTest(Exception):

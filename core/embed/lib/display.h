@@ -1,5 +1,5 @@
 /*
- * This file is part of the Trezor project, https://trezor.io/
+ * This file is part of the detahard project, https://detahard.io/
  *
  * Copyright (c) SatoshiLabs
  *
@@ -26,7 +26,7 @@
 
 #include "buffers.h"
 #include "colors.h"
-#include TREZOR_BOARD
+#include detahard_BOARD
 #include "display_interface.h"
 #include "fonts/fonts.h"
 
@@ -58,7 +58,7 @@ void display_bar_radius_buffer(int x, int y, int w, int h, uint8_t r,
 bool display_toif_info(const uint8_t *buf, uint32_t len, uint16_t *out_w,
                        uint16_t *out_h, toif_format_t *out_format);
 
-#ifndef TREZOR_PRINT_DISABLE
+#ifndef detahard_PRINT_DISABLE
 void display_print_color(uint16_t fgcolor, uint16_t bgcolor);
 void display_print(const char *text, int textlen);
 void display_printf(const char *fmt, ...)

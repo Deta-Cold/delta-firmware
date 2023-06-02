@@ -2,10 +2,10 @@ import ustruct
 from micropython import const
 from typing import TYPE_CHECKING
 
-from trezor import io, loop, utils
+from detahard import io, loop, utils
 
 if TYPE_CHECKING:
-    from trezorio import WireInterface
+    from detahardio import WireInterface
 
 _REP_LEN = const(64)
 

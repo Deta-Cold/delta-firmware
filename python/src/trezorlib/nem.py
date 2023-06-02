@@ -1,4 +1,4 @@
-# This file is part of the Trezor project.
+# This file is part of the detahard project.
 #
 # Copyright (C) 2012-2022 SatoshiLabs and contributors
 #
@@ -21,7 +21,7 @@ from . import exceptions, messages
 from .tools import expect
 
 if TYPE_CHECKING:
-    from .client import TrezorClient
+    from .client import detahardClient
     from .tools import Address
     from .protobuf import MessageType
 
@@ -197,7 +197,7 @@ def create_sign_tx(transaction: dict) -> messages.NEMSignTx:
 
 @expect(messages.NEMAddress, field="address", ret_type=str)
 def get_address(
-    client: "TrezorClient", n: "Address", network: int, show_display: bool = False
+    client: "detahardClient", n: "Address", network: int, show_display: bool = False
 ) -> "MessageType":
     return client.call(
         messages.NEMGetAddress(address_n=n, network=network, show_display=show_display)
@@ -205,11 +205,11 @@ def get_address(
 
 
 @expect(messages.NEMSignedTx)
-def sign_tx(client: "TrezorClient", n: "Address", transaction: dict) -> "MessageType":
+def sign_tx(client: "detahardClient", n: "Address", transaction: dict) -> "MessageType":
     try:
         msg = create_sign_tx(transaction)
     except ValueError as e:
-        raise exceptions.TrezorException("Failed to encode transaction") from e
+        raise exceptions.detahardException("Failed to encode transaction") from e
 
     assert msg.transaction is not None
     msg.transaction.address_n = n

@@ -1,5 +1,5 @@
 /*
- * This file is part of the Trezor project, https://trezor.io/
+ * This file is part of the detahard project, https://detahard.io/
  *
  * Copyright (C) 2015 Mark Bryars <mbryars@google.com>
  *
@@ -32,7 +32,7 @@
 #include "memzero.h"
 #include "nist256p1.h"
 #include "rng.h"
-#include "trezor.h"
+#include "detahard.h"
 #include "usb.h"
 #include "util.h"
 

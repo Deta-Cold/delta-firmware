@@ -736,7 +736,7 @@ int fuzz_shamir_interpolate(void) {
 }
 
 int fuzz_ecdsa_sign_digest_functions(void) {
-  // bug result reference: https://github.com/trezor/trezor-firmware/pull/1697
+  // bug result reference: https://github.com/detahard/detahard-firmware/pull/1697
 
   uint8_t curve_decider = 0;
   uint8_t priv_key[32] = {0};
@@ -1238,7 +1238,7 @@ int fuzz_ecdsa_recover_pub_from_sig_functions(void) {
 
   if ((res1 == 0 && res2 != 0) || (res1 != 0 && res2 == 0)) {
     // result mismatch
-    // bug result reference: https://github.com/trezor/trezor-firmware/pull/2050
+    // bug result reference: https://github.com/detahard/detahard-firmware/pull/2050
     crash();
   }
 
@@ -1252,7 +1252,7 @@ int fuzz_ecdsa_recover_pub_from_sig_functions(void) {
 }
 
 int fuzz_ecdsa_sig_from_der(void) {
-  // bug result reference: https://github.com/trezor/trezor-firmware/pull/2058
+  // bug result reference: https://github.com/detahard/detahard-firmware/pull/2058
   uint8_t der[72] = {0};
   uint8_t out[72] = {0};
 
@@ -1347,7 +1347,7 @@ int fuzz_ecdh_multiply(void) {
 
   const ecdsa_curve *curve2;
   // ecdh_multiply() is only called with secp256k1 and nist256p1 curve from
-  // modtrezorcrypto code theoretically other curve parameters are also possible
+  // moddetahardcrypto code theoretically other curve parameters are also possible
   if ((decider & 1) == 0) {
     curve2 = &nist256p1;
   } else {

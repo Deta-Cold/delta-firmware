@@ -1,5 +1,5 @@
 /*
- * This file is part of the Trezor project, https://trezor.io/
+ * This file is part of the detahard project, https://detahard.io/
  *
  * Copyright (c) SatoshiLabs
  *
@@ -17,12 +17,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __TREZOR_PROFILE_H__
-#define __TREZOR_PROFILE_H__
+#ifndef __detahard_PROFILE_H__
+#define __detahard_PROFILE_H__
 
 // Environment variables meaning:
-// TREZOR_PROFILE_NAME sets the title of the emulator window.
-// TREZOR_PROFILE_DIR contains flash files.
+// detahard_PROFILE_NAME sets the title of the emulator window.
+// detahard_PROFILE_DIR contains flash files.
 //
 // If those are not set int the environment these default values are used.
 
@@ -35,4 +35,4 @@ const char *profile_flash_path(void);
 const char *profile_sdcard_path(void);
 const char *profile_usb_disconnect_path(void);
 
-#endif  // __TREZOR_PROFILE_H__
+#endif  // __detahard_PROFILE_H__

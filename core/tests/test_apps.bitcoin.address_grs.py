@@ -3,7 +3,7 @@ from common import *
 from apps.bitcoin.common import *
 from apps.bitcoin.addresses import *
 from apps.common import coins
-from trezor.crypto import bip32, bip39
+from detahard.crypto import bip32, bip39
 
 
 def node_derive(root, path):
@@ -22,9 +22,9 @@ class TestAddressGRS(unittest.TestCase):
         root = bip32.from_seed(seed, coin.curve_name)
 
         node = node_derive(root, [44 | 0x80000000, 17 | 0x80000000, 0 | 0x80000000, 1, 0])
-        address = node.address(coin.address_type) # generate in trezor-crypto
+        address = node.address(coin.address_type) # generate in detahard-crypto
         self.assertEqual(address, 'FmRaqvVBRrAp2Umfqx9V1ectZy8gw54QDN')
-        address = address_pkh(node.public_key(), coin) # generate in trezor-core
+        address = address_pkh(node.public_key(), coin) # generate in detahard-core
         self.assertEqual(address, 'FmRaqvVBRrAp2Umfqx9V1ectZy8gw54QDN')
 
         node = node_derive(root, [44 | 0x80000000, 17 | 0x80000000, 0 | 0x80000000, 1, 1])

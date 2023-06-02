@@ -1,4 +1,4 @@
-# This file is part of the Trezor project.
+# This file is part of the detahard project.
 #
 # Copyright (C) 2012-2023 SatoshiLabs and contributors
 #
@@ -20,20 +20,20 @@ from typing import TYPE_CHECKING, Generator
 
 import pytest
 
-from trezorlib import device, exceptions
+from detahardlib import device, exceptions
 
 from .. import buttons
 from .common import go_back, go_next
 
 if TYPE_CHECKING:
     from ..device_handler import BackgroundDeviceHandler
-    from trezorlib.debuglink import DebugLink
+    from detahardlib.debuglink import DebugLink
 
 
 pytestmark = pytest.mark.skip_t1
 
-PIN_CANCELLED = pytest.raises(exceptions.TrezorFailure, match="PIN entry cancelled")
-PIN_INVALID = pytest.raises(exceptions.TrezorFailure, match="PIN invalid")
+PIN_CANCELLED = pytest.raises(exceptions.detahardFailure, match="PIN entry cancelled")
+PIN_INVALID = pytest.raises(exceptions.detahardFailure, match="PIN invalid")
 
 PIN4 = "1234"
 PIN24 = "875163065288639289952973"

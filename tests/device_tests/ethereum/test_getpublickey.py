@@ -1,4 +1,4 @@
-# This file is part of the Trezor project.
+# This file is part of the detahard project.
 #
 # Copyright (C) 2012-2019 SatoshiLabs and contributors
 #
@@ -16,10 +16,10 @@
 
 import pytest
 
-from trezorlib import ethereum
-from trezorlib.debuglink import TrezorClientDebugLink as Client
-from trezorlib.exceptions import TrezorFailure
-from trezorlib.tools import parse_path
+from detahardlib import ethereum
+from detahardlib.debuglink import detahardClientDebugLink as Client
+from detahardlib.exceptions import detahardFailure
+from detahardlib.tools import parse_path
 
 from ...common import parametrize_using_common_fixtures
 
@@ -40,12 +40,12 @@ def test_ethereum_getpublickey(client: Client, parameters, result):
 
 def test_slip25_disallowed(client: Client):
     path = parse_path("m/10025'/60'/0'/0/0")
-    with pytest.raises(TrezorFailure):
+    with pytest.raises(detahardFailure):
         ethereum.get_public_node(client, path)
 
 
 @pytest.mark.skip_t2
 def test_legacy_restrictions(client: Client):
     path = parse_path("m/46'")
-    with pytest.raises(TrezorFailure, match="Invalid path for EthereumGetPublicKey"):
+    with pytest.raises(detahardFailure, match="Invalid path for EthereumGetPublicKey"):
         ethereum.get_public_node(client, path)

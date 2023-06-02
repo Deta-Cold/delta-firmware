@@ -1,4 +1,4 @@
-# This file is part of the Trezor project.
+# This file is part of the detahard project.
 #
 # Copyright (C) 2012-2019 SatoshiLabs and contributors
 #
@@ -18,9 +18,9 @@
 import pytest
 import shamir_mnemonic as shamir
 
-from trezorlib import device, messages
-from trezorlib.debuglink import TrezorClientDebugLink as Client
-from trezorlib.exceptions import TrezorFailure
+from detahardlib import device, messages
+from detahardlib.debuglink import detahardClientDebugLink as Client
+from detahardlib.exceptions import detahardFailure
 
 from ..common import (
     MNEMONIC12,
@@ -114,7 +114,7 @@ def test_no_backup_fails(client: Client):
     assert client.features.needs_backup is False
 
     # backup attempt should fail because no_backup=True
-    with pytest.raises(TrezorFailure, match=r".*Seed already backed up"):
+    with pytest.raises(detahardFailure, match=r".*Seed already backed up"):
         device.backup(client)
 
 
@@ -140,7 +140,7 @@ def test_interrupt_backup_fails(client: Client):
     assert client.features.no_backup is False
 
     # Second attempt at backup should fail
-    with pytest.raises(TrezorFailure, match=r".*Seed already backed up"):
+    with pytest.raises(detahardFailure, match=r".*Seed already backed up"):
         device.backup(client)
 
 
@@ -148,7 +148,7 @@ def test_interrupt_backup_fails(client: Client):
 @pytest.mark.setup_client(uninitialized=True)
 def test_no_backup_show_entropy_fails(client: Client):
     with pytest.raises(
-        TrezorFailure, match=r".*Can't show internal entropy when backup is skipped"
+        detahardFailure, match=r".*Can't show internal entropy when backup is skipped"
     ):
         device.reset(
             client,

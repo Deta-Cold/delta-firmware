@@ -1,1 +1,1 @@
-../trezorhal/image.h
+../detahardhal/image.h

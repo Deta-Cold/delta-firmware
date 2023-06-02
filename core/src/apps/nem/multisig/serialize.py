@@ -3,8 +3,8 @@ from typing import TYPE_CHECKING
 from ..writers import serialize_tx_common, write_bytes_with_len, write_uint32_le
 
 if TYPE_CHECKING:
-    from trezor.messages import NEMAggregateModification, NEMTransactionCommon
-    from trezor.utils import Writer
+    from detahard.messages import NEMAggregateModification, NEMTransactionCommon
+    from detahard.utils import Writer
 
 
 def serialize_multisig(
@@ -23,7 +23,7 @@ def serialize_multisig_signature(
     inner: bytes,
     address_public_key: bytes,
 ) -> bytes:
-    from trezor.crypto import hashlib, nem
+    from detahard.crypto import hashlib, nem
     from ..helpers import NEM_TRANSACTION_TYPE_MULTISIG_SIGNATURE
 
     w = serialize_tx_common(common, public_key, NEM_TRANSACTION_TYPE_MULTISIG_SIGNATURE)

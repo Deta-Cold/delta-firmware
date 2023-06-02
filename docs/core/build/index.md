@@ -1,14 +1,14 @@
 # Build
 
-_Building for Trezor Model One? See the [legacy](../../legacy/index.md) documentation._
+_Building for detahard Model One? See the [legacy](../../legacy/index.md) documentation._
 
 ## New Project
 
 Run the following to checkout the project:
 
 ```sh
-git clone --recurse-submodules https://github.com/trezor/trezor-firmware.git
-cd trezor-firmware
+git clone --recurse-submodules https://github.com/detahard/detahard-firmware.git
+cd detahard-firmware
 poetry install
 cd core
 ```

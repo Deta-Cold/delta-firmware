@@ -6,7 +6,7 @@ see: https://zips.z.cash/zip-0316
 
 from typing import TYPE_CHECKING
 
-from trezor.crypto.bech32 import Encoding, convertbits
+from detahard.crypto.bech32 import Encoding, convertbits
 
 if TYPE_CHECKING:
     from enum import IntEnum
@@ -46,8 +46,8 @@ def padding(hrp: str) -> bytes:
 
 
 def encode(receivers: dict[Typecode, bytes], coin: CoinInfo) -> str:
-    from trezor.crypto.bech32 import bech32_encode
-    from trezor.utils import empty_bytearray
+    from detahard.crypto.bech32 import bech32_encode
+    from detahard.utils import empty_bytearray
     from .f4jumble import f4jumble
     from apps.common.writers import write_bytes_fixed, write_compact_size
 
@@ -81,9 +81,9 @@ def encode(receivers: dict[Typecode, bytes], coin: CoinInfo) -> str:
 
 
 def decode(addr_str: str, coin: CoinInfo) -> dict[int, bytes]:
-    from trezor.crypto.bech32 import bech32_decode
-    from trezor.utils import BufferReader
-    from trezor.wire import DataError
+    from detahard.crypto.bech32 import bech32_decode
+    from detahard.utils import BufferReader
+    from detahard.wire import DataError
     from apps.common.readers import read_compact_size
     from .f4jumble import f4unjumble
 

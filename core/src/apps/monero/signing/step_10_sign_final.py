@@ -11,14 +11,14 @@ The private tx keys are used in other numerous Monero features.
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from trezor.messages import MoneroTransactionFinalAck
+    from detahard.messages import MoneroTransactionFinalAck
     from .state import State
 
 
 def final_msg(state: State) -> MoneroTransactionFinalAck:
-    from trezor.messages import MoneroTransactionFinalAck
+    from detahard.messages import MoneroTransactionFinalAck
     from apps.monero.xmr import chacha_poly
-    from trezor.crypto import random
+    from detahard.crypto import random
     from apps.monero import misc
     from apps.monero.xmr import crypto, crypto_helpers
 

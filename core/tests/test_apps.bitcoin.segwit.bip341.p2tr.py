@@ -3,10 +3,10 @@ from common import *
 from apps.bitcoin.common import SigHashType
 from apps.bitcoin.sign_tx.sig_hasher import BitcoinSigHasher
 from apps.bitcoin.writers import get_tx_hash
-from trezor.messages import SignTx
-from trezor.messages import TxInput
-from trezor.messages import PrevOutput
-from trezor.enums import InputScriptType
+from detahard.messages import SignTx
+from detahard.messages import TxInput
+from detahard.messages import PrevOutput
+from detahard.enums import InputScriptType
 
 
 VECTORS = [

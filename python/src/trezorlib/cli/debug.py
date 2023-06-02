@@ -1,4 +1,4 @@
-# This file is part of the Trezor project.
+# This file is part of the detahard project.
 #
 # Copyright (C) 2012-2022 SatoshiLabs and contributors
 #
@@ -19,10 +19,10 @@ from typing import TYPE_CHECKING, Union
 import click
 
 from .. import mapping, messages, protobuf
-from ..debuglink import TrezorClientDebugLink, record_screen
+from ..debuglink import detahardClientDebugLink, record_screen
 
 if TYPE_CHECKING:
-    from . import TrezorConnection
+    from . import detahardConnection
 
 
 @click.group(name="debug")
@@ -35,9 +35,9 @@ def cli() -> None:
 @click.argument("hex_data")
 @click.pass_obj
 def send_bytes(
-    obj: "TrezorConnection", message_name_or_type: str, hex_data: str
+    obj: "detahardConnection", message_name_or_type: str, hex_data: str
 ) -> None:
-    """Send raw bytes to Trezor.
+    """Send raw bytes to detahard.
 
     Message type and message data must be specified separately, due to how message
     chunking works on the transport level. Message length is calculated and sent
@@ -81,7 +81,7 @@ def send_bytes(
 @click.argument("directory", required=False)
 @click.option("-s", "--stop", is_flag=True, help="Stop the recording")
 @click.pass_obj
-def record(obj: "TrezorConnection", directory: Union[str, None], stop: bool) -> None:
+def record(obj: "detahardConnection", directory: Union[str, None], stop: bool) -> None:
     """Record screen changes into a specified directory.
 
     Recording can be stopped with `-s / --stop` option.
@@ -90,11 +90,11 @@ def record(obj: "TrezorConnection", directory: Union[str, None], stop: bool) -> 
 
 
 def record_screen_from_connection(
-    obj: "TrezorConnection", directory: Union[str, None]
+    obj: "detahardConnection", directory: Union[str, None]
 ) -> None:
-    """Record screen helper to transform TrezorConnection into TrezorClientDebugLink."""
+    """Record screen helper to transform detahardConnection into detahardClientDebugLink."""
     transport = obj.get_transport()
-    debug_client = TrezorClientDebugLink(transport, auto_interact=False)
+    debug_client = detahardClientDebugLink(transport, auto_interact=False)
     debug_client.open()
     record_screen(debug_client, directory, report_func=click.echo)
     debug_client.close()

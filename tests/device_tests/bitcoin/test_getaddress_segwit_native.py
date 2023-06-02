@@ -1,4 +1,4 @@
-# This file is part of the Trezor project.
+# This file is part of the detahard project.
 #
 # Copyright (C) 2012-2019 SatoshiLabs and contributors
 #
@@ -16,10 +16,10 @@
 
 import pytest
 
-from trezorlib import btc, messages
-from trezorlib.debuglink import TrezorClientDebugLink as Client
-from trezorlib.exceptions import TrezorFailure
-from trezorlib.tools import parse_path
+from detahardlib import btc, messages
+from detahardlib.debuglink import detahardClientDebugLink as Client
+from detahardlib.exceptions import detahardFailure
+from detahardlib.tools import parse_path
 
 VECTORS = (  # coin, path, script_type, address
     (
@@ -241,7 +241,7 @@ def test_multisig_missing(client: Client, show_display):
     )
 
     for multisig in (multisig1, multisig2):
-        with pytest.raises(TrezorFailure):
+        with pytest.raises(detahardFailure):
             btc.get_address(
                 client,
                 "Bitcoin",

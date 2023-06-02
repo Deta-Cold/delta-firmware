@@ -1,4 +1,4 @@
-from trezor import log, loop, utils, wire, workflow
+from detahard import log, loop, utils, wire, workflow
 
 import apps.base
 import usb

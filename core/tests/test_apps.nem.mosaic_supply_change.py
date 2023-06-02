@@ -1,12 +1,12 @@
 from common import *
 
-from trezor.crypto import hashlib
+from detahard.crypto import hashlib
 
 if not utils.BITCOIN_ONLY:
     from apps.nem.helpers import *
     from apps.nem.mosaic import *
     from apps.nem.mosaic.serialize import *
-    from trezor.messages import NEMSignTx, NEMMosaicSupplyChange, NEMTransactionCommon
+    from detahard.messages import NEMSignTx, NEMMosaicSupplyChange, NEMTransactionCommon
 
 @unittest.skipUnless(not utils.BITCOIN_ONLY, "altcoin")
 class TestNemMosaicSupplyChange(unittest.TestCase):

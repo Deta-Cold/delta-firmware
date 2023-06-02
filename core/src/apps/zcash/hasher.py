@@ -7,7 +7,7 @@ specification: https://zips.z.cash/zip-0244
 
 from typing import TYPE_CHECKING
 
-from trezor.crypto.hashlib import blake2b
+from detahard.crypto.hashlib import blake2b
 
 from apps.bitcoin.writers import (
     TX_HASH_SIZE,
@@ -22,8 +22,8 @@ from apps.bitcoin.writers import (
 
 if TYPE_CHECKING:
     from typing import Sequence
-    from trezor.messages import TxInput, TxOutput, SignTx, PrevTx
-    from trezor.utils import Writer, HashWriter
+    from detahard.messages import TxInput, TxOutput, SignTx, PrevTx
+    from detahard.utils import Writer, HashWriter
     from apps.common.coininfo import CoinInfo
     from apps.bitcoin.common import SigHashType
 
@@ -38,14 +38,14 @@ def write_prevout(w: Writer, txi: TxInput) -> None:
 
 
 def blake_hash_writer_32(personal: bytes) -> HashWriter:
-    from trezor.utils import HashWriter
+    from detahard.utils import HashWriter
 
     return HashWriter(blake2b(outlen=32, personal=personal))
 
 
 class ZcashHasher:
     def __init__(self, tx: SignTx | PrevTx):
-        from trezor.utils import empty_bytearray
+        from detahard.utils import empty_bytearray
 
         self.header = HeaderHasher(tx)
         self.transparent = TransparentHasher()
@@ -219,7 +219,7 @@ class TransparentHasher:
 
         h = blake_hash_writer_32(b"ZTxIdTranspaHash")
 
-        # only SIGHASH_ALL is supported in Trezor
+        # only SIGHASH_ALL is supported in detahard
         write_uint8(h, SigHashType.SIGHASH_ALL)  # S.2a
         write_hash(h, self.prevouts.get_digest())  # S.2b
         write_hash(h, self.amounts.get_digest())  # S.2c

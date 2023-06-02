@@ -5,8 +5,8 @@ if TYPE_CHECKING:
 
 
 def message_digest(coin: CoinInfo, message: bytes) -> bytes:
-    from trezor import utils, wire
-    from trezor.crypto.hashlib import blake256, sha256
+    from detahard import utils, wire
+    from detahard.crypto.hashlib import blake256, sha256
 
     from apps.common.writers import write_compact_size
 

@@ -1,5 +1,5 @@
-#ifndef _TREZOR_R_V3_H
-#define _TREZOR_R_V3_H
+#ifndef _detahard_R_V3_H
+#define _detahard_R_V3_H
 
 #define USE_BUTTON 1
 #define USE_SBU 1
@@ -13,4 +13,4 @@
 #define BTN_RIGHT_PORT GPIOE
 #define BTN_RIGHT_CLK_ENA __HAL_RCC_GPIOE_CLK_ENABLE
 
-#endif  //_TREZOR_R_V3_H
+#endif  //_detahard_R_V3_H

@@ -1,4 +1,4 @@
-# This file is part of the Trezor project.
+# This file is part of the detahard project.
 #
 # Copyright (C) 2012-2022 SatoshiLabs and contributors
 #
@@ -22,7 +22,7 @@ from .. import messages, monero, tools
 from . import ChoiceType, with_client
 
 if TYPE_CHECKING:
-    from ..client import TrezorClient
+    from ..client import detahardClient
 
 PATH_HELP = "BIP-32 path, e.g. m/44'/128'/0'"
 
@@ -43,7 +43,7 @@ def cli() -> None:
 )
 @with_client
 def get_address(
-    client: "TrezorClient",
+    client: "detahardClient",
     address: str,
     show_display: bool,
     network_type: messages.MoneroNetworkType,
@@ -63,7 +63,7 @@ def get_address(
 )
 @with_client
 def get_watch_key(
-    client: "TrezorClient", address: str, network_type: messages.MoneroNetworkType
+    client: "detahardClient", address: str, network_type: messages.MoneroNetworkType
 ) -> Dict[str, str]:
     """Get Monero watch key for specified path."""
     address_n = tools.parse_path(address)

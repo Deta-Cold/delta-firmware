@@ -4,7 +4,7 @@ from apps.monero.xmr import crypto_helpers, monero
 
 if TYPE_CHECKING:
     from apps.monero.xmr.credentials import AccountCreds
-    from trezor.messages import MoneroTransferDetails
+    from detahard.messages import MoneroTransferDetails
     from apps.monero.xmr import crypto
 
     Subaddresses = dict[bytes, tuple[int, int]]
@@ -77,7 +77,7 @@ def generate_ring_signature(
     Generates ring signature with key image.
     void crypto_ops::generate_ring_signature()
     """
-    from trezor.utils import memcpy
+    from detahard.utils import memcpy
     from apps.monero.xmr import crypto
 
     Scalar = crypto.Scalar  # local_cache_attribute

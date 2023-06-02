@@ -1,1 +1,1 @@
-../trezorhal/rng.h
+../detahardhal/rng.h

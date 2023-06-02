@@ -2,10 +2,10 @@ from micropython import const
 from typing import TYPE_CHECKING
 
 import storage.device as storage_device
-from trezor.wire import DataError
+from detahard.wire import DataError
 
 if TYPE_CHECKING:
-    from trezor.wire import Context
+    from detahard.wire import Context
 
 _MAX_PASSPHRASE_LEN = const(50)
 
@@ -15,14 +15,14 @@ def is_enabled() -> bool:
 
 
 async def get(ctx: Context) -> str:
-    from trezor import workflow
+    from detahard import workflow
 
     if not is_enabled():
         return ""
     else:
         workflow.close_others()  # request exclusive UI access
         if storage_device.get_passphrase_always_on_device():
-            from trezor.ui.layouts import request_passphrase_on_device
+            from detahard.ui.layouts import request_passphrase_on_device
 
             passphrase = await request_passphrase_on_device(ctx, _MAX_PASSPHRASE_LEN)
         else:
@@ -34,8 +34,8 @@ async def get(ctx: Context) -> str:
 
 
 async def _request_on_host(ctx: Context) -> str:
-    from trezor.messages import PassphraseAck, PassphraseRequest
-    from trezor.ui.layouts import request_passphrase_on_host
+    from detahard.messages import PassphraseAck, PassphraseRequest
+    from detahard.ui.layouts import request_passphrase_on_host
 
     request_passphrase_on_host()
 
@@ -44,7 +44,7 @@ async def _request_on_host(ctx: Context) -> str:
     passphrase = ack.passphrase  # local_cache_attribute
 
     if ack.on_device:
-        from trezor.ui.layouts import request_passphrase_on_device
+        from detahard.ui.layouts import request_passphrase_on_device
 
         if passphrase is not None:
             raise DataError("Passphrase provided when it should not be")
@@ -57,7 +57,7 @@ async def _request_on_host(ctx: Context) -> str:
 
     # non-empty passphrase
     if passphrase:
-        from trezor.ui.layouts import confirm_action, confirm_blob
+        from detahard.ui.layouts import confirm_action, confirm_blob
 
         # We want to hide the passphrase, or show it, according to settings.
         if storage_device.get_hide_passphrase_from_host():

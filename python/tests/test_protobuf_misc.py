@@ -1,4 +1,4 @@
-# This file is part of the Trezor project.
+# This file is part of the detahard project.
 #
 # Copyright (C) 2012-2022 SatoshiLabs and contributors
 #
@@ -18,7 +18,7 @@ from enum import IntEnum
 
 import pytest
 
-from trezorlib import messages, protobuf
+from detahardlib import messages, protobuf
 
 
 class SimpleEnum(IntEnum):

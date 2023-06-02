@@ -1,5 +1,5 @@
 /*
- * This file is part of the Trezor project, https://trezor.io/
+ * This file is part of the detahard project, https://detahard.io/
  *
  * Copyright (c) SatoshiLabs
  *
@@ -103,9 +103,9 @@ static void usb_init_all(void) {
       .product_id = 0x53C1,
       .release_num = 0x0400,
       .manufacturer = "SatoshiLabs",
-      .product = "TREZOR",
+      .product = "detahard",
       .serial_number = "000000000000",
-      .interface = "TREZOR Interface",
+      .interface = "detahard Interface",
       .usb21_enabled = secfalse,
       .usb21_landing = secfalse,
   };
@@ -385,9 +385,9 @@ int main(void) {
   draw_border(1, 3);
 
   char dom[32];
-  // format: TREZOR2-YYMMDD
+  // format: detahard2-YYMMDD
   if (sectrue == flash_otp_read(FLASH_OTP_BLOCK_BATCH, 0, (uint8_t *)dom, 32) &&
-      0 == memcmp(dom, "TREZOR2-", 8) && dom[31] == 0) {
+      0 == memcmp(dom, "detahard2-", 8) && dom[31] == 0) {
     display_qrcode(DISPLAY_RESX / 2, DISPLAY_RESY / 2, dom, 4);
     display_text_center(DISPLAY_RESX / 2, DISPLAY_RESY - 30, dom + 8, -1,
                         FONT_BOLD, COLOR_WHITE, COLOR_BLACK);

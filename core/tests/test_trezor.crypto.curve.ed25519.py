@@ -1,8 +1,8 @@
 from common import *
 
-from trezor.crypto import random
+from detahard.crypto import random
 
-from trezor.crypto.curve import ed25519
+from detahard.crypto.curve import ed25519
 
 
 class TestCryptoEd25519(unittest.TestCase):

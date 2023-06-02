@@ -1,7 +1,7 @@
 from typing import TYPE_CHECKING
 
-from trezor.enums import EthereumDataType
-from trezor.wire import DataError
+from detahard.enums import EthereumDataType
+from detahard.wire import DataError
 
 from .helpers import get_type_name
 from .keychain import PATTERNS_ADDRESS, with_keychain_from_path
@@ -9,11 +9,11 @@ from .layout import should_show_struct
 
 if TYPE_CHECKING:
     from apps.common.keychain import Keychain
-    from trezor.wire import Context
-    from trezor.utils import HashWriter
+    from detahard.wire import Context
+    from detahard.utils import HashWriter
     from .definitions import Definitions
 
-    from trezor.messages import (
+    from detahard.messages import (
         EthereumSignTypedData,
         EthereumFieldType,
         EthereumTypedDataSignature,
@@ -28,11 +28,11 @@ async def sign_typed_data(
     keychain: Keychain,
     defs: Definitions,
 ) -> EthereumTypedDataSignature:
-    from trezor.crypto.curve import secp256k1
+    from detahard.crypto.curve import secp256k1
     from apps.common import paths
     from .helpers import address_from_bytes
     from .layout import require_confirm_address
-    from trezor.messages import EthereumTypedDataSignature
+    from detahard.messages import EthereumTypedDataSignature
 
     await paths.validate_path(ctx, keychain, msg.address_n)
 
@@ -114,8 +114,8 @@ async def _generate_typed_data_hash(
 
 
 def get_hash_writer() -> HashWriter:
-    from trezor.crypto.hashlib import sha3_256
-    from trezor.utils import HashWriter
+    from detahard.crypto.hashlib import sha3_256
+    from detahard.utils import HashWriter
 
     return HashWriter(sha3_256(keccak=True))
 
@@ -147,7 +147,7 @@ class TypedDataEnvelope:
 
     async def _collect_types(self, type_name: str) -> None:
         """Recursively collect types from the client."""
-        from trezor.messages import (
+        from detahard.messages import (
             EthereumTypedDataStructRequest,
             EthereumTypedDataStructAck,
         )
@@ -434,7 +434,7 @@ def _validate_value(field: EthereumFieldType, value: bytes) -> None:
     # Checking if the size corresponds to what is defined in types.
     # Not having any maximum field size - it is a responsibility of the client
     # (and message creator) to make sure the data is not too large to cause problems
-    # on the Trezor side.
+    # on the detahard side.
     if field.size is not None and len(value) != field.size:
         raise DataError("Invalid length")
 
@@ -505,7 +505,7 @@ def validate_field_type(field: EthereumFieldType) -> None:
 
 async def _get_array_size(ctx: Context, member_path: list[int]) -> int:
     """Get the length of an array at specific `member_path` from the client."""
-    from trezor.messages import EthereumFieldType
+    from detahard.messages import EthereumFieldType
 
     # Field type for getting the array length from client, so we can check the return value
     ARRAY_LENGTH_TYPE = EthereumFieldType(data_type=EthereumDataType.UINT, size=2)
@@ -519,7 +519,7 @@ async def get_value(
     member_value_path: list[int],
 ) -> bytes:
     """Get a single value from the client and perform its validation."""
-    from trezor.messages import EthereumTypedDataValueAck, EthereumTypedDataValueRequest
+    from detahard.messages import EthereumTypedDataValueAck, EthereumTypedDataValueRequest
 
     req = EthereumTypedDataValueRequest(
         member_path=member_value_path,

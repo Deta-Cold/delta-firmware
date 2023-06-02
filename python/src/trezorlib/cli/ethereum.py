@@ -1,4 +1,4 @@
-# This file is part of the Trezor project.
+# This file is part of the detahard project.
 #
 # Copyright (C) 2012-2022 SatoshiLabs and contributors
 #
@@ -40,7 +40,7 @@ from . import with_client
 
 if TYPE_CHECKING:
     import web3
-    from ..client import TrezorClient
+    from ..client import detahardClient
 
 PATH_HELP = "BIP-32 path, e.g. m/44'/60'/0'/0/0"
 
@@ -76,7 +76,7 @@ def _print_eth_dependencies_and_die() -> NoReturn:
     click.echo("Ethereum requirements not installed.")
     click.echo("Please run:")
     click.echo()
-    click.echo("  pip install trezor[ethereum]")
+    click.echo("  pip install detahard[ethereum]")
     sys.exit(1)
 
 
@@ -217,7 +217,7 @@ DEFINITIONS_SOURCE = CliSource()
     "-a",
     "--auto-definitions",
     is_flag=True,
-    help="Automatically download required definitions from trezor.io",
+    help="Automatically download required definitions from detahard.io",
 )
 @click.option("--network", help="Network definition blob.")
 @click.option("--token", help="Token definition blob.")
@@ -273,7 +273,7 @@ def cli(
 @click.option("-n", "--address", required=True, help=PATH_HELP)
 @click.option("-d", "--show-display", is_flag=True)
 @with_client
-def get_address(client: "TrezorClient", address: str, show_display: bool) -> str:
+def get_address(client: "detahardClient", address: str, show_display: bool) -> str:
     """Get Ethereum address in hex encoding."""
     address_n = tools.parse_path(address)
     network = ethereum.network_from_address_n(address_n, DEFINITIONS_SOURCE)
@@ -284,7 +284,7 @@ def get_address(client: "TrezorClient", address: str, show_display: bool) -> str
 @click.option("-n", "--address", required=True, help=PATH_HELP)
 @click.option("-d", "--show-display", is_flag=True)
 @with_client
-def get_public_node(client: "TrezorClient", address: str, show_display: bool) -> dict:
+def get_public_node(client: "detahardClient", address: str, show_display: bool) -> dict:
     """Get Ethereum public node of given path."""
     address_n = tools.parse_path(address)
     result = ethereum.get_public_node(client, address_n, show_display=show_display)
@@ -347,7 +347,7 @@ def get_public_node(client: "TrezorClient", address: str, show_display: bool) ->
 @click.argument("amount", callback=_amount_to_int)
 @with_client
 def sign_tx(
-    client: "TrezorClient",
+    client: "detahardClient",
     chain_id: int,
     address: str,
     amount: int,
@@ -529,7 +529,7 @@ def sign_tx(
 @click.option("-n", "--address", required=True, help=PATH_HELP)
 @click.argument("message")
 @with_client
-def sign_message(client: "TrezorClient", address: str, message: str) -> Dict[str, str]:
+def sign_message(client: "detahardClient", address: str, message: str) -> Dict[str, str]:
     """Sign message with Ethereum address."""
     address_n = tools.parse_path(address)
     network = ethereum.network_from_address_n(address_n, DEFINITIONS_SOURCE)
@@ -552,7 +552,7 @@ def sign_message(client: "TrezorClient", address: str, message: str) -> Dict[str
 @click.argument("file", type=click.File("r"))
 @with_client
 def sign_typed_data(
-    client: "TrezorClient", address: str, metamask_v4_compat: bool, file: TextIO
+    client: "detahardClient", address: str, metamask_v4_compat: bool, file: TextIO
 ) -> Dict[str, str]:
     """Sign typed data (EIP-712) with Ethereum address.
 
@@ -584,7 +584,7 @@ def sign_typed_data(
 @click.argument("message")
 @with_client
 def verify_message(
-    client: "TrezorClient", address: str, signature: str, message: str
+    client: "detahardClient", address: str, signature: str, message: str
 ) -> bool:
     """Verify message signed with Ethereum address."""
     signature_bytes = ethereum.decode_hex(signature)
@@ -597,7 +597,7 @@ def verify_message(
 @click.argument("message_hash_hex")
 @with_client
 def sign_typed_data_hash(
-    client: "TrezorClient", address: str, domain_hash_hex: str, message_hash_hex: str
+    client: "detahardClient", address: str, domain_hash_hex: str, message_hash_hex: str
 ) -> Dict[str, str]:
     """
     Sign hash of typed data (EIP-712) with Ethereum address.

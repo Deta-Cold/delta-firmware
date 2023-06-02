@@ -1,8 +1,8 @@
 from common import *
 
 if not utils.BITCOIN_ONLY:
-    from trezor.messages import RipplePayment
-    from trezor.messages import RippleSignTx
+    from detahard.messages import RipplePayment
+    from detahard.messages import RippleSignTx
     from apps.ripple.serialize import serialize
     from apps.ripple import helpers
 

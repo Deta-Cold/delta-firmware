@@ -1,10 +1,10 @@
 from micropython import const
 from typing import TYPE_CHECKING
 
-from trezor import utils
-from trezor.crypto.hashlib import sha256
-from trezor.utils import HashWriter
-from trezor.wire import DataError
+from detahard import utils
+from detahard.crypto.hashlib import sha256
+from detahard.utils import HashWriter
+from detahard.wire import DataError
 
 from apps.bitcoin.writers import write_bytes_prefixed
 from apps.common.readers import read_compact_size
@@ -12,10 +12,10 @@ from apps.common.readers import read_compact_size
 from .scripts import read_bip322_signature_proof
 
 if TYPE_CHECKING:
-    from trezor.messages import MultisigRedeemScriptType
-    from trezor.enums import InputScriptType
+    from detahard.messages import MultisigRedeemScriptType
+    from detahard.enums import InputScriptType
     from apps.common.coininfo import CoinInfo
-    from trezor.crypto import bip32
+    from detahard.crypto import bip32
     from apps.common.keychain import Keychain
 
 # This module implements the SLIP-0019 proof of ownership format, see
@@ -38,7 +38,7 @@ def generate_proof(
     script_pubkey: bytes,
     commitment_data: bytes,
 ) -> tuple[bytes, bytes]:
-    from trezor.enums import InputScriptType
+    from detahard.enums import InputScriptType
     from apps.bitcoin.writers import (
         write_bytes_fixed,
         write_compact_size,
@@ -150,7 +150,7 @@ def read_scriptsig_witness(ownership_proof: bytes) -> tuple[memoryview, memoryvi
 
 
 def get_identifier(script_pubkey: bytes, keychain: Keychain) -> bytes:
-    from trezor.crypto import hmac
+    from detahard.crypto import hmac
 
     # k = Key(m/"SLIP-0019"/"Ownership identification key")
     node = keychain.derive_slip21(_OWNERSHIP_ID_KEY_PATH)

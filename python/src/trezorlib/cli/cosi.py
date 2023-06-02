@@ -1,4 +1,4 @@
-# This file is part of the Trezor project.
+# This file is part of the detahard project.
 #
 # Copyright (C) 2012-2022 SatoshiLabs and contributors
 #
@@ -22,7 +22,7 @@ from .. import cosi, tools
 from . import with_client
 
 if TYPE_CHECKING:
-    from ..client import TrezorClient
+    from ..client import detahardClient
     from .. import messages
 
 PATH_HELP = "BIP-32 path, e.g. m/10018'/0'"
@@ -33,10 +33,10 @@ def cli() -> None:
     """CoSi (Cothority / collective signing) commands."""
 
 
-def cosi_warn(client: "TrezorClient") -> None:
+def cosi_warn(client: "detahardClient") -> None:
     if client.features.model == "1" and client.version < (1, 11, 2):
-        click.echo("WARNING: CoSi signing on your Trezor is insecure.")
-        click.echo("Please update your Trezor to firmware version 1.11.2 or newer.")
+        click.echo("WARNING: CoSi signing on your detahard is insecure.")
+        click.echo("Please update your detahard to firmware version 1.11.2 or newer.")
         click.echo("If you used CoSi in the past, consider rotating your keys.")
         raise click.Abort()
 
@@ -46,7 +46,7 @@ def cosi_warn(client: "TrezorClient") -> None:
 @click.argument("data_deprecated", required=False)
 @with_client
 def commit(
-    client: "TrezorClient", address: str, data_deprecated: Optional[str]
+    client: "detahardClient", address: str, data_deprecated: Optional[str]
 ) -> "messages.CosiCommitment":
     """Ask device to commit to CoSi signing."""
     cosi_warn(client)
@@ -64,7 +64,7 @@ def commit(
 @click.argument("global_pubkey")
 @with_client
 def sign(
-    client: "TrezorClient",
+    client: "detahardClient",
     address: str,
     data: str,
     global_commitment: str,

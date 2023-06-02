@@ -1,4 +1,4 @@
-# This file is part of the Trezor project.
+# This file is part of the detahard project.
 #
 # Copyright (C) 2012-2022 SatoshiLabs and contributors
 #
@@ -22,7 +22,7 @@ from . import _ed25519, messages
 from .tools import expect
 
 if TYPE_CHECKING:
-    from .client import TrezorClient
+    from .client import detahardClient
     from .tools import Address
     from .protobuf import MessageType
 
@@ -143,7 +143,7 @@ def sign_with_privkey(
 
 @expect(messages.CosiCommitment)
 def commit(
-    client: "TrezorClient", n: "Address", data: Optional[bytes] = None
+    client: "detahardClient", n: "Address", data: Optional[bytes] = None
 ) -> "MessageType":
     if data is not None:
         warnings.warn(
@@ -157,7 +157,7 @@ def commit(
 
 @expect(messages.CosiSignature)
 def sign(
-    client: "TrezorClient",
+    client: "detahardClient",
     n: "Address",
     data: bytes,
     global_commitment: bytes,

@@ -1,5 +1,5 @@
 /*
- * This file is part of the Trezor project, https://trezor.io/
+ * This file is part of the detahard project, https://detahard.io/
  *
  * Copyright (c) SatoshiLabs
  *
@@ -17,8 +17,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef TREZORHAL_BUTTON_H
-#define TREZORHAL_BUTTON_H
+#ifndef detahardHAL_BUTTON_H
+#define detahardHAL_BUTTON_H
 
 #include <stdint.h>
 

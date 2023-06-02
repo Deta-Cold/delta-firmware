@@ -1,9 +1,9 @@
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from trezor.messages import RecoveryDevice
-    from trezor.wire import Context
-    from trezor.messages import Success
+    from detahard.messages import RecoveryDevice
+    from detahard.wire import Context
+    from detahard.messages import Success
 
 # List of RecoveryDevice fields that can be set when doing dry-run recovery.
 # All except `dry_run` are allowed for T1 compatibility, but their values are ignored.
@@ -14,16 +14,16 @@ DRY_RUN_ALLOWED_FIELDS = ("dry_run", "word_count", "enforce_wordlist", "type")
 async def recovery_device(ctx: Context, msg: RecoveryDevice) -> Success:
     """
     Recover BIP39/SLIP39 seed into empty device.
-    Recovery is also possible with replugged Trezor. We call this process Persistence.
+    Recovery is also possible with replugged detahard. We call this process Persistence.
     User starts the process here using the RecoveryDevice msg and then they can unplug
     the device anytime and continue without a computer.
     """
     import storage
     import storage.device as storage_device
     import storage.recovery as storage_recovery
-    from trezor import config, wire, workflow
-    from trezor.enums import ButtonRequestType
-    from trezor.ui.layouts import confirm_action, confirm_reset_device
+    from detahard import config, wire, workflow
+    from detahard.enums import ButtonRequestType
+    from detahard.ui.layouts import confirm_action, confirm_reset_device
     from apps.common.request_pin import (
         error_pin_invalid,
         request_pin_and_sd_salt,
@@ -41,7 +41,7 @@ async def recovery_device(ctx: Context, msg: RecoveryDevice) -> Success:
         raise wire.NotInitialized("Device is not initialized")
     if msg.enforce_wordlist is False:
         raise wire.ProcessError(
-            "Value enforce_wordlist must be True, Trezor Core enforces words automatically."
+            "Value enforce_wordlist must be True, detahard Core enforces words automatically."
         )
     if dry_run:
         # check that only allowed fields are set

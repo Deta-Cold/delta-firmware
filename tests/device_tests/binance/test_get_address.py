@@ -1,4 +1,4 @@
-# This file is part of the Trezor project.
+# This file is part of the detahard project.
 #
 # Copyright (C) 2012-2019 SatoshiLabs and contributors
 #
@@ -16,9 +16,9 @@
 
 import pytest
 
-from trezorlib.binance import get_address
-from trezorlib.debuglink import TrezorClientDebugLink as Client
-from trezorlib.tools import parse_path
+from detahardlib.binance import get_address
+from detahardlib.debuglink import detahardClientDebugLink as Client
+from detahardlib.tools import parse_path
 
 BINANCE_ADDRESS_TEST_VECTORS = [
     ("m/44h/714h/0h/0/0", "bnb1hgm0p7khfk85zpz5v0j8wnej3a90w709vhkdfu"),

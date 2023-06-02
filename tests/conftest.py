@@ -1,4 +1,4 @@
-# This file is part of the Trezor project.
+# This file is part of the detahard project.
 #
 # Copyright (C) 2012-2019 SatoshiLabs and contributors
 #
@@ -23,17 +23,17 @@ from typing import TYPE_CHECKING, Generator, Iterator
 import pytest
 import xdist
 
-from trezorlib import debuglink, log
-from trezorlib.debuglink import TrezorClientDebugLink as Client
-from trezorlib.device import apply_settings, wipe as wipe_device
-from trezorlib.transport import enumerate_devices, get_transport
+from detahardlib import debuglink, log
+from detahardlib.debuglink import detahardClientDebugLink as Client
+from detahardlib.device import apply_settings, wipe as wipe_device
+from detahardlib.transport import enumerate_devices, get_transport
 
 from . import ui_tests
 from .device_handler import BackgroundDeviceHandler
 from .emulators import EmulatorWrapper
 
 if TYPE_CHECKING:
-    from trezorlib._internal.emulator import Emulator
+    from detahardlib._internal.emulator import Emulator
     from _pytest.config import Config
     from _pytest.config.argparsing import Parser
     from _pytest.terminal import TerminalReporter
@@ -47,13 +47,13 @@ pytest.register_assert_rewrite("tests.common")
 
 
 def _emulator_wrapper_main_args() -> list[str]:
-    """Look at TREZOR_PROFILING env variable, so that we can generate coverage reports."""
-    do_profiling = os.environ.get("TREZOR_PROFILING") == "1"
+    """Look at detahard_PROFILING env variable, so that we can generate coverage reports."""
+    do_profiling = os.environ.get("detahard_PROFILING") == "1"
     if do_profiling:
         core_dir = HERE.parent / "core"
         profiling_wrapper = core_dir / "prof" / "prof.py"
         # So that the coverage reports have the correct paths
-        os.environ["TREZOR_SRC"] = str(core_dir / "src")
+        os.environ["detahard_SRC"] = str(core_dir / "src")
         return [str(profiling_wrapper)]
     else:
         return ["-m", "main"]
@@ -129,7 +129,7 @@ def _raw_client(request: pytest.FixtureRequest) -> Client:
         return emu_fixture.client
     else:
         interact = os.environ.get("INTERACT") == "1"
-        path = os.environ.get("TREZOR_PATH")
+        path = os.environ.get("detahard_PATH")
         if path:
             return _client_from_path(request, path, interact)
         else:
@@ -143,7 +143,7 @@ def _client_from_path(
         transport = get_transport(path)
         return Client(transport, auto_interact=not interact)
     except Exception as e:
-        request.session.shouldstop = "Failed to communicate with Trezor"
+        request.session.shouldstop = "Failed to communicate with detahard"
         raise RuntimeError(f"Failed to open debuglink for {path}") from e
 
 
@@ -155,7 +155,7 @@ def _find_client(request: pytest.FixtureRequest, interact: bool) -> Client:
         except Exception:
             pass
 
-    request.session.shouldstop = "Failed to communicate with Trezor"
+    request.session.shouldstop = "Failed to communicate with detahard"
     raise RuntimeError("No debuggable device found")
 
 
@@ -187,9 +187,9 @@ def client(
     @pytest.mark.experimental
     """
     if request.node.get_closest_marker("skip_t2") and _raw_client.features.model == "T":
-        pytest.skip("Test excluded on Trezor T")
+        pytest.skip("Test excluded on detahard T")
     if request.node.get_closest_marker("skip_t1") and _raw_client.features.model == "1":
-        pytest.skip("Test excluded on Trezor 1")
+        pytest.skip("Test excluded on detahard 1")
 
     sd_marker = request.node.get_closest_marker("sd_card")
     if sd_marker and not _raw_client.features.sd_card_present:
@@ -206,8 +206,8 @@ def client(
     try:
         _raw_client.init_device()
     except Exception:
-        request.session.shouldstop = "Failed to communicate with Trezor"
-        pytest.fail("Failed to communicate with Trezor")
+        request.session.shouldstop = "Failed to communicate with detahard"
+        pytest.fail("Failed to communicate with detahard")
 
     # Resetting all the debug events to not be influenced by previous test
     _raw_client.debug.reset_debug_events()
@@ -350,10 +350,10 @@ def pytest_configure(config: "Config") -> None:
     Registers known markers, enables verbose output if requested.
     """
     # register known markers
-    config.addinivalue_line("markers", "skip_t1: skip the test on Trezor One")
-    config.addinivalue_line("markers", "skip_t2: skip the test on Trezor T")
+    config.addinivalue_line("markers", "skip_t1: skip the test on detahard One")
+    config.addinivalue_line("markers", "skip_t2: skip the test on detahard T")
     config.addinivalue_line(
-        "markers", "experimental: enable experimental features on Trezor"
+        "markers", "experimental: enable experimental features on detahard"
     )
     config.addinivalue_line(
         "markers",
@@ -375,9 +375,9 @@ def pytest_runtest_setup(item: pytest.Item) -> None:
     both T1 and TT.
     """
     if item.get_closest_marker("skip_t1") and item.get_closest_marker("skip_t2"):
-        raise RuntimeError("Don't skip tests for both trezors!")
+        raise RuntimeError("Don't skip tests for both detahards!")
 
-    skip_altcoins = int(os.environ.get("TREZOR_PYTEST_SKIP_ALTCOINS", 0))
+    skip_altcoins = int(os.environ.get("detahard_PYTEST_SKIP_ALTCOINS", 0))
     if item.get_closest_marker("altcoin") and skip_altcoins:
         pytest.skip("Skipping altcoin test")
 

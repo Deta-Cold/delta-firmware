@@ -1,1 +1,1 @@
-../trezorhal/sdcard.h
+../detahardhal/sdcard.h

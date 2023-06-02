@@ -11,7 +11,7 @@ from apps.common.writers import (
 )
 
 if TYPE_CHECKING:
-    from trezor.messages import (
+    from detahard.messages import (
         EosActionBuyRam,
         EosActionBuyRamBytes,
         EosActionCommon,
@@ -30,11 +30,11 @@ if TYPE_CHECKING:
         EosAuthorization,
         EosTxHeader,
     )
-    from trezor.utils import Writer
+    from detahard.utils import Writer
 
 
 def write_auth(w: Writer, auth: EosAuthorization) -> None:
-    from trezor.wire import DataError
+    from detahard.wire import DataError
 
     write_uint32_le(w, auth.threshold)
     write_uvarint(w, len(auth.keys))

@@ -1,9 +1,9 @@
 from common import *
 
-from trezorio import sdcard, fatfs
+from detahardio import sdcard, fatfs
 
 
-class TestTrezorIoFatfs(unittest.TestCase):
+class TestdetahardIoFatfs(unittest.TestCase):
     def setUp(self):
         sdcard.power_on()
         fatfs.mkfs()
@@ -17,7 +17,7 @@ class TestTrezorIoFatfs(unittest.TestCase):
         return f"FILE{suffix}.TXT"
 
     def _dirname(self, suffix=""):
-        return f"TREZOR{suffix}"
+        return f"detahard{suffix}"
 
     def test_basic(self):
         # test just the stuff in setup and teardown
@@ -117,7 +117,7 @@ class TestTrezorIoFatfs(unittest.TestCase):
         self.assertEqual(s, (111, "----a", self._filename()))
 
 
-class TestTrezorIoFatfsLfn(TestTrezorIoFatfs):
+class TestdetahardIoFatfsLfn(TestdetahardIoFatfs):
     def _filename(self, suffix=""):
         return f"reallylongfilename{suffix}.textfile"
 
@@ -125,7 +125,7 @@ class TestTrezorIoFatfsLfn(TestTrezorIoFatfs):
         return f"reallylongdirname{suffix}"
 
 
-class TestTrezorIoFatfsMounting(unittest.TestCase):
+class TestdetahardIoFatfsMounting(unittest.TestCase):
     MOUNTED_METHODS = [
         ("open", ("hello.txt", "w")),
         ("listdir", ("",)),
@@ -208,7 +208,7 @@ class TestTrezorIoFatfsMounting(unittest.TestCase):
                 self.assertEqual(e.args[0], fatfs.FR_NOT_READY)
 
 
-class TestTrezorIoFatfsAndSdcard(unittest.TestCase):
+class TestdetahardIoFatfsAndSdcard(unittest.TestCase):
     def test_sd_power(self):
         sdcard.power_off()
         self.assertFalse(fatfs.is_mounted())

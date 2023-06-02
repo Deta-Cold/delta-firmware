@@ -1,4 +1,4 @@
-/* TREZORv2 firmware linker script */
+/* detahardv2 firmware linker script */
 
 ENTRY(reset_handler)
 

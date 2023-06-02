@@ -1,15 +1,15 @@
 # pylint: disable=wrong-import-position
 import utime
 from micropython import const
-from trezorui import Display
+from detahardui import Display
 from typing import TYPE_CHECKING, Any, Awaitable, Generator
 
-from trezor import io, loop, utils, workflow
+from detahard import io, loop, utils, workflow
 
 # all rendering is done through a singleton of `Display`
 display = Display()
 
-# re-export constants from modtrezorui
+# re-export constants from moddetahardui
 NORMAL: int = Display.FONT_NORMAL
 BOLD: int = Display.FONT_BOLD
 DEMIBOLD: int = Display.FONT_DEMIBOLD
@@ -44,10 +44,10 @@ if utils.EMULATOR or utils.MODEL in ("1", "R"):
 
 
 # import style later to avoid circular dep
-from trezor.ui import style  # isort:skip
+from detahard.ui import style  # isort:skip
 
 # import style definitions into namespace
-from trezor.ui.style import *  # isort:skip # noqa: F401,F403
+from detahard.ui.style import *  # isort:skip # noqa: F401,F403
 
 
 async def _alert(count: int) -> None:
@@ -279,7 +279,7 @@ class Layout(Component):
                 self.dispatch(RENDER, 0, 0)
 
     else:
-        raise ValueError("Unknown Trezor model")
+        raise ValueError("Unknown detahard model")
 
     def _before_render(self) -> None:
         # Before the first render, we dim the display.

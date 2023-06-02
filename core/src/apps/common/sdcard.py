@@ -1,6 +1,6 @@
 from storage.sd_salt import SD_CARD_HOT_SWAPPABLE
-from trezor import io, wire
-from trezor.ui.layouts import confirm_action, show_error_and_raise
+from detahard import io, wire
+from detahard.ui.layouts import confirm_action, show_error_and_raise
 
 
 class SdCardUnavailable(wire.ProcessError):
@@ -106,7 +106,7 @@ async def ensure_sdcard(
     filesystem, and allows the user to format the card if a filesystem cannot be
     mounted.
     """
-    from trezor import sdcard
+    from detahard import sdcard
 
     while not sdcard.is_present():
         await _confirm_retry_insert_card(ctx)
@@ -132,7 +132,7 @@ async def ensure_sdcard(
             with sdcard.filesystem(mounted=False):
                 fatfs.mkfs()
                 fatfs.mount()
-                fatfs.setlabel("TREZOR")
+                fatfs.setlabel("detahard")
 
             # format and mount succeeded
             return

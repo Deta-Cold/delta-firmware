@@ -1,5 +1,5 @@
 use crate::{
-    trezorhal::{
+    detahardhal::{
         buffers::{BufferBlurring, BufferJpeg, BufferLine16bpp, BufferLine4bpp, BufferText},
         display,
         display::bar_radius_buffer,

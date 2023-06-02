@@ -3,8 +3,8 @@ from typing import TYPE_CHECKING
 from apps.common.keychain import auto_keychain
 
 if TYPE_CHECKING:
-    from trezor.messages import StellarSignTx, StellarSignedTx
-    from trezor.wire import Context
+    from detahard.messages import StellarSignTx, StellarSignedTx
+    from detahard.wire import Context
 
     from apps.common.keychain import Keychain
 
@@ -14,13 +14,13 @@ async def sign_tx(
     ctx: Context, msg: StellarSignTx, keychain: Keychain
 ) -> StellarSignedTx:
     from ubinascii import hexlify
-    from trezor.messages import StellarSignedTx
-    from trezor.crypto.curve import ed25519
+    from detahard.messages import StellarSignedTx
+    from detahard.crypto.curve import ed25519
     from apps.common import paths, seed
-    from trezor.enums import StellarMemoType
-    from trezor.crypto.hashlib import sha256
-    from trezor.wire import DataError, ProcessError
-    from trezor.messages import StellarTxOpRequest
+    from detahard.enums import StellarMemoType
+    from detahard.crypto.hashlib import sha256
+    from detahard.wire import DataError, ProcessError
+    from detahard.messages import StellarTxOpRequest
     from .operations import process_operation
     from . import helpers
     from . import consts, layout, writers

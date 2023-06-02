@@ -1,9 +1,9 @@
 from micropython import const
 from typing import TYPE_CHECKING
 
-from trezor.enums import ButtonRequestType
-from trezor.ui.layouts import show_success
-from trezor.ui.layouts.reset import (  # noqa: F401
+from detahard.enums import ButtonRequestType
+from detahard.ui.layouts import show_success
+from detahard.ui.layouts.reset import (  # noqa: F401
     show_share_words,
     slip39_advanced_prompt_group_threshold,
     slip39_advanced_prompt_number_of_groups,
@@ -14,13 +14,13 @@ from trezor.ui.layouts.reset import (  # noqa: F401
 
 if TYPE_CHECKING:
     from typing import Sequence
-    from trezor.wire import GenericContext
+    from detahard.wire import GenericContext
 
 _NUM_OF_CHOICES = const(3)
 
 
 async def show_internal_entropy(ctx: GenericContext, entropy: bytes) -> None:
-    from trezor.ui.layouts import confirm_blob
+    from detahard.ui.layouts import confirm_blob
 
     await confirm_blob(
         ctx,
@@ -39,8 +39,8 @@ async def _confirm_word(
     count: int,
     group_index: int | None = None,
 ) -> bool:
-    from trezor.crypto import random
-    from trezor.ui.layouts.reset import select_word
+    from detahard.crypto import random
+    from detahard.ui.layouts.reset import select_word
 
     # remove duplicates
     non_duplicates = list(set(share_words))
@@ -97,7 +97,7 @@ async def _do_confirm_share_words(
     share_words: Sequence[str],
     group_index: int | None = None,
 ) -> bool:
-    from trezor import utils
+    from detahard import utils
 
     # divide list into thirds, rounding up, so that chunking by `third` always yields
     # three parts (the last one might be shorter)
@@ -142,7 +142,7 @@ async def _show_confirmation_success(
 
 
 async def _show_confirmation_failure(ctx: GenericContext) -> None:
-    from trezor.ui.layouts.recovery import show_recovery_warning
+    from detahard.ui.layouts.recovery import show_recovery_warning
 
     await show_recovery_warning(
         ctx,
@@ -155,13 +155,13 @@ async def _show_confirmation_failure(ctx: GenericContext) -> None:
 
 
 async def show_backup_warning(ctx: GenericContext, slip39: bool = False) -> None:
-    from trezor.ui.layouts.reset import show_warning_backup
+    from detahard.ui.layouts.reset import show_warning_backup
 
     await show_warning_backup(ctx, slip39)
 
 
 async def show_backup_success(ctx: GenericContext) -> None:
-    from trezor.ui.layouts.reset import show_success_backup
+    from detahard.ui.layouts.reset import show_success_backup
 
     await show_success_backup(ctx)
 

@@ -1,5 +1,5 @@
 /*
- * This file is part of the Trezor project, https://trezor.io/
+ * This file is part of the detahard project, https://detahard.io/
  *
  * Copyright (c) SatoshiLabs
  *
@@ -19,10 +19,10 @@
 
 #include "py/runtime.h"
 
-#if MICROPY_PY_TREZORUI2
+#if MICROPY_PY_detahardUI2
 
 #include "librust.h"
 
-MP_REGISTER_MODULE(MP_QSTR_trezorui2, mp_module_trezorui2);
+MP_REGISTER_MODULE(MP_QSTR_detahardui2, mp_module_detahardui2);
 
-#endif  // MICROPY_PY_TREZORUI2
+#endif  // MICROPY_PY_detahardUI2

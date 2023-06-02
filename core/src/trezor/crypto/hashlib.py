@@ -1,4 +1,4 @@
-from trezorcrypto import (  # noqa: F401
+from detahardcrypto import (  # noqa: F401
     blake2b,
     blake2s,
     blake256,

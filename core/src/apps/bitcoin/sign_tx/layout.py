@@ -1,10 +1,10 @@
 from micropython import const
 from typing import TYPE_CHECKING
 
-from trezor.enums import ButtonRequestType
-from trezor.strings import format_amount
-from trezor.ui import layouts
-from trezor.ui.layouts import confirm_metadata
+from detahard.enums import ButtonRequestType
+from detahard.strings import format_amount
+from detahard.ui import layouts
+from detahard.ui.layouts import confirm_metadata
 
 from apps.common.paths import address_n_to_str
 
@@ -19,10 +19,10 @@ from ..keychain import address_n_to_name
 if TYPE_CHECKING:
     from typing import Any
 
-    from trezor.messages import TxAckPaymentRequest, TxOutput
-    from trezor.ui.layouts import LayoutType
-    from trezor.enums import AmountUnit
-    from trezor.wire import Context
+    from detahard.messages import TxAckPaymentRequest, TxOutput
+    from detahard.ui.layouts import LayoutType
+    from detahard.enums import AmountUnit
+    from detahard.wire import Context
 
     from apps.common.coininfo import CoinInfo
     from apps.common.paths import Bip32Path
@@ -31,7 +31,7 @@ _LOCKTIME_TIMESTAMP_MIN_VALUE = const(500_000_000)
 
 
 def format_coin_amount(amount: int, coin: CoinInfo, amount_unit: AmountUnit) -> str:
-    from trezor.enums import AmountUnit
+    from detahard.enums import AmountUnit
 
     decimals, shortcut = coin.decimals, coin.coin_shortcut
     if amount_unit == AmountUnit.SATOSHI:
@@ -66,7 +66,7 @@ async def confirm_output(
     output_index: int,
 ) -> None:
     from . import omni
-    from trezor.enums import OutputScriptType
+    from detahard.enums import OutputScriptType
 
     if output.script_type == OutputScriptType.PAYTOOPRETURN:
         data = output.op_return_data
@@ -152,7 +152,7 @@ async def confirm_payment_request(
     coin: CoinInfo,
     amount_unit: AmountUnit,
 ) -> Any:
-    from trezor import wire
+    from detahard import wire
 
     memo_texts = []
     for m in msg.memos:
@@ -291,7 +291,7 @@ async def confirm_unverified_external_input(ctx: Context) -> None:
 async def confirm_nondefault_locktime(
     ctx: Context, lock_time: int, lock_time_disabled: bool
 ) -> None:
-    from trezor.strings import format_timestamp
+    from detahard.strings import format_timestamp
 
     if lock_time_disabled:
         await layouts.show_warning(

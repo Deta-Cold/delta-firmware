@@ -1,18 +1,18 @@
 from typing import TYPE_CHECKING
 
-from trezor import config, wire
+from detahard import config, wire
 
 if TYPE_CHECKING:
     from typing import Awaitable
 
-    from trezor.messages import ChangePin, Success
-    from trezor.wire import Context
+    from detahard.messages import ChangePin, Success
+    from detahard.wire import Context
 
 
 async def change_pin(ctx: Context, msg: ChangePin) -> Success:
     from storage.device import is_initialized
-    from trezor.messages import Success
-    from trezor.ui.layouts import show_success
+    from detahard.messages import Success
+    from detahard.ui.layouts import show_success
 
     from apps.common.request_pin import (
         error_pin_invalid,
@@ -64,7 +64,7 @@ async def change_pin(ctx: Context, msg: ChangePin) -> Success:
 
 
 def _require_confirm_change_pin(ctx: Context, msg: ChangePin) -> Awaitable[None]:
-    from trezor.ui.layouts import confirm_action, confirm_set_new_pin
+    from detahard.ui.layouts import confirm_action, confirm_set_new_pin
 
     has_pin = config.has_pin()
 

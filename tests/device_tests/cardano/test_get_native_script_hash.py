@@ -1,4 +1,4 @@
-# This file is part of the Trezor project.
+# This file is part of the detahard project.
 #
 # Copyright (C) 2012-2019 SatoshiLabs and contributors
 #
@@ -16,9 +16,9 @@
 
 import pytest
 
-from trezorlib import messages
-from trezorlib.cardano import get_native_script_hash, parse_native_script
-from trezorlib.debuglink import TrezorClientDebugLink as Client
+from detahardlib import messages
+from detahardlib.cardano import get_native_script_hash, parse_native_script
+from detahardlib.debuglink import detahardClientDebugLink as Client
 
 from ...common import parametrize_using_common_fixtures
 

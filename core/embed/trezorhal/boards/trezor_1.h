@@ -1,5 +1,5 @@
-#ifndef _TREZOR_1_H
-#define _TREZOR_1_H
+#ifndef _detahard_1_H
+#define _detahard_1_H
 
 #define USE_BUTTON 1
 
@@ -32,4 +32,4 @@
 #define OLED_SPI_MOSI_PIN GPIO_PIN_7  // PA7 | SPI MOSI
 #define OLED_SPI_MOSI_CLK_ENA __HAL_RCC_GPIOA_CLK_ENABLE
 
-#endif  //_TREZOR_1_H
+#endif  //_detahard_1_H

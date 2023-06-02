@@ -1,12 +1,12 @@
 from typing import TYPE_CHECKING
 
-from trezor.enums import CardanoAddressType
+from detahard.enums import CardanoAddressType
 
 from .paths import SCHEMA_PAYMENT
 
 if TYPE_CHECKING:
-    from trezor import messages
-    from trezor.ui.layouts import PropertyType
+    from detahard import messages
+    from detahard.ui.layouts import PropertyType
 
 CREDENTIAL_TYPE_PAYMENT: str = "payment"
 CREDENTIAL_TYPE_STAKE: str = "stake"

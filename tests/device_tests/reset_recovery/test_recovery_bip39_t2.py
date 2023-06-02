@@ -1,4 +1,4 @@
-# This file is part of the Trezor project.
+# This file is part of the detahard project.
 #
 # Copyright (C) 2012-2019 SatoshiLabs and contributors
 #
@@ -16,8 +16,8 @@
 
 import pytest
 
-from trezorlib import device, exceptions, messages
-from trezorlib.debuglink import TrezorClientDebugLink as Client
+from detahardlib import device, exceptions, messages
+from detahardlib.debuglink import detahardClientDebugLink as Client
 
 from ...common import MNEMONIC12
 from ...input_flows import InputFlowBip39RecoveryNoPIN, InputFlowBip39RecoveryPIN
@@ -70,5 +70,5 @@ def test_already_initialized(client: Client):
     with pytest.raises(RuntimeError):
         device.recover(client)
 
-    with pytest.raises(exceptions.TrezorFailure, match="Already initialized"):
+    with pytest.raises(exceptions.detahardFailure, match="Already initialized"):
         client.call(messages.RecoveryDevice())

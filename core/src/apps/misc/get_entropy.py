@@ -1,15 +1,15 @@
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from trezor.wire import Context
-    from trezor.messages import GetEntropy, Entropy
+    from detahard.wire import Context
+    from detahard.messages import GetEntropy, Entropy
 
 
 async def get_entropy(ctx: Context, msg: GetEntropy) -> Entropy:
-    from trezor.crypto import random
-    from trezor.enums import ButtonRequestType
-    from trezor.messages import Entropy
-    from trezor.ui.layouts import confirm_action
+    from detahard.crypto import random
+    from detahard.enums import ButtonRequestType
+    from detahard.messages import Entropy
+    from detahard.ui.layouts import confirm_action
 
     await confirm_action(
         ctx,

@@ -3,7 +3,7 @@
 # isort:skip_file
 
 % if values_altcoin:
-from trezor import utils
+from detahard import utils
 
 % endif
 % for value in values_always:

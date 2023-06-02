@@ -4,7 +4,7 @@
 # 1. install Python 3.7 and up
 # 2. make sure you have `pip3` command available
 # 3. from command line, run the following:
-#        pip3 install trezor[hidapi] gevent bottle
+#        pip3 install detahard[hidapi] gevent bottle
 # 4. (ONLY for TT or T1 >= 1.8.0) Make sure you have libusb available.
 #    4a. on Windows, download:
 #        https://github.com/libusb/libusb/releases/download/v1.0.26/libusb-1.0.26-binaries.7z
@@ -14,11 +14,11 @@
 #        and place it in your working directory.
 #    4c. on Linux, use your package manager to install `libusb` or `libusb-1.0` package.
 #        (but on Linux you most likely already have it)
-# 4. Shut down Trezor Suite (and bridge if you are running it separately
-# 5. Disconnect and then reconnect your Trezor.
+# 4. Shut down detahard Suite (and bridge if you are running it separately
+# 5. Disconnect and then reconnect your detahard.
 # 6. Run the following command from the command line:
 #        python3 pybridge.py
-# 7. Start Suite again, or use any other Trezor-compatible software.
+# 7. Start Suite again, or use any other detahard-compatible software.
 # 8. Output of pybridge goes to console and also to file `pybridge.log`
 from __future__ import annotations  # type: ignore [unknown import symbol]
 
@@ -35,13 +35,13 @@ import logging
 import click
 from bottle import run, post, request, response
 
-import trezorlib.transport
-import trezorlib.mapping
-import trezorlib.models
-from trezorlib.client import TrezorClient
-from trezorlib.ui import TrezorClientUI
-from trezorlib.protobuf import format_message
-from trezorlib.transport.bridge import BridgeTransport
+import detahardlib.transport
+import detahardlib.mapping
+import detahardlib.models
+from detahardlib.client import detahardClient
+from detahardlib.ui import detahardClientUI
+from detahardlib.protobuf import format_message
+from detahardlib.transport.bridge import BridgeTransport
 
 # ignore bridge. we are the bridge
 BridgeTransport.ENABLED = False
@@ -59,7 +59,7 @@ logging.basicConfig(
 LOG = logging.getLogger()
 
 
-class SilentUI(TrezorClientUI):
+class SilentUI(detahardClientUI):
     def get_pin(self, _code: t.Any) -> str:
         return ""
 
@@ -98,14 +98,14 @@ class Transport:
     TRANSPORT_COUNTER = 0
     TRANSPORTS: dict[str, Transport] = {}
 
-    def __init__(self, transport: trezorlib.transport.Transport) -> None:
+    def __init__(self, transport: detahardlib.transport.Transport) -> None:
         self.path = transport.get_path()
         self.session: Session | None = None
         self.transport = transport
 
-        client = TrezorClient(transport, ui=SilentUI())
+        client = detahardClient(transport, ui=SilentUI())
         self.model = (
-            trezorlib.models.by_name(client.features.model) or trezorlib.models.TREZOR_T
+            detahardlib.models.by_name(client.features.model) or detahardlib.models.detahard_T
         )
         client.end_session()
 
@@ -152,7 +152,7 @@ class Transport:
 
     @classmethod
     def enumerate(cls) -> t.Iterable[Transport]:
-        transports = {t.get_path(): t for t in trezorlib.transport.enumerate_devices()}
+        transports = {t.get_path(): t for t in detahardlib.transport.enumerate_devices()}
         for path in transports:
             if path not in cls.TRANSPORTS:
                 cls.TRANSPORTS[path] = Transport(transports[path])
@@ -169,7 +169,7 @@ FILTERS: dict[int, t.Callable[[int, bytes], tuple[int, bytes]]] = {}
 
 def log_message(prefix: str, msg_id: int, data: bytes) -> None:
     try:
-        msg = trezorlib.mapping.DEFAULT_MAPPING.decode(msg_id, data)
+        msg = detahardlib.mapping.DEFAULT_MAPPING.decode(msg_id, data)
         LOG.info("=== %s: [%s] %s", prefix, msg_id, format_message(msg))
     except Exception:
         LOG.info("=== %s: [%s] undecoded bytes %s", prefix, msg_id, data.hex())
@@ -205,8 +205,8 @@ def do_configure():
 @post("/enumerate")  # type: ignore [Untyped function decorator]
 def do_enumerate():
     check_origin()
-    trezor_json = [transport.to_json() for transport in Transport.enumerate()]
-    return json.dumps(trezor_json)
+    detahard_json = [transport.to_json() for transport in Transport.enumerate()]
+    return json.dumps(detahard_json)
 
 
 @post("/acquire/<path>/<sid>")  # type: ignore [Untyped function decorator]
@@ -214,13 +214,13 @@ def do_acquire(path: str, sid: str):
     check_origin()
     if sid == "null":
         sid = None  # type: ignore [cannot be assigned to declared type]
-    trezor = Transport.find(path)
-    if trezor is None:
+    detahard = Transport.find(path)
+    if detahard is None:
         response.status = 404
         return {"error": "invalid path"}
 
     try:
-        return {"session": trezor.acquire(sid)}
+        return {"session": detahard.acquire(sid)}
     except Exception:
         response.status = 400
         return {"error": "wrong previous session"}
@@ -284,7 +284,7 @@ def do_read(sid: str):
 
     resp_type, resp_data = session.transport.read()
     print("=== RESPONSE:")
-    msg = trezorlib.mapping.DEFAULT_MAPPING.decode(resp_type, resp_data)
+    msg = detahardlib.mapping.DEFAULT_MAPPING.decode(resp_type, resp_data)
     print(format_message(msg))
 
     return encode_data(resp_type, resp_data)
@@ -300,20 +300,20 @@ def do_listen():
         return {"error": "invalid json"}
 
     for _ in range(10):
-        trezor_json = [transport.to_json() for transport in Transport.enumerate()]
-        if trezor_json != data:
+        detahard_json = [transport.to_json() for transport in Transport.enumerate()]
+        if detahard_json != data:
             # `yield` turns the function into a generator which allows gevent to
             # run it in a greenlet, so that the time.sleep() call doesn't block
-            yield json.dumps(trezor_json)
+            yield json.dumps(detahard_json)
             return
         time.sleep(1)
 
 
 # def example_filter(msg_id: int, data: bytes) -> tuple[int, bytes]:
-#     msg = trezorlib.mapping.DEFAULT_MAPPING.decode(msg_id, data)
+#     msg = detahardlib.mapping.DEFAULT_MAPPING.decode(msg_id, data)
 #     assert isinstance(msg, messages.Features)
 #     msg.model = "Example"
-#     return trezorlib.mapping.DEFAULT_MAPPING.encode(msg)
+#     return detahardlib.mapping.DEFAULT_MAPPING.encode(msg)
 
 
 # FILTERS[messages.Features.MESSAGE_WIRE_TYPE] = example_filter

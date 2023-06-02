@@ -1,8 +1,8 @@
 from micropython import const
 from typing import TYPE_CHECKING
 
-from trezor.enums import InputScriptType
-from trezor.messages import AuthorizeCoinJoin, SignMessage
+from detahard.enums import InputScriptType
+from detahard.messages import AuthorizeCoinJoin, SignMessage
 
 from apps.common.paths import PATTERN_BIP44, PATTERN_CASA, PathSchema, unharden
 
@@ -13,10 +13,10 @@ if TYPE_CHECKING:
     from typing import Awaitable, Callable, Iterable, TypeVar
     from typing_extensions import Protocol
 
-    from trezor.protobuf import MessageType
-    from trezor.wire import Context
+    from detahard.protobuf import MessageType
+    from detahard.wire import Context
 
-    from trezor.messages import (
+    from detahard.messages import (
         GetAddress,
         GetOwnershipId,
         GetPublicKey,
@@ -102,7 +102,7 @@ def validate_path_against_script_type(
     script_type: InputScriptType | None = None,
     multisig: bool = False,
 ) -> bool:
-    from trezor.enums import InputScriptType
+    from detahard.enums import InputScriptType
 
     patterns = []
     append = patterns.append  # local_cache_attribute
@@ -253,7 +253,7 @@ def get_schemas_from_patterns(
 
 def _get_coin_by_name(coin_name: str | None) -> coininfo.CoinInfo:
     from apps.common import coininfo
-    from trezor import wire
+    from detahard import wire
 
     if coin_name is None:
         coin_name = "Bitcoin"
@@ -284,7 +284,7 @@ def _get_unlock_schemas(
     Provides additional keychain schemas that are unlocked by the particular
     combination of `msg` and `auth_msg`.
     """
-    from trezor.messages import GetOwnershipProof, SignTx, UnlockPath
+    from detahard.messages import GetOwnershipProof, SignTx, UnlockPath
 
     if AuthorizeCoinJoin.is_type_of(msg):
         # When processing the AuthorizeCoinJoin message, validate_path() always

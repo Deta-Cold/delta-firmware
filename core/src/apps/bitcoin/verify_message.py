@@ -2,16 +2,16 @@ from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from apps.common.coininfo import CoinInfo
-    from trezor.messages import VerifyMessage, Success
-    from trezor.wire import Context
-    from trezor.enums import InputScriptType
+    from detahard.messages import VerifyMessage, Success
+    from detahard.wire import Context
+    from detahard.enums import InputScriptType
 
 
 def _address_to_script_type(address: str, coin: CoinInfo) -> InputScriptType:
-    from trezor.crypto import base58
-    from trezor.wire import DataError
-    from trezor.enums import InputScriptType
-    from trezor import utils
+    from detahard.crypto import base58
+    from detahard.wire import DataError
+    from detahard.enums import InputScriptType
+    from detahard import utils
     from apps.common import address_type
     from . import common
 
@@ -49,12 +49,12 @@ def _address_to_script_type(address: str, coin: CoinInfo) -> InputScriptType:
 
 
 async def verify_message(ctx: Context, msg: VerifyMessage) -> Success:
-    from trezor import utils
-    from trezor.wire import ProcessError
-    from trezor.crypto.curve import secp256k1
-    from trezor.enums import InputScriptType
-    from trezor.messages import Success
-    from trezor.ui.layouts import confirm_signverify, show_success
+    from detahard import utils
+    from detahard.wire import ProcessError
+    from detahard.crypto.curve import secp256k1
+    from detahard.enums import InputScriptType
+    from detahard.messages import Success
+    from detahard.ui.layouts import confirm_signverify, show_success
 
     from apps.common import coins
     from apps.common.signverify import decode_message, message_digest

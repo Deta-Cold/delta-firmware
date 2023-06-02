@@ -1,6 +1,6 @@
 from common import *
 
-from trezor import utils
+from detahard import utils
 
 
 class TestUtils(unittest.TestCase):

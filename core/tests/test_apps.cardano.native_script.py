@@ -1,8 +1,8 @@
 from common import *
-from trezor import wire
-from trezor.crypto import cardano
-from trezor.enums import CardanoNativeScriptType
-from trezor.messages import CardanoNativeScript
+from detahard import wire
+from detahard.crypto import cardano
+from detahard.enums import CardanoNativeScriptType
+from detahard.messages import CardanoNativeScript
 
 if not utils.BITCOIN_ONLY:
     from apps.cardano.seed import Keychain

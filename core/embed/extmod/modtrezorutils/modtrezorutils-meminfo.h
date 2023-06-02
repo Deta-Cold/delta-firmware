@@ -1,5 +1,5 @@
 /*
- * This file is part of the TREZOR project, https://trezor.io/
+ * This file is part of the detahard project, https://detahard.io/
  *
  * Copyright (c) SatoshiLabs
  *
@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#if !TREZOR_EMULATOR || PYOPT
+#if !detahard_EMULATOR || PYOPT
 #define MEMINFO_DICT_ENTRIES /* empty */
 
 #else
@@ -32,9 +32,9 @@
 #include "py/objstr.h"
 #include "py/objtype.h"
 
-#include "embed/extmod/trezorobj.h"
+#include "embed/extmod/detahardobj.h"
 #include "embed/rust/librust.h"
-#include "embed/trezorhal/usb.h"
+#include "embed/detahardhal/usb.h"
 
 #include <stdio.h>
 #include <string.h>
@@ -286,11 +286,11 @@ typedef struct _mp_obj_closure_t {
 extern const mp_obj_type_t mp_type_bound_meth;
 extern const mp_obj_type_t mp_type_closure;
 extern const mp_obj_type_t mp_type_cell;
-extern const mp_obj_type_t mod_trezorio_WebUSB_type;
-extern const mp_obj_type_t mod_trezorio_USB_type;
-extern const mp_obj_type_t mod_trezorio_VCP_type;
-extern const mp_obj_type_t mod_trezorio_HID_type;
-extern const mp_obj_type_t mod_trezorui_Display_type;
+extern const mp_obj_type_t mod_detahardio_WebUSB_type;
+extern const mp_obj_type_t mod_detahardio_USB_type;
+extern const mp_obj_type_t mod_detahardio_VCP_type;
+extern const mp_obj_type_t mod_detahardio_HID_type;
+extern const mp_obj_type_t mod_detahardui_Display_type;
 
 typedef struct _mp_obj_WebUSB_t {
   mp_obj_base_t base;
@@ -474,22 +474,22 @@ void dump_set(FILE *out, const mp_obj_set_t *set) {
   }
 }
 
-void dump_trezor_hid(FILE *out, const mp_obj_HID_t *hid) {
-  print_type(out, "trezor-hid", NULL, hid, false);
+void dump_detahard_hid(FILE *out, const mp_obj_HID_t *hid) {
+  print_type(out, "detahard-hid", NULL, hid, false);
   fprintf(out, ",\n\"rx_buffer\": \"%p\"},\n", hid->info.rx_buffer);
   print_type(out, "rawbuffer", NULL, hid->info.rx_buffer, true);
   fprintf(out, ",\n");
 }
 
-void dump_trezor_webusb(FILE *out, const mp_obj_WebUSB_t *webusb) {
-  print_type(out, "trezor-webusb", NULL, webusb, false);
+void dump_detahard_webusb(FILE *out, const mp_obj_WebUSB_t *webusb) {
+  print_type(out, "detahard-webusb", NULL, webusb, false);
   fprintf(out, ",\n\"rx_buffer\": \"%p\"},\n", webusb->info.rx_buffer);
   print_type(out, "rawbuffer", NULL, webusb->info.rx_buffer, true);
   fprintf(out, ",\n");
 }
 
-void dump_trezor_vcp(FILE *out, const mp_obj_VCP_t *vcp) {
-  print_type(out, "trezor-vcp", NULL, vcp, false);
+void dump_detahard_vcp(FILE *out, const mp_obj_VCP_t *vcp) {
+  print_type(out, "detahard-vcp", NULL, vcp, false);
   fprintf(out, ",\n\"tx_packet\": \"%p\"", vcp->info.tx_packet);
   fprintf(out, ",\n\"tx_buffer\": \"%p\"", vcp->info.tx_buffer);
   fprintf(out, ",\n\"rx_packet\": \"%p\"", vcp->info.rx_packet);
@@ -632,21 +632,21 @@ void dump_value_opt(FILE *out, mp_const_obj_t value, bool eval_short) {
     dump_generator(out, value);
   }
 
-  else if (mp_obj_is_type(value, &mod_trezorio_WebUSB_type)) {
-    dump_trezor_webusb(out, value);
+  else if (mp_obj_is_type(value, &mod_detahardio_WebUSB_type)) {
+    dump_detahard_webusb(out, value);
   }
 
-  else if (mp_obj_is_type(value, &mod_trezorio_VCP_type)) {
-    dump_trezor_vcp(out, value);
+  else if (mp_obj_is_type(value, &mod_detahardio_VCP_type)) {
+    dump_detahard_vcp(out, value);
   }
 
-  else if (mp_obj_is_type(value, &mod_trezorio_HID_type)) {
-    dump_trezor_hid(out, value);
+  else if (mp_obj_is_type(value, &mod_detahardio_HID_type)) {
+    dump_detahard_hid(out, value);
   }
 
-  else if (mp_obj_is_type(value, &mod_trezorio_USB_type) ||
-           mp_obj_is_type(value, &mod_trezorui_Display_type)) {
-    print_type(out, "trezor", NULL, value, true);
+  else if (mp_obj_is_type(value, &mod_detahardio_USB_type) ||
+           mp_obj_is_type(value, &mod_detahardui_Display_type)) {
+    print_type(out, "detahard", NULL, value, true);
     fprintf(out, ",\n");
   }
 
@@ -658,7 +658,7 @@ void dump_value_opt(FILE *out, mp_const_obj_t value, bool eval_short) {
     dump_protodef(out, value);
   }
 
-#ifdef TREZOR_UI2
+#ifdef detahard_UI2
   else if (mp_obj_is_type(value, ui_debug_layout_type())) {
     dump_uilayout(out, value);
   }
@@ -716,7 +716,7 @@ void dump_qstrdata(FILE *out) {
 ///     The JSON file can be decoded by analyze.py
 ///     Only available in the emulator.
 ///      """
-STATIC mp_obj_t mod_trezorutils_meminfo(mp_obj_t filename) {
+STATIC mp_obj_t mod_detahardutils_meminfo(mp_obj_t filename) {
   size_t fn_len;
   FILE *out = fopen(mp_obj_str_get_data(filename, &fn_len), "w");
   fprintf(out, "[");
@@ -761,7 +761,7 @@ STATIC mp_obj_t mod_trezorutils_meminfo(mp_obj_t filename) {
   dump_value_opt(out, &MP_STATE_VM(mp_sys_argv_obj), true);
 
   fprintf(out, "\"ui_wait_callback\",\n");
-  dump_value(out, MP_STATE_VM(trezorconfig_ui_wait_callback));
+  dump_value(out, MP_STATE_VM(detahardconfig_ui_wait_callback));
 
   fprintf(out, "\"qstr_pools\",\n");
   const qstr_pool_t *pool = MP_STATE_VM(last_pool);
@@ -783,10 +783,10 @@ STATIC mp_obj_t mod_trezorutils_meminfo(mp_obj_t filename) {
   gc_dump_alloc_table();
   return mp_const_none;
 }
-STATIC MP_DEFINE_CONST_FUN_OBJ_1(mod_trezorutils_meminfo_obj,
-                                 mod_trezorutils_meminfo);
+STATIC MP_DEFINE_CONST_FUN_OBJ_1(mod_detahardutils_meminfo_obj,
+                                 mod_detahardutils_meminfo);
 
 #define MEMINFO_DICT_ENTRIES \
-  {MP_ROM_QSTR(MP_QSTR_meminfo), MP_ROM_PTR(&mod_trezorutils_meminfo_obj)},
+  {MP_ROM_QSTR(MP_QSTR_meminfo), MP_ROM_PTR(&mod_detahardutils_meminfo_obj)},
 
 #endif

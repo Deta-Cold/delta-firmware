@@ -1,6 +1,6 @@
 """
-Reference client implementation consuming trezorctl's script interface
-(ScriptUI class) available by using `--script` flag in any trezorctl command.
+Reference client implementation consuming detahardctl's script interface
+(ScriptUI class) available by using `--script` flag in any detahardctl command.
 
 Function `get_address()` is showing the communication with ScriptUI
 on a specific example
@@ -52,7 +52,7 @@ def show_button_request(
     # ?BUTTON code=Other
     # ?BUTTON code=SignTx pages=2
     # ?BUTTON code=ProtectCall name=confirm_set_pin
-    print(f"Please confirm action on Trezor (code={code} name={name} pages={pages})")
+    print(f"Please confirm action on detahard (code={code} name={name} pages={pages})")
 
 
 def get_passphrase_from_user(available_on_device: bool = False) -> str:
@@ -84,7 +84,7 @@ def get_passphrase_from_user(available_on_device: bool = False) -> str:
 
 def get_address() -> str:
     args = """
-        trezorctl --script get-address -n "m/49'/0'/0'/0/0"
+        detahardctl --script get-address -n "m/49'/0'/0'/0/0"
     """.strip()
     p = subprocess.Popen(  # type: ignore [No overloads for "__new__" match the provided arguments]
         args,
@@ -126,7 +126,7 @@ def get_address() -> str:
 
 
 def clear_session_to_enable_pin():
-    os.system("trezorctl clear-session")
+    os.system("detahardctl clear-session")
 
 
 if __name__ == "__main__":

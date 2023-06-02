@@ -1,4 +1,4 @@
-# This file is part of the Trezor project.
+# This file is part of the detahard project.
 #
 # Copyright (C) 2012-2019 SatoshiLabs and contributors
 #
@@ -16,10 +16,10 @@
 
 import pytest
 
-from trezorlib import eos
-from trezorlib.debuglink import TrezorClientDebugLink as Client
-from trezorlib.messages import EosSignedTx
-from trezorlib.tools import parse_path
+from detahardlib import eos
+from detahardlib.debuglink import detahardClientDebugLink as Client
+from detahardlib.messages import EosSignedTx
+from detahardlib.tools import parse_path
 
 from ...common import MNEMONIC12
 

@@ -1,4 +1,4 @@
-# This file is part of the Trezor project.
+# This file is part of the detahard project.
 #
 # Copyright (C) 2012-2019 SatoshiLabs and contributors
 #
@@ -16,10 +16,10 @@
 
 import pytest
 
-from trezorlib import ethereum, exceptions, messages
-from trezorlib.debuglink import TrezorClientDebugLink as Client, message_filters
-from trezorlib.exceptions import TrezorFailure
-from trezorlib.tools import parse_path, unharden
+from detahardlib import ethereum, exceptions, messages
+from detahardlib.debuglink import detahardClientDebugLink as Client, message_filters
+from detahardlib.exceptions import detahardFailure
+from detahardlib.tools import parse_path, unharden
 
 from ...common import parametrize_using_common_fixtures
 from ...input_flows import (
@@ -100,7 +100,7 @@ def test_sanity_checks(client: Client):
     need to be exposed to the public.
     """
     # contract creation without data should fail.
-    with pytest.raises(TrezorFailure, match=r"DataError"):
+    with pytest.raises(detahardFailure, match=r"DataError"):
         ethereum.sign_tx(
             client,
             n=parse_path("m/44h/60h/0h/0/0"),
@@ -113,7 +113,7 @@ def test_sanity_checks(client: Client):
         )
 
     # gas overflow
-    with pytest.raises(TrezorFailure, match=r"DataError"):
+    with pytest.raises(detahardFailure, match=r"DataError"):
         ethereum.sign_tx(
             client,
             n=parse_path("m/44h/60h/0h/0/0"),
@@ -126,7 +126,7 @@ def test_sanity_checks(client: Client):
         )
 
     # bad chain ID
-    with pytest.raises(TrezorFailure, match=r"Chain ID out of bounds"):
+    with pytest.raises(detahardFailure, match=r"Chain ID out of bounds"):
         ethereum.sign_tx(
             client,
             n=parse_path("m/44h/60h/0h/0/0"),
@@ -291,7 +291,7 @@ def test_sanity_checks_eip1559(client: Client):
     need to be exposed to the public.
     """
     # contract creation without data should fail.
-    with pytest.raises(TrezorFailure, match=r"DataError"):
+    with pytest.raises(detahardFailure, match=r"DataError"):
         ethereum.sign_tx_eip1559(
             client,
             n=parse_path("m/44h/60h/0h/0/100"),
@@ -305,7 +305,7 @@ def test_sanity_checks_eip1559(client: Client):
         )
 
     # max fee overflow
-    with pytest.raises(TrezorFailure, match=r"DataError"):
+    with pytest.raises(detahardFailure, match=r"DataError"):
         ethereum.sign_tx_eip1559(
             client,
             n=parse_path("m/44h/60h/0h/0/100"),
@@ -319,7 +319,7 @@ def test_sanity_checks_eip1559(client: Client):
         )
 
     # priority fee overflow
-    with pytest.raises(TrezorFailure, match=r"DataError"):
+    with pytest.raises(detahardFailure, match=r"DataError"):
         ethereum.sign_tx_eip1559(
             client,
             n=parse_path("m/44h/60h/0h/0/100"),
@@ -333,7 +333,7 @@ def test_sanity_checks_eip1559(client: Client):
         )
 
     # bad chain ID
-    with pytest.raises(TrezorFailure, match=r"Chain ID out of bounds"):
+    with pytest.raises(detahardFailure, match=r"Chain ID out of bounds"):
         ethereum.sign_tx_eip1559(
             client,
             n=parse_path("m/44h/60h/0h/0/100"),

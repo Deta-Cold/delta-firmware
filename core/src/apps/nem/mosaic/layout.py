@@ -3,13 +3,13 @@ from typing import TYPE_CHECKING
 from ..layout import require_confirm_content, require_confirm_final
 
 if TYPE_CHECKING:
-    from trezor.messages import (
+    from detahard.messages import (
         NEMMosaicCreation,
         NEMMosaicDefinition,
         NEMMosaicSupplyChange,
         NEMTransactionCommon,
     )
-    from trezor.wire import Context
+    from detahard.wire import Context
 
 
 async def ask_mosaic_creation(
@@ -31,7 +31,7 @@ async def ask_mosaic_creation(
 async def ask_supply_change(
     ctx: Context, common: NEMTransactionCommon, change: NEMMosaicSupplyChange
 ) -> None:
-    from trezor.enums import NEMSupplyChangeType
+    from detahard.enums import NEMSupplyChangeType
     from ..layout import require_confirm_text
 
     supply_message = [
@@ -53,8 +53,8 @@ async def ask_supply_change(
 async def _require_confirm_properties(
     ctx: Context, definition: NEMMosaicDefinition
 ) -> None:
-    from trezor.enums import NEMMosaicLevy
-    from trezor.ui.layouts import confirm_properties
+    from detahard.enums import NEMMosaicLevy
+    from detahard.ui.layouts import confirm_properties
 
     properties = []
     append = properties.append  # local_cache_attribute

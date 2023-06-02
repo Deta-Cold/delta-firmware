@@ -1,20 +1,20 @@
 from typing import TYPE_CHECKING
 
-from trezor.wire import DataError
+from detahard.wire import DataError
 
 from apps.common.keychain import auto_keychain
 from apps.monero import layout
 
 if TYPE_CHECKING:
-    from trezor.messages import (
+    from detahard.messages import (
         MoneroKeyImageExportInitRequest,
         MoneroKeyImageSyncFinalAck,
         MoneroKeyImageExportInitAck,
         MoneroKeyImageSyncStepAck,
         MoneroKeyImageSyncStepRequest,
     )
-    from trezor.ui.layouts.common import ProgressLayout
-    from trezor.wire import Context
+    from detahard.ui.layouts.common import ProgressLayout
+    from detahard.wire import Context
 
     from apps.common.keychain import Keychain
 
@@ -26,7 +26,7 @@ async def key_image_sync(
     ctx: Context, msg: MoneroKeyImageExportInitRequest, keychain: Keychain
 ) -> MoneroKeyImageSyncFinalAck:
     import gc
-    from trezor.messages import (
+    from detahard.messages import (
         MoneroKeyImageSyncFinalAck,
         MoneroKeyImageSyncFinalRequest,
         MoneroKeyImageSyncStepRequest,
@@ -70,8 +70,8 @@ async def _init_step(
     msg: MoneroKeyImageExportInitRequest,
     keychain: Keychain,
 ) -> MoneroKeyImageExportInitAck:
-    from trezor.messages import MoneroKeyImageExportInitAck
-    from trezor.crypto import random
+    from detahard.messages import MoneroKeyImageExportInitAck
+    from detahard.crypto import random
     from apps.common import paths
     from apps.monero.xmr import monero
     from apps.monero import misc
@@ -100,8 +100,8 @@ def _sync_step(
     tds: MoneroKeyImageSyncStepRequest,
     progress: ProgressLayout,
 ) -> MoneroKeyImageSyncStepAck:
-    from trezor import log
-    from trezor.messages import (
+    from detahard import log
+    from detahard.messages import (
         MoneroExportedKeyImage,
         MoneroKeyImageSyncStepAck,
     )

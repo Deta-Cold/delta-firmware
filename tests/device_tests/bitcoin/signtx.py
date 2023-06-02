@@ -7,7 +7,7 @@ import requests
 from bitcoin.core import COutPoint, CScript, CTransaction, CTxIn, CTxOut
 from bitcoin.wallet import CBitcoinAddress
 
-from trezorlib import messages
+from detahardlib import messages
 
 T = messages.RequestType
 

@@ -1,10 +1,10 @@
 from common import *
 
-from trezor import io, sdcard
+from detahard import io, sdcard
 
 fatfs = io.fatfs
 
-class TestTrezorSdcard(unittest.TestCase):
+class TestdetahardSdcard(unittest.TestCase):
     def test_power(self):
         # sdcard.capacity() will return 0 if the card is not powered,
         # non-zero value otherwise

@@ -7,13 +7,13 @@ from apps.bitcoin.writers import get_tx_hash
 from apps.common import coins
 from apps.common.keychain import Keychain
 from apps.common.paths import AlwaysMatchingSchema
-from trezor.messages import SignTx
-from trezor.messages import TxInput
-from trezor.messages import TxOutput
-from trezor.messages import PrevOutput
-from trezor.enums import InputScriptType
-from trezor.enums import OutputScriptType
-from trezor.crypto import bip39
+from detahard.messages import SignTx
+from detahard.messages import TxInput
+from detahard.messages import TxOutput
+from detahard.messages import PrevOutput
+from detahard.enums import InputScriptType
+from detahard.enums import OutputScriptType
+from detahard.crypto import bip39
 
 
 class TestSegwitBip143(unittest.TestCase):
@@ -21,7 +21,7 @@ class TestSegwitBip143(unittest.TestCase):
 
     tx = SignTx(coin_name='Bitcoin', version=1, lock_time=0x00000492, inputs_count=1, outputs_count=2)
     inp1 = TxInput(address_n=[0],
-                       # Trezor expects hash in reversed format
+                       # detahard expects hash in reversed format
                        prev_hash=unhexlify('77541aeb3c4dac9260b68f74f44c973081a9d4cb2ebe8038b2d70faa201b6bdb'),
                        prev_index=1,
                        multisig=None,

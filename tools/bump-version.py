@@ -80,7 +80,7 @@ def cli(project, version):
         )
     elif parts[-1] == "python":
         bump_python(
-            project / "src" / "trezorlib" / "__init__.py", f"{major}.{minor}.{patch}"
+            project / "src" / "detahardlib" / "__init__.py", f"{major}.{minor}.{patch}"
         )
     elif parts[-2:] == ("legacy", "firmware"):
         bump_header(

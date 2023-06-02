@@ -1,5 +1,5 @@
 /*
- * This file is part of the Trezor project, https://trezor.io/
+ * This file is part of the detahard project, https://detahard.io/
  *
  * Copyright (C) 2014 Pavol Rusnak <stick@satoshilabs.com>
  *
@@ -34,12 +34,12 @@ const uint32_t FIRMWARE_MAGIC_NEW = 0x465a5254;  // TRZF
  *
  * - v1 - previously called "old" with TRZR magic header (no longer here)
  * - v2 - previously called "new" with TRZF magic header
- * - v3 - the latest scheme using Trezor's SignMessage and VerifyMessage
+ * - v3 - the latest scheme using detahard's SignMessage and VerifyMessage
  *   style signatures
  *
  * See `debug_signing/README.md` and the scripts there for signatures debug.
  *
- * Latest scheme v3 ref: https://github.com/trezor/trezor-firmware/issues/2513
+ * Latest scheme v3 ref: https://github.com/detahard/detahard-firmware/issues/2513
  */
 #define PUBKEYS_V3 3
 #define PUBKEYS_V2 5

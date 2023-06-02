@@ -1,5 +1,5 @@
 /*
- * This file is part of the Trezor project, https://trezor.io/
+ * This file is part of the detahard project, https://detahard.io/
  *
  * Copyright (c) SatoshiLabs
  *
@@ -17,8 +17,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef TREZORHAL_STM32_H
-#define TREZORHAL_STM32_H
+#ifndef detahardHAL_STM32_H
+#define detahardHAL_STM32_H
 
 #include STM32_HAL_H
 
@@ -30,4 +30,4 @@ typedef enum {
 
 void set_core_clock(clock_settings_t settings);
 
-#endif  // TREZORHAL_STM32_H
+#endif  // detahardHAL_STM32_H

@@ -4,7 +4,7 @@ use crate::{
     micropython::gc::Gc,
     storage::{get_avatar, get_avatar_len},
     time::{Duration, Instant},
-    trezorhal::usb::usb_configured,
+    detahardhal::usb::usb_configured,
     ui::{
         component::{Component, Event, EventCtx, Pad, TimerToken},
         display::{self, tjpgd::jpeg_info, toif::Icon, Color, Font},
@@ -15,7 +15,7 @@ use crate::{
 };
 
 use crate::{
-    trezorhal::{buffers::BufferJpegWork, display::ToifFormat, uzlib::UZLIB_WINDOW_SIZE},
+    detahardhal::{buffers::BufferJpegWork, display::ToifFormat, uzlib::UZLIB_WINDOW_SIZE},
     ui::{
         constant::HEIGHT,
         display::{tjpgd::BufferInput, toif::Toif},

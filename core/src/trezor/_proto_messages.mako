@@ -2,7 +2,7 @@
 # fmt: off
 # isort:skip_file
 
-from trezor import protobuf
+from detahard import protobuf
 
 from typing import Any, TYPE_CHECKING
 
@@ -17,7 +17,7 @@ def __getattr__(name: str) -> Any:
 if TYPE_CHECKING:
     from typing import TypeGuard
 % for enum in sorted(enums, key=lambda e: e.name):
-    from trezor.enums import ${enum.name}  # noqa: F401
+    from detahard.enums import ${enum.name}  # noqa: F401
 % endfor
 % for message in messages:
 

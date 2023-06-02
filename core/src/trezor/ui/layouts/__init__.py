@@ -1,4 +1,4 @@
-from trezor import utils
+from detahard import utils
 
 from .common import *  # noqa: F401,F403
 
@@ -9,4 +9,4 @@ if utils.MODEL in ("1", "R"):
 elif utils.MODEL in ("T",):
     from .tt_v2 import *  # noqa: F401,F403
 else:
-    raise ValueError("Unknown Trezor model")
+    raise ValueError("Unknown detahard model")

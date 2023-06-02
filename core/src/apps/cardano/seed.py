@@ -1,8 +1,8 @@
 from typing import TYPE_CHECKING
 
 from storage import cache, device
-from trezor import wire
-from trezor.crypto import cardano
+from detahard import wire
+from detahard.crypto import cardano
 
 from apps.common import mnemonic
 from apps.common.seed import get_seed
@@ -15,9 +15,9 @@ if TYPE_CHECKING:
     from apps.common.paths import Bip32Path
     from apps.common.keychain import MsgOut, Handler
 
-    from trezor import messages
-    from trezor.enums import CardanoDerivationType
-    from trezor.crypto import bip32
+    from detahard import messages
+    from detahard.enums import CardanoDerivationType
+    from detahard.crypto import bip32
 
     CardanoMessages = (
         messages.CardanoGetAddress
@@ -118,7 +118,7 @@ def derive_and_store_secrets(passphrase: str) -> None:
         # nothing to do for SLIP-39, where we can derive the root from the main seed
         return
 
-    icarus_secret = mnemonic.derive_cardano_icarus(passphrase, trezor_derivation=False)
+    icarus_secret = mnemonic.derive_cardano_icarus(passphrase, detahard_derivation=False)
 
     words = mnemonic.get_secret()
     assert words is not None, "Mnemonic is not set"
@@ -126,21 +126,21 @@ def derive_and_store_secrets(passphrase: str) -> None:
     words_count = sum(c == 0x20 for c in words) + 1
 
     if words_count == 24:
-        icarus_trezor_secret = mnemonic.derive_cardano_icarus(
-            passphrase, trezor_derivation=True
+        icarus_detahard_secret = mnemonic.derive_cardano_icarus(
+            passphrase, detahard_derivation=True
         )
     else:
-        icarus_trezor_secret = icarus_secret
+        icarus_detahard_secret = icarus_secret
 
     cache.set(cache.APP_CARDANO_ICARUS_SECRET, icarus_secret)
-    cache.set(cache.APP_CARDANO_ICARUS_TREZOR_SECRET, icarus_trezor_secret)
+    cache.set(cache.APP_CARDANO_ICARUS_detahard_SECRET, icarus_detahard_secret)
 
 
 async def _get_keychain_bip39(
     ctx: wire.Context, derivation_type: CardanoDerivationType
 ) -> Keychain:
     from apps.common.seed import derive_and_store_roots
-    from trezor.enums import CardanoDerivationType
+    from detahard.enums import CardanoDerivationType
 
     if not device.is_initialized():
         raise wire.NotInitialized("Device is not initialized")
@@ -155,7 +155,7 @@ async def _get_keychain_bip39(
     if derivation_type == CardanoDerivationType.ICARUS:
         cache_entry = cache.APP_CARDANO_ICARUS_SECRET
     else:
-        cache_entry = cache.APP_CARDANO_ICARUS_TREZOR_SECRET
+        cache_entry = cache.APP_CARDANO_ICARUS_detahard_SECRET
 
     # _get_secret
     secret = cache.get(cache_entry)

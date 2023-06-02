@@ -1,4 +1,4 @@
-# This file is part of the Trezor project.
+# This file is part of the detahard project.
 #
 # Copyright (C) 2012-2022 SatoshiLabs and contributors
 #
@@ -70,6 +70,6 @@ def enable_debug_output(
     if verbosity > 2:
         level = DUMP_PACKETS
 
-    logger = logging.getLogger("trezorlib")
+    logger = logging.getLogger("detahardlib")
     logger.setLevel(level)
     logger.addHandler(handler)

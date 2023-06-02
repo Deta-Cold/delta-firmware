@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 
-GH_USER="$GH_TREZOR_BOT"
+GH_USER="$GH_detahardrd_BOT"
 GH_TOKEN="$GH_TOKEN_COMMON_SYNC"
 
 # checkout to temporary branch
 git checkout -B tmp
 
-# setup trezor-common remote
-git remote add sync-common https://$GH_USER:$GH_TOKEN@github.com/trezor/trezor-common.git 2>/dev/null
+# setup detahardrd-common remote
+git remote add sync-common https://$GH_USER:$GH_TOKEN@github.com/detahardrdetahardhard-common.git 2>/dev/null
 
 # top commit in HEAD before monorepo was introduced
 TOP_COMMIT_IN_COMMON=893fd219d4a01bcffa0cd9cfa631856371ec5aa9
@@ -18,7 +18,7 @@ git filter-repo --refs $TOP_COMMIT_IN_COMMON..HEAD --subdirectory-filter=common/
 # filter out .gitrepo
 git filter-repo --refs $TOP_COMMIT_IN_COMMON..HEAD --path .gitrepo --invert-paths
 
-# push changes to trezor-common repository
+# push changes to detahardrd-common repository
 git push sync-common tmp:master
 
 # cleanup

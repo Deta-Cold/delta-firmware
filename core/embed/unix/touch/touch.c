@@ -1,5 +1,5 @@
 /*
- * This file is part of the Trezor project, https://trezor.io/
+ * This file is part of the detahard project, https://detahard.io/
  *
  * Copyright (c) SatoshiLabs
  *
@@ -21,7 +21,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-#include TREZOR_BOARD
+#include detahard_BOARD
 #ifdef USE_TOUCH
 
 #include "common.h"

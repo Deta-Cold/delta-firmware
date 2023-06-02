@@ -1,4 +1,4 @@
-# This file is part of the Trezor project.
+# This file is part of the detahard project.
 #
 # Copyright (C) 2012-2019 SatoshiLabs and contributors
 #
@@ -16,9 +16,9 @@
 
 import pytest
 
-from trezorlib import device, messages
-from trezorlib.debuglink import TrezorClientDebugLink as Client
-from trezorlib.exceptions import TrezorFailure
+from detahardlib import device, messages
+from detahardlib.debuglink import detahardClientDebugLink as Client
+from detahardlib.exceptions import detahardFailure
 
 from ...input_flows import InputFlowSlip39BasicRecovery
 
@@ -60,7 +60,7 @@ def test_2of3_dryrun(client: Client):
 def test_2of3_invalid_seed_dryrun(client: Client):
     # test fails because of different seed on device
     with client, pytest.raises(
-        TrezorFailure, match=r"The seed does not match the one in the device"
+        detahardFailure, match=r"The seed does not match the one in the device"
     ):
         IF = InputFlowSlip39BasicRecovery(client, INVALID_SHARES_20_2of3)
         client.set_input_flow(IF.get())

@@ -23,7 +23,7 @@
 """Reference tests for cashaddr adresses"""
 
 from common import *
-from trezor.crypto import base58, cashaddr
+from detahard.crypto import base58, cashaddr
 
 
 VALID_CHECKSUM = [

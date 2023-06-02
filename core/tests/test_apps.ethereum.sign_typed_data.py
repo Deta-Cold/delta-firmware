@@ -1,11 +1,11 @@
 from common import *
 
-from trezor import wire
-from trezor.messages import EthereumTypedDataStructAck as ETDSA
-from trezor.messages import EthereumStructMember as ESM
-from trezor.messages import EthereumFieldType as EFT
-from trezor.messages import EthereumTypedDataValueAck
-from trezor.enums import EthereumDataType as EDT
+from detahard import wire
+from detahard.messages import EthereumTypedDataStructAck as ETDSA
+from detahard.messages import EthereumStructMember as ESM
+from detahard.messages import EthereumFieldType as EFT
+from detahard.messages import EthereumTypedDataValueAck
+from detahard.enums import EthereumDataType as EDT
 
 
 if not utils.BITCOIN_ONLY:
@@ -42,7 +42,7 @@ class MockContext:
         return EthereumTypedDataValueAck(value=value)
 
 
-# Helper functions from trezorctl to build expected type data structures
+# Helper functions from detahardctl to build expected type data structures
 # TODO: it could be better to group these functions into a class, to visibly differentiate it
 def get_type_definitions(types: dict) -> dict:
     result = {}

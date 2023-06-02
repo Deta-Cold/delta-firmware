@@ -1,5 +1,5 @@
 /*
- * This file is part of the Trezor project, https://trezor.io/
+ * This file is part of the detahard project, https://detahard.io/
  *
  * Copyright (c) SatoshiLabs
  *
@@ -37,7 +37,7 @@
 
 #include "memzero.h"
 
-#ifdef TREZOR_EMULATOR
+#ifdef detahard_EMULATOR
 #include "emulator.h"
 #endif
 
@@ -288,7 +288,7 @@ static void send_msg_features(uint8_t iface_num,
                               const vendor_header *const vhdr,
                               const image_header *const hdr) {
   MSG_SEND_INIT(Features);
-  MSG_SEND_ASSIGN_STRING(vendor, "trezor.io");
+  MSG_SEND_ASSIGN_STRING(vendor, "detahard.io");
   MSG_SEND_ASSIGN_REQUIRED_VALUE(major_version, VERSION_MAJOR);
   MSG_SEND_ASSIGN_REQUIRED_VALUE(minor_version, VERSION_MINOR);
   MSG_SEND_ASSIGN_REQUIRED_VALUE(patch_version, VERSION_PATCH);

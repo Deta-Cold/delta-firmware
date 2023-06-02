@@ -3,44 +3,44 @@
 > This page was migrated from the old wiki, the content might be outdated.
 
 There are several libraries available which can be used to implement
-Trezor device functionalities.
+detahard device functionalities.
 
 ## SatoshiLabs libraries
 
-### Trezor Connect (Web)
+### detahard Connect (Web)
 
-<https://github.com/trezor/trezor-suite/tree/develop/packages/connect>
+<https://github.com/detahard/detahard-suite/tree/develop/packages/connect>
 
-### Python-trezor
+### Python-detahard
 
-<https://github.com/trezor/trezor-firmware/tree/master/python>
+<https://github.com/detahard/detahard-firmware/tree/master/python>
 
-<https://pypi.org/project/trezor/>
+<https://pypi.org/project/detahard/>
 
 ### Android
 
-<https://github.com/trezor/trezor-android>
+<https://github.com/detahard/detahard-android>
 
 ### Go
 
-<https://github.com/trezor/trezord-go>
+<https://github.com/detahard/detahardd-go>
 
 ## Third-party libraries
 
-Check these third-party libraries for Trezor device.
+Check these third-party libraries for detahard device.
 
 ### Java
 
-For Trezor-java library by Gary Rowe, see this GitHub [page][3].
+For detahard-java library by Gary Rowe, see this GitHub [page][3].
 
-### Trezor.Net
+### detahard.Net
 
-Trezor.Net supports Android, UWP, .NET Core and .NET Framework with
+detahard.Net supports Android, UWP, .NET Core and .NET Framework with
 Hid.Net. Support for other platforms can be added with the Hid.Net
 dependency injection. See this [page][4] or this GitHub [page][5].
 
-  [1]: https://github.com/trezor/trezor-firmware/tree/master/python
-  [trezor-android]: https://github.com/trezor/trezor-android
-  [3]: https://github.com/gary-rowe/trezor-java
-  [4]: https://www.nuget.org/packages/Trezor.Net/
-  [5]: https://github.com/MelbourneDeveloper/Trezor.Net
+  [1]: https://github.com/detahard/detahard-firmware/tree/master/python
+  [detahard-android]: https://github.com/detahard/detahard-android
+  [3]: https://github.com/gary-rowe/detahard-java
+  [4]: https://www.nuget.org/packages/detahard.Net/
+  [5]: https://github.com/MelbourneDeveloper/detahard.Net

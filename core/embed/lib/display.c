@@ -1,5 +1,5 @@
 /*
- * This file is part of the Trezor project, https://trezor.io/
+ * This file is part of the detahard project, https://detahard.io/
  *
  * Copyright (c) SatoshiLabs
  *
@@ -204,17 +204,17 @@ void display_text_render_buffer(const char *text, int textlen, int font,
       for (int j = 0; j < h; j++) {
         for (int i = 0; i < w; i++) {
           const int a = i + j * w;
-#if TREZOR_FONT_BPP == 1
+#if detahard_FONT_BPP == 1
           const uint8_t c = ((g[5 + a / 8] >> (7 - (a % 8) * 1)) & 0x01) * 15;
-#elif TREZOR_FONT_BPP == 2
+#elif detahard_FONT_BPP == 2
           const uint8_t c = ((g[5 + a / 4] >> (6 - (a % 4) * 2)) & 0x03) * 5;
-#elif TREZOR_FONT_BPP == 4
+#elif detahard_FONT_BPP == 4
           const uint8_t c = (g[5 + a / 2] >> (4 - (a % 2) * 4)) & 0x0F;
-#elif TREZOR_FONT_BPP == 8
-#error Rendering into buffer not supported when using TREZOR_FONT_BPP = 8
+#elif detahard_FONT_BPP == 8
+#error Rendering into buffer not supported when using detahard_FONT_BPP = 8
           // const uint8_t c = g[5 + a / 1] >> 4;
 #else
-#error Unsupported TREZOR_FONT_BPP value
+#error Unsupported detahard_FONT_BPP value
 #endif
 
           int x_pos = text_offset + i + x + bearX;
@@ -278,7 +278,7 @@ bool display_toif_info(const uint8_t *data, uint32_t len, uint16_t *out_w,
   return true;
 }
 
-#ifndef TREZOR_PRINT_DISABLE
+#ifndef detahard_PRINT_DISABLE
 
 #define DISPLAY_PRINT_COLS (DISPLAY_RESX / 6)
 #define DISPLAY_PRINT_ROWS (DISPLAY_RESY / 8)
@@ -361,7 +361,7 @@ void display_print(const char *text, int textlen) {
   display_refresh();
 }
 
-#ifdef TREZOR_EMULATOR
+#ifdef detahard_EMULATOR
 #define mini_vsnprintf vsnprintf
 #include <stdio.h>
 #else
@@ -382,7 +382,7 @@ void display_printf(const char *fmt, ...) {
   }
 }
 
-#endif  // TREZOR_PRINT_DISABLE
+#endif  // detahard_PRINT_DISABLE
 
 static void display_text_render(int x, int y, const char *text, int textlen,
                                 int font, uint16_t fgcolor, uint16_t bgcolor) {
@@ -414,16 +414,16 @@ static void display_text_render(int x, int y, const char *text, int textlen,
           const int rx = i - sx;
           const int ry = j - sy;
           const int a = rx + ry * w;
-#if TREZOR_FONT_BPP == 1
+#if detahard_FONT_BPP == 1
           const uint8_t c = ((g[5 + a / 8] >> (7 - (a % 8) * 1)) & 0x01) * 15;
-#elif TREZOR_FONT_BPP == 2
+#elif detahard_FONT_BPP == 2
           const uint8_t c = ((g[5 + a / 4] >> (6 - (a % 4) * 2)) & 0x03) * 5;
-#elif TREZOR_FONT_BPP == 4
+#elif detahard_FONT_BPP == 4
           const uint8_t c = (g[5 + a / 2] >> (4 - (a % 2) * 4)) & 0x0F;
-#elif TREZOR_FONT_BPP == 8
+#elif detahard_FONT_BPP == 8
           const uint8_t c = g[5 + a / 1] >> 4;
 #else
-#error Unsupported TREZOR_FONT_BPP value
+#error Unsupported detahard_FONT_BPP value
 #endif
           PIXELDATA(colortable[c]);
         }
@@ -512,7 +512,7 @@ int display_text_split(const char *text, int textlen, int font,
   return textlen;
 }
 
-#ifdef TREZOR_PRODTEST
+#ifdef detahard_PRODTEST
 
 #include "qr-code-generator/qrcodegen.h"
 #define QR_MAX_VERSION 9

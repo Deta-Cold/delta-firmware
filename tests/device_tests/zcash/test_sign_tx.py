@@ -1,4 +1,4 @@
-# This file is part of the Trezor project.
+# This file is part of the detahard project.
 #
 # Copyright (C) 2012-2019 SatoshiLabs and contributors
 #
@@ -16,10 +16,10 @@
 
 import pytest
 
-from trezorlib import btc, messages
-from trezorlib.debuglink import TrezorClientDebugLink as Client
-from trezorlib.exceptions import TrezorFailure
-from trezorlib.tools import parse_path
+from detahardlib import btc, messages
+from detahardlib.debuglink import detahardClientDebugLink as Client
+from detahardlib.exceptions import detahardFailure
+from detahardlib.tools import parse_path
 
 from ..bitcoin.signtx import request_finished, request_input, request_output
 
@@ -66,7 +66,7 @@ def test_version_group_id_missing(client: Client):
         script_type=messages.OutputScriptType.PAYTOADDRESS,
     )
 
-    with pytest.raises(TrezorFailure, match="Version group ID must be set."):
+    with pytest.raises(detahardFailure, match="Version group ID must be set."):
         btc.sign_tx(
             client,
             "Zcash Testnet",
@@ -439,7 +439,7 @@ def test_refuse_replacement_tx(client: Client):
     )
 
     with pytest.raises(
-        TrezorFailure, match="Replacement transactions are not supported."
+        detahardFailure, match="Replacement transactions are not supported."
     ):
         btc.sign_tx(
             client,

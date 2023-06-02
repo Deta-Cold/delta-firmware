@@ -1,13 +1,13 @@
 from typing import TYPE_CHECKING
 
-from trezor.enums import ButtonRequestType
-from trezor.strings import format_amount
-from trezor.ui.layouts import confirm_metadata
+from detahard.enums import ButtonRequestType
+from detahard.strings import format_amount
+from detahard.ui.layouts import confirm_metadata
 
 from .helpers import NEM_MAX_DIVISIBILITY
 
 if TYPE_CHECKING:
-    from trezor.wire import Context
+    from detahard.wire import Context
 
 
 async def require_confirm_text(ctx: Context, action: str) -> None:
@@ -32,7 +32,7 @@ async def require_confirm_fee(ctx: Context, action: str, fee: int) -> None:
 
 
 async def require_confirm_content(ctx: Context, headline: str, content: list) -> None:
-    from trezor.ui.layouts import confirm_properties
+    from detahard.ui.layouts import confirm_properties
 
     await confirm_properties(
         ctx,

@@ -1,4 +1,4 @@
-# This file is part of the Trezor project.
+# This file is part of the detahard project.
 #
 # Copyright (C) 2012-2019 SatoshiLabs and contributors
 #
@@ -16,10 +16,10 @@
 
 import pytest
 
-from trezorlib import btc, messages
-from trezorlib.debuglink import TrezorClientDebugLink as Client
-from trezorlib.exceptions import TrezorFailure
-from trezorlib.tools import parse_path
+from detahardlib import btc, messages
+from detahardlib.debuglink import detahardClientDebugLink as Client
+from detahardlib.exceptions import detahardFailure
+from detahardlib.tools import parse_path
 
 from ...tx_cache import TxCache
 
@@ -79,7 +79,7 @@ def test_timestamp_missing(client: Client):
         script_type=messages.OutputScriptType.PAYTOADDRESS,
     )
 
-    with pytest.raises(TrezorFailure, match="Timestamp must be set."):
+    with pytest.raises(detahardFailure, match="Timestamp must be set."):
         btc.sign_tx(
             client,
             "Peercoin",
@@ -90,7 +90,7 @@ def test_timestamp_missing(client: Client):
             prev_txes=TX_CACHE,
         )
 
-    with pytest.raises(TrezorFailure, match="Timestamp must be set."):
+    with pytest.raises(detahardFailure, match="Timestamp must be set."):
         btc.sign_tx(
             client,
             "Peercoin",
@@ -120,7 +120,7 @@ def test_timestamp_missing_prevtx(client: Client):
     prevtx = TX_CACHE[TXHASH_41b29a]
     prevtx.timestamp = 0
 
-    with pytest.raises(TrezorFailure, match="Timestamp must be set."):
+    with pytest.raises(detahardFailure, match="Timestamp must be set."):
         btc.sign_tx(
             client,
             "Peercoin",
@@ -132,7 +132,7 @@ def test_timestamp_missing_prevtx(client: Client):
         )
 
     prevtx.timestamp = None
-    with pytest.raises(TrezorFailure, match="Timestamp must be set."):
+    with pytest.raises(detahardFailure, match="Timestamp must be set."):
         btc.sign_tx(
             client,
             "Peercoin",

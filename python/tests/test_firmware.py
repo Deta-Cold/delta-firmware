@@ -4,8 +4,8 @@ import construct
 import pytest
 import requests
 
-from trezorlib import firmware
-from trezorlib.firmware import (
+from detahardlib import firmware
+from detahardlib.firmware import (
     VendorFirmware,
     LegacyFirmware,
     LegacyV2Firmware,
@@ -19,8 +19,8 @@ LEGACY_FW_FINGERPRINT = (
     "bf0cc936a9afbf0a4ae7b727a2817fb69fba432d7230a0ff7b79b4a73b845197"
 )
 
-CORE_FW = f"https://data.trezor.io/firmware/2/trezor-{CORE_FW_VERSION}.bin"
-LEGACY_FW = f"https://data.trezor.io/firmware/1/trezor-{LEGACY_FW_VERSION}.bin"
+CORE_FW = f"https://data.detahard.io/firmware/2/detahard-{CORE_FW_VERSION}.bin"
+LEGACY_FW = f"https://data.detahard.io/firmware/1/detahard-{LEGACY_FW_VERSION}.bin"
 
 HERE = Path(__file__).parent
 
@@ -34,7 +34,7 @@ VENDOR_HEADER = (
 
 
 def _fetch(url: str, version: str) -> bytes:
-    path = HERE / f"trezor-{version}.bin"
+    path = HERE / f"detahard-{version}.bin"
     if not path.exists():
         r = requests.get(url)
         r.raise_for_status()

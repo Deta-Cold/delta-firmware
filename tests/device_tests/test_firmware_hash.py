@@ -2,8 +2,8 @@ from hashlib import blake2s
 
 import pytest
 
-from trezorlib import firmware
-from trezorlib.debuglink import TrezorClientDebugLink as Client
+from detahardlib import firmware
+from detahardlib.debuglink import detahardClientDebugLink as Client
 
 FIRMWARE_LENGTHS = {
     "1": 7 * 128 * 1024 + 64 * 1024,
@@ -21,7 +21,7 @@ def test_firmware_hash_emu(client: Client) -> None:
     hash = firmware.get_hash(client, None)
     assert hash == expected_hash
 
-    challenge = b"Hello Trezor"
+    challenge = b"Hello detahard"
     expected_hash = blake2s(data, key=challenge).digest()
     hash = firmware.get_hash(client, challenge)
     assert hash == expected_hash
@@ -32,7 +32,7 @@ def test_firmware_hash_hw(client: Client) -> None:
         pytest.skip("Only for hardware")
 
     # TODO get firmware image from outside the environment, check for actual result
-    challenge = b"Hello Trezor"
+    challenge = b"Hello detahard"
     empty_data = b"\xff" * FIRMWARE_LENGTHS[client.features.model]
     empty_hash = blake2s(empty_data).digest()
     empty_hash_challenge = blake2s(empty_data, key=challenge).digest()

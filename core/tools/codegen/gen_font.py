@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-# script used to generate /embed/extmod/modtrezorui/font_*_*.c
+# script used to generate /embed/extmod/moddetahardui/font_*_*.c
 
 from __future__ import annotations
 
@@ -195,8 +195,8 @@ def process_face(
 
     with open("font_%s.h" % fontname, "wt") as f:
         f.write("#include <stdint.h>\n\n")
-        f.write("#if TREZOR_FONT_BPP != %d\n" % bpp)
-        f.write("#error Wrong TREZOR_FONT_BPP (expected %d)\n" % bpp)
+        f.write("#if detahard_FONT_BPP != %d\n" % bpp)
+        f.write("#error Wrong detahard_FONT_BPP (expected %d)\n" % bpp)
         f.write("#endif\n")
 
         f.write("#define Font_%s_%s_%d_HEIGHT %d\n" % (name, style, size, size))

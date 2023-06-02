@@ -2,11 +2,11 @@ import utime
 from typing import TYPE_CHECKING
 
 import storage.cache as storage_cache
-from trezor import config, utils, wire
+from detahard import config, utils, wire
 
 if TYPE_CHECKING:
     from typing import Any, NoReturn
-    from trezor.wire import Context, GenericContext
+    from detahard.wire import Context, GenericContext
 
 
 async def _request_sd_salt(
@@ -48,13 +48,13 @@ async def request_pin(
     attempts_remaining: int | None = None,
     allow_cancel: bool = True,
 ) -> str:
-    from trezor.ui.layouts import request_pin_on_device
+    from detahard.ui.layouts import request_pin_on_device
 
     return await request_pin_on_device(ctx, prompt, attempts_remaining, allow_cancel)
 
 
 async def request_pin_confirm(ctx: Context, *args: Any, **kwargs: Any) -> str:
-    from trezor.ui.layouts import pin_mismatch_popup
+    from detahard.ui.layouts import pin_mismatch_popup
 
     while True:
         pin1 = await request_pin(ctx, "Enter new PIN", *args, **kwargs)
@@ -104,7 +104,7 @@ async def verify_user_pin(
         return
 
     if config.has_pin():
-        from trezor.ui.layouts import request_pin_on_device
+        from detahard.ui.layouts import request_pin_on_device
 
         pin = await request_pin_on_device(
             ctx, prompt, config.get_pin_rem(), allow_cancel
@@ -132,7 +132,7 @@ async def verify_user_pin(
 
 
 async def error_pin_invalid(ctx: Context) -> NoReturn:
-    from trezor.ui.layouts import show_error_and_raise
+    from detahard.ui.layouts import show_error_and_raise
 
     await show_error_and_raise(
         ctx,
@@ -145,7 +145,7 @@ async def error_pin_invalid(ctx: Context) -> NoReturn:
 
 
 async def error_pin_matches_wipe_code(ctx: Context) -> NoReturn:
-    from trezor.ui.layouts import show_error_and_raise
+    from detahard.ui.layouts import show_error_and_raise
 
     await show_error_and_raise(
         ctx,

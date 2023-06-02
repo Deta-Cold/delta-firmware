@@ -2,8 +2,8 @@ import utime
 from typing import TYPE_CHECKING
 
 import storage.cache
-from trezor import log, loop
-from trezor.enums import MessageType
+from detahard import log, loop
+from detahard.enums import MessageType
 
 if TYPE_CHECKING:
     from typing import Callable
@@ -15,7 +15,7 @@ if __debug__:
 
     import micropython
 
-    from trezor import utils
+    from detahard import utils
 
 
 ALLOW_WHILE_LOCKED = (

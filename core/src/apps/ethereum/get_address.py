@@ -3,8 +3,8 @@ from typing import TYPE_CHECKING
 from .keychain import PATTERNS_ADDRESS, with_keychain_from_path
 
 if TYPE_CHECKING:
-    from trezor.messages import EthereumGetAddress, EthereumAddress
-    from trezor.wire import Context
+    from detahard.messages import EthereumGetAddress, EthereumAddress
+    from detahard.wire import Context
 
     from apps.common.keychain import Keychain
     from .definitions import Definitions
@@ -17,8 +17,8 @@ async def get_address(
     keychain: Keychain,
     defs: Definitions,
 ) -> EthereumAddress:
-    from trezor.messages import EthereumAddress
-    from trezor.ui.layouts import show_address
+    from detahard.messages import EthereumAddress
+    from detahard.ui.layouts import show_address
     from apps.common import paths
     from .helpers import address_from_bytes
 

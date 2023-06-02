@@ -12,8 +12,8 @@ from micropython import const
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from trezor.messages import RippleSignTx
-    from trezor.utils import Writer
+    from detahard.messages import RippleSignTx
+    from detahard.utils import Writer
 
 
 _FIELD_TYPE_INT16 = const(1)

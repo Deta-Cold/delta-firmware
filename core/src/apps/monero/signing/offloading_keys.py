@@ -4,7 +4,7 @@ from typing import TYPE_CHECKING
 from apps.monero.xmr.crypto_helpers import compute_hmac
 
 if TYPE_CHECKING:
-    from trezor.messages import (
+    from detahard.messages import (
         MoneroTransactionDestinationEntry,
         MoneroTransactionSourceEntry,
     )
@@ -25,7 +25,7 @@ def _build_key(
     """
     Creates an unique-purpose key
     """
-    from trezor import utils
+    from detahard import utils
     from apps.monero.xmr import crypto_helpers
 
     key_buff = _BUILD_KEY_BUFFER
@@ -114,7 +114,7 @@ def gen_hmac_vini(
     used only once and hard to check. I.e., indices in step 2
     are uncheckable, decoy keys in step 9 are just random keys.
     """
-    from trezor import protobuf
+    from detahard import protobuf
     from apps.monero.xmr.keccak_hasher import get_keccak_writer
 
     kwriter = get_keccak_writer()
@@ -142,7 +142,7 @@ def gen_hmac_vouti(
     """
     Generates HMAC for (TxDestinationEntry[i] || tx.vout[i])
     """
-    from trezor import protobuf
+    from detahard import protobuf
     from apps.monero.xmr.keccak_hasher import get_keccak_writer
 
     kwriter = get_keccak_writer()
@@ -160,7 +160,7 @@ def gen_hmac_tsxdest(
     """
     Generates HMAC for TxDestinationEntry[i]
     """
-    from trezor import protobuf
+    from detahard import protobuf
     from apps.monero.xmr.keccak_hasher import get_keccak_writer
 
     kwriter = get_keccak_writer()

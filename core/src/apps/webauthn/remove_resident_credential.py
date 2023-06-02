@@ -1,8 +1,8 @@
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from trezor.messages import WebAuthnRemoveResidentCredential, Success
-    from trezor.wire import Context
+    from detahard.messages import WebAuthnRemoveResidentCredential, Success
+    from detahard.wire import Context
 
 
 async def remove_resident_credential(
@@ -10,9 +10,9 @@ async def remove_resident_credential(
 ) -> Success:
     import storage.device
     import storage.resident_credentials
-    from trezor import wire
-    from trezor.messages import Success
-    from trezor.ui.layouts.fido import confirm_fido
+    from detahard import wire
+    from detahard.messages import Success
+    from detahard.ui.layouts.fido import confirm_fido
     from .resident_credentials import get_resident_credential
 
     if not storage.device.is_initialized():

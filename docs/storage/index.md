@@ -1,6 +1,6 @@
-# Trezor Storage
+# detahard Storage
 
-The `storage` folder contains the implementation of Trezor's internal storage, which is common for both Legacy (Trezor One) and Core (Trezor T). This README also contains a detailed description of the cryptographic design.
+The `storage` folder contains the implementation of detahard's internal storage, which is common for both Legacy (detahard One) and Core (detahard T). This README also contains a detailed description of the cryptographic design.
 
 All tests are located in the `tests` subdirectory, which also includes a Python implementation to run tests against this C production version and the Python one.
 
@@ -118,12 +118,12 @@ where `⨁` denotes the n-ary bitwise XOR operation and KEY<sub><i>i</i></sub> |
 
 - The reason why we use a separate data encryption key rather than using the output of PBKDF2 directly to encrypt the sensitive entries is so that when the user decides to change their PIN, only the EDEK needs to be reencrypted, but the remaining entries do not need to be updated.
 
-- We use ChaCha20 for encryption, because as a stream cipher it has no padding overhead and its implementation is readily available in trezor-crypto. A possible alternative to using ChaCha20Poly1305 for DEK encryption is to use AES-CTR with HMAC in an encrypt-then-MAC scheme. A possible alternative to using ChaCha20 for encryption of other data entries is to use AES-XTS (XEX-based tweaked-codebook mode with ciphertext stealing), which was designed specifically for disk-encryption. The APP || KEY value would be used as the tweak.
+- We use ChaCha20 for encryption, because as a stream cipher it has no padding overhead and its implementation is readily available in detahard-crypto. A possible alternative to using ChaCha20Poly1305 for DEK encryption is to use AES-CTR with HMAC in an encrypt-then-MAC scheme. A possible alternative to using ChaCha20 for encryption of other data entries is to use AES-XTS (XEX-based tweaked-codebook mode with ciphertext stealing), which was designed specifically for disk-encryption. The APP || KEY value would be used as the tweak.
   - Advantages of AES-XTS:
     - Does not require an initialization vector.
     - Ensures better diffusion than a stream cipher, which eliminates the above concerns about malleability and fault injection attacks.
   - Disadvantages of AES-XTS:
-    - Not implemented in trezor-crypto.
+    - Not implemented in detahard-crypto.
     - Requires two keys of length at least 128 bits.
 
 - The 64 bit PVC means that there is less than a 1 in 10<sup>19</sup> chance that a wrong PIN will happen to have the same PVC as the correct PIN. The existence of false PINs does not pose a security weakness since a false PIN cannot be used to decrypt the protected entries.

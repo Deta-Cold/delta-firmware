@@ -1,5 +1,5 @@
 /**
- * This file is part of the TREZOR project, https://trezor.io/
+ * This file is part of the detahard project, https://detahard.io/
  *
  * Copyright (c) SatoshiLabs
  *

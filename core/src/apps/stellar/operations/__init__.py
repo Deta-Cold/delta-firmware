@@ -1,8 +1,8 @@
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from trezor.utils import Writer
-    from trezor.wire import Context
+    from detahard.utils import Writer
+    from detahard.wire import Context
     from consts import StellarMessageType
 
 
@@ -11,7 +11,7 @@ async def process_operation(ctx: Context, w: Writer, op: StellarMessageType) -> 
     # (probably because the local lookup is more efficient than a global lookup)
 
     # Saves about 75 bytes here, to have just one import instead of 13
-    import trezor.messages as messages
+    import detahard.messages as messages
 
     from .. import consts, writers
     from . import layout, serialize

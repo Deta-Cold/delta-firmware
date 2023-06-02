@@ -1,4 +1,4 @@
-# This file is part of the Trezor project.
+# This file is part of the detahard project.
 #
 # Copyright (C) 2012-2022 SatoshiLabs and contributors
 #
@@ -21,7 +21,7 @@ from . import exceptions, messages
 from .tools import b58decode, expect, session
 
 if TYPE_CHECKING:
-    from .client import TrezorClient
+    from .client import detahardClient
     from .tools import Address
     from .protobuf import MessageType
 
@@ -321,7 +321,7 @@ def parse_transaction_json(
 
 @expect(messages.EosPublicKey)
 def get_public_key(
-    client: "TrezorClient", n: "Address", show_display: bool = False
+    client: "detahardClient", n: "Address", show_display: bool = False
 ) -> "MessageType":
     response = client.call(
         messages.EosGetPublicKey(address_n=n, show_display=show_display)
@@ -331,7 +331,7 @@ def get_public_key(
 
 @session
 def sign_tx(
-    client: "TrezorClient", address: "Address", transaction: dict, chain_id: str
+    client: "detahardClient", address: "Address", transaction: dict, chain_id: str
 ) -> messages.EosSignedTx:
     header, actions = parse_transaction_json(transaction)
 
@@ -349,12 +349,12 @@ def sign_tx(
             response = client.call(actions.pop(0))
     except IndexError:
         # pop from empty list
-        raise exceptions.TrezorException(
+        raise exceptions.detahardException(
             "Reached end of operations without a signature."
         ) from None
 
     if not isinstance(response, messages.EosSignedTx):
-        raise exceptions.TrezorException(
+        raise exceptions.detahardException(
             f"Unexpected message: {response.__class__.__name__}"
         )
 

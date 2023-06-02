@@ -1,5 +1,5 @@
 from common import *
-from trezor.crypto import slip39, random
+from detahard.crypto import slip39, random
 from slip39_vectors import vectors
 
 
@@ -148,7 +148,7 @@ class TestCryptoSlip39(unittest.TestCase):
         for mnemonics, secret in vectors:
             if secret:
                 identifier, exponent, ems = slip39.recover_ems(mnemonics)
-                self.assertEqual(slip39.decrypt(ems, b"TREZOR", exponent, identifier), unhexlify(secret))
+                self.assertEqual(slip39.decrypt(ems, b"detahard", exponent, identifier), unhexlify(secret))
             else:
                 with self.assertRaises(slip39.MnemonicError):
                     slip39.recover_ems(mnemonics)

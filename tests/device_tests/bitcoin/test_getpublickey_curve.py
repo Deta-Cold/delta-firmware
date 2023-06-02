@@ -1,4 +1,4 @@
-# This file is part of the Trezor project.
+# This file is part of the detahard project.
 #
 # Copyright (C) 2012-2019 SatoshiLabs and contributors
 #
@@ -16,10 +16,10 @@
 
 import pytest
 
-from trezorlib import btc
-from trezorlib.debuglink import TrezorClientDebugLink as Client
-from trezorlib.exceptions import TrezorFailure
-from trezorlib.tools import parse_path
+from detahardlib import btc
+from detahardlib.debuglink import detahardClientDebugLink as Client
+from detahardlib.exceptions import detahardFailure
+from detahardlib.tools import parse_path
 
 PATH_PRIVATE = parse_path("m/17h/0h/1h/2h/3h")
 PATH_PUBLIC = parse_path("m/17h/0h/1h/2h/3h/42")
@@ -60,14 +60,14 @@ def test_publickey_curve(client: Client, curve, path, pubkey):
 
 
 def test_ed25519_public(client: Client):
-    with pytest.raises(TrezorFailure):
+    with pytest.raises(detahardFailure):
         btc.get_public_node(client, PATH_PUBLIC, ecdsa_curve_name="ed25519")
 
 
 @pytest.mark.xfail(reason="Currently path validation on get_public_node is disabled.")
 def test_coin_and_curve(client: Client):
     with pytest.raises(
-        TrezorFailure, match="Cannot use coin_name or script_type with ecdsa_curve_name"
+        detahardFailure, match="Cannot use coin_name or script_type with ecdsa_curve_name"
     ):
         btc.get_public_node(
             client, PATH_PRIVATE, coin_name="Bitcoin", ecdsa_curve_name="ed25519"

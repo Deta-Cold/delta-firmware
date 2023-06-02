@@ -1,7 +1,7 @@
 from typing import *
 
 
-# extmod/modtrezorutils/modtrezorutils-meminfo.h
+# extmod/moddetahardutils/moddetahardutils-meminfo.h
 def meminfo(filename: str) -> None:
     """Dumps map of micropython GC arena to a file.
     The JSON file can be decoded by analyze.py
@@ -9,7 +9,7 @@ def meminfo(filename: str) -> None:
      """
 
 
-# extmod/modtrezorutils/modtrezorutils.c
+# extmod/moddetahardutils/moddetahardutils.c
 def consteq(sec: bytes, pub: bytes) -> bool:
     """
     Compares the private information in `sec` with public, user-provided
@@ -19,7 +19,7 @@ def consteq(sec: bytes, pub: bytes) -> bool:
     """
 
 
-# extmod/modtrezorutils/modtrezorutils.c
+# extmod/moddetahardutils/moddetahardutils.c
 def memcpy(
     dst: bytearray | memoryview,
     dst_ofs: int,
@@ -35,14 +35,14 @@ def memcpy(
     """
 
 
-# extmod/modtrezorutils/modtrezorutils.c
+# extmod/moddetahardutils/moddetahardutils.c
 def halt(msg: str | None = None) -> None:
     """
     Halts execution.
     """
 
 
-# extmod/modtrezorutils/modtrezorutils.c
+# extmod/moddetahardutils/moddetahardutils.c
 def firmware_hash(
     challenge: bytes | None = None,
     callback: Callable[[int, int], None] | None = None,
@@ -53,14 +53,14 @@ def firmware_hash(
     """
 
 
-# extmod/modtrezorutils/modtrezorutils.c
+# extmod/moddetahardutils/moddetahardutils.c
 def firmware_vendor() -> str:
     """
     Returns the firmware vendor string from the vendor header.
     """
 
 
-# extmod/modtrezorutils/modtrezorutils.c
+# extmod/moddetahardutils/moddetahardutils.c
 def reboot_to_bootloader() -> None:
     """
     Reboots to bootloader.

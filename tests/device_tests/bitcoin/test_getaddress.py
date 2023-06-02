@@ -1,4 +1,4 @@
-# This file is part of the Trezor project.
+# This file is part of the detahard project.
 #
 # Copyright (C) 2012-2019 SatoshiLabs and contributors
 #
@@ -16,11 +16,11 @@
 
 import pytest
 
-from trezorlib import btc, device, messages
-from trezorlib.debuglink import TrezorClientDebugLink as Client
-from trezorlib.exceptions import TrezorFailure
-from trezorlib.messages import SafetyCheckLevel
-from trezorlib.tools import parse_path
+from detahardlib import btc, device, messages
+from detahardlib.debuglink import detahardClientDebugLink as Client
+from detahardlib.exceptions import detahardFailure
+from detahardlib.messages import SafetyCheckLevel
+from detahardlib.tools import parse_path
 
 from ... import bip32
 
@@ -254,7 +254,7 @@ def test_multisig_missing(client: Client, show_display):
     )
 
     for multisig in (multisig1, multisig2):
-        with pytest.raises(TrezorFailure):
+        with pytest.raises(detahardFailure):
             btc.get_address(
                 client,
                 "Bitcoin",
@@ -313,7 +313,7 @@ def test_public_ckd(client: Client):
 
 
 def test_invalid_path(client: Client):
-    with pytest.raises(TrezorFailure, match="Forbidden key path"):
+    with pytest.raises(detahardFailure, match="Forbidden key path"):
         # slip44 id mismatch
         btc.get_address(
             client, "Bitcoin", parse_path("m/44h/111h/0h/0/0"), show_display=True
@@ -325,7 +325,7 @@ def test_unknown_path(client: Client):
     with client:
         client.set_expected_responses([messages.Failure])
 
-        with pytest.raises(TrezorFailure, match="Forbidden key path"):
+        with pytest.raises(detahardFailure, match="Forbidden key path"):
             # account number is too high
             btc.get_address(client, "Bitcoin", UNKNOWN_PATH, show_display=True)
 

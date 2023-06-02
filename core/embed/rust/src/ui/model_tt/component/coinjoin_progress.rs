@@ -43,7 +43,7 @@ where
         T: AsRef<str>,
     {
         let style = theme::label_coinjoin_progress();
-        let label = Label::centered("DO NOT DISCONNECT YOUR TREZOR!", style)
+        let label = Label::centered("DO NOT DISCONNECT YOUR detahard!", style)
             .vertically_aligned(Alignment::Center);
         let bg = painter::rect_painter(style.background_color, theme::BG);
         let inner = (bg, label);

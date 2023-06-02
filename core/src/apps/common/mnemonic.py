@@ -1,11 +1,11 @@
 from typing import TYPE_CHECKING
 
 import storage.device as storage_device
-from trezor import utils
+from detahard import utils
 
 if TYPE_CHECKING:
-    from trezor.enums import BackupType
-    from trezor.ui.layouts.common import ProgressLayout
+    from detahard.enums import BackupType
+    from detahard.ui.layouts.common import ProgressLayout
 
 
 def get() -> tuple[bytes | None, BackupType]:
@@ -25,7 +25,7 @@ def is_bip39() -> bool:
     If False then SLIP-39 (either Basic or Advanced).
     Other invalid values are checked directly in storage.
     """
-    from trezor.enums import BackupType
+    from detahard.enums import BackupType
 
     return get_type() == BackupType.Bip39
 
@@ -41,12 +41,12 @@ def get_seed(passphrase: str = "", progress_bar: bool = True) -> bytes:
         render_func = _render_progress
 
     if is_bip39():
-        from trezor.crypto import bip39
+        from detahard.crypto import bip39
 
         seed = bip39.seed(mnemonic_secret.decode(), passphrase, render_func)
 
     else:  # SLIP-39
-        from trezor.crypto import slip39
+        from detahard.crypto import slip39
 
         identifier = storage_device.get_slip39_identifier()
         iteration_exponent = storage_device.get_slip39_iteration_exponent()
@@ -68,7 +68,7 @@ if not utils.BITCOIN_ONLY:
 
     def derive_cardano_icarus(
         passphrase: str = "",
-        trezor_derivation: bool = True,
+        detahard_derivation: bool = True,
         progress_bar: bool = True,
     ) -> bytes:
         if not is_bip39():
@@ -83,10 +83,10 @@ if not utils.BITCOIN_ONLY:
             _start_progress()
             render_func = _render_progress
 
-        from trezor.crypto import cardano
+        from detahard.crypto import cardano
 
         seed = cardano.derive_icarus(
-            mnemonic_secret.decode(), passphrase, trezor_derivation, render_func
+            mnemonic_secret.decode(), passphrase, detahard_derivation, render_func
         )
         _finish_progress()
         return seed
@@ -96,8 +96,8 @@ _progress_obj: ProgressLayout | None = None
 
 
 def _start_progress() -> None:
-    from trezor import workflow
-    from trezor.ui.layouts.progress import progress
+    from detahard import workflow
+    from detahard.ui.layouts.progress import progress
 
     global _progress_obj
 

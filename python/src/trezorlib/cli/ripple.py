@@ -1,4 +1,4 @@
-# This file is part of the Trezor project.
+# This file is part of the detahard project.
 #
 # Copyright (C) 2012-2022 SatoshiLabs and contributors
 #
@@ -23,7 +23,7 @@ from .. import ripple, tools
 from . import with_client
 
 if TYPE_CHECKING:
-    from ..client import TrezorClient
+    from ..client import detahardClient
 
 PATH_HELP = "BIP-32 path to key, e.g. m/44'/144'/0'/0/0"
 
@@ -37,7 +37,7 @@ def cli() -> None:
 @click.option("-n", "--address", required=True, help=PATH_HELP)
 @click.option("-d", "--show-display", is_flag=True)
 @with_client
-def get_address(client: "TrezorClient", address: str, show_display: bool) -> str:
+def get_address(client: "detahardClient", address: str, show_display: bool) -> str:
     """Get Ripple address"""
     address_n = tools.parse_path(address)
     return ripple.get_address(client, address_n, show_display)
@@ -48,7 +48,7 @@ def get_address(client: "TrezorClient", address: str, show_display: bool) -> str
 @click.option("-n", "--address", required=True, help=PATH_HELP)
 @click.option("-f", "--file", "_ignore", is_flag=True, hidden=True, expose_value=False)
 @with_client
-def sign_tx(client: "TrezorClient", address: str, file: TextIO) -> None:
+def sign_tx(client: "detahardClient", address: str, file: TextIO) -> None:
     """Sign Ripple transaction"""
     address_n = tools.parse_path(address)
     msg = ripple.create_sign_tx_msg(json.load(file))

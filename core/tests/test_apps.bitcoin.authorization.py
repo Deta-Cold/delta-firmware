@@ -1,10 +1,10 @@
 from common import unittest, H_
 
 import storage.cache
-from trezor.messages import AuthorizeCoinJoin
-from trezor.messages import GetOwnershipProof
-from trezor.messages import SignTx
-from trezor.enums import InputScriptType
+from detahard.messages import AuthorizeCoinJoin
+from detahard.messages import GetOwnershipProof
+from detahard.messages import SignTx
+from detahard.enums import InputScriptType
 
 from apps.common import coins
 from apps.bitcoin.authorization import CoinJoinAuthorization

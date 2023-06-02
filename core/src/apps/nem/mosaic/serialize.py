@@ -8,12 +8,12 @@ from ..writers import (
 )
 
 if TYPE_CHECKING:
-    from trezor.messages import (
+    from detahard.messages import (
         NEMMosaicCreation,
         NEMMosaicSupplyChange,
         NEMTransactionCommon,
     )
-    from trezor.utils import Writer
+    from detahard.utils import Writer
 
 
 def serialize_mosaic_creation(

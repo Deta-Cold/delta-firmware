@@ -1,6 +1,6 @@
 from common import *
 
-from trezor.crypto import hashlib
+from detahard.crypto import hashlib
 
 
 class TestCryptoSha3_512(unittest.TestCase):

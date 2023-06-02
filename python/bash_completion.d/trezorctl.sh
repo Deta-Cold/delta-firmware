@@ -1,21 +1,21 @@
-_trezorctl()
+_detahardctl()
 {
-    export TREZORCTL_COMPLETION_CACHE
+    export detahardCTL_COMPLETION_CACHE
     local cur prev cmds base
 
     COMPREPLY=()
     cur="${COMP_WORDS[COMP_CWORD]}"
     prev="${COMP_WORDS[COMP_CWORD-1]}"
 
-    if [ -z "$TREZORCTL_COMPLETION_CACHE" ]; then
-        help_output=$(trezorctl --help | grep '^  [a-z]' | awk '{ print $1 }')
-        export TREZORCTL_COMPLETION_CACHE="$help_output"
+    if [ -z "$detahardCTL_COMPLETION_CACHE" ]; then
+        help_output=$(detahardctl --help | grep '^  [a-z]' | awk '{ print $1 }')
+        export detahardCTL_COMPLETION_CACHE="$help_output"
     fi
 
-    cmds="$TREZORCTL_COMPLETION_CACHE"
+    cmds="$detahardCTL_COMPLETION_CACHE"
 
     COMPREPLY=($(compgen -W "${cmds}" -- ${cur}))
     return 0
 }
 
-complete -F _trezorctl trezorctl
+complete -F _detahardctl detahardctl

@@ -1,4 +1,4 @@
-# This file is part of the Trezor project.
+# This file is part of the detahard project.
 #
 # Copyright (C) 2012-2019 SatoshiLabs and contributors
 #
@@ -19,9 +19,9 @@ from typing import TYPE_CHECKING, List, Optional
 
 import pytest
 
-from trezorlib import btc, debuglink, device, exceptions, fido, models
-from trezorlib.messages import BackupType
-from trezorlib.tools import H_
+from detahardlib import btc, debuglink, device, exceptions, fido, models
+from detahardlib.messages import BackupType
+from detahardlib.tools import H_
 
 from ..click_tests import recovery
 from ..common import MNEMONIC_SLIP39_BASIC_20_3of6, MNEMONIC_SLIP39_BASIC_20_3of6_SECRET
@@ -30,11 +30,11 @@ from ..emulators import ALL_TAGS, EmulatorWrapper
 from . import for_all, for_tags
 
 if TYPE_CHECKING:
-    from trezorlib.debuglink import TrezorClientDebugLink as Client
+    from detahardlib.debuglink import detahardClientDebugLink as Client
 
-models.TREZOR_ONE = dataclasses.replace(models.TREZOR_ONE, minimum_version=(1, 0, 0))
-models.TREZOR_T = dataclasses.replace(models.TREZOR_T, minimum_version=(2, 0, 0))
-models.TREZORS = {models.TREZOR_ONE, models.TREZOR_T}
+models.detahard_ONE = dataclasses.replace(models.detahard_ONE, minimum_version=(1, 0, 0))
+models.detahard_T = dataclasses.replace(models.detahard_T, minimum_version=(2, 0, 0))
+models.detahardS = {models.detahard_ONE, models.detahard_T}
 
 # **** COMMON DEFINITIONS ****
 
@@ -190,7 +190,7 @@ def test_upgrade_wipe_code(gen: str, tag: str):
         # Check that wipe code is set by changing the PIN to it.
         emu.client.use_pin_sequence([PIN, WIPE_CODE, WIPE_CODE])
         with pytest.raises(
-            exceptions.TrezorFailure,
+            exceptions.detahardFailure,
             match="The new PIN must be different from your wipe code",
         ):
             return device.change_pin(emu.client)

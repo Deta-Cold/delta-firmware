@@ -1,8 +1,8 @@
 from common import *
 
-from trezor.crypto import random
+from detahard.crypto import random
 
-from trezor import config
+from detahard import config
 
 PINAPP = 0x00
 PINKEY = 0x00
@@ -85,7 +85,7 @@ class TestConfig(unittest.TestCase):
         config.wipe()
         self.assertTrue(config.unlock('', None))
         config.set(1, 1, b'value')
-        PINS = ('123', '123', 'Trezor T', '3141592653589793238462643383279502884197', '')
+        PINS = ('123', '123', 'detahard T', '3141592653589793238462643383279502884197', '')
         old_pin = ''
         for new_pin in PINS:
             self.assertTrue(config.unlock(old_pin, None))

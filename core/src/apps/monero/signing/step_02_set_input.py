@@ -1,5 +1,5 @@
 """
-UTXOs are sent one by one to Trezor for processing, encoded as MoneroTransactionSourceEntry.
+UTXOs are sent one by one to detahard for processing, encoded as MoneroTransactionSourceEntry.
 
 MoneroTransactionSourceEntry contains the actual UTXO to be spent, but also the other decoy/mixin
 outputs. So all the outputs are in one list and then the `real_output` index specifies which output
@@ -7,7 +7,7 @@ is the real one to be spent.
 
 This step computes spending secret key, key image, tx.vin[i] + HMAC, Pedersen commitment on amount.
 
-If number of inputs is small, in-memory mode is used = alpha, pseudo_outs are kept in the Trezor.
+If number of inputs is small, in-memory mode is used = alpha, pseudo_outs are kept in the detahard.
 Otherwise pseudo_outs are offloaded with HMAC, alpha is offloaded encrypted under chacha_poly with
 key derived for exactly this purpose.
 """
@@ -17,7 +17,7 @@ from apps.monero.xmr import crypto_helpers
 
 if TYPE_CHECKING:
     from .state import State
-    from trezor.messages import (
+    from detahard.messages import (
         MoneroTransactionSourceEntry,
         MoneroTransactionSetInputAck,
     )
@@ -30,7 +30,7 @@ def set_input(
     src_entr: MoneroTransactionSourceEntry,
     progress: MoneroTransactionProgress,
 ) -> MoneroTransactionSetInputAck:
-    from trezor.messages import MoneroTransactionSetInputAck
+    from detahard.messages import MoneroTransactionSetInputAck
     from apps.monero.xmr.serialize_messages.tx_prefix import TxinToKey
     from apps.monero.xmr import chacha_poly, monero, serialize
     from apps.monero.signing import offloading_keys

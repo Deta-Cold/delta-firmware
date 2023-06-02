@@ -1,8 +1,8 @@
 from typing import TYPE_CHECKING
 
-from trezor import ui
+from detahard import ui
 
-import trezorui2
+import detahardui2
 
 if TYPE_CHECKING:
     from typing import Any
@@ -38,7 +38,7 @@ def progress(
     indeterminate: bool = False,
 ) -> ProgressLayout:
     return RustProgress(
-        layout=trezorui2.show_progress(
+        layout=detahardui2.show_progress(
             title=message.upper(),
             indeterminate=indeterminate,
             description=description or "",
@@ -52,7 +52,7 @@ def bitcoin_progress(message: str) -> ProgressLayout:
 
 def coinjoin_progress(message: str) -> ProgressLayout:
     return RustProgress(
-        layout=trezorui2.show_progress_coinjoin(title=message, indeterminate=False)
+        layout=detahardui2.show_progress_coinjoin(title=message, indeterminate=False)
     )
 
 

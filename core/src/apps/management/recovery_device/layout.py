@@ -1,7 +1,7 @@
 from typing import TYPE_CHECKING
 
-from trezor.enums import ButtonRequestType
-from trezor.ui.layouts.recovery import (  # noqa: F401
+from detahard.enums import ButtonRequestType
+from detahard.ui.layouts.recovery import (  # noqa: F401
     request_word_count,
     show_group_share_success,
     show_recovery_warning,
@@ -12,12 +12,12 @@ from .. import backup_types
 
 if TYPE_CHECKING:
     from typing import Callable
-    from trezor.enums import BackupType
-    from trezor.wire import GenericContext
+    from detahard.enums import BackupType
+    from detahard.wire import GenericContext
 
 
 async def _confirm_abort(ctx: GenericContext, dry_run: bool = False) -> None:
-    from trezor.ui.layouts import confirm_action
+    from detahard.ui.layouts import confirm_action
 
     if dry_run:
         await confirm_action(
@@ -43,8 +43,8 @@ async def request_mnemonic(
     ctx: GenericContext, word_count: int, backup_type: BackupType | None
 ) -> str | None:
     from . import word_validity
-    from trezor.ui.layouts.common import button_request
-    from trezor.ui.layouts.recovery import request_word
+    from detahard.ui.layouts.common import button_request
+    from detahard.ui.layouts.recovery import request_word
 
     await button_request(ctx, "mnemonic", ButtonRequestType.MnemonicInput)
 
@@ -88,7 +88,7 @@ async def request_mnemonic(
 async def show_dry_run_result(
     ctx: GenericContext, result: bool, is_slip39: bool
 ) -> None:
-    from trezor.ui.layouts import show_success
+    from detahard.ui.layouts import show_success
 
     if result:
         if is_slip39:
@@ -132,8 +132,8 @@ async def homescreen_dialog(
 ) -> None:
     from .recover import RecoveryAborted
     import storage.recovery as storage_recovery
-    from trezor.wire import ActionCancelled
-    from trezor.ui.layouts.recovery import continue_recovery
+    from detahard.wire import ActionCancelled
+    from detahard.ui.layouts.recovery import continue_recovery
 
     while True:
         dry_run = storage_recovery.is_dry_run()

@@ -1,4 +1,4 @@
-# This file is part of the Trezor project.
+# This file is part of the detahard project.
 #
 # Copyright (C) 2012-2019 SatoshiLabs and contributors
 #
@@ -18,7 +18,7 @@ from typing import TYPE_CHECKING
 
 import pytest
 
-from trezorlib import device, messages
+from detahardlib import device, messages
 
 from ..common import WITH_MOCK_URANDOM
 from . import reset

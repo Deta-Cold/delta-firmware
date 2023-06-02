@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-# This file is part of the Trezor project.
+# This file is part of the detahard project.
 #
 # Copyright (C) 2012-2022 SatoshiLabs and contributors
 #
@@ -23,15 +23,15 @@ from typing import Any, Dict, List, Optional, Tuple
 import click
 import requests
 
-from trezorlib import btc, messages, tools
-from trezorlib.cli import ChoiceType
-from trezorlib.cli.btc import INPUT_SCRIPTS, OUTPUT_SCRIPTS
-from trezorlib.protobuf import to_dict
+from detahardlib import btc, messages, tools
+from detahardlib.cli import ChoiceType
+from detahardlib.cli.btc import INPUT_SCRIPTS, OUTPUT_SCRIPTS
+from detahardlib.protobuf import to_dict
 
 SESSION = requests.Session()
-SESSION.headers.update({"User-Agent": "trezorlib"})
+SESSION.headers.update({"User-Agent": "detahardlib"})
 
-# the following script type mapping is only valid for single-sig Trezor-generated utxos
+# the following script type mapping is only valid for single-sig detahard-generated utxos
 BITCOIN_CORE_INPUT_TYPES = {
     "pubkeyhash": messages.InputScriptType.SPENDADDRESS,
     "scripthash": messages.InputScriptType.SPENDP2SHWITNESS,
@@ -176,7 +176,7 @@ def _get_outputs_interactive() -> List[messages.TxOutputType]:
 @click.command()
 def sign_interactive() -> None:
     coin = prompt("Coin name", default="Bitcoin")
-    blockbook_host = prompt("Blockbook server", default="btc1.trezor.io")
+    blockbook_host = prompt("Blockbook server", default="btc1.detahard.io")
 
     if not SESSION.get(f"https://{blockbook_host}/api/block/1").ok:
         raise click.ClickException("Could not connect to blockbook")

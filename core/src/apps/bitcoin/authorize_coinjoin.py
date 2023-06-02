@@ -5,10 +5,10 @@ from .authorization import FEE_RATE_DECIMALS
 from .keychain import with_keychain
 
 if TYPE_CHECKING:
-    from trezor.messages import AuthorizeCoinJoin, Success
+    from detahard.messages import AuthorizeCoinJoin, Success
     from apps.common.coininfo import CoinInfo
     from apps.common.keychain import Keychain
-    from trezor.wire import Context
+    from detahard.wire import Context
 
 _MAX_COORDINATOR_LEN = const(36)
 _MAX_ROUNDS = const(500)
@@ -19,10 +19,10 @@ _MAX_COORDINATOR_FEE_RATE = 5 * pow(10, FEE_RATE_DECIMALS)  # 5 %
 async def authorize_coinjoin(
     ctx: Context, msg: AuthorizeCoinJoin, keychain: Keychain, coin: CoinInfo
 ) -> Success:
-    from trezor.enums import ButtonRequestType
-    from trezor.messages import Success
-    from trezor.ui.layouts import confirm_coinjoin, confirm_metadata
-    from trezor.wire import DataError
+    from detahard.enums import ButtonRequestType
+    from detahard.messages import Success
+    from detahard.ui.layouts import confirm_coinjoin, confirm_metadata
+    from detahard.wire import DataError
 
     from apps.common import authorization, safety_checks
     from apps.common.keychain import FORBIDDEN_KEY_PATH

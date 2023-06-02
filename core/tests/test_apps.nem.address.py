@@ -2,7 +2,7 @@ from common import *
 from apps.common.paths import HARDENED
 
 if not utils.BITCOIN_ONLY:
-    from trezor.crypto import nem
+    from detahard.crypto import nem
     from apps.nem.helpers import check_path, NEM_NETWORK_MAINNET, NEM_NETWORK_TESTNET, NEM_NETWORK_MIJIN
 
 

@@ -4,7 +4,7 @@ from ubinascii import hexlify
 from . import networks
 
 if TYPE_CHECKING:
-    from trezor.messages import EthereumFieldType
+    from detahard.messages import EthereumFieldType
     from .networks import EthereumNetworkInfo
 
 
@@ -18,7 +18,7 @@ def address_from_bytes(
     Converts address in bytes to a checksummed string as defined
     in https://github.com/ethereum/EIPs/blob/master/EIPS/eip-55.md
     """
-    from trezor.crypto.hashlib import sha3_256
+    from detahard.crypto.hashlib import sha3_256
 
     if network.chain_id in RSKIP60_NETWORKS:
         # rskip60 is a different way to calculate checksum
@@ -49,7 +49,7 @@ def address_from_bytes(
 
 def bytes_from_address(address: str) -> bytes:
     from ubinascii import unhexlify
-    from trezor import wire
+    from detahard import wire
 
     if len(address) == 40:
         return unhexlify(address)
@@ -67,7 +67,7 @@ def bytes_from_address(address: str) -> bytes:
 
 def get_type_name(field: EthereumFieldType) -> str:
     """Create a string from type definition (like uint256 or bytes16)."""
-    from trezor.enums import EthereumDataType
+    from detahard.enums import EthereumDataType
 
     data_type = field.data_type
     size = field.size

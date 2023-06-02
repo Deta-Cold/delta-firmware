@@ -1,4 +1,4 @@
-# This file is part of the Trezor project.
+# This file is part of the detahard project.
 #
 # Copyright (C) 2012-2019 SatoshiLabs and contributors
 #
@@ -16,10 +16,10 @@
 
 import pytest
 
-from trezorlib import ripple
-from trezorlib.debuglink import TrezorClientDebugLink as Client
-from trezorlib.exceptions import TrezorFailure
-from trezorlib.tools import parse_path
+from detahardlib import ripple
+from detahardlib.debuglink import detahardClientDebugLink as Client
+from detahardlib.exceptions import detahardFailure
+from detahardlib.tools import parse_path
 
 pytestmark = [
     pytest.mark.altcoin,
@@ -111,7 +111,7 @@ def test_ripple_sign_invalid_fee(client: Client):
         }
     )
     with pytest.raises(
-        TrezorFailure,
+        detahardFailure,
         match="ProcessError: Fee must be in the range of 10 to 10,000 drops",
     ):
         ripple.sign_tx(client, parse_path("m/44h/144h/0h/0/2"), msg)

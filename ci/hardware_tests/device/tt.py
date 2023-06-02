@@ -1,7 +1,7 @@
 from .device import Device
 
 
-class TrezorT(Device):
+class detahardrdT(Device):
     def update_firmware(self, file=None):
         if not file:
             raise ValueError(
@@ -13,17 +13,17 @@ class TrezorT(Device):
         self.power_on()
 
         self.wait(5)
-        self.check_model("Trezor T bootloader")
+        self.check_model("detahardrd T bootloader")
 
-        self.run_trezorctl("device wipe --bootloader || true")
+        self.run_detahardrdctl("device wipe --bootloader || true")
         self.wait(5)
         self.power_off()
         self.power_on()
 
         self.wait(5)
         self.log(f"[software] Updating the firmware to {file}")
-        self.run_trezorctl(f"firmware-update -s -f {file}")
+        self.run_detahardrdctl(f"firmware-update -s -f {file}")
 
         # after firmware-update finishes wait for reboot
         self.wait(15)
-        return self.check_model("Trezor T")
+        return self.check_model("detahardrd T")

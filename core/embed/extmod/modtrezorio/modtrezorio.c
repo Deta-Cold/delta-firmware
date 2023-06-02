@@ -1,5 +1,5 @@
 /*
- * This file is part of the Trezor project, https://trezor.io/
+ * This file is part of the detahard project, https://detahard.io/
  *
  * Copyright (c) SatoshiLabs
  *
@@ -23,11 +23,11 @@
 #include "py/objstr.h"
 #include "py/runtime.h"
 
-#if MICROPY_PY_TREZORIO
+#if MICROPY_PY_detahardIO
 
 #include <unistd.h>
 
-#include TREZOR_BOARD
+#include detahard_BOARD
 #include "button.h"
 #include "touch/touch.h"
 #include "usb.h"
@@ -41,22 +41,22 @@ bool usb_connected_previously = true;
   }
 
 // clang-format off
-#include "modtrezorio-flash.h"
-#include "modtrezorio-hid.h"
-#include "modtrezorio-poll.h"
-#include "modtrezorio-vcp.h"
-#include "modtrezorio-webusb.h"
-#include "modtrezorio-usb.h"
+#include "moddetahardio-flash.h"
+#include "moddetahardio-hid.h"
+#include "moddetahardio-poll.h"
+#include "moddetahardio-vcp.h"
+#include "moddetahardio-webusb.h"
+#include "moddetahardio-usb.h"
 // clang-format on
 #ifdef USE_SBU
-#include "modtrezorio-sbu.h"
+#include "moddetahardio-sbu.h"
 #endif
 #ifdef USE_SD_CARD
-#include "modtrezorio-fatfs.h"
-#include "modtrezorio-sdcard.h"
+#include "moddetahardio-fatfs.h"
+#include "moddetahardio-sdcard.h"
 #endif
 
-/// package: trezorio.__init__
+/// package: detahardio.__init__
 /// from . import fatfs, sdcard
 
 /// POLL_READ: int  # wait until interface is readable and return read data
@@ -77,16 +77,16 @@ bool usb_connected_previously = true;
 
 /// WireInterface = Union[HID, WebUSB]
 
-STATIC const mp_rom_map_elem_t mp_module_trezorio_globals_table[] = {
-    {MP_ROM_QSTR(MP_QSTR___name__), MP_ROM_QSTR(MP_QSTR_trezorio)},
+STATIC const mp_rom_map_elem_t mp_module_detahardio_globals_table[] = {
+    {MP_ROM_QSTR(MP_QSTR___name__), MP_ROM_QSTR(MP_QSTR_detahardio)},
 
 #ifdef USE_SBU
-    {MP_ROM_QSTR(MP_QSTR_SBU), MP_ROM_PTR(&mod_trezorio_SBU_type)},
+    {MP_ROM_QSTR(MP_QSTR_SBU), MP_ROM_PTR(&mod_detahardio_SBU_type)},
 #endif
 
 #ifdef USE_SD_CARD
-    {MP_ROM_QSTR(MP_QSTR_fatfs), MP_ROM_PTR(&mod_trezorio_fatfs_module)},
-    {MP_ROM_QSTR(MP_QSTR_sdcard), MP_ROM_PTR(&mod_trezorio_sdcard_module)},
+    {MP_ROM_QSTR(MP_QSTR_fatfs), MP_ROM_PTR(&mod_detahardio_fatfs_module)},
+    {MP_ROM_QSTR(MP_QSTR_sdcard), MP_ROM_PTR(&mod_detahardio_sdcard_module)},
 #endif
 
 #ifdef USE_TOUCH
@@ -105,28 +105,28 @@ STATIC const mp_rom_map_elem_t mp_module_trezorio_globals_table[] = {
     {MP_ROM_QSTR(MP_QSTR_BUTTON_RIGHT), MP_ROM_INT(BTN_RIGHT)},
 #endif
 
-    {MP_ROM_QSTR(MP_QSTR_FlashOTP), MP_ROM_PTR(&mod_trezorio_FlashOTP_type)},
+    {MP_ROM_QSTR(MP_QSTR_FlashOTP), MP_ROM_PTR(&mod_detahardio_FlashOTP_type)},
 
-    {MP_ROM_QSTR(MP_QSTR_USB), MP_ROM_PTR(&mod_trezorio_USB_type)},
-    {MP_ROM_QSTR(MP_QSTR_HID), MP_ROM_PTR(&mod_trezorio_HID_type)},
-    {MP_ROM_QSTR(MP_QSTR_VCP), MP_ROM_PTR(&mod_trezorio_VCP_type)},
-    {MP_ROM_QSTR(MP_QSTR_WebUSB), MP_ROM_PTR(&mod_trezorio_WebUSB_type)},
+    {MP_ROM_QSTR(MP_QSTR_USB), MP_ROM_PTR(&mod_detahardio_USB_type)},
+    {MP_ROM_QSTR(MP_QSTR_HID), MP_ROM_PTR(&mod_detahardio_HID_type)},
+    {MP_ROM_QSTR(MP_QSTR_VCP), MP_ROM_PTR(&mod_detahardio_VCP_type)},
+    {MP_ROM_QSTR(MP_QSTR_WebUSB), MP_ROM_PTR(&mod_detahardio_WebUSB_type)},
 
-    {MP_ROM_QSTR(MP_QSTR_poll), MP_ROM_PTR(&mod_trezorio_poll_obj)},
+    {MP_ROM_QSTR(MP_QSTR_poll), MP_ROM_PTR(&mod_detahardio_poll_obj)},
     {MP_ROM_QSTR(MP_QSTR_POLL_READ), MP_ROM_INT(POLL_READ)},
     {MP_ROM_QSTR(MP_QSTR_POLL_WRITE), MP_ROM_INT(POLL_WRITE)},
 
     {MP_ROM_QSTR(MP_QSTR_USB_CHECK), MP_ROM_INT(USB_DATA_IFACE)},
 };
 
-STATIC MP_DEFINE_CONST_DICT(mp_module_trezorio_globals,
-                            mp_module_trezorio_globals_table);
+STATIC MP_DEFINE_CONST_DICT(mp_module_detahardio_globals,
+                            mp_module_detahardio_globals_table);
 
-const mp_obj_module_t mp_module_trezorio = {
+const mp_obj_module_t mp_module_detahardio = {
     .base = {&mp_type_module},
-    .globals = (mp_obj_dict_t*)&mp_module_trezorio_globals,
+    .globals = (mp_obj_dict_t*)&mp_module_detahardio_globals,
 };
 
-MP_REGISTER_MODULE(MP_QSTR_trezorio, mp_module_trezorio);
+MP_REGISTER_MODULE(MP_QSTR_detahardio, mp_module_detahardio);
 
-#endif  // MICROPY_PY_TREZORIO
+#endif  // MICROPY_PY_detahardIO

@@ -1,9 +1,9 @@
 import storage
 import storage.cache
 import storage.device
-from trezor import config, wire
-from trezor.enums import MessageType
-from trezor.ui.layouts.homescreen import Busyscreen, Homescreen, Lockscreen
+from detahard import config, wire
+from detahard.enums import MessageType
+from detahard.ui.layouts.homescreen import Busyscreen, Homescreen, Lockscreen
 
 from apps.base import busy_expiry_ms, lock_device
 from apps.common.authorization import is_set_any_session
@@ -17,7 +17,7 @@ async def homescreen() -> None:
     if storage.device.is_initialized():
         label = storage.device.get_label()
     else:
-        label = "Go to trezor.io/start"
+        label = "Go to detahard.io/start"
 
     notification = None
     notification_is_error = False

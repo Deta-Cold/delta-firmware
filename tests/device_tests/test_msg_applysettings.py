@@ -1,4 +1,4 @@
-# This file is part of the Trezor project.
+# This file is part of the detahard project.
 #
 # Copyright (C) 2012-2019 SatoshiLabs and contributors
 #
@@ -18,9 +18,9 @@ from pathlib import Path
 
 import pytest
 
-from trezorlib import btc, device, exceptions, messages, misc
-from trezorlib.debuglink import TrezorClientDebugLink as Client
-from trezorlib.tools import parse_path
+from detahardlib import btc, device, exceptions, messages, misc
+from detahardlib.debuglink import detahardClientDebugLink as Client
+from detahardlib.tools import parse_path
 
 HERE = Path(__file__).parent.resolve()
 
@@ -138,7 +138,7 @@ def test_apply_settings_passphrase_on_device(client: Client):
 def test_apply_homescreen_toif(client: Client):
     img = b"TOIf\x90\x00\x90\x00~\x00\x00\x00\xed\xd2\xcb\r\x83@\x10D\xc1^.\xde#!\xac31\x99\x10\x8aC%\x14~\x16\x92Y9\x02WI3\x01<\xf5cI2d\x1es(\xe1[\xdbn\xba\xca\xe8s7\xa4\xd5\xd4\xb3\x13\xbdw\xf6:\xf3\xd1\xe7%\xc7]\xdd_\xb3\x9e\x9f\x9e\x9fN\xed\xaaE\xef\xdc\xcf$D\xa7\xa4X\r\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xf0OV"
 
-    with pytest.raises(exceptions.TrezorFailure), client:
+    with pytest.raises(exceptions.detahardFailure), client:
         _set_expected_responses(client)
         device.apply_settings(client, homescreen=img)
 
@@ -206,7 +206,7 @@ def test_apply_homescreen_jpeg_progressive(client: Client):
         b"\x00\x00\x00\x00\x90\xff\xda\x00\x08\x01\x01\x00\x01?\x10a?\xff\xd9"
     )
 
-    with pytest.raises(exceptions.TrezorFailure), client:
+    with pytest.raises(exceptions.detahardFailure), client:
         _set_expected_responses(client)
         device.apply_settings(client, homescreen=img)
 
@@ -252,7 +252,7 @@ def test_apply_homescreen_jpeg_wrong_size(client: Client):
         b"\x00\x00\x1f\xff\xd9"
     )
 
-    with pytest.raises(exceptions.TrezorFailure), client:
+    with pytest.raises(exceptions.detahardFailure), client:
         _set_expected_responses(client)
         device.apply_settings(client, homescreen=img)
 
@@ -273,7 +273,7 @@ def test_safety_checks(client: Client):
 
     assert client.features.safety_checks == messages.SafetyCheckLevel.Strict
 
-    with pytest.raises(exceptions.TrezorFailure, match="Forbidden key path"), client:
+    with pytest.raises(exceptions.detahardFailure, match="Forbidden key path"), client:
         client.set_expected_responses([messages.Failure])
         get_bad_address()
 
@@ -298,7 +298,7 @@ def test_safety_checks(client: Client):
 
     assert client.features.safety_checks == messages.SafetyCheckLevel.Strict
 
-    with pytest.raises(exceptions.TrezorFailure, match="Forbidden key path"), client:
+    with pytest.raises(exceptions.detahardFailure, match="Forbidden key path"), client:
         client.set_expected_responses([messages.Failure])
         get_bad_address()
 
@@ -331,7 +331,7 @@ def test_experimental_features(client: Client):
 
     assert not client.features.experimental_features
 
-    with pytest.raises(exceptions.TrezorFailure, match="DataError"), client:
+    with pytest.raises(exceptions.detahardFailure, match="DataError"), client:
         client.set_expected_responses([messages.Failure])
         experimental_call()
 
@@ -358,6 +358,6 @@ def test_experimental_features(client: Client):
 
 @pytest.mark.setup_client(pin=None)
 def test_label_too_long(client: Client):
-    with pytest.raises(exceptions.TrezorFailure), client:
+    with pytest.raises(exceptions.detahardFailure), client:
         client.set_expected_responses([messages.Failure])
         device.apply_settings(client, label="A" * 33)

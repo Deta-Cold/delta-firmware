@@ -1,7 +1,7 @@
 from common import *
 
-from trezor.crypto import random
-from trezor.crypto.curve import bip340
+from detahard.crypto import random
+from detahard.crypto.curve import bip340
 
 
 class TestCryptoBip340(unittest.TestCase):

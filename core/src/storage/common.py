@@ -1,6 +1,6 @@
 from micropython import const
 
-from trezor import config
+from detahard import config
 
 # Namespaces:
 # fmt: off

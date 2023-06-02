@@ -2,17 +2,17 @@ from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from typing import Awaitable
-    from trezor.wire import Context
+    from detahard.wire import Context
 
-    from trezor.messages import ChangeWipeCode, Success
+    from detahard.messages import ChangeWipeCode, Success
 
 
 async def change_wipe_code(ctx: Context, msg: ChangeWipeCode) -> Success:
     from storage.device import is_initialized
-    from trezor.wire import NotInitialized
-    from trezor.ui.layouts import show_success
-    from trezor.messages import Success
-    from trezor import config
+    from detahard.wire import NotInitialized
+    from detahard.ui.layouts import show_success
+    from detahard.messages import Success
+    from detahard import config
     from apps.common.request_pin import (
         error_pin_invalid,
         request_pin_and_sd_salt,
@@ -60,8 +60,8 @@ async def change_wipe_code(ctx: Context, msg: ChangeWipeCode) -> Success:
 def _require_confirm_action(
     ctx: Context, msg: ChangeWipeCode, has_wipe_code: bool
 ) -> Awaitable[None]:
-    from trezor.wire import ProcessError
-    from trezor.ui.layouts import confirm_action, confirm_set_new_pin
+    from detahard.wire import ProcessError
+    from detahard.ui.layouts import confirm_action, confirm_set_new_pin
 
     title = "Wipe code settings"
 
@@ -100,7 +100,7 @@ def _require_confirm_action(
 
 async def _request_wipe_code_confirm(ctx: Context, pin: str) -> str:
     from apps.common.request_pin import request_pin
-    from trezor.ui.layouts import (
+    from detahard.ui.layouts import (
         pin_mismatch_popup,
         wipe_code_same_as_pin_popup,
     )

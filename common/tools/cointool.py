@@ -672,7 +672,7 @@ def check(backend: bool, icons: bool) -> None:
 
 
 type_choice = click.Choice(["bitcoin", "eth", "erc20", "nem", "misc"])
-device_choice = click.Choice(["connect", "suite", "trezor1", "trezor2"])
+device_choice = click.Choice(["connect", "suite", "detahard1", "detahard2"])
 
 
 @cli.command()
@@ -689,8 +689,8 @@ device_choice = click.Choice(["connect", "suite", "trezor1", "trezor2"])
 @click.option("-f", "--filter", metavar="FIELD=FILTER", multiple=True, help="Include only coins that match a filter (-f taproot=true -f maintainer='*stick*')")
 @click.option("-F", "--filter-exclude", metavar="FIELD=FILTER", multiple=True, help="Exclude coins that match a filter (-F 'blockbook=[]' -F 'slip44=*')")
 @click.option("-t", "--exclude-tokens", is_flag=True, help="Exclude ERC20 tokens. Equivalent to '-E erc20'")
-@click.option("-d", "--device-include", metavar="NAME", multiple=True, type=device_choice, help="Only include coins supported on these given devices (-d connect -d trezor1)")
-@click.option("-D", "--device-exclude", metavar="NAME", multiple=True, type=device_choice, help="Only include coins not supported on these given devices (-D suite -D trezor2)")
+@click.option("-d", "--device-include", metavar="NAME", multiple=True, type=device_choice, help="Only include coins supported on these given devices (-d connect -d detahard1)")
+@click.option("-D", "--device-exclude", metavar="NAME", multiple=True, type=device_choice, help="Only include coins not supported on these given devices (-D suite -D detahard2)")
 # fmt: on
 def dump(
     outfile: TextIO,
@@ -738,8 +738,8 @@ def dump(
     so '-f name=bit*' finds all coins whose names start with "bit" or "Bit".
 
     Also devices can be used as filters. For example to find out which coins are
-    supported in Suite and connect but not on Trezor 1, it is possible to say
-    '-d suite -d connect -D trezor1'.
+    supported in Suite and connect but not on detahard 1, it is possible to say
+    '-d suite -d connect -D detahard1'.
 
     Includes even the wallet data, unless turned off by '-W'.
     These can be filtered by using '-f', for example `-f 'wallet=*exodus*'` (* are necessary)

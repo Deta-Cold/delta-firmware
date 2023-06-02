@@ -1,5 +1,5 @@
 from common import *
-from trezor import utils
+from detahard import utils
 
 if not utils.BITCOIN_ONLY:
     from apps.monero.xmr.serialize.int_serialize import (

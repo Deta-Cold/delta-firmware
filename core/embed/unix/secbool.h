@@ -1,1 +1,1 @@
-../trezorhal/secbool.h
+../detahardhal/secbool.h

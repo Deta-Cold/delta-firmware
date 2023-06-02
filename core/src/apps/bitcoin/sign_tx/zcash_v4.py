@@ -1,15 +1,15 @@
 from micropython import const
 from typing import TYPE_CHECKING
 
-from trezor.crypto.hashlib import blake2b
-from trezor.utils import HashWriter
-from trezor.wire import DataError
+from detahard.crypto.hashlib import blake2b
+from detahard.utils import HashWriter
+from detahard.wire import DataError
 
 from ..writers import TX_HASH_SIZE, write_bytes_reversed, write_uint32, write_uint64
 from .bitcoinlike import Bitcoinlike
 
 if TYPE_CHECKING:
-    from trezor.messages import PrevTx, SignTx, TxInput, TxOutput
+    from detahard.messages import PrevTx, SignTx, TxInput, TxOutput
     from apps.common.coininfo import CoinInfo
     from apps.common.keychain import Keychain
     from . import approvers
@@ -122,7 +122,7 @@ class ZcashV4(Bitcoinlike):
         coin: CoinInfo,
         approver: approvers.Approver | None,
     ) -> None:
-        from trezor.utils import ensure
+        from detahard.utils import ensure
 
         ensure(coin.overwintered)
         super().__init__(tx, keychain, coin, approver)

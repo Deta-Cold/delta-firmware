@@ -1,11 +1,11 @@
-from trezor.crypto import chacha20poly1305 as ChaCha20Poly1305
+from detahard.crypto import chacha20poly1305 as ChaCha20Poly1305
 
 
 def encrypt(key: bytes, plaintext: bytes, associated_data: bytes | None = None):
     """
     Uses ChaCha20Poly1305 for encryption
     """
-    from trezor.crypto import random
+    from detahard.crypto import random
 
     nonce = random.bytes(12)
     cipher = ChaCha20Poly1305(key, nonce)
@@ -26,7 +26,7 @@ def _decrypt(
     """
     ChaCha20Poly1305 decryption
     """
-    from trezor.crypto import monero
+    from detahard.crypto import monero
 
     cipher = ChaCha20Poly1305(key, iv)
     if associated_data:

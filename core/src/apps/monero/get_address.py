@@ -3,8 +3,8 @@ from typing import TYPE_CHECKING
 from apps.common.keychain import auto_keychain
 
 if TYPE_CHECKING:
-    from trezor.messages import MoneroGetAddress, MoneroAddress
-    from trezor.wire import Context
+    from detahard.messages import MoneroGetAddress, MoneroAddress
+    from detahard.wire import Context
 
     from apps.common.keychain import Keychain
 
@@ -13,9 +13,9 @@ if TYPE_CHECKING:
 async def get_address(
     ctx: Context, msg: MoneroGetAddress, keychain: Keychain
 ) -> MoneroAddress:
-    from trezor import wire
-    from trezor.messages import MoneroAddress
-    from trezor.ui.layouts import show_address
+    from detahard import wire
+    from detahard.messages import MoneroAddress
+    from detahard.ui.layouts import show_address
 
     from apps.common import paths
     from apps.monero import misc

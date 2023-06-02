@@ -34,7 +34,7 @@
 #define __INCLUDED_MPCONFIGPORT_H
 
 // frozen modules
-#ifdef TREZOR_EMULATOR_FROZEN
+#ifdef detahard_EMULATOR_FROZEN
 #define MICROPY_MODULE_FROZEN_MPY   (1)
 #define MICROPY_QSTR_EXTRA_POOL     (mp_qstr_frozen_const_pool)
 #define MPZ_DIG_SIZE                (16)
@@ -131,7 +131,7 @@
 #define MICROPY_PY_SYS_EXIT         (0)
 #define MICROPY_PY_SYS_STDFILES     (0)
 #define MICROPY_PY_SYS_STDIO_BUFFER (0)
-#define MICROPY_PY_SYS_PLATFORM     "trezor-emulator"
+#define MICROPY_PY_SYS_PLATFORM     "detahard-emulator"
 #define MICROPY_PY_UERRNO           (0)
 #define MICROPY_PY_THREAD           (0)
 #define MICROPY_PY_FSTRINGS         (1)
@@ -206,13 +206,13 @@ extern const struct _mp_print_t mp_stderr_print;
 
 // extern const struct _mp_print_t mp_stderr_print;
 
-#define MICROPY_PY_TREZORCONFIG     (1)
-#define MICROPY_PY_TREZORCRYPTO     (1)
-#define MICROPY_PY_TREZORIO         (1)
-#define MICROPY_PY_TREZORUI         (1)
-#define MICROPY_PY_TREZORUTILS      (1)
-#define MICROPY_PY_TREZORPROTO      (1)
-#define MICROPY_PY_TREZORUI2        (1)
+#define MICROPY_PY_detahardCONFIG     (1)
+#define MICROPY_PY_detahardCRYPTO     (1)
+#define MICROPY_PY_detahardIO         (1)
+#define MICROPY_PY_detahardUI         (1)
+#define MICROPY_PY_detahardUTILS      (1)
+#define MICROPY_PY_detahardPROTO      (1)
+#define MICROPY_PY_detahardUI2        (1)
 
 #define MP_STATE_PORT MP_STATE_VM
 
@@ -271,7 +271,7 @@ void mp_unix_mark_exec(void);
 #define MICROPY_PORT_ROOT_POINTERS \
     const char *readline_hist[50]; \
     void *mmap_region_head; \
-    mp_obj_t trezorconfig_ui_wait_callback; \
+    mp_obj_t detahardconfig_ui_wait_callback; \
 
 // We need to provide a declaration/definition of alloca()
 // unless support for it is disabled.

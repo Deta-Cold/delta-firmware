@@ -1,1 +1,1 @@
-../trezorhal/usb.h
+../detahardhal/usb.h

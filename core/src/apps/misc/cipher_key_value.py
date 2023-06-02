@@ -1,20 +1,20 @@
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from trezor.messages import CipherKeyValue, CipheredKeyValue
-    from trezor.wire import Context
+    from detahard.messages import CipherKeyValue, CipheredKeyValue
+    from detahard.wire import Context
 
 # This module implements the SLIP-0011 symmetric encryption of key-value pairs using a
 # deterministic hierarchy, see https://github.com/satoshilabs/slips/blob/master/slip-0011.md.
 
 
 async def cipher_key_value(ctx: Context, msg: CipherKeyValue) -> CipheredKeyValue:
-    from trezor.wire import DataError
-    from trezor.messages import CipheredKeyValue
-    from trezor.crypto import aes, hmac
+    from detahard.wire import DataError
+    from detahard.messages import CipheredKeyValue
+    from detahard.crypto import aes, hmac
     from apps.common.keychain import get_keychain
     from apps.common.paths import AlwaysMatchingSchema
-    from trezor.ui.layouts import confirm_action
+    from detahard.ui.layouts import confirm_action
 
     keychain = await get_keychain(ctx, "secp256k1", [AlwaysMatchingSchema])
 
@@ -24,7 +24,7 @@ async def cipher_key_value(ctx: Context, msg: CipherKeyValue) -> CipheredKeyValu
     encrypt = msg.encrypt
     decrypt = not msg.encrypt
     if (encrypt and msg.ask_on_encrypt) or (decrypt and msg.ask_on_decrypt):
-        # Special case for Trezor Suite, which asks for setting up labels
+        # Special case for detahard Suite, which asks for setting up labels
         if msg.key == "Enable labeling?":
             title = "SUITE LABELING"
             verb = "ENABLE"

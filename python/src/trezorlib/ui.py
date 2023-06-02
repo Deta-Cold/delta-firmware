@@ -1,4 +1,4 @@
-# This file is part of the Trezor project.
+# This file is part of the detahard project.
 #
 # Copyright (C) 2012-2022 SatoshiLabs and contributors
 #
@@ -62,7 +62,7 @@ WIPE_CODE_CONFIRM = PinMatrixRequestType.WipeCodeSecond
 CAN_HANDLE_HIDDEN_INPUT = sys.stdin and sys.stdin.isatty()
 
 
-class TrezorClientUI(Protocol):
+class detahardClientUI(Protocol):
     def button_request(self, br: messages.ButtonRequest) -> None:
         ...
 
@@ -96,7 +96,7 @@ class ClickUI:
 
     def button_request(self, _br: messages.ButtonRequest) -> None:
         if not self.prompt_shown:
-            echo("Please confirm action on your Trezor device.")
+            echo("Please confirm action on your detahard device.")
         if not self.always_prompt:
             self.prompt_shown = True
 
@@ -180,7 +180,7 @@ class ScriptUI:
     Lot of `ClickUI` logic is outsourced to the client application, which
     is responsible for supplying the PIN and passphrase.
 
-    Reference client implementation can be found under `tools/trezorctl_script_client.py`.
+    Reference client implementation can be found under `tools/detahardctl_script_client.py`.
     """
 
     @staticmethod

@@ -1,4 +1,4 @@
-# This file is part of the Trezor project.
+# This file is part of the detahard project.
 #
 # Copyright (C) 2012-2019 SatoshiLabs and contributors
 #
@@ -18,8 +18,8 @@ import time
 
 import pytest
 
-from trezorlib import device, messages
-from trezorlib.debuglink import TrezorClientDebugLink as Client
+from detahardlib import device, messages
+from detahardlib.debuglink import detahardClientDebugLink as Client
 
 from ..common import get_test_address
 
@@ -58,6 +58,6 @@ def test_autolock_not_retained(client: Client):
 
     time.sleep(10.5)
     with client:
-        # after sleeping for the pre-wipe autolock amount, Trezor must still be unlocked
+        # after sleeping for the pre-wipe autolock amount, detahard must still be unlocked
         client.set_expected_responses([messages.Address])
         get_test_address(client)

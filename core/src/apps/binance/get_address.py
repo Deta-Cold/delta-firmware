@@ -3,8 +3,8 @@ from typing import TYPE_CHECKING
 from apps.common.keychain import auto_keychain
 
 if TYPE_CHECKING:
-    from trezor.messages import BinanceGetAddress, BinanceAddress
-    from trezor.wire import Context
+    from detahard.messages import BinanceGetAddress, BinanceAddress
+    from detahard.wire import Context
     from apps.common.keychain import Keychain
 
 
@@ -12,8 +12,8 @@ if TYPE_CHECKING:
 async def get_address(
     ctx: Context, msg: BinanceGetAddress, keychain: Keychain
 ) -> BinanceAddress:
-    from trezor.messages import BinanceAddress
-    from trezor.ui.layouts import show_address
+    from detahard.messages import BinanceAddress
+    from detahard.ui.layouts import show_address
 
     from apps.common import paths
 

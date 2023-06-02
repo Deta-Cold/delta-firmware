@@ -1,13 +1,13 @@
 from concurrent.futures import ThreadPoolExecutor
 from typing import TYPE_CHECKING, Any, Callable
 
-from trezorlib.client import PASSPHRASE_ON_DEVICE
-from trezorlib.transport import udp
+from detahardlib.client import PASSPHRASE_ON_DEVICE
+from detahardlib.transport import udp
 
 if TYPE_CHECKING:
-    from trezorlib.messages import Features
-    from trezorlib.debuglink import DebugLink, TrezorClientDebugLink as Client
-    from trezorlib._internal.emulator import Emulator
+    from detahardlib.messages import Features
+    from detahardlib.debuglink import DebugLink, detahardClientDebugLink as Client
+    from detahardlib._internal.emulator import Emulator
 
 
 udp.SOCKET_TIMEOUT = 0.1

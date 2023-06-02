@@ -1,4 +1,4 @@
-# This file is part of the Trezor project.
+# This file is part of the detahard project.
 #
 # Copyright (C) 2012-2022 SatoshiLabs and contributors
 #
@@ -26,8 +26,8 @@ from .. import exceptions, firmware
 from . import with_client
 
 if TYPE_CHECKING:
-    from ..client import TrezorClient
-    from . import TrezorConnection
+    from ..client import detahardClient
+    from . import detahardConnection
 
 ALLOWED_FIRMWARE_FORMATS = {
     1: (firmware.LegacyFirmware, firmware.LegacyV2Firmware),
@@ -40,8 +40,8 @@ def _print_version(version: Tuple[int, int, int, int]) -> None:
     click.echo(f"Firmware version {major}.{minor}.{patch} build {build}")
 
 
-def _is_bootloader_onev2(client: "TrezorClient") -> bool:
-    """Check if bootloader is capable of installing the Trezor One v2 firmware directly.
+def _is_bootloader_onev2(client: "detahardClient") -> bool:
+    """Check if bootloader is capable of installing the detahard One v2 firmware directly.
 
     This is the case from bootloader version 1.8.0, and also holds for firmware version
     1.8.0 because that installs the appropriate bootloader.
@@ -62,15 +62,15 @@ def print_firmware_version(fw: "firmware.FirmwareType") -> None:
     """Print out the firmware version and details."""
     if isinstance(fw, firmware.LegacyFirmware):
         if fw.embedded_v2:
-            click.echo("Trezor One firmware with embedded v2 image (1.8.0 or later)")
+            click.echo("detahard One firmware with embedded v2 image (1.8.0 or later)")
             _print_version(fw.embedded_v2.header.version)
         else:
-            click.echo("Trezor One firmware image.")
+            click.echo("detahard One firmware image.")
     elif isinstance(fw, firmware.LegacyV2Firmware):
-        click.echo("Trezor One v2 firmware (1.8.0 or later)")
+        click.echo("detahard One v2 firmware (1.8.0 or later)")
         _print_version(fw.header.version)
     elif isinstance(fw, firmware.VendorFirmware):
-        click.echo("Trezor T firmware image.")
+        click.echo("detahard T firmware image.")
         vendor = fw.vendor_header.text
         vendor_version = "{}.{}".format(*fw.vendor_header.version)
         click.echo(f"Vendor header from {vendor}, version {vendor_version}")
@@ -83,7 +83,7 @@ def validate_signatures(
     """Check the signatures on the firmware.
 
     Prints the validity status.
-    In case of Trezor One v1 prompts the user (as the signature is missing).
+    In case of detahard One v1 prompts the user (as the signature is missing).
     Exits if the validation fails.
     """
     try:
@@ -139,16 +139,16 @@ def validate_fingerprint(
 def check_device_match(
     fw: "firmware.FirmwareType",
     bootloader_onev2: bool,
-    trezor_major_version: int,
+    detahard_major_version: int,
 ) -> None:
     """Validate if the device and firmware are compatible.
 
     Prints error message and exits if the validation fails.
     """
-    if trezor_major_version not in ALLOWED_FIRMWARE_FORMATS:
-        click.echo("trezorctl doesn't know your device version. Aborting.")
+    if detahard_major_version not in ALLOWED_FIRMWARE_FORMATS:
+        click.echo("detahardctl doesn't know your device version. Aborting.")
         sys.exit(3)
-    elif not isinstance(fw, ALLOWED_FIRMWARE_FORMATS[trezor_major_version]):
+    elif not isinstance(fw, ALLOWED_FIRMWARE_FORMATS[detahard_major_version]):
         click.echo("Firmware does not match your device, aborting.")
         sys.exit(3)
 
@@ -168,7 +168,7 @@ def get_all_firmware_releases(
     bitcoin_only: bool, beta: bool, major_version: int
 ) -> List[Dict[str, Any]]:
     """Get sorted list of all releases suitable for inputted parameters"""
-    url = f"https://data.trezor.io/firmware/{major_version}/releases.json"
+    url = f"https://data.detahard.io/firmware/{major_version}/releases.json"
     releases = requests.get(url).json()
     if not releases:
         raise click.ClickException("Failed to get list of releases")
@@ -207,7 +207,7 @@ def get_url_and_fingerprint_from_release(
     if not url.startswith(url_prefix):
         click.echo(f"Unsupported URL found: {url}")
         sys.exit(1)
-    final_url = "https://data.trezor.io/" + url[len(url_prefix) :]
+    final_url = "https://data.detahard.io/" + url[len(url_prefix) :]
 
     return final_url, fingerprint
 
@@ -232,7 +232,7 @@ def find_specified_firmware_version(
 
 
 def find_best_firmware_version(
-    client: "TrezorClient",
+    client: "detahardClient",
     version: Optional[str],
     beta: bool,
     bitcoin_only: bool,
@@ -261,7 +261,7 @@ def find_best_firmware_version(
         if want_version[0] != f.major_version:
             model = f.model or "1"
             click.echo(
-                f"Warning: Trezor {model} firmware version should be "
+                f"Warning: detahard {model} firmware version should be "
                 f"{f.major_version}.X.Y (requested: {version})"
             )
     else:
@@ -341,7 +341,7 @@ def validate_firmware(
     firmware_data: bytes,
     fingerprint: Optional[str] = None,
     bootloader_onev2: Optional[bool] = None,
-    trezor_major_version: Optional[int] = None,
+    detahard_major_version: Optional[int] = None,
     prompt_unsigned: bool = True,
 ) -> None:
     """Validate the firmware through multiple tests.
@@ -360,11 +360,11 @@ def validate_firmware(
     validate_fingerprint(fw, fingerprint)
     validate_signatures(fw, prompt_unsigned=prompt_unsigned)
 
-    if bootloader_onev2 is not None and trezor_major_version is not None:
+    if bootloader_onev2 is not None and detahard_major_version is not None:
         check_device_match(
             fw=fw,
             bootloader_onev2=bootloader_onev2,
-            trezor_major_version=trezor_major_version,
+            detahard_major_version=detahard_major_version,
         )
         click.echo("Firmware is appropriate for your device.")
 
@@ -373,7 +373,7 @@ def extract_embedded_fw(
     firmware_data: bytes,
     bootloader_onev2: bool,
 ) -> bytes:
-    """Modify the firmware data for sending into Trezor, if necessary."""
+    """Modify the firmware data for sending into detahard, if necessary."""
     # special handling for embedded_v2-OneV2 format:
     # for bootloader < 1.8, keep the embedding
     # for bootloader 1.8.0 and up, strip the old OneV1 header
@@ -389,15 +389,15 @@ def extract_embedded_fw(
 
 
 def upload_firmware_into_device(
-    client: "TrezorClient",
+    client: "detahardClient",
     firmware_data: bytes,
 ) -> None:
-    """Perform the final act of loading the firmware into Trezor."""
+    """Perform the final act of loading the firmware into detahard."""
     f = client.features
     try:
         if f.major_version == 1 and f.firmware_present is not False:
-            # Trezor One does not send ButtonRequest
-            click.echo("Please confirm the action on your Trezor device")
+            # detahard One does not send ButtonRequest
+            click.echo("Please confirm the action on your detahard device")
 
         click.echo("Uploading...\r", nl=False)
         with click.progressbar(
@@ -406,7 +406,7 @@ def upload_firmware_into_device(
             firmware.update(client, firmware_data, bar.update)
     except exceptions.Cancelled:
         click.echo("Update aborted on device.")
-    except exceptions.TrezorException as e:
+    except exceptions.detahardException as e:
         click.echo(f"Update failed: {e}")
         sys.exit(3)
 
@@ -424,7 +424,7 @@ def cli() -> None:
 @click.pass_obj
 # fmt: on
 def verify(
-    obj: "TrezorConnection",
+    obj: "detahardConnection",
     filename: BinaryIO,
     check_device: bool,
     fingerprint: Optional[str],
@@ -438,21 +438,21 @@ def verify(
     """
     # Deciding if to take the device into account
     bootloader_onev2: Optional[bool]
-    trezor_major_version: Optional[int]
+    detahard_major_version: Optional[int]
     if check_device:
         with obj.client_context() as client:
             bootloader_onev2 = _is_bootloader_onev2(client)
-            trezor_major_version = client.features.major_version
+            detahard_major_version = client.features.major_version
     else:
         bootloader_onev2 = None
-        trezor_major_version = None
+        detahard_major_version = None
 
     firmware_data = filename.read()
     validate_firmware(
         firmware_data=firmware_data,
         fingerprint=fingerprint,
         bootloader_onev2=bootloader_onev2,
-        trezor_major_version=trezor_major_version,
+        detahard_major_version=detahard_major_version,
         prompt_unsigned=False,
     )
 
@@ -468,7 +468,7 @@ def verify(
 @click.pass_obj
 # fmt: on
 def download(
-    obj: "TrezorConnection",
+    obj: "detahardConnection",
     output: Optional[BinaryIO],
     version: Optional[str],
     skip_check: bool,
@@ -488,14 +488,14 @@ def download(
             version=version, beta=beta, bitcoin_only=bitcoin_only
         )
         bootloader_onev2 = None
-        trezor_major_version = None
+        detahard_major_version = None
     else:
         with obj.client_context() as client:
             url, fp = find_best_firmware_version(
                 client=client, version=version, beta=beta, bitcoin_only=bitcoin_only
             )
             bootloader_onev2 = _is_bootloader_onev2(client)
-            trezor_major_version = client.features.major_version
+            detahard_major_version = client.features.major_version
 
     firmware_data = download_firmware_data(url)
 
@@ -507,7 +507,7 @@ def download(
             firmware_data=firmware_data,
             fingerprint=fingerprint,
             bootloader_onev2=bootloader_onev2,
-            trezor_major_version=trezor_major_version,
+            detahard_major_version=detahard_major_version,
         )
 
     if not output:
@@ -526,12 +526,12 @@ def download(
 @click.option("-n", "--dry-run", is_flag=True, help="Perform all steps but do not actually upload the firmware")
 @click.option("--beta", is_flag=True, help="Use firmware from BETA channel")
 @click.option("--bitcoin-only", is_flag=True, help="Use bitcoin-only firmware (if possible)")
-@click.option("--raw", is_flag=True, help="Push raw firmware data to Trezor")
+@click.option("--raw", is_flag=True, help="Push raw firmware data to detahard")
 @click.option("--fingerprint", help="Expected firmware fingerprint in hex")
 # fmt: on
 @with_client
 def update(
-    client: "TrezorClient",
+    client: "detahardClient",
     filename: Optional[BinaryIO],
     url: Optional[str],
     version: Optional[str],
@@ -548,12 +548,12 @@ def update(
 
     You can specify a filename or URL from which the firmware can be downloaded.
     You can also explicitly specify a firmware version that you want.
-    Otherwise, trezorctl will attempt to find latest available version
-    from data.trezor.io.
+    Otherwise, detahardctl will attempt to find latest available version
+    from data.detahard.io.
 
     If you provide a fingerprint via the --fingerprint option, it will be checked
     against downloaded firmware fingerprint. Otherwise fingerprint is checked
-    against data.trezor.io information, if available.
+    against data.detahard.io information, if available.
     """
     if sum(bool(x) for x in (filename, url, version)) > 1:
         click.echo("You can use only one of: filename, url, version.")
@@ -580,7 +580,7 @@ def update(
             firmware_data=firmware_data,
             fingerprint=fingerprint,
             bootloader_onev2=_is_bootloader_onev2(client),
-            trezor_major_version=client.features.major_version,
+            detahard_major_version=client.features.major_version,
         )
 
     if not raw:
@@ -598,7 +598,7 @@ def update(
 @cli.command()
 @click.argument("hex_challenge", required=False)
 @with_client
-def get_hash(client: "TrezorClient", hex_challenge: Optional[str]) -> str:
+def get_hash(client: "detahardClient", hex_challenge: Optional[str]) -> str:
     """Get a hash of the installed firmware combined with the optional challenge."""
     challenge = bytes.fromhex(hex_challenge) if hex_challenge else None
     return firmware.get_hash(client, challenge).hex()

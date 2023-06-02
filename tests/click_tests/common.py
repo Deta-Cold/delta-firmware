@@ -6,7 +6,7 @@ from typing import TYPE_CHECKING
 from .. import buttons
 
 if TYPE_CHECKING:
-    from trezorlib.debuglink import DebugLink, LayoutContent
+    from detahardlib.debuglink import DebugLink, LayoutContent
 
 
 # Passphrases and addresses for both models

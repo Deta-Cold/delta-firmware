@@ -8,9 +8,9 @@ from ..writers import (
 )
 
 if TYPE_CHECKING:
-    from trezor.crypto import bip32
-    from trezor.utils import Writer
-    from trezor.messages import (
+    from detahard.crypto import bip32
+    from detahard.utils import Writer
+    from detahard.messages import (
         NEMImportanceTransfer,
         NEMMosaic,
         NEMTransactionCommon,
@@ -85,7 +85,7 @@ def serialize_importance_transfer(
 def get_transfer_payload(
     transfer: NEMTransfer, node: bip32.HDNode
 ) -> tuple[bytes, bool]:
-    from trezor.crypto import random
+    from detahard.crypto import random
     from ..helpers import (
         AES_BLOCK_SIZE,
         NEM_SALT_SIZE,

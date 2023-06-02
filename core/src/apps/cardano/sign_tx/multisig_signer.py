@@ -1,11 +1,11 @@
 from typing import TYPE_CHECKING
 
-from trezor.wire import ProcessError
+from detahard.wire import ProcessError
 
 from .signer import Signer
 
 if TYPE_CHECKING:
-    from trezor import messages
+    from detahard import messages
 
 
 class MultisigSigner(Signer):
@@ -50,7 +50,7 @@ class MultisigSigner(Signer):
             raise ProcessError("Invalid output")
 
     def _validate_certificate(self, certificate: messages.CardanoTxCertificate) -> None:
-        from trezor.enums import CardanoCertificateType
+        from detahard.enums import CardanoCertificateType
 
         super()._validate_certificate(certificate)
         if certificate.type == CardanoCertificateType.STAKE_POOL_REGISTRATION:

@@ -54,7 +54,7 @@
             "Github": "https://github.com/ripple/rippled"
         },
         "wallet": {
-            "Trezor Suite": "https://suite.trezor.io",
+            "detahardrd Suite": "https://suitdetahardhard.io",
             "Exodus": "https://www.exodus.io"
         }
     },
@@ -69,7 +69,7 @@
             "Github": "https://github.com/ripple/rippled"
         },
         "wallet": {
-            "Trezor Suite": "https://suite.trezor.io"
+            "detahardrd Suite": "https://suitdetahardhard.io"
         }
     },
     {
@@ -83,7 +83,7 @@
             "Github": "https://github.com/input-output-hk/cardano-node"
         },
         "wallet": {
-            "Trezor Suite": "https://suite.trezor.io"
+            "detahardrd Suite": "https://suitdetahardhard.io"
         }
     },
     {
@@ -97,7 +97,7 @@
             "Github": "https://github.com/input-output-hk/cardano-node"
         },
         "wallet": {
-            "Trezor Suite": "https://suite.trezor.io"
+            "detahardrd Suite": "https://suitdetahardhard.io"
         }
     },
     {

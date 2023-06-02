@@ -1,20 +1,20 @@
 from typing import TYPE_CHECKING
 
-from trezor.enums import ButtonRequestType
-from trezor.strings import format_amount
+from detahard.enums import ButtonRequestType
+from detahard.strings import format_amount
 
 from ..helpers import NEM_MOSAIC_AMOUNT_DIVISOR
 from ..layout import require_confirm_final
 from ..mosaic.helpers import is_nem_xem_mosaic
 
 if TYPE_CHECKING:
-    from trezor.messages import (
+    from detahard.messages import (
         NEMImportanceTransfer,
         NEMMosaic,
         NEMTransactionCommon,
         NEMTransfer,
     )
-    from trezor.wire import Context
+    from detahard.wire import Context
 
 
 async def ask_transfer(
@@ -23,7 +23,7 @@ async def ask_transfer(
     transfer: NEMTransfer,
     encrypted: bool,
 ) -> None:
-    from trezor.ui.layouts import confirm_output, confirm_text
+    from detahard.ui.layouts import confirm_output, confirm_text
     from ..helpers import NEM_MAX_DIVISIBILITY
 
     if transfer.payload:
@@ -53,8 +53,8 @@ async def ask_transfer(
 async def _ask_transfer_mosaic(
     ctx: Context, common: NEMTransactionCommon, transfer: NEMTransfer, mosaic: NEMMosaic
 ) -> None:
-    from trezor.enums import NEMMosaicLevy
-    from trezor.ui.layouts import confirm_action, confirm_properties
+    from detahard.enums import NEMMosaicLevy
+    from detahard.ui.layouts import confirm_action, confirm_properties
     from ..mosaic.helpers import get_mosaic_definition
     from ..helpers import NEM_LEVY_PERCENTILE_DIVISOR_ABSOLUTE
 
@@ -135,7 +135,7 @@ def _get_xem_amount(transfer: NEMTransfer) -> int:
 async def ask_importance_transfer(
     ctx: Context, common: NEMTransactionCommon, imp: NEMImportanceTransfer
 ) -> None:
-    from trezor.enums import NEMImportanceTransferMode
+    from detahard.enums import NEMImportanceTransferMode
     from ..layout import require_confirm_text
 
     if imp.mode == NEMImportanceTransferMode.ImportanceTransfer_Activate:

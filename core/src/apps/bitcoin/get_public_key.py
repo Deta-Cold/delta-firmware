@@ -1,17 +1,17 @@
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from trezor.messages import GetPublicKey, PublicKey
-    from trezor.protobuf import MessageType
-    from trezor.wire import Context
+    from detahard.messages import GetPublicKey, PublicKey
+    from detahard.protobuf import MessageType
+    from detahard.wire import Context
 
 
 async def get_public_key(
     ctx: Context, msg: GetPublicKey, auth_msg: MessageType | None = None
 ) -> PublicKey:
-    from trezor import wire
-    from trezor.enums import InputScriptType
-    from trezor.messages import HDNodeType, PublicKey, UnlockPath
+    from detahard import wire
+    from detahard.enums import InputScriptType
+    from detahard.messages import HDNodeType, PublicKey, UnlockPath
 
     from apps.common import coininfo, paths
     from apps.common.keychain import FORBIDDEN_KEY_PATH, get_keychain
@@ -80,7 +80,7 @@ async def get_public_key(
     )
 
     if msg.show_display:
-        from trezor.ui.layouts import show_xpub
+        from detahard.ui.layouts import show_xpub
 
         await show_xpub(ctx, node_xpub, "XPUB")
 

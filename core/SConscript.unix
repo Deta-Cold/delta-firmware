@@ -6,12 +6,12 @@ import tools
 
 BITCOIN_ONLY = ARGUMENTS.get('BITCOIN_ONLY', '0')
 EVERYTHING = BITCOIN_ONLY != '1'
-TREZOR_MODEL = ARGUMENTS.get('TREZOR_MODEL', 'T')
-DMA2D =  TREZOR_MODEL in ('T', )
+detahard_MODEL = ARGUMENTS.get('detahard_MODEL', 'T')
+DMA2D =  detahard_MODEL in ('T', )
 CMAKELISTS = int(ARGUMENTS.get('CMAKELISTS', 0))
 
 FEATURE_FLAGS = {
-    "SECP256K1_ZKP": True,  # required for trezor.crypto.curve.bip340 (BIP340/Taproot)
+    "SECP256K1_ZKP": True,  # required for detahard.crypto.curve.bip340 (BIP340/Taproot)
 }
 
 CCFLAGS_MOD = ''
@@ -22,35 +22,35 @@ SOURCE_MOD = [
 ]
 
 PYOPT = ARGUMENTS.get('PYOPT', '1')
-FROZEN = ARGUMENTS.get('TREZOR_EMULATOR_FROZEN', 0)
-RASPI = os.getenv('TREZOR_EMULATOR_RASPI') == '1'
+FROZEN = ARGUMENTS.get('detahard_EMULATOR_FROZEN', 0)
+RASPI = os.getenv('detahard_EMULATOR_RASPI') == '1'
 
-if TREZOR_MODEL in ('1', 'R'):
+if detahard_MODEL in ('1', 'R'):
     FONT_NORMAL='Font_PixelOperator_Regular_8'
     FONT_DEMIBOLD='Font_PixelOperator_Regular_8'
     FONT_BOLD='Font_PixelOperator_Bold_8'
     FONT_MONO='Font_PixelOperatorMono_Regular_8'
-if TREZOR_MODEL in ('T', ):
+if detahard_MODEL in ('T', ):
     FONT_NORMAL='Font_TTHoves_Regular_21'
     FONT_DEMIBOLD='Font_TTHoves_DemiBold_21'
     FONT_BOLD='Font_TTHoves_Bold_17'
     FONT_MONO='Font_RobotoMono_Medium_20'
 
-# modtrezorconfig
+# moddetahardconfig
 CPPPATH_MOD += [
-    'embed/extmod/modtrezorconfig',
-    'vendor/trezor-storage',
+    'embed/extmod/moddetahardconfig',
+    'vendor/detahard-storage',
 ]
 SOURCE_MOD += [
-    'embed/extmod/modtrezorconfig/modtrezorconfig.c',
-    'vendor/trezor-storage/norcow.c',
-    'vendor/trezor-storage/storage.c',
+    'embed/extmod/moddetahardconfig/moddetahardconfig.c',
+    'vendor/detahard-storage/norcow.c',
+    'vendor/detahard-storage/storage.c',
 ]
 
-# modtrezorcrypto
+# moddetahardcrypto
 CCFLAGS_MOD += '-Wno-sequence-point '
 CPPPATH_MOD += [
-    'vendor/trezor-crypto',
+    'vendor/detahard-crypto',
 ]
 CPPDEFINES_MOD += [
     'AES_128',
@@ -65,65 +65,65 @@ CPPDEFINES_MOD += [
     ('USE_EOS', '1' if EVERYTHING else '0'),
 ]
 SOURCE_MOD += [
-    'embed/extmod/trezorobj.c',
-    'embed/extmod/modtrezorcrypto/crc.c',
-    'embed/extmod/modtrezorcrypto/modtrezorcrypto.c',
-    'vendor/trezor-crypto/address.c',
-    'vendor/trezor-crypto/aes/aes_modes.c',
-    'vendor/trezor-crypto/aes/aescrypt.c',
-    'vendor/trezor-crypto/aes/aeskey.c',
-    'vendor/trezor-crypto/aes/aestab.c',
-    'vendor/trezor-crypto/base32.c',
-    'vendor/trezor-crypto/base58.c',
-    'vendor/trezor-crypto/bignum.c',
-    'vendor/trezor-crypto/bip32.c',
-    'vendor/trezor-crypto/bip39.c',
-    'vendor/trezor-crypto/bip39_english.c',
-    'vendor/trezor-crypto/blake256.c',
-    'vendor/trezor-crypto/blake2b.c',
-    'vendor/trezor-crypto/blake2s.c',
-    'vendor/trezor-crypto/chacha20poly1305/chacha20poly1305.c',
-    'vendor/trezor-crypto/chacha20poly1305/chacha_merged.c',
-    'vendor/trezor-crypto/chacha20poly1305/poly1305-donna.c',
-    'vendor/trezor-crypto/chacha20poly1305/rfc7539.c',
-    'vendor/trezor-crypto/chacha_drbg.c',
-    'vendor/trezor-crypto/curves.c',
-    'vendor/trezor-crypto/ecdsa.c',
-    'vendor/trezor-crypto/ed25519-donna/curve25519-donna-32bit.c',
-    'vendor/trezor-crypto/ed25519-donna/curve25519-donna-helpers.c',
-    'vendor/trezor-crypto/ed25519-donna/curve25519-donna-scalarmult-base.c',
-    'vendor/trezor-crypto/ed25519-donna/ed25519-donna-32bit-tables.c',
-    'vendor/trezor-crypto/ed25519-donna/ed25519-donna-basepoint-table.c',
-    'vendor/trezor-crypto/ed25519-donna/ed25519-donna-impl-base.c',
-    'vendor/trezor-crypto/ed25519-donna/ed25519-keccak.c',
-    'vendor/trezor-crypto/ed25519-donna/ed25519-sha3.c',
-    'vendor/trezor-crypto/ed25519-donna/ed25519.c',
-    'vendor/trezor-crypto/ed25519-donna/modm-donna-32bit.c',
-    'vendor/trezor-crypto/groestl.c',
-    'vendor/trezor-crypto/hasher.c',
-    'vendor/trezor-crypto/hmac.c',
-    'vendor/trezor-crypto/hmac_drbg.c',
-    'vendor/trezor-crypto/memzero.c',
-    'vendor/trezor-crypto/nem.c',
-    'vendor/trezor-crypto/nist256p1.c',
-    'vendor/trezor-crypto/pbkdf2.c',
-    'vendor/trezor-crypto/rand.c',
-    'vendor/trezor-crypto/rfc6979.c',
-    'vendor/trezor-crypto/ripemd160.c',
-    'vendor/trezor-crypto/secp256k1.c',
-    'vendor/trezor-crypto/segwit_addr.c',
-    'vendor/trezor-crypto/sha2.c',
-    'vendor/trezor-crypto/sha3.c',
-    'vendor/trezor-crypto/shamir.c',
-    'vendor/trezor-crypto/slip39.c',
-    'vendor/trezor-crypto/slip39_english.c',
+    'embed/extmod/detahardobj.c',
+    'embed/extmod/moddetahardcrypto/crc.c',
+    'embed/extmod/moddetahardcrypto/moddetahardcrypto.c',
+    'vendor/detahard-crypto/address.c',
+    'vendor/detahard-crypto/aes/aes_modes.c',
+    'vendor/detahard-crypto/aes/aescrypt.c',
+    'vendor/detahard-crypto/aes/aeskey.c',
+    'vendor/detahard-crypto/aes/aestab.c',
+    'vendor/detahard-crypto/base32.c',
+    'vendor/detahard-crypto/base58.c',
+    'vendor/detahard-crypto/bignum.c',
+    'vendor/detahard-crypto/bip32.c',
+    'vendor/detahard-crypto/bip39.c',
+    'vendor/detahard-crypto/bip39_english.c',
+    'vendor/detahard-crypto/blake256.c',
+    'vendor/detahard-crypto/blake2b.c',
+    'vendor/detahard-crypto/blake2s.c',
+    'vendor/detahard-crypto/chacha20poly1305/chacha20poly1305.c',
+    'vendor/detahard-crypto/chacha20poly1305/chacha_merged.c',
+    'vendor/detahard-crypto/chacha20poly1305/poly1305-donna.c',
+    'vendor/detahard-crypto/chacha20poly1305/rfc7539.c',
+    'vendor/detahard-crypto/chacha_drbg.c',
+    'vendor/detahard-crypto/curves.c',
+    'vendor/detahard-crypto/ecdsa.c',
+    'vendor/detahard-crypto/ed25519-donna/curve25519-donna-32bit.c',
+    'vendor/detahard-crypto/ed25519-donna/curve25519-donna-helpers.c',
+    'vendor/detahard-crypto/ed25519-donna/curve25519-donna-scalarmult-base.c',
+    'vendor/detahard-crypto/ed25519-donna/ed25519-donna-32bit-tables.c',
+    'vendor/detahard-crypto/ed25519-donna/ed25519-donna-basepoint-table.c',
+    'vendor/detahard-crypto/ed25519-donna/ed25519-donna-impl-base.c',
+    'vendor/detahard-crypto/ed25519-donna/ed25519-keccak.c',
+    'vendor/detahard-crypto/ed25519-donna/ed25519-sha3.c',
+    'vendor/detahard-crypto/ed25519-donna/ed25519.c',
+    'vendor/detahard-crypto/ed25519-donna/modm-donna-32bit.c',
+    'vendor/detahard-crypto/groestl.c',
+    'vendor/detahard-crypto/hasher.c',
+    'vendor/detahard-crypto/hmac.c',
+    'vendor/detahard-crypto/hmac_drbg.c',
+    'vendor/detahard-crypto/memzero.c',
+    'vendor/detahard-crypto/nem.c',
+    'vendor/detahard-crypto/nist256p1.c',
+    'vendor/detahard-crypto/pbkdf2.c',
+    'vendor/detahard-crypto/rand.c',
+    'vendor/detahard-crypto/rfc6979.c',
+    'vendor/detahard-crypto/ripemd160.c',
+    'vendor/detahard-crypto/secp256k1.c',
+    'vendor/detahard-crypto/segwit_addr.c',
+    'vendor/detahard-crypto/sha2.c',
+    'vendor/detahard-crypto/sha3.c',
+    'vendor/detahard-crypto/shamir.c',
+    'vendor/detahard-crypto/slip39.c',
+    'vendor/detahard-crypto/slip39_english.c',
 ]
 if EVERYTHING:
     SOURCE_MOD += [
-        'vendor/trezor-crypto/cardano.c',
-        'vendor/trezor-crypto/monero/base58.c',
-        'vendor/trezor-crypto/monero/serialize.c',
-        'vendor/trezor-crypto/monero/xmr.c',
+        'vendor/detahard-crypto/cardano.c',
+        'vendor/detahard-crypto/monero/base58.c',
+        'vendor/detahard-crypto/monero/serialize.c',
+        'vendor/detahard-crypto/monero/xmr.c',
     ]
 
 # libsecp256k1-zkp
@@ -151,22 +151,22 @@ if FEATURE_FLAGS["SECP256K1_ZKP"]:
         'vendor/secp256k1-zkp/src/precomputed_ecmult_gen.c',
     ]
     SOURCE_MOD += [
-        'vendor/trezor-crypto/zkp_context.c',
-        'vendor/trezor-crypto/zkp_ecdsa.c',
-        'vendor/trezor-crypto/zkp_bip340.c',
+        'vendor/detahard-crypto/zkp_context.c',
+        'vendor/detahard-crypto/zkp_ecdsa.c',
+        'vendor/detahard-crypto/zkp_bip340.c',
     ]
 
-# modtrezorio
+# moddetahardio
 SOURCE_MOD += [
-    'embed/extmod/modtrezorio/modtrezorio.c',
+    'embed/extmod/moddetahardio/moddetahardio.c',
 ]
-if TREZOR_MODEL in ('T',):
+if detahard_MODEL in ('T',):
     SOURCE_MOD += [
-        'embed/extmod/modtrezorio/ff.c',
-        'embed/extmod/modtrezorio/ffunicode.c',
+        'embed/extmod/moddetahardio/ff.c',
+        'embed/extmod/moddetahardio/ffunicode.c',
     ]
 
-# modtrezorui
+# moddetahardui
 CPPPATH_MOD += [
         'vendor/micropython/lib/uzlib',
 ]
@@ -176,33 +176,33 @@ SOURCE_MOD += [
     'embed/lib/display.c',
     'embed/lib/fonts/fonts.c',
     'embed/lib/fonts/font_bitmap.c',
-    'embed/extmod/modtrezorui/modtrezorui.c',
+    'embed/extmod/moddetahardui/moddetahardui.c',
     'vendor/micropython/lib/uzlib/adler32.c',
     'vendor/micropython/lib/uzlib/crc32.c',
     'vendor/micropython/lib/uzlib/tinflate.c',
 ]
 CPPDEFINES_MOD += [
-    'TREZOR_UI2',
+    'detahard_UI2',
 ]
-if TREZOR_MODEL not in ('1', ):
+if detahard_MODEL not in ('1', ):
     CPPDEFINES_MOD += [
         'FANCY_FATAL_ERROR',
     ]
 
 if FROZEN:
-    CPPDEFINES_MOD += ['TREZOR_EMULATOR_FROZEN']
+    CPPDEFINES_MOD += ['detahard_EMULATOR_FROZEN']
 if RASPI:
-    CPPDEFINES_MOD += ['TREZOR_EMULATOR_RASPI']
+    CPPDEFINES_MOD += ['detahard_EMULATOR_RASPI']
 
-# modtrezorutils
+# moddetahardutils
 SOURCE_MOD += [
-    'embed/extmod/modtrezorutils/modtrezorutils.c',
+    'embed/extmod/moddetahardutils/moddetahardutils.c',
 ]
 
 # rust mods
 SOURCE_MOD += [
-    'embed/extmod/rustmods/modtrezorproto.c',
-    'embed/extmod/rustmods/modtrezorui2.c',
+    'embed/extmod/rustmods/moddetahardproto.c',
+    'embed/extmod/rustmods/moddetahardui2.c',
 ]
 
 # modutime
@@ -353,7 +353,7 @@ SOURCE_UNIX = [
     'vendor/micropython/ports/unix/input.c',
     'vendor/micropython/ports/unix/unix_mphal.c',
 ]
-if TREZOR_MODEL in ('T',):
+if detahard_MODEL in ('T',):
     SOURCE_UNIX += [
         'embed/unix/sbu.c',
         'embed/unix/sdcard.c',
@@ -397,12 +397,12 @@ env.Replace(
     OBJCOPY='objcopy',
     COPT=os.getenv('OPTIMIZE', '-Os'), )
 
-if ARGUMENTS.get('TREZOR_EMULATOR_CLANG', '0') == '1':
+if ARGUMENTS.get('detahard_EMULATOR_CLANG', '0') == '1':
     env.Replace(
         CC='clang',
         LINK='clang', )
 
-if ARGUMENTS.get('TREZOR_EMULATOR_ASAN', '0') == '1':
+if ARGUMENTS.get('detahard_EMULATOR_ASAN', '0') == '1':
     asan_flags=(
         ' -fsanitize=address,undefined'+
         ' -fno-omit-frame-pointer'+
@@ -419,18 +419,18 @@ if ARGUMENTS.get('TREZOR_EMULATOR_ASAN', '0') == '1':
             'RUSTFLAGS': '-Z sanitizer=address',
         }, )
 
-if ARGUMENTS.get('TREZOR_EMULATOR_DEBUGGABLE', '0') == '1':
+if ARGUMENTS.get('detahard_EMULATOR_DEBUGGABLE', '0') == '1':
     env.Replace(
         COPT=' -Og -ggdb',
         STRIP='true', )
 
-if ARGUMENTS.get('TREZOR_MEMPERF', '0') == '1':
+if ARGUMENTS.get('detahard_MEMPERF', '0') == '1':
     CPPDEFINES_MOD += [
-        ('MICROPY_TREZOR_MEMPERF', '\(1\)')
+        ('MICROPY_detahard_MEMPERF', '\(1\)')
     ]
 
 env.Replace(
-    TREZOR_MODEL=TREZOR_MODEL, )
+    detahard_MODEL=detahard_MODEL, )
 
 env.Replace(
     CCFLAGS='$COPT '
@@ -444,15 +444,15 @@ env.Replace(
         'embed/rust',
         'embed/lib',
         'embed/unix',
-        'embed/extmod/modtrezorui',
+        'embed/extmod/moddetahardui',
         'vendor/micropython',
         'vendor/micropython/ports/unix',
         'vendor/micropython/lib/mp-readline',
     ] + CPPPATH_MOD,
     CPPDEFINES=[
-        'TREZOR_EMULATOR',
-        'TREZOR_MODEL_'+TREZOR_MODEL,
-        'TREZOR_BOARD=\\"board-unix.h\\"',
+        'detahard_EMULATOR',
+        'detahard_MODEL_'+detahard_MODEL,
+        'detahard_BOARD=\\"board-unix.h\\"',
         ('MP_CONFIGFILE', '\\"embed/unix/mpconfigport.h\\"'),
     ] + CPPDEFINES_MOD,
     ASPPFLAGS='$CFLAGS $CCFLAGS', )
@@ -542,47 +542,47 @@ if FROZEN:
     SOURCE_PY_DIR = 'src/'
 
     SOURCE_PY = Glob(SOURCE_PY_DIR + '*.py')
-    SOURCE_PY.extend(Glob(SOURCE_PY_DIR + 'trezor/*.py'))
-    SOURCE_PY.extend(Glob(SOURCE_PY_DIR + 'trezor/crypto/*.py'))
-    SOURCE_PY.extend(Glob(SOURCE_PY_DIR + 'trezor/ui/*.py'))
-    SOURCE_PY.extend(Glob(SOURCE_PY_DIR + 'trezor/ui/components/*.py'))
-    SOURCE_PY.extend(Glob(SOURCE_PY_DIR + 'trezor/ui/components/common/*.py'))
+    SOURCE_PY.extend(Glob(SOURCE_PY_DIR + 'detahard/*.py'))
+    SOURCE_PY.extend(Glob(SOURCE_PY_DIR + 'detahard/crypto/*.py'))
+    SOURCE_PY.extend(Glob(SOURCE_PY_DIR + 'detahard/ui/*.py'))
+    SOURCE_PY.extend(Glob(SOURCE_PY_DIR + 'detahard/ui/components/*.py'))
+    SOURCE_PY.extend(Glob(SOURCE_PY_DIR + 'detahard/ui/components/common/*.py'))
 
     # UI layouts - common files and then model-specific. Exclude FIDO when BTC-only.
-    SOURCE_PY.extend(Glob(SOURCE_PY_DIR + 'trezor/ui/layouts/*.py',
+    SOURCE_PY.extend(Glob(SOURCE_PY_DIR + 'detahard/ui/layouts/*.py',
         exclude=[
-            SOURCE_PY_DIR + 'trezor/ui/layouts/fido.py',
+            SOURCE_PY_DIR + 'detahard/ui/layouts/fido.py',
         ] if not EVERYTHING else []
     ))
-    if TREZOR_MODEL in ('T',):
-        SOURCE_PY.extend(Glob(SOURCE_PY_DIR + 'trezor/ui/layouts/tt_v2/*.py',
+    if detahard_MODEL in ('T',):
+        SOURCE_PY.extend(Glob(SOURCE_PY_DIR + 'detahard/ui/layouts/tt_v2/*.py',
             exclude=[
-                SOURCE_PY_DIR + 'trezor/ui/layouts/tt_v2/fido.py',
+                SOURCE_PY_DIR + 'detahard/ui/layouts/tt_v2/fido.py',
             ] if not EVERYTHING else []
         ))
-    elif TREZOR_MODEL in ('1', 'R'):
-        SOURCE_PY.extend(Glob(SOURCE_PY_DIR + 'trezor/ui/layouts/tr/__init__.py'))
+    elif detahard_MODEL in ('1', 'R'):
+        SOURCE_PY.extend(Glob(SOURCE_PY_DIR + 'detahard/ui/layouts/tr/__init__.py'))
     else:
-        raise ValueError('Unknown Trezor model')
+        raise ValueError('Unknown detahard model')
 
-    SOURCE_PY.extend(Glob(SOURCE_PY_DIR + 'trezor/wire/*.py'))
+    SOURCE_PY.extend(Glob(SOURCE_PY_DIR + 'detahard/wire/*.py'))
 
     SOURCE_PY.extend(Glob(SOURCE_PY_DIR + 'storage/*.py'))
 
-    SOURCE_PY.extend(Glob(SOURCE_PY_DIR + 'trezor/messages/__init__.py'))
-    SOURCE_PY.extend(Glob(SOURCE_PY_DIR + 'trezor/enums/*.py',
+    SOURCE_PY.extend(Glob(SOURCE_PY_DIR + 'detahard/messages/__init__.py'))
+    SOURCE_PY.extend(Glob(SOURCE_PY_DIR + 'detahard/enums/*.py',
         exclude=[
-            SOURCE_PY_DIR + 'trezor/enums/Binance*.py',
-            SOURCE_PY_DIR + 'trezor/enums/Cardano*.py',
-            SOURCE_PY_DIR + 'trezor/enums/DebugMonero*.py',
-            SOURCE_PY_DIR + 'trezor/enums/Eos*.py',
-            SOURCE_PY_DIR + 'trezor/enums/Ethereum*.py',
-            SOURCE_PY_DIR + 'trezor/enums/Monero*.py',
-            SOURCE_PY_DIR + 'trezor/enums/NEM*.py',
-            SOURCE_PY_DIR + 'trezor/enums/Ripple*.py',
-            SOURCE_PY_DIR + 'trezor/enums/Stellar*.py',
-            SOURCE_PY_DIR + 'trezor/enums/Tezos*.py',
-            SOURCE_PY_DIR + 'trezor/enums/Zcash*.py',
+            SOURCE_PY_DIR + 'detahard/enums/Binance*.py',
+            SOURCE_PY_DIR + 'detahard/enums/Cardano*.py',
+            SOURCE_PY_DIR + 'detahard/enums/DebugMonero*.py',
+            SOURCE_PY_DIR + 'detahard/enums/Eos*.py',
+            SOURCE_PY_DIR + 'detahard/enums/Ethereum*.py',
+            SOURCE_PY_DIR + 'detahard/enums/Monero*.py',
+            SOURCE_PY_DIR + 'detahard/enums/NEM*.py',
+            SOURCE_PY_DIR + 'detahard/enums/Ripple*.py',
+            SOURCE_PY_DIR + 'detahard/enums/Stellar*.py',
+            SOURCE_PY_DIR + 'detahard/enums/Tezos*.py',
+            SOURCE_PY_DIR + 'detahard/enums/Zcash*.py',
         ])
     )
 
@@ -594,7 +594,7 @@ if FROZEN:
     SOURCE_PY.extend(Glob(SOURCE_PY_DIR + 'apps/management/*.py',
         exclude=[
             SOURCE_PY_DIR + 'apps/management/sd_protect.py',
-        ] if TREZOR_MODEL not in ('T',) else [])
+        ] if detahard_MODEL not in ('T',) else [])
     )
     SOURCE_PY.extend(Glob(SOURCE_PY_DIR + 'apps/management/*/*.py'))
     SOURCE_PY.extend(Glob(SOURCE_PY_DIR + 'apps/misc/*.py'))
@@ -609,38 +609,38 @@ if FROZEN:
 
     if EVERYTHING:
         SOURCE_PY.extend(Glob(SOURCE_PY_DIR + 'apps/binance/*.py'))
-        SOURCE_PY.extend(Glob(SOURCE_PY_DIR + 'trezor/enums/Binance*.py'))
+        SOURCE_PY.extend(Glob(SOURCE_PY_DIR + 'detahard/enums/Binance*.py'))
 
         SOURCE_PY.extend(Glob(SOURCE_PY_DIR + 'apps/cardano/*.py'))
         SOURCE_PY.extend(Glob(SOURCE_PY_DIR + 'apps/cardano/*/*.py'))
-        SOURCE_PY.extend(Glob(SOURCE_PY_DIR + 'trezor/enums/Cardano*.py'))
+        SOURCE_PY.extend(Glob(SOURCE_PY_DIR + 'detahard/enums/Cardano*.py'))
 
         SOURCE_PY.extend(Glob(SOURCE_PY_DIR + 'apps/eos/*.py'))
         SOURCE_PY.extend(Glob(SOURCE_PY_DIR + 'apps/eos/*/*.py'))
-        SOURCE_PY.extend(Glob(SOURCE_PY_DIR + 'trezor/enums/Eos*.py'))
+        SOURCE_PY.extend(Glob(SOURCE_PY_DIR + 'detahard/enums/Eos*.py'))
 
         SOURCE_PY.extend(Glob(SOURCE_PY_DIR + 'apps/ethereum/*.py'))
-        SOURCE_PY.extend(Glob(SOURCE_PY_DIR + 'trezor/enums/Ethereum*.py'))
+        SOURCE_PY.extend(Glob(SOURCE_PY_DIR + 'detahard/enums/Ethereum*.py'))
 
         SOURCE_PY.extend(Glob(SOURCE_PY_DIR + 'apps/monero/*.py'))
         SOURCE_PY.extend(Glob(SOURCE_PY_DIR + 'apps/monero/*/*.py'))
         SOURCE_PY.extend(Glob(SOURCE_PY_DIR + 'apps/monero/*/*/*.py'))
-        SOURCE_PY.extend(Glob(SOURCE_PY_DIR + 'trezor/enums/DebugMonero*.py'))
-        SOURCE_PY.extend(Glob(SOURCE_PY_DIR + 'trezor/enums/Monero*.py'))
+        SOURCE_PY.extend(Glob(SOURCE_PY_DIR + 'detahard/enums/DebugMonero*.py'))
+        SOURCE_PY.extend(Glob(SOURCE_PY_DIR + 'detahard/enums/Monero*.py'))
 
         SOURCE_PY.extend(Glob(SOURCE_PY_DIR + 'apps/nem/*.py'))
         SOURCE_PY.extend(Glob(SOURCE_PY_DIR + 'apps/nem/*/*.py'))
-        SOURCE_PY.extend(Glob(SOURCE_PY_DIR + 'trezor/enums/NEM*.py'))
+        SOURCE_PY.extend(Glob(SOURCE_PY_DIR + 'detahard/enums/NEM*.py'))
 
         SOURCE_PY.extend(Glob(SOURCE_PY_DIR + 'apps/ripple/*.py'))
-        SOURCE_PY.extend(Glob(SOURCE_PY_DIR + 'trezor/enums/Ripple*.py'))
+        SOURCE_PY.extend(Glob(SOURCE_PY_DIR + 'detahard/enums/Ripple*.py'))
 
         SOURCE_PY.extend(Glob(SOURCE_PY_DIR + 'apps/stellar/*.py'))
         SOURCE_PY.extend(Glob(SOURCE_PY_DIR + 'apps/stellar/*/*.py'))
-        SOURCE_PY.extend(Glob(SOURCE_PY_DIR + 'trezor/enums/Stellar*.py'))
+        SOURCE_PY.extend(Glob(SOURCE_PY_DIR + 'detahard/enums/Stellar*.py'))
 
         SOURCE_PY.extend(Glob(SOURCE_PY_DIR + 'apps/tezos/*.py'))
-        SOURCE_PY.extend(Glob(SOURCE_PY_DIR + 'trezor/enums/Tezos*.py'))
+        SOURCE_PY.extend(Glob(SOURCE_PY_DIR + 'detahard/enums/Tezos*.py'))
 
         SOURCE_PY.extend(Glob(SOURCE_PY_DIR + 'apps/zcash/*.py'))
 
@@ -649,7 +649,7 @@ if FROZEN:
         SOURCE_PY.extend(Glob(SOURCE_PY_DIR + 'apps/bitcoin/sign_tx/decred.py'))
         SOURCE_PY.extend(Glob(SOURCE_PY_DIR + 'apps/bitcoin/sign_tx/bitcoinlike.py'))
         SOURCE_PY.extend(Glob(SOURCE_PY_DIR + 'apps/bitcoin/sign_tx/zcash_v4.py'))
-        SOURCE_PY.extend(Glob(SOURCE_PY_DIR + 'trezor/enums/Zcash*.py'))
+        SOURCE_PY.extend(Glob(SOURCE_PY_DIR + 'detahard/enums/Zcash*.py'))
 
     source_mpy = env.FrozenModule(source=SOURCE_PY, source_dir=SOURCE_PY_DIR, bitcoin_only=BITCOIN_ONLY)
 
@@ -676,18 +676,18 @@ env.Depends(protobuf_blobs, qstr_generated)
 
 TARGET = os.popen("rustc -vV | sed -n 's/host: //p'").read().strip()
 
-if ARGUMENTS.get('TREZOR_EMULATOR_DEBUGGABLE', '0') == '1':
+if ARGUMENTS.get('detahard_EMULATOR_DEBUGGABLE', '0') == '1':
     RUST_PROFILE = 'dev'
     RUST_LIBDIR = f'build/unix/rust/{TARGET}/debug'
 else:
     RUST_PROFILE = 'release'
     RUST_LIBDIR = f'build/unix/rust/{TARGET}/release'
-RUST_LIB = 'trezor_lib'
+RUST_LIB = 'detahard_lib'
 RUST_LIBPATH = f'{RUST_LIBDIR}/lib{RUST_LIB}.a'
 
 def cargo_build():
     # T1 does not have its own Rust feature, it shares it with TR
-    model_feature = 'model_tr' if TREZOR_MODEL == '1' else f'model_t{TREZOR_MODEL.lower()}'
+    model_feature = 'model_tr' if detahard_MODEL == '1' else f'model_t{detahard_MODEL.lower()}'
     features = ['micropython', 'protobuf', model_feature]
     if BITCOIN_ONLY == '1':
         features.append('bitcoin_only')
@@ -697,13 +697,13 @@ def cargo_build():
     if DMA2D:
         features.append('dma2d')
 
-    if TREZOR_MODEL in ('T',):
+    if detahard_MODEL in ('T',):
         features.append('touch')
         features.append('sd_card')
-    if TREZOR_MODEL in ('R', '1'):
+    if detahard_MODEL in ('R', '1'):
         features.append('button')
 
-    env.get('ENV')['TREZOR_MODEL'] = TREZOR_MODEL
+    env.get('ENV')['detahard_MODEL'] = detahard_MODEL
 
     return f'cd embed/rust; cargo build --profile {RUST_PROFILE} --target-dir=../../build/unix/rust --no-default-features --features "{" ".join(features)}"  --target {TARGET}'
 
@@ -747,7 +747,7 @@ cmake_gen = env.Command(
 env.Depends(obj_program, qstr_generated)
 
 program = env.Command(
-    target='trezor-emu-core',
+    target='detahard-emu-core',
     source=obj_program,
     action='$CC -o $TARGET $SOURCES $_LIBDIRFLAGS $_LIBFLAGS $LINKFLAGS', )
 

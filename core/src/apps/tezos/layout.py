@@ -1,17 +1,17 @@
 from typing import TYPE_CHECKING
 
-from trezor.enums import ButtonRequestType
-from trezor.ui.layouts import confirm_address, confirm_metadata, confirm_properties
+from detahard.enums import ButtonRequestType
+from detahard.ui.layouts import confirm_address, confirm_metadata, confirm_properties
 
 if TYPE_CHECKING:
-    from trezor.wire import Context
+    from detahard.wire import Context
 
 
 BR_SIGN_TX = ButtonRequestType.SignTx  # global_import_cache
 
 
 async def require_confirm_tx(ctx: Context, to: str, value: int) -> None:
-    from trezor.ui.layouts import confirm_output
+    from detahard.ui.layouts import confirm_output
 
     await confirm_output(
         ctx,
@@ -22,7 +22,7 @@ async def require_confirm_tx(ctx: Context, to: str, value: int) -> None:
 
 
 async def require_confirm_fee(ctx: Context, value: int, fee: int) -> None:
-    from trezor.ui.layouts import confirm_total
+    from detahard.ui.layouts import confirm_total
 
     await confirm_total(
         ctx,
@@ -96,7 +96,7 @@ async def require_confirm_register_delegate(
 
 
 def format_tezos_amount(value: int) -> str:
-    from trezor.strings import format_amount
+    from detahard.strings import format_amount
     from .helpers import TEZOS_AMOUNT_DECIMALS
 
     formatted_value = format_amount(value, TEZOS_AMOUNT_DECIMALS)

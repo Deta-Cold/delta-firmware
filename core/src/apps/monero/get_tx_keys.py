@@ -22,17 +22,17 @@ from apps.common.keychain import auto_keychain
 _GET_TX_KEY_REASON_TX_DERIVATION = const(1)
 
 if TYPE_CHECKING:
-    from trezor.messages import MoneroGetTxKeyRequest, MoneroGetTxKeyAck
+    from detahard.messages import MoneroGetTxKeyRequest, MoneroGetTxKeyAck
     from apps.common.keychain import Keychain
-    from trezor.wire import Context
+    from detahard.wire import Context
 
 
 @auto_keychain(__name__)
 async def get_tx_keys(
     ctx: Context, msg: MoneroGetTxKeyRequest, keychain: Keychain
 ) -> MoneroGetTxKeyAck:
-    from trezor import utils, wire
-    from trezor.messages import MoneroGetTxKeyAck
+    from detahard import utils, wire
+    from detahard.messages import MoneroGetTxKeyAck
 
     from apps.common import paths
     from apps.monero import layout, misc

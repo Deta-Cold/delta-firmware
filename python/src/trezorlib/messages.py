@@ -354,7 +354,7 @@ class RequestType(IntEnum):
 class CardanoDerivationType(IntEnum):
     LEDGER = 0
     ICARUS = 1
-    ICARUS_TREZOR = 2
+    ICARUS_detahard = 2
 
 
 class CardanoAddressType(IntEnum):

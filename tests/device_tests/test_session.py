@@ -1,4 +1,4 @@
-# This file is part of the Trezor project.
+# This file is part of the detahard project.
 #
 # Copyright (C) 2012-2019 SatoshiLabs and contributors
 #
@@ -16,11 +16,11 @@
 
 import pytest
 
-from trezorlib import cardano, messages
-from trezorlib.btc import get_public_node
-from trezorlib.debuglink import TrezorClientDebugLink as Client
-from trezorlib.exceptions import TrezorFailure
-from trezorlib.tools import parse_path
+from detahardlib import cardano, messages
+from detahardlib.btc import get_public_node
+from detahardlib.debuglink import detahardClientDebugLink as Client
+from detahardlib.exceptions import detahardFailure
+from detahardlib.tools import parse_path
 
 from ..common import get_test_address
 
@@ -32,9 +32,9 @@ PIN4 = "1234"
 
 @pytest.mark.setup_client(pin=PIN4, passphrase="")
 def test_clear_session(client: Client):
-    is_trezor1 = client.features.model == "1"
+    is_detahard1 = client.features.model == "1"
     init_responses = [
-        messages.PinMatrixRequest if is_trezor1 else messages.ButtonRequest,
+        messages.PinMatrixRequest if is_detahard1 else messages.ButtonRequest,
         messages.PassphraseRequest,
     ]
 
@@ -76,7 +76,7 @@ def test_end_session(client: Client):
 
     client.end_session()
     assert client.session_id is None
-    with pytest.raises(TrezorFailure) as exc:
+    with pytest.raises(detahardFailure) as exc:
         get_test_address(client)
     assert exc.value.code == messages.FailureType.InvalidSession
     assert exc.value.message.endswith("Invalid session")
@@ -140,7 +140,7 @@ def test_session_recycling(client: Client):
                 messages.Address,
             ]
         )
-        client.use_passphrase("TREZOR")
+        client.use_passphrase("detahard")
         address = get_test_address(client)
 
     # create and close 100 sessions - more than the session limit
@@ -152,7 +152,7 @@ def test_session_recycling(client: Client):
     with client:
         # passphrase should still be cached
         client.set_expected_responses([messages.Features, messages.Address])
-        client.use_passphrase("TREZOR")
+        client.use_passphrase("detahard")
         client.init_device(session_id=session_id_orig)
         assert address == get_test_address(client)
 
@@ -187,7 +187,7 @@ def test_derive_cardano_running_session(client: Client):
     get_test_address(client)
 
     # session should not have Cardano capability
-    with pytest.raises(TrezorFailure, match="not enabled"):
+    with pytest.raises(detahardFailure, match="not enabled"):
         cardano.get_public_key(client, parse_path("m/44h/1815h/0h"))
 
     # restarting same session should go well
@@ -219,5 +219,5 @@ def test_derive_cardano_running_session(client: Client):
     client.init_device(derive_cardano=False)
     assert session_id != client.session_id
 
-    with pytest.raises(TrezorFailure, match="not enabled"):
+    with pytest.raises(detahardFailure, match="not enabled"):
         cardano.get_public_key(client, parse_path("m/44h/1815h/0h"))

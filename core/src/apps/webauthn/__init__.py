@@ -1,5 +1,5 @@
 def boot() -> None:
-    from trezor import loop
+    from detahard import loop
     import usb
     from .fido2 import handle_reports
 

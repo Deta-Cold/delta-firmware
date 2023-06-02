@@ -1,4 +1,4 @@
-from trezor.enums import FailureType
+from detahard.enums import FailureType
 
 
 class Error(Exception):

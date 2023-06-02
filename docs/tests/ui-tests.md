@@ -2,9 +2,9 @@
 
 ## 1. Running the full test suite
 
-_Note: You need Poetry, as mentioned in the core's [documentation](https://docs.trezor.io/trezor-firmware/core/) section._
+_Note: You need Poetry, as mentioned in the core's [documentation](https://docs.detahard.io/detahard-firmware/core/) section._
 
-In the `trezor-firmware` checkout, in the root of the monorepo, install the environment:
+In the `detahard-firmware` checkout, in the root of the monorepo, install the environment:
 
 ```sh
 poetry install
@@ -78,7 +78,7 @@ The script `tests/show_results.py` starts a local HTTP server that serves this p
 this is necessary for access to browser local storage, which enables a simple reviewer
 UI.
 
-On CI this report is published as an artifact. You can see the latest master report [here](https://gitlab.com/satoshilabs/trezor/trezor-firmware/-/jobs/artifacts/master/file/test_ui_report/index.html?job=core%20device%20test). The reviewer features work directly here.
+On CI this report is published as an artifact. You can see the latest master report [here](https://gitlab.com/satoshilabs/detahard/detahard-firmware/-/jobs/artifacts/master/file/test_ui_report/index.html?job=core%20device%20test). The reviewer features work directly here.
 
 If needed, you can use `python3 -m tests.ui_tests` to regenerate the report from local
 recorded screens.

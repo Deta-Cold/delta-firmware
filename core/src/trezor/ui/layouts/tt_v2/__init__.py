@@ -1,17 +1,17 @@
 from typing import TYPE_CHECKING
 
-from trezor import io, loop, ui
-from trezor.enums import ButtonRequestType
-from trezor.wire import ActionCancelled
+from detahard import io, loop, ui
+from detahard.enums import ButtonRequestType
+from detahard.wire import ActionCancelled
 
-import trezorui2
+import detahardui2
 
 from ..common import button_request, interact
 
 if TYPE_CHECKING:
     from typing import Any, Awaitable, Iterable, NoReturn, Sequence, TypeVar
 
-    from trezor.wire import GenericContext, Context
+    from detahard.wire import GenericContext, Context
     from ..common import PropertyType, ExceptionType
 
     T = TypeVar("T")
@@ -19,15 +19,15 @@ if TYPE_CHECKING:
 
 BR_TYPE_OTHER = ButtonRequestType.Other  # global_import_cache
 
-CONFIRMED = trezorui2.CONFIRMED
-CANCELLED = trezorui2.CANCELLED
-INFO = trezorui2.INFO
+CONFIRMED = detahardui2.CONFIRMED
+CANCELLED = detahardui2.CANCELLED
+INFO = detahardui2.INFO
 
 
 if __debug__:
-    from trezor.utils import DISABLE_ANIMATION
+    from detahard.utils import DISABLE_ANIMATION
 
-    trezorui2.disable_animation(bool(DISABLE_ANIMATION))
+    detahardui2.disable_animation(bool(DISABLE_ANIMATION))
 
 
 class RustLayout(ui.Layout):
@@ -89,7 +89,7 @@ class RustLayout(ui.Layout):
 
         async def handle_swipe(self):
             from apps.debug import notify_layout_change, swipe_signal
-            from trezor.enums import DebugSwipeDirection
+            from detahard.enums import DebugSwipeDirection
 
             while True:
                 event_id, direction = await swipe_signal()
@@ -120,7 +120,7 @@ class RustLayout(ui.Layout):
             y: int,
             hold_ms: int | None,
         ) -> Any:
-            from trezor import workflow
+            from detahard import workflow
             from apps.debug import notify_layout_change
             from storage import debug as debug_storage
 
@@ -134,7 +134,7 @@ class RustLayout(ui.Layout):
                 debug_storage.new_layout_event_id = event_id
                 raise ui.Result(msg)
 
-            # So that these presses will keep trezor awake
+            # So that these presses will keep detahard awake
             # (it will not be locked after auto_lock_delay_ms)
             workflow.idle_timer.touch()
 
@@ -185,7 +185,7 @@ class RustLayout(ui.Layout):
         ui.backlight_fade(self.BACKLIGHT_LEVEL)
 
     def handle_input_and_rendering(self) -> loop.Task:  # type: ignore [awaitable-is-generator]
-        from trezor import workflow
+        from detahard import workflow
 
         touch = loop.wait(io.TOUCH)
         self._first_paint()
@@ -260,7 +260,7 @@ async def confirm_action(
         interact(
             ctx,
             RustLayout(
-                trezorui2.confirm_action(
+                detahardui2.confirm_action(
                     title=title.upper(),
                     action=action,
                     description=description,
@@ -290,7 +290,7 @@ async def confirm_reset_device(
         interact(
             ctx,
             RustLayout(
-                trezorui2.confirm_reset_device(
+                detahardui2.confirm_reset_device(
                     title=title.upper(),
                     button=button,
                 )
@@ -308,7 +308,7 @@ async def confirm_backup(ctx: GenericContext) -> bool:
     result = await interact(
         ctx,
         RustLayout(
-            trezorui2.confirm_action(
+            detahardui2.confirm_action(
                 title="SUCCESS",
                 action="New wallet created successfully.",
                 description="You should back up your new wallet right now.",
@@ -325,10 +325,10 @@ async def confirm_backup(ctx: GenericContext) -> bool:
     result = await interact(
         ctx,
         RustLayout(
-            trezorui2.confirm_action(
+            detahardui2.confirm_action(
                 title="WARNING",
                 action="Are you sure you want to skip the backup?",
-                description="You can back up your Trezor once, at any time.",
+                description="You can back up your detahard once, at any time.",
                 verb="BACK UP",
                 verb_cancel="SKIP",
             )
@@ -362,7 +362,7 @@ async def confirm_homescreen(
         interact(
             ctx,
             RustLayout(
-                trezorui2.confirm_homescreen(
+                detahardui2.confirm_homescreen(
                     title="SET HOMESCREEN",
                     image=image,
                 )
@@ -378,7 +378,7 @@ async def show_xpub(ctx: GenericContext, xpub: str, title: str) -> None:
         interact(
             ctx,
             RustLayout(
-                trezorui2.confirm_blob(
+                detahardui2.confirm_blob(
                     title=title,
                     data=xpub,
                     verb="CONFIRM",
@@ -413,7 +413,7 @@ async def show_address(
     )
     while True:
         layout = RustLayout(
-            trezorui2.confirm_address(
+            detahardui2.confirm_address(
                 title=title,
                 data=address,
                 description=network or "",
@@ -444,7 +444,7 @@ async def show_address(
 
             result = await ctx.wait(
                 RustLayout(
-                    trezorui2.show_address_details(
+                    detahardui2.show_address_details(
                         address=address if address_qr is None else address_qr,
                         case_sensitive=case_sensitive,
                         account=account,
@@ -456,7 +456,7 @@ async def show_address(
             assert result is CANCELLED
 
         else:
-            result = await ctx.wait(RustLayout(trezorui2.show_mismatch()))
+            result = await ctx.wait(RustLayout(detahardui2.show_mismatch()))
             assert result in (CONFIRMED, CANCELLED)
             # Right button aborts action, left goes back to showing address.
             if result is CONFIRMED:
@@ -486,7 +486,7 @@ async def show_error_and_raise(
     await interact(
         ctx,
         RustLayout(
-            trezorui2.show_error(
+            detahardui2.show_error(
                 title=subheader or "",
                 description=content,
                 button=button.upper(),
@@ -511,7 +511,7 @@ async def show_warning(
         interact(
             ctx,
             RustLayout(
-                trezorui2.show_warning(
+                detahardui2.show_warning(
                     title=content,
                     description=subheader or "",
                     button=button.upper(),
@@ -534,7 +534,7 @@ async def show_success(
         interact(
             ctx,
             RustLayout(
-                trezorui2.show_success(
+                detahardui2.show_success(
                     title=content,
                     description=subheader or "",
                     button=button.upper(),
@@ -573,7 +573,7 @@ async def confirm_output(
         result = await interact(
             ctx,
             RustLayout(
-                trezorui2.confirm_value(
+                detahardui2.confirm_value(
                     title=recipient_title,
                     subtitle=address_label,
                     description=None,
@@ -592,7 +592,7 @@ async def confirm_output(
         result = await interact(
             ctx,
             RustLayout(
-                trezorui2.confirm_value(
+                detahardui2.confirm_value(
                     title=amount_title,
                     subtitle=None,
                     description=None,
@@ -619,7 +619,7 @@ async def confirm_payment_request(
     result = await interact(
         ctx,
         RustLayout(
-            trezorui2.confirm_with_info(
+            detahardui2.confirm_with_info(
                 title="SENDING",
                 items=[(ui.NORMAL, f"{amount} to\n{recipient_name}")]
                 + [(ui.NORMAL, memo) for memo in memos],
@@ -661,7 +661,7 @@ async def should_show_more(
     result = await interact(
         ctx,
         RustLayout(
-            trezorui2.confirm_with_info(
+            detahardui2.confirm_with_info(
                 title=title.upper(),
                 items=para,
                 button=confirm.upper(),
@@ -707,7 +707,7 @@ async def _confirm_ask_pagination(
 
         if paginated is None:
             paginated = RustLayout(
-                trezorui2.confirm_more(
+                detahardui2.confirm_more(
                     title=title,
                     button="CLOSE",
                     items=[(ui.MONO, data)],
@@ -735,7 +735,7 @@ async def confirm_blob(
     title = title.upper()
     description = description or ""
     layout = RustLayout(
-        trezorui2.confirm_blob(
+        detahardui2.confirm_blob(
             title=title,
             description=description,
             data=data,
@@ -842,7 +842,7 @@ def confirm_value(
         interact(
             ctx,
             RustLayout(
-                trezorui2.confirm_value(
+                detahardui2.confirm_value(
                     title=title.upper(),
                     subtitle=subtitle,
                     description=description,
@@ -873,7 +873,7 @@ async def confirm_properties(
         interact(
             ctx,
             RustLayout(
-                trezorui2.confirm_properties(
+                detahardui2.confirm_properties(
                     title=title.upper(),
                     items=items,
                     hold=hold,
@@ -898,7 +898,7 @@ async def confirm_total(
     br_code: ButtonRequestType = ButtonRequestType.SignTx,
 ) -> None:
     layout = RustLayout(
-        trezorui2.confirm_total(
+        detahardui2.confirm_total(
             title=title,
             items=[
                 (total_label, total_amount),
@@ -922,7 +922,7 @@ async def confirm_total(
         elif result is INFO and account_label is not None:
             result = await ctx.wait(
                 RustLayout(
-                    trezorui2.show_spending_details(
+                    detahardui2.show_spending_details(
                         account=account_label, fee_rate=fee_rate_amount
                     )
                 )
@@ -941,7 +941,7 @@ async def confirm_joint_total(
         interact(
             ctx,
             RustLayout(
-                trezorui2.confirm_total(
+                detahardui2.confirm_total(
                     title="JOINT TRANSACTION",
                     items=[
                         ("You are contributing:", spending_amount),
@@ -1000,7 +1000,7 @@ async def confirm_modify_output(
         interact(
             ctx,
             RustLayout(
-                trezorui2.confirm_modify_output(
+                detahardui2.confirm_modify_output(
                     address=address,
                     sign=sign,
                     amount_change=amount_change,
@@ -1024,7 +1024,7 @@ async def confirm_modify_fee(
         interact(
             ctx,
             RustLayout(
-                trezorui2.confirm_modify_fee(
+                detahardui2.confirm_modify_fee(
                     sign=sign,
                     user_fee_change=user_fee_change,
                     total_fee_new=total_fee_new,
@@ -1044,7 +1044,7 @@ async def confirm_coinjoin(
         interact(
             ctx,
             RustLayout(
-                trezorui2.confirm_coinjoin(
+                detahardui2.confirm_coinjoin(
                     max_rounds=str(max_rounds),
                     max_feerate=max_fee_per_vbyte,
                 )
@@ -1113,7 +1113,7 @@ async def show_error_popup(
     if subtitle:
         title += f"\n{subtitle}"
     await RustLayout(
-        trezorui2.show_error(
+        detahardui2.show_error(
             title=title,
             description=description.format(description_param),
             button=button,
@@ -1125,7 +1125,7 @@ async def show_error_popup(
 
 def request_passphrase_on_host() -> None:
     draw_simple(
-        trezorui2.show_simple(
+        detahardui2.show_simple(
             title=None,
             description="Please type your passphrase on the connected host.",
         )
@@ -1138,7 +1138,7 @@ async def request_passphrase_on_device(ctx: GenericContext, max_len: int) -> str
     )
 
     keyboard = RustLayout(
-        trezorui2.request_passphrase(prompt="Enter passphrase", max_len=max_len)
+        detahardui2.request_passphrase(prompt="Enter passphrase", max_len=max_len)
     )
     result = await ctx.wait(keyboard)
     if result is CANCELLED:
@@ -1155,7 +1155,7 @@ async def request_pin_on_device(
     allow_cancel: bool,
     wrong_pin: bool = False,
 ) -> str:
-    from trezor.wire import PinCancelled
+    from detahard.wire import PinCancelled
 
     await button_request(ctx, "pin_device", code=ButtonRequestType.PinEntry)
 
@@ -1167,7 +1167,7 @@ async def request_pin_on_device(
         subprompt = f"{attempts_remaining} tries left"
 
     dialog = RustLayout(
-        trezorui2.request_pin(
+        detahardui2.request_pin(
             prompt=prompt,
             subprompt=subprompt,
             allow_cancel=allow_cancel,

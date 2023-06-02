@@ -1,4 +1,4 @@
-from trezor.wire import DataError
+from detahard.wire import DataError
 
 
 class Error(DataError):

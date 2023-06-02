@@ -1,9 +1,9 @@
 from typing import TYPE_CHECKING
 
-from trezor import ui
-from trezor.enums import ButtonRequestType
-from trezor.strings import format_plural
-from trezor.ui.layouts import (
+from detahard import ui
+from detahard.enums import ButtonRequestType
+from detahard.strings import format_plural
+from detahard.ui.layouts import (
     confirm_amount,
     confirm_blob,
     confirm_text,
@@ -16,13 +16,13 @@ from .helpers import decode_typed_data
 if TYPE_CHECKING:
     from typing import Awaitable, Iterable
 
-    from trezor.messages import (
+    from detahard.messages import (
         EthereumFieldType,
         EthereumNetworkInfo,
         EthereumStructMember,
         EthereumTokenInfo,
     )
-    from trezor.wire import Context
+    from detahard.wire import Context
 
 
 def require_confirm_tx(
@@ -33,7 +33,7 @@ def require_confirm_tx(
     token: EthereumTokenInfo | None,
 ) -> Awaitable[None]:
     from .helpers import address_from_bytes
-    from trezor.ui.layouts import confirm_output
+    from detahard.ui.layouts import confirm_output
 
     if to_bytes:
         to_str = address_from_bytes(to_bytes, network)
@@ -104,7 +104,7 @@ def require_confirm_unknown_token(
     ctx: Context, address_bytes: bytes
 ) -> Awaitable[None]:
     from ubinascii import hexlify
-    from trezor.ui.layouts import confirm_address
+    from detahard.ui.layouts import confirm_address
 
     contract_address_hex = "0x" + hexlify(address_bytes).decode()
     return confirm_address(
@@ -119,7 +119,7 @@ def require_confirm_unknown_token(
 
 def require_confirm_address(ctx: Context, address_bytes: bytes) -> Awaitable[None]:
     from ubinascii import hexlify
-    from trezor.ui.layouts import confirm_address
+    from detahard.ui.layouts import confirm_address
 
     address_hex = "0x" + hexlify(address_bytes).decode()
     return confirm_address(
@@ -143,7 +143,7 @@ def require_confirm_data(ctx: Context, data: bytes, data_total: int) -> Awaitabl
 
 
 async def confirm_typed_data_final(ctx: Context) -> None:
-    from trezor.ui.layouts import confirm_action
+    from detahard.ui.layouts import confirm_action
 
     await confirm_action(
         ctx,
@@ -231,7 +231,7 @@ async def confirm_typed_value(
     field: EthereumFieldType,
     array_index: int | None = None,
 ) -> None:
-    from trezor.enums import EthereumDataType
+    from detahard.enums import EthereumDataType
     from .helpers import get_type_name
 
     type_name = get_type_name(field)
@@ -269,7 +269,7 @@ def format_ethereum_amount(
     token: EthereumTokenInfo | None,
     network: EthereumNetworkInfo,
 ) -> str:
-    from trezor.strings import format_amount
+    from detahard.strings import format_amount
 
     if token:
         suffix = token.symbol

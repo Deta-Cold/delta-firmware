@@ -7,13 +7,13 @@ fn main() {
     generate_qstr_bindings();
     #[cfg(feature = "micropython")]
     generate_micropython_bindings();
-    generate_trezorhal_bindings();
+    generate_detahardhal_bindings();
     #[cfg(feature = "test")]
     link_core_objects();
 }
 
 fn model() -> String {
-    match env::var("TREZOR_MODEL") {
+    match env::var("detahard_MODEL") {
         Ok(model) => model,
         Err(_) => String::from("T"),
     }
@@ -24,11 +24,11 @@ fn board() -> String {
         return String::from("board-unix.h");
     }
 
-    match env::var("TREZOR_BOARD") {
+    match env::var("detahard_BOARD") {
         Ok(board) => {
             format!("boards/{}", board)
         }
-        Err(_) => String::from("boards/trezor_t.h"),
+        Err(_) => String::from("boards/detahard_t.h"),
     }
 }
 
@@ -76,8 +76,8 @@ fn prepare_bindings() -> bindgen::Builder {
         "-I../../vendor/micropython",
         "-I../../vendor/micropython/lib/uzlib",
         "-I../lib",
-        format!("-DTREZOR_MODEL_{}", model()).as_str(),
-        format!("-DTREZOR_BOARD=\"{}\"", board()).as_str(),
+        format!("-Ddetahard_MODEL_{}", model()).as_str(),
+        format!("-Ddetahard_BOARD=\"{}\"", board()).as_str(),
     ]);
 
     // Pass in correct include paths and defines.
@@ -85,7 +85,7 @@ fn prepare_bindings() -> bindgen::Builder {
         bindings = bindings.clang_args(&[
             "-nostdinc",
             "-I../firmware",
-            "-I../trezorhal",
+            "-I../detahardhal",
             "-I../../build/firmware",
             "-I../../vendor/micropython/lib/stm32lib/STM32F4xx_HAL_Driver/Inc",
             "-I../../vendor/micropython/lib/stm32lib/CMSIS/STM32F4xx/Include",
@@ -119,7 +119,7 @@ fn prepare_bindings() -> bindgen::Builder {
             "-I../unix",
             "-I../../build/unix",
             "-I../../vendor/micropython/ports/unix",
-            "-DTREZOR_EMULATOR",
+            "-Ddetahard_EMULATOR",
         ]);
     }
 
@@ -159,8 +159,8 @@ fn generate_micropython_bindings() {
         .allowlist_function("mp_obj_get_int_maybe")
         .allowlist_function("mp_obj_is_true")
         .allowlist_function("mp_call_function_n_kw")
-        .allowlist_function("trezor_obj_get_ll_checked")
-        .allowlist_function("trezor_obj_str_from_rom_text")
+        .allowlist_function("detahard_obj_get_ll_checked")
+        .allowlist_function("detahard_obj_str_from_rom_text")
         // buffer
         .allowlist_function("mp_get_buffer")
         .allowlist_var("MP_BUFFER_READ")
@@ -203,7 +203,7 @@ fn generate_micropython_bindings() {
         .allowlist_function("nlr_jump")
         .allowlist_function("mp_obj_new_exception")
         .allowlist_function("mp_obj_new_exception_args")
-        .allowlist_function("trezor_obj_call_protected")
+        .allowlist_function("detahard_obj_call_protected")
         .allowlist_var("mp_type_AttributeError")
         .allowlist_var("mp_type_IndexError")
         .allowlist_var("mp_type_KeyError")
@@ -236,14 +236,14 @@ fn generate_micropython_bindings() {
         .unwrap();
 }
 
-fn generate_trezorhal_bindings() {
+fn generate_detahardhal_bindings() {
     let out_path = env::var("OUT_DIR").unwrap();
 
     // Tell cargo to invalidate the built crate whenever the header changes.
-    println!("cargo:rerun-if-changed=trezorhal.h");
+    println!("cargo:rerun-if-changed=detahardhal.h");
 
     let bindings = prepare_bindings()
-        .header("trezorhal.h")
+        .header("detahardhal.h")
         // common
         .allowlist_var("HW_ENTROPY_DATA")
         // secbool
@@ -348,7 +348,7 @@ fn generate_trezorhal_bindings() {
     bindings
         .generate()
         .expect("Unable to generate bindings")
-        .write_to_file(PathBuf::from(out_path).join("trezorhal.rs"))
+        .write_to_file(PathBuf::from(out_path).join("detahardhal.rs"))
         .unwrap();
 }
 

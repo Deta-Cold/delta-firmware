@@ -34,7 +34,7 @@ pub struct Menu {
 
 impl Menu {
     pub fn new() -> Self {
-        let content_reboot = IconText::new("REBOOT TREZOR", Icon::new(REFRESH24));
+        let content_reboot = IconText::new("REBOOT detahard", Icon::new(REFRESH24));
         let content_reset = IconText::new("FACTORY RESET", Icon::new(FIRE24));
 
         let mut instance = Self {

@@ -2,12 +2,12 @@ from typing import TYPE_CHECKING
 
 from shamir_mnemonic import shamir  # type: ignore
 
-from trezorlib import messages
+from detahardlib import messages
 
 from .. import buttons
 
 if TYPE_CHECKING:
-    from trezorlib.debuglink import DebugLink
+    from detahardlib.debuglink import DebugLink
 
 
 def confirm_new_wallet(debug: "DebugLink") -> None:

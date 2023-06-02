@@ -240,7 +240,7 @@ def release(
     force,
     skip_testnets,
 ):
-    """Release a new Trezor firmware.
+    """Release a new detahard firmware.
 
     Update support infos so that all coins have a clear support status.
     By default, marks duplicate tokens and testnets as unsupported, and all coins that
@@ -257,18 +257,18 @@ def release(
 
     # guess `version` if not given
     if not v1:
-        v1 = bump_version(latest_releases["trezor1"])
+        v1 = bump_version(latest_releases["detahard1"])
     if not v2:
-        v2 = bump_version(latest_releases["trezor2"])
+        v2 = bump_version(latest_releases["detahard2"])
 
-    versions = {"trezor1": v1, "trezor2": v2}
+    versions = {"detahard1": v1, "detahard2": v2}
 
     for number in "1", "2":
-        device = f"trezor{number}"
+        device = f"detahard{number}"
         version = versions[device]
         if not force and not version.startswith(number + "."):
             raise click.ClickException(
-                f"Device trezor{device} should not be version {version}. "
+                f"Device detahard{device} should not be version {version}. "
                 "Use --force to proceed anyway."
             )
 
@@ -346,13 +346,13 @@ def set_support_value(key, entries, reason):
     """Set a support info variable.
 
     Examples:
-    support.py set coin:BTC trezor1=1.10.5 trezor2=2.4.7 suite=yes connect=no
-    support.py set coin:LTC trezor1=yes connect=
+    support.py set coin:BTC detahard1=1.10.5 detahard2=2.4.7 suite=yes connect=no
+    support.py set coin:LTC detahard1=yes connect=
 
     Setting a variable to "yes", "true" or "1" sets support to true.
     Setting a variable to "no", "false" or "0" sets support to false.
-    (or null, in case of trezor1/2)
-    Setting variable to empty ("trezor1=") will set to null, or clear the entry.
+    (or null, in case of detahard1/2)
+    Setting variable to empty ("detahard1=") will set to null, or clear the entry.
     Setting a variable to a particular version string (e.g., "2.4.7") will set that
     particular version.
     """

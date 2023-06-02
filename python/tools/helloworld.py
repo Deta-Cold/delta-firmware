@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-# This file is part of the Trezor project.
+# This file is part of the detahard project.
 #
 # Copyright (C) 2012-2022 SatoshiLabs and contributors
 #
@@ -16,16 +16,16 @@
 # You should have received a copy of the License along with this library.
 # If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.
 
-from trezorlib import btc
-from trezorlib.client import get_default_client
-from trezorlib.tools import parse_path
+from detahardlib import btc
+from detahardlib.client import get_default_client
+from detahardlib.tools import parse_path
 
 
 def main() -> None:
     # Use first connected device
     client = get_default_client()
 
-    # Print out Trezor's features and settings
+    # Print out detahard's features and settings
     print(client.features)
 
     # Get the first address of first BIP44 account

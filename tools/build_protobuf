@@ -59,12 +59,12 @@ else
     func=do_rebuild
 fi
 
-$func dir core/src/trezor/enums "$CORE_PROTOBUF_SOURCES"
-$func file core/src/trezor/enums/__init__.py "$CORE_PROTOBUF_SOURCES" --template=core/src/trezor/enums/_proto_init.mako
-$func file core/src/trezor/messages.py "$CORE_PROTOBUF_SOURCES" --template=core/src/trezor/_proto_messages.mako
+$func dir core/src/detahard/enums "$CORE_PROTOBUF_SOURCES"
+$func file core/src/detahard/enums/__init__.py "$CORE_PROTOBUF_SOURCES" --template=core/src/detahard/enums/_proto_init.mako
+$func file core/src/detahard/messages.py "$CORE_PROTOBUF_SOURCES" --template=core/src/detahard/_proto_messages.mako
 
-$func file python/src/trezorlib/messages.py "$PYTHON_PROTOBUF_SOURCES" \
-    --template=python/src/trezorlib/_proto_messages.mako \
+$func file python/src/detahardlib/messages.py "$PYTHON_PROTOBUF_SOURCES" \
+    --template=python/src/detahardlib/_proto_messages.mako \
     --include-deprecated
 
 exit $RETURN

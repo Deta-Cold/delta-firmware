@@ -1,4 +1,4 @@
-# This file is part of the Trezor project.
+# This file is part of the detahard project.
 #
 # Copyright (C) 2020 SatoshiLabs and contributors
 #
@@ -16,10 +16,10 @@
 
 import pytest
 
-from trezorlib import btc, messages
-from trezorlib.debuglink import TrezorClientDebugLink as Client
-from trezorlib.exceptions import TrezorFailure
-from trezorlib.tools import parse_path
+from detahardlib import btc, messages
+from detahardlib.debuglink import detahardClientDebugLink as Client
+from detahardlib.exceptions import detahardFailure
+from detahardlib.tools import parse_path
 
 from ...tx_cache import TxCache
 from .signtx import (
@@ -275,7 +275,7 @@ def test_p2tr_fee_bump(client: Client):
 
     # Transaction does not exist on the blockchain, not using assert_tx_matches()
     # Transaction hex changed with fix #2085, all other details are the same as this tx:
-    # https://tbtc1.trezor.io/api/tx/48bc29fc42a64b43d043b0b7b99b21aa39654234754608f791c60bcbd91a8e92
+    # https://tbtc1.detahard.io/api/tx/48bc29fc42a64b43d043b0b7b99b21aa39654234754608f791c60bcbd91a8e92
     assert (
         serialized_tx.hex()
         == "01000000000102921c014d7e11ab33da46f5ca90927e83f53893760420b423c20c25355274e2a40100000000fffffffff23f394436d130113eff35798eb7c841bd9113226c0ac0892b90f6c9acead7cc0000000000ffffffff02983a00000000000016001403c7c1896fab7dabdbc191ae0422deeb6a297b05fe100000000000002251209a9af24b396f593b34e23fefba6b417a55c5ee3f430c3837379fcb5246ab36d70140d4b5fb5e8ffc8db91f2f394dedb618b3c995ef35fe680944c185fd4be16954988a67e249026cb84915569cf168b55389b4f651965860936ce54d6ea1e0956e960140638c8c1e954eb6deb9cfa763c08c85c86050b50c5b9876a187c26b4d811ec17f9d5356af4661f6e49b9f6d79f57efc67b28f057550fe0611153c928b6a1bc4ca00000000"
@@ -859,7 +859,7 @@ def test_attack_steal_change(client: Client):
     prev_txes = {TXHASH_65b768: prev_tx_attack}
 
     with pytest.raises(
-        TrezorFailure, match="Original output is missing change-output parameters"
+        detahardFailure, match="Original output is missing change-output parameters"
     ):
         btc.sign_tx(
             client,
@@ -913,7 +913,7 @@ def test_attack_false_internal(client: Client):
     )
 
     with pytest.raises(
-        TrezorFailure, match="Original input does not match current input"
+        detahardFailure, match="Original input does not match current input"
     ):
         btc.sign_tx(
             client,
@@ -967,7 +967,7 @@ def test_attack_fake_int_input_amount(client: Client):
     }
 
     with pytest.raises(
-        TrezorFailure, match="Original input does not match current input"
+        detahardFailure, match="Original input does not match current input"
     ):
         btc.sign_tx(
             client,
@@ -1043,7 +1043,7 @@ def test_attack_fake_ext_input_amount(client: Client):
     }
 
     with pytest.raises(
-        TrezorFailure, match="Original input does not match current input"
+        detahardFailure, match="Original input does not match current input"
     ):
         btc.sign_tx(
             client,
@@ -1096,7 +1096,7 @@ def test_p2wpkh_invalid_signature(client: Client):
         TXHASH_43d273: TX_CACHE_TESTNET[TXHASH_43d273],
     }
 
-    with pytest.raises(TrezorFailure, match="Invalid signature"):
+    with pytest.raises(detahardFailure, match="Invalid signature"):
         btc.sign_tx(
             client,
             "Testnet",
@@ -1152,5 +1152,5 @@ def test_p2tr_invalid_signature(client: Client):
     prev_tx_invalid.inputs[0].witness[10] ^= 1
     prev_txes = {TXHASH_8e4af7: prev_tx_invalid}
 
-    with pytest.raises(TrezorFailure, match="Invalid signature"):
+    with pytest.raises(detahardFailure, match="Invalid signature"):
         btc.sign_tx(client, "Testnet", [inp1, inp2], [out1, out2], prev_txes=prev_txes)

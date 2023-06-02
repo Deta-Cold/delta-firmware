@@ -1,4 +1,4 @@
-# This file is part of the Trezor project.
+# This file is part of the detahard project.
 #
 # Copyright (C) 2012-2022 SatoshiLabs and contributors
 #
@@ -24,7 +24,7 @@ from .. import stellar, tools
 from . import with_client
 
 if TYPE_CHECKING:
-    from ..client import TrezorClient
+    from ..client import detahardClient
 
 try:
     from stellar_sdk import (
@@ -52,7 +52,7 @@ def cli() -> None:
 )
 @click.option("-d", "--show-display", is_flag=True)
 @with_client
-def get_address(client: "TrezorClient", address: str, show_display: bool) -> str:
+def get_address(client: "detahardClient", address: str, show_display: bool) -> str:
     """Get Stellar public address."""
     address_n = tools.parse_path(address)
     return stellar.get_address(client, address_n, show_display)
@@ -76,7 +76,7 @@ def get_address(client: "TrezorClient", address: str, show_display: bool) -> str
 @click.argument("b64envelope")
 @with_client
 def sign_transaction(
-    client: "TrezorClient", b64envelope: str, address: str, network_passphrase: str
+    client: "detahardClient", b64envelope: str, address: str, network_passphrase: str
 ) -> bytes:
     """Sign a base64-encoded transaction envelope.
 

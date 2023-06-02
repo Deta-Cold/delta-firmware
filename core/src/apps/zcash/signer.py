@@ -1,7 +1,7 @@
 from micropython import const
 from typing import TYPE_CHECKING
 
-from trezor.wire import DataError
+from detahard.wire import DataError
 
 from apps.bitcoin.sign_tx.bitcoinlike import Bitcoinlike
 
@@ -11,8 +11,8 @@ if TYPE_CHECKING:
     from apps.bitcoin.sign_tx.tx_info import OriginalTxInfo, TxInfo
     from apps.bitcoin.writers import Writer
     from apps.bitcoin.sign_tx.approvers import Approver
-    from trezor.utils import HashWriter
-    from trezor.messages import PrevTx, TxInput, TxOutput, SignTx
+    from detahard.utils import HashWriter
+    from detahard.messages import PrevTx, TxInput, TxOutput, SignTx
     from apps.bitcoin.keychain import Keychain
     from .hasher import ZcashHasher
 
@@ -27,7 +27,7 @@ class Zcash(Bitcoinlike):
         coin: CoinInfo,
         approver: Approver | None,
     ) -> None:
-        from trezor.utils import ensure
+        from detahard.utils import ensure
 
         ensure(coin.overwintered)
         if tx.version != 5:
@@ -72,7 +72,7 @@ class Zcash(Bitcoinlike):
         return node.public_key(), signature
 
     async def process_original_input(self, txi: TxInput, script_pubkey: bytes) -> None:
-        from trezor.wire import ProcessError
+        from detahard.wire import ProcessError
 
         raise ProcessError("Replacement transactions are not supported.")
         # Zcash transaction fees are very low
@@ -120,7 +120,7 @@ class Zcash(Bitcoinlike):
 
     def output_derive_script(self, txo: TxOutput) -> bytes:
         from apps.bitcoin import scripts
-        from trezor.enums import OutputScriptType
+        from detahard.enums import OutputScriptType
         from .unified_addresses import Typecode, decode
 
         # unified addresses

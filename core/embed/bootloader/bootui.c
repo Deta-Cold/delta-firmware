@@ -1,5 +1,5 @@
 /*
- * This file is part of the Trezor project, https://trezor.io/
+ * This file is part of the detahard project, https://detahard.io/
  *
  * Copyright (c) SatoshiLabs
  *
@@ -21,7 +21,7 @@
 
 #include "bootui.h"
 #include "display.h"
-#ifdef TREZOR_EMULATOR
+#ifdef detahard_EMULATOR
 #include "emulator.h"
 #else
 #include "mini_printf.h"

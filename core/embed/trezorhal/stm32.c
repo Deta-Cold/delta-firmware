@@ -1,5 +1,5 @@
 /*
- * This file is part of the Trezor project, https://trezor.io/
+ * This file is part of the detahard project, https://detahard.io/
  *
  * Copyright (c) SatoshiLabs
  *
@@ -35,7 +35,7 @@ typedef struct {
 } clock_conf_t;
 
 #if defined STM32F427xx || defined STM32F429xx
-#ifdef TREZOR_MODEL_T
+#ifdef detahard_MODEL_T
 #define DEFAULT_FREQ 168U
 #define DEFAULT_PLLQ 7U
 #define DEFAULT_PLLP 0U  // P = 2 (two bits, 00 means PLLP = 2)
@@ -148,7 +148,7 @@ void SystemInit(void) {
   SCB->CPACR |= ((3U << 22) | (3U << 20));
 }
 
-#ifdef TREZOR_MODEL_T
+#ifdef detahard_MODEL_T
 void set_core_clock(clock_settings_t settings) {
   /* Enable HSI clock */
   RCC->CR |= RCC_CR_HSION;

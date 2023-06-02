@@ -1,4 +1,4 @@
-# This file is part of the Trezor project.
+# This file is part of the detahard project.
 #
 # Copyright (C) 2012-2022 SatoshiLabs and contributors
 #
@@ -42,7 +42,7 @@ def check_sig_v1(
     sigs_required: int,
     public_keys: t.Sequence[bytes],
 ) -> None:
-    """Validate signatures of `digest` using the Trezor One V1 method."""
+    """Validate signatures of `digest` using the detahard One V1 method."""
     distinct_indexes = set(i for i in key_indexes[:sigs_required] if i != 0)
     if not distinct_indexes:
         raise util.Unsigned
@@ -83,7 +83,7 @@ def check_sig_signmessage(
     sigs_required: int,
     public_keys: t.Sequence[bytes],
 ) -> None:
-    """Validate signatures of `digest` using the Trezor One SignMessage method."""
+    """Validate signatures of `digest` using the detahard One SignMessage method."""
     btc_digest = hashlib.sha256(b"\x18Bitcoin Signed Message:\n\x20" + digest).digest()
     final_digest = hashlib.sha256(btc_digest).digest()
     check_sig_v1(
@@ -96,7 +96,7 @@ def check_sig_signmessage(
 
 
 class LegacyV2Firmware(FirmwareImage):
-    """Firmware image in the format used by Trezor One 1.8.0 and newer."""
+    """Firmware image in the format used by detahard One 1.8.0 and newer."""
 
     HASH_PARAMS = util.FirmwareHashParameters(
         hash_function=hashlib.sha256,
@@ -108,24 +108,24 @@ class LegacyV2Firmware(FirmwareImage):
 
     def verify_v2(self, dev_keys: bool) -> None:
         if not dev_keys:
-            public_keys = models.TREZOR_ONE_V1V2.firmware_keys
+            public_keys = models.detahard_ONE_V1V2.firmware_keys
         else:
-            public_keys = models.TREZOR_ONE_V1V2_DEV.firmware_keys
+            public_keys = models.detahard_ONE_V1V2_DEV.firmware_keys
 
         self.validate_code_hashes()
         check_sig_v1(
             self.digest(),
             self.header.v1_key_indexes,
             self.header.v1_signatures,
-            models.TREZOR_ONE_V1V2.firmware_sigs_needed,
+            models.detahard_ONE_V1V2.firmware_sigs_needed,
             public_keys,
         )
 
     def verify_v3(self, dev_keys: bool) -> None:
         if not dev_keys:
-            model_keys = models.TREZOR_ONE_V3
+            model_keys = models.detahard_ONE_V3
         else:
-            model_keys = models.TREZOR_ONE_V3_DEV
+            model_keys = models.detahard_ONE_V3_DEV
 
         self.validate_code_hashes()
         check_sig_signmessage(
@@ -156,10 +156,10 @@ class LegacyV2Firmware(FirmwareImage):
 class LegacyFirmware(Struct):
     """Legacy firmware image.
     Consists of a custom header and code block.
-    This is the expected format of firmware binaries for Trezor One pre-1.8.0.
+    This is the expected format of firmware binaries for detahard One pre-1.8.0.
 
     The code block can optionally be interpreted as a new-style firmware image. That is the
-    expected format of firmware binary for Trezor One version 1.8.0, which can be installed
+    expected format of firmware binary for detahard One version 1.8.0, which can be installed
     by both the older and the newer bootloader."""
 
     key_indexes: t.List[int]
@@ -191,9 +191,9 @@ class LegacyFirmware(Struct):
 
     def verify(self, dev_keys: bool = False) -> None:
         if not dev_keys:
-            model_keys = models.TREZOR_ONE_V1V2
+            model_keys = models.detahard_ONE_V1V2
         else:
-            model_keys = models.TREZOR_ONE_V1V2_DEV
+            model_keys = models.detahard_ONE_V1V2_DEV
         check_sig_v1(
             self.digest(),
             self.key_indexes,

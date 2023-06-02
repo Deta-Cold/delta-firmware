@@ -1,4 +1,4 @@
-# This file is part of the Trezor project.
+# This file is part of the detahard project.
 #
 # Copyright (C) 2012-2019 SatoshiLabs and contributors
 #
@@ -22,12 +22,12 @@ from unittest import mock
 
 import pytest
 
-from trezorlib import btc, tools
-from trezorlib.messages import ButtonRequestType
+from detahardlib import btc, tools
+from detahardlib.messages import ButtonRequestType
 
 if TYPE_CHECKING:
-    from trezorlib.debuglink import DebugLink, TrezorClientDebugLink as Client
-    from trezorlib.messages import ButtonRequest
+    from detahardlib.debuglink import DebugLink, detahardClientDebugLink as Client
+    from detahardlib.messages import ButtonRequest
     from _pytest.mark.structures import MarkDecorator
 
 
@@ -52,7 +52,7 @@ MNEMONIC_SLIP39_ADVANCED_33 = [
     "wildlife deal beard romp alcohol space mild usual clothes union nuclear testify course research heat listen task location thank hospital slice smell failure fawn helpful priest ambition average recover lecture process dough stadium",
     "wildlife deal acrobat romp anxiety axis starting require metric flexible geology game drove editor edge screw helpful have huge holy making pitch unknown carve holiday numb glasses survive already tenant adapt goat fangs",
 ]
-# External entropy mocked as received from trezorlib.
+# External entropy mocked as received from detahardlib.
 EXTERNAL_ENTROPY = b"zlutoucky kun upel divoke ody" * 2
 # fmt: on
 
@@ -209,7 +209,7 @@ def click_through(
 def read_and_confirm_mnemonic(
     debug: "DebugLink", choose_wrong: bool = False
 ) -> Generator[None, "ButtonRequest", Optional[str]]:
-    """Read a given number of mnemonic words from Trezor T screen and correctly
+    """Read a given number of mnemonic words from detahard T screen and correctly
     answer confirmation questions. Return the full mnemonic.
 
     For use in an input flow function.

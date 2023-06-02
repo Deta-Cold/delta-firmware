@@ -1,14 +1,14 @@
 from typing import TYPE_CHECKING
 
-from trezor.crypto import nem
+from detahard.crypto import nem
 
 if TYPE_CHECKING:
-    from trezor.messages import (
+    from detahard.messages import (
         NEMAggregateModification,
         NEMSignTx,
         NEMTransactionCommon,
     )
-    from trezor.wire import Context
+    from detahard.wire import Context
 
 
 async def ask_multisig(ctx: Context, msg: NEMSignTx) -> None:
@@ -30,7 +30,7 @@ async def ask_aggregate_modification(
     mod: NEMAggregateModification,
     multisig: bool,
 ) -> None:
-    from trezor.enums import NEMModificationType
+    from detahard.enums import NEMModificationType
     from ..layout import require_confirm_final, require_confirm_text
 
     if not multisig:
@@ -55,8 +55,8 @@ async def ask_aggregate_modification(
 
 
 async def _require_confirm_address(ctx: Context, action: str, address: str) -> None:
-    from trezor.enums import ButtonRequestType
-    from trezor.ui.layouts import confirm_address
+    from detahard.enums import ButtonRequestType
+    from detahard.ui.layouts import confirm_address
 
     await confirm_address(
         ctx,

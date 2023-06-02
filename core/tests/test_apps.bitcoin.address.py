@@ -1,9 +1,9 @@
 from common import *
-from trezor.crypto import bip32, bip39
-from trezor import wire
-from trezor.messages import GetAddress
-from trezor.enums import InputScriptType
-from trezor.utils import HashWriter
+from detahard.crypto import bip32, bip39
+from detahard import wire
+from detahard.messages import GetAddress
+from detahard.enums import InputScriptType
+from detahard.utils import HashWriter
 
 from apps.common import coins
 from apps.bitcoin.addresses import *

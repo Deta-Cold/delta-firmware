@@ -2,7 +2,7 @@ PYTHON=python3
 SETUP=$(PYTHON) setup.py
 
 EXCLUDES=.vscode
-STYLE_TARGETS=src/trezorlib setup.py
+STYLE_TARGETS=src/detahardlib setup.py
 EXCLUDE_TARGETS=messages
 
 all: build

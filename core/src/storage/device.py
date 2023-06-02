@@ -5,7 +5,7 @@ import storage.cache as storage_cache
 from storage import common
 
 if TYPE_CHECKING:
-    from trezor.enums import BackupType
+    from detahard.enums import BackupType
     from typing_extensions import Literal
 
 # Namespace:
@@ -77,7 +77,7 @@ def is_initialized() -> bool:
 
 def get_device_id() -> str:
     from ubinascii import hexlify
-    from trezorcrypto import random  # avoid pulling in trezor.crypto
+    from detahardcrypto import random  # avoid pulling in detahard.crypto
 
     dev_id = common.get(_NAMESPACE, DEVICE_ID, public=True)
     if not dev_id:
@@ -119,7 +119,7 @@ def get_mnemonic_secret() -> bytes | None:
 
 
 def get_backup_type() -> BackupType:
-    from trezor.enums import BackupType
+    from detahard.enums import BackupType
 
     backup_type = common.get_uint8(_NAMESPACE, _BACKUP_TYPE)
     if backup_type is None:
@@ -193,7 +193,7 @@ def get_passphrase_always_on_device() -> bool:
     - If DEVICE(1) => returns True, the check against b"\x01" in get_bool succeeds.
     - If HOST(2) => returns False, the check against b"\x01" in get_bool fails.
     """
-    from trezor import utils
+    from detahard import utils
 
     # Some models do not support passphrase input on device
     if utils.MODEL in ("1", "R"):

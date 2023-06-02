@@ -1,4 +1,4 @@
-# This file is part of the Trezor project.
+# This file is part of the detahard project.
 #
 # Copyright (C) 2012-2022 SatoshiLabs and contributors
 #
@@ -20,7 +20,7 @@ from . import messages
 from .tools import expect
 
 if TYPE_CHECKING:
-    from .client import TrezorClient
+    from .client import detahardClient
     from .tools import Address
     from .protobuf import MessageType
 
@@ -33,7 +33,7 @@ if TYPE_CHECKING:
 
 @expect(messages.MoneroAddress, field="address", ret_type=bytes)
 def get_address(
-    client: "TrezorClient",
+    client: "detahardClient",
     n: "Address",
     show_display: bool = False,
     network_type: messages.MoneroNetworkType = messages.MoneroNetworkType.MAINNET,
@@ -47,7 +47,7 @@ def get_address(
 
 @expect(messages.MoneroWatchKey)
 def get_watch_key(
-    client: "TrezorClient",
+    client: "detahardClient",
     n: "Address",
     network_type: messages.MoneroNetworkType = messages.MoneroNetworkType.MAINNET,
 ) -> "MessageType":

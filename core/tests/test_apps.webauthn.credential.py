@@ -4,7 +4,7 @@ import storage.device
 from apps.common import mnemonic
 from apps.webauthn.credential import Fido2Credential, U2fCredential, _NAME_MAX_LENGTH
 from apps.webauthn.fido2 import _distinguishable_cred_list
-from trezor.crypto.hashlib import sha256
+from detahard.crypto.hashlib import sha256
 
 
 class TestCredential(unittest.TestCase):

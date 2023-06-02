@@ -1,4 +1,4 @@
-# This file is part of the Trezor project.
+# This file is part of the detahard project.
 #
 # Copyright (C) 2012-2019 SatoshiLabs and contributors
 #
@@ -16,10 +16,10 @@
 
 import pytest
 
-from trezorlib import btc, messages
-from trezorlib.debuglink import TrezorClientDebugLink as Client
-from trezorlib.exceptions import TrezorFailure
-from trezorlib.tools import parse_path
+from detahardlib import btc, messages
+from detahardlib.debuglink import detahardClientDebugLink as Client
+from detahardlib.exceptions import detahardFailure
+from detahardlib.tools import parse_path
 
 from ...tx_cache import TxCache
 from .signtx import (
@@ -91,7 +91,7 @@ def test_opreturn(client: Client):
 
     assert_tx_matches(
         serialized_tx,
-        hash_link="https://tbtc1.trezor.io/api/tx/c3185a82c0328304adfb52bfd07d4bca2c34f13153b32d9d034390365c46bbd2",
+        hash_link="https://tbtc1.detahard.io/api/tx/c3185a82c0328304adfb52bfd07d4bca2c34f13153b32d9d034390365c46bbd2",
         tx_hex="01000000018fd0f999314751a8dbc7a2bfb3018260540343407815a9207a60ce38aea17540000000006b483045022100f6b228f0a1b8eb5037f13f28619aacc4c21a4c338318d631be2fda4cc653b6cf022015fc2975792f5d22d61601ca0523cad2d015b14fdf0ebe2af0790e3fac3ebbdb012102eee6b3ec6435f42ca071707eb1b14647d2121e0f8a53fa7fa9f92a691227a3d9ffffffff02dd3601000000000017a91440e1397e36e9bb6b731ac4ea186ba53111284e868700000000000000001c6a1a74657374206f6620746865206f705f72657475726e206461746100000000",
     )
 
@@ -116,7 +116,7 @@ def test_nonzero_opreturn(client: Client):
         )
 
         with pytest.raises(
-            TrezorFailure, match="OP_RETURN output with non-zero amount"
+            detahardFailure, match="OP_RETURN output with non-zero amount"
         ):
             btc.sign_tx(client, "Bitcoin", [inp1], [out1], prev_txes=TX_API)
 
@@ -141,6 +141,6 @@ def test_opreturn_address(client: Client):
             [request_input(0), request_output(0), messages.Failure()]
         )
         with pytest.raises(
-            TrezorFailure, match="Output's address_n provided but not expected."
+            detahardFailure, match="Output's address_n provided but not expected."
         ):
             btc.sign_tx(client, "Bitcoin", [inp1], [out1], prev_txes=TX_API)

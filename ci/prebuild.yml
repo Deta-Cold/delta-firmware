@@ -1,6 +1,6 @@
 # Static checks on the code.
 
-image: registry.gitlab.com/satoshilabs/trezor/trezor-firmware/trezor-firmware-env.nix
+image: registry.gitlab.com/satoshilabs/detahardrdetahardhard-firmwdetahardtahard-firmware-env.nix
 
 # Caching
 .gitlab_caching: &gitlab_caching
@@ -53,8 +53,8 @@ release commit messages prebuild:
     refs:
       - /^release\//
     variables:
-      # We want this to run on gitlab.com/satoshilabs/trezor/trezor-firmware only.
-      - $CI_PROJECT_PATH_SLUG == 'satoshilabs-trezor-trezor-firmware'
+      # We want this to run on gitlab.com/satoshilabs/detahardrdetahardhard-firmware only.
+      - $CI_PROJECT_PATH_SLUG == 'satoshilabs-detahardrdetahardhard-firmware'
   script:
     - $NIX_SHELL --run "ci/check_release_commit_messages.sh"
 

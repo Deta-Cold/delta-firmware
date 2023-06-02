@@ -7,13 +7,13 @@
     .type g_header, %object
     .size g_header, .-g_header
 
-// Firmware header for both Trezor One and Trezor T.
-// Trezor One must have bootloader version >= 1.8.0 (before that version the hdrlen used to be reset vector)
+// Firmware header for both detahard One and detahard T.
+// detahard One must have bootloader version >= 1.8.0 (before that version the hdrlen used to be reset vector)
 
 g_header:
     .byte 'T','R','Z','F'            // magic
     .word g_header_end - g_header    // hdrlen
-#ifdef TREZOR_MODEL_T
+#ifdef detahard_MODEL_T
     .word 0                          // expiry
 #else
     .word 1                          // expiry
@@ -33,8 +33,8 @@ g_header:
     . = . + 2                        // reserved
     . = . + 512                      // hash1 ... hash16
 
-#if !defined TREZOR_MODEL_1
-// trezor-core header style
+#if !defined detahard_MODEL_1
+// detahard-core header style
     . = . + 415                      // reserved
     .byte 0                          // sigmask
     . = . + 64                       // sig

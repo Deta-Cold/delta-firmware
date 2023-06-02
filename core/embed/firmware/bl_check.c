@@ -1,5 +1,5 @@
 /*
- * This file is part of the Trezor project, https://trezor.io/
+ * This file is part of the detahard project, https://detahard.io/
  *
  * Copyright (c) SatoshiLabs
  *
@@ -78,7 +78,7 @@ static secbool known_bootloader(const uint8_t *hash, int len) {
 #define BOOTLOADER_T2T1_FF {0xe0, 0xd5, 0x96, 0x9f, 0x30, 0xab, 0xfd, 0x8a, 0x7e, 0xb7, 0x63, 0xce, 0x03, 0x67, 0x4a, 0xb4, 0x3e, 0x39, 0x18, 0xab, 0x22, 0x9a, 0x3b, 0xac, 0x2a, 0x9e, 0xa7, 0xe4, 0xd3, 0x81, 0x76, 0x00}
 // --- END GENERATED BOOTLOADER SECTION ---
 
-#if defined TREZOR_MODEL_T
+#if defined detahard_MODEL_T
   #if BOOTLOADER_QA
     // QA bootloaders for T2T1
     #define BOOTLOADER_00 BOOTLOADER_T2T1_QA_00
@@ -88,7 +88,7 @@ static secbool known_bootloader(const uint8_t *hash, int len) {
     #define BOOTLOADER_00 BOOTLOADER_T2T1_00
     #define BOOTLOADER_FF BOOTLOADER_T2T1_FF
   #endif
-#elif defined TREZOR_MODEL_R
+#elif defined detahard_MODEL_R
   #if BOOTLOADER_QA
     // QA bootloaders for T2B1
     #define BOOTLOADER_00 BOOTLOADER_T2B1_QA_00

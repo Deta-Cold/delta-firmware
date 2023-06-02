@@ -1,7 +1,7 @@
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from trezor.messages import SignTx
+    from detahard.messages import SignTx
     from apps.common.coininfo import CoinInfo
     from .tx_info import OriginalTxInfo
 
@@ -110,8 +110,8 @@ class Progress:
         self.report()
 
     def report_init(self) -> None:
-        from trezor import workflow
-        from trezor.ui.layouts.progress import bitcoin_progress, coinjoin_progress
+        from detahard import workflow
+        from detahard.ui.layouts.progress import bitcoin_progress, coinjoin_progress
 
         progress_layout = bitcoin_progress
         if self.is_coinjoin:
@@ -123,7 +123,7 @@ class Progress:
             self.progress_layout = progress_layout("Loading transaction")
 
     def report(self) -> None:
-        from trezor import utils
+        from detahard import utils
 
         if utils.DISABLE_ANIMATION:
             return
@@ -134,7 +134,7 @@ class Progress:
 
         def assert_finished(self) -> None:
             if abs(self.progress - self.steps) > 0.5:
-                from trezor import wire
+                from detahard import wire
 
                 operation = "signing" if self.signing else "loading"
                 raise wire.FirmwareError(

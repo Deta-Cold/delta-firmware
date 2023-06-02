@@ -7,7 +7,7 @@
 
 from typing import TYPE_CHECKING
 
-from trezor.messages import EthereumNetworkInfo
+from detahard.messages import EthereumNetworkInfo
 
 if TYPE_CHECKING:
     from typing import Iterator

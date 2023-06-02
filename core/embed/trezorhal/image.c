@@ -1,5 +1,5 @@
 /*
- * This file is part of the Trezor project, https://trezor.io/
+ * This file is part of the detahard project, https://detahard.io/
  *
  * Copyright (c) SatoshiLabs
  *
@@ -80,7 +80,7 @@ const image_header *read_image_header(const uint8_t *const data,
 secbool check_image_model(const image_header *const hdr) {
   // abusing expiry field to break compatibility of non-TT images with existing
   // bootloaders/boardloaders
-#ifdef TREZOR_MODEL_T
+#ifdef detahard_MODEL_T
   if (hdr->expiry == 0 && hdr->hw_model == 0 && hdr->hw_revision == 0) {
     // images for model TT older than this check
     return sectrue;
@@ -205,7 +205,7 @@ void vendor_header_hash(const vendor_header *const vhdr, uint8_t *hash) {
   BLAKE2S_CTX ctx;
   blake2s_Init(&ctx, BLAKE2S_DIGEST_LENGTH);
   blake2s_Update(&ctx, vhdr->vstr, vhdr->vstr_len);
-  blake2s_Update(&ctx, "Trezor Vendor Header", 20);
+  blake2s_Update(&ctx, "detahard Vendor Header", 20);
   blake2s_Final(&ctx, hash, BLAKE2S_DIGEST_LENGTH);
 }
 

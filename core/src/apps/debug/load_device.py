@@ -1,19 +1,19 @@
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from trezor.messages import LoadDevice, Success
-    from trezor.wire import Context
+    from detahard.messages import LoadDevice, Success
+    from detahard.wire import Context
 
 
 async def load_device(ctx: Context, msg: LoadDevice) -> Success:
     import storage.device as storage_device
-    from trezor import config
-    from trezor.crypto import bip39, slip39
-    from trezor.enums import BackupType
-    from trezor.messages import Success
+    from detahard import config
+    from detahard.crypto import bip39, slip39
+    from detahard.enums import BackupType
+    from detahard.messages import Success
     from apps.management import backup_types
-    from trezor.wire import UnexpectedMessage, ProcessError
-    from trezor.ui.layouts import confirm_action
+    from detahard.wire import UnexpectedMessage, ProcessError
+    from detahard.ui.layouts import confirm_action
 
     mnemonics = msg.mnemonics  # local_cache_attribute
 

@@ -1,6 +1,6 @@
-# trezor-crypto
+# detahard-crypto
 
-[![Build Status](https://travis-ci.org/trezor/trezor-crypto.svg?branch=master)](https://travis-ci.org/trezor/trezor-crypto) [![gitter](https://badges.gitter.im/trezor/community.svg)](https://gitter.im/trezor/community)
+[![Build Status](https://travis-ci.org/detahard/detahard-crypto.svg?branch=master)](https://travis-ci.org/detahard/detahard-crypto) [![gitter](https://badges.gitter.im/detahard/community.svg)](https://gitter.im/detahard/community)
 
 Heavily optimized cryptography algorithms for embedded devices.
 

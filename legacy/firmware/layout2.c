@@ -1,5 +1,5 @@
 /*
- * This file is part of the Trezor project, https://trezor.io/
+ * This file is part of the detahard project, https://detahard.io/
  *
  * Copyright (C) 2014 Pavol Rusnak <stick@satoshilabs.com>
  *
@@ -331,7 +331,7 @@ void layoutHomescreen(void) {
   }
   layoutLast = layoutHomescreen;
 
-  char label[MAX_LABEL_LEN + 1] = _("Go to trezor.io/start");
+  char label[MAX_LABEL_LEN + 1] = _("Go to detahard.io/start");
   if (config_isInitialized()) {
     config_getLabel(label, sizeof(label));
   }
@@ -383,7 +383,7 @@ void layoutBusyscreen(void) {
 
   layoutDialog(&bmp_icon_warning, NULL, NULL, NULL, _("Please wait"), NULL,
                _("Coinjoin in progress."), NULL, _("Do not disconnect"),
-               _("your Trezor."));
+               _("your detahard."));
 }
 
 static void render_address_dialog(const CoinInfo *coin, const char *address,

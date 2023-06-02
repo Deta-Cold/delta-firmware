@@ -1,6 +1,6 @@
 #![allow(dead_code)]
 
-use crate::trezorhal::storage::{get, get_length};
+use crate::detahardhal::storage::{get, get_length};
 
 pub const HOMESCREEN_MAX_SIZE: usize = 16384;
 

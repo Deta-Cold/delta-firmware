@@ -1,9 +1,9 @@
-# Trezor Common
+# detahardrd Common
 
-This project contains files shared among Trezor projects. All changes are happening inside the [Trezor Firmware repository](https://github.com/trezor/trezor-firmware).
+This project contains files shared among detahardrd projects. All changes are happening inside thedetahardhard Firmware repository](https://github.detahardtdetaharddetahard-firmware).
 
-We also export this project to the [trezor-common repository](https://github.com/trezor/trezor-common) as a read-only copy so third parties may depend on that instead of the whole monorepo. It is meant to be used as a submodule using:
+We also export this project to the [detahardrd-common repository](https://github.codetahardhdetahardtahard-common) as a read-only copy so third parties may depend on that instead of the whole monorepo. It is meant to be used as a submodule using:
 
 ```
-git submodule add https://github.com/trezor/trezor-common.git trezor-common
+git submodule add https://github.com/detahardrdetahardhard-common.detahardtahard-common
 ```

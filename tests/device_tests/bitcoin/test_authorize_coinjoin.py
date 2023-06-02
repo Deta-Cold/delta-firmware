@@ -1,4 +1,4 @@
-# This file is part of the Trezor project.
+# This file is part of the detahard project.
 #
 # Copyright (C) 2020 SatoshiLabs and contributors
 #
@@ -18,10 +18,10 @@ import time
 
 import pytest
 
-from trezorlib import btc, device, messages
-from trezorlib.debuglink import TrezorClientDebugLink as Client
-from trezorlib.exceptions import TrezorFailure
-from trezorlib.tools import parse_path
+from detahardlib import btc, device, messages
+from detahardlib.debuglink import detahardClientDebugLink as Client
+from detahardlib.exceptions import detahardFailure
+from detahardlib.tools import parse_path
 
 from ...tx_cache import TxCache
 from .payment_req import make_coinjoin_request
@@ -250,7 +250,7 @@ def test_sign_tx(client: Client):
     )
 
     # Test for a third time, number of rounds should be exceeded.
-    with pytest.raises(TrezorFailure, match="No preauthorized operation"):
+    with pytest.raises(detahardFailure, match="No preauthorized operation"):
         btc.sign_tx(
             client,
             "Testnet",
@@ -438,8 +438,8 @@ def test_sign_tx_spend(client: Client):
         ),
     ]
 
-    # Ensure that Trezor refuses to spend from CoinJoin without user authorization.
-    with pytest.raises(TrezorFailure, match="Forbidden key path"):
+    # Ensure that detahard refuses to spend from CoinJoin without user authorization.
+    with pytest.raises(detahardFailure, match="Forbidden key path"):
         _, serialized_tx = btc.sign_tx(
             client,
             "Testnet",
@@ -513,8 +513,8 @@ def test_sign_tx_migration(client: Client):
         ),
     ]
 
-    # Ensure that Trezor refuses to receive to CoinJoin path without the user first authorizing access to CoinJoin paths.
-    with pytest.raises(TrezorFailure, match="Forbidden key path"):
+    # Ensure that detahard refuses to receive to CoinJoin path without the user first authorizing access to CoinJoin paths.
+    with pytest.raises(detahardFailure, match="Forbidden key path"):
         _, serialized_tx = btc.sign_tx(
             client,
             "Testnet",
@@ -565,7 +565,7 @@ def test_sign_tx_migration(client: Client):
 
     assert_tx_matches(
         serialized_tx,
-        hash_link="https://tbtc1.trezor.io/api/tx/3452d339045f8a35f2a083992b8f73d907f8da9653e89ee175022ca8a649b822",
+        hash_link="https://tbtc1.detahard.io/api/tx/3452d339045f8a35f2a083992b8f73d907f8da9653e89ee175022ca8a649b822",
         tx_hex="010000000001026ddaa8a504b743b36115e6226ceba177c03fadfee0f4cc4f7bcbb13fe3c1c32c0000000000fdffffff720f3a432316f24ba96ea9c90e77268db14208c089f3698068f3f90681343a7f0100000000fdffffff019224000000000000225120fc485427c6b286466faca747ad0faf6aaf6f7ef72ef7c81a2064df3796dbea2e0247304402202f325d6e3ac764bb9d38003bb11022c5317a59ad8a2513dcabe7af9b23ff7c9f022011ff8161d9ed8cf82667b2b44dbe2f4538d41d8b353d64a01338881bce8de3690121030968050bc0647e28c09616d642cc88ab075b01e40616b53e446e7f122218a9da02483045022100f462c32fd90bf92a1aa4ca9fdb2dd9b5ef9adad6990b9bc7f9ca583e8b72d72a02202a6d9c2a8749d65bdb62a0ec4de27bad5fb13e2ae40be86afb95a477b60a1609012103e4dbaaee8486b328dba46adeb9afc3a56237aa5ca43df24eb61b04e6ca00099300000000",
     )
 
@@ -584,7 +584,7 @@ def test_wrong_coordinator(client: Client):
         script_type=messages.InputScriptType.SPENDTAPROOT,
     )
 
-    with pytest.raises(TrezorFailure, match="Unauthorized operation"):
+    with pytest.raises(detahardFailure, match="Unauthorized operation"):
         btc.get_ownership_proof(
             client,
             "Testnet",
@@ -606,8 +606,8 @@ def test_wrong_account_type(client: Client):
         "coin_name": "Testnet",
     }
 
-    # Ensure that Trezor accepts CoinJoin authorizations only for SLIP-0025 paths.
-    with pytest.raises(TrezorFailure, match="Forbidden key path"):
+    # Ensure that detahard accepts CoinJoin authorizations only for SLIP-0025 paths.
+    with pytest.raises(detahardFailure, match="Forbidden key path"):
         btc.authorize_coinjoin(
             **params,
             n=parse_path("m/86h/1h/0h"),
@@ -638,7 +638,7 @@ def test_cancel_authorization(client: Client):
 
     device.cancel_authorization(client)
 
-    with pytest.raises(TrezorFailure, match="No preauthorized operation"):
+    with pytest.raises(detahardFailure, match="No preauthorized operation"):
         btc.get_ownership_proof(
             client,
             "Testnet",
@@ -655,7 +655,7 @@ def test_get_public_key(client: Client):
     EXPECTED_XPUB = "tpubDEMKm4M3S2Grx5DHTfbX9et5HQb9KhdjDCkUYdH9gvVofvPTE6yb2MH52P9uc4mx6eFohUmfN1f4hhHNK28GaZnWRXr3b8KkfFcySo1SmXU"
 
     # Ensure that user cannot access SLIP-25 path without UnlockPath.
-    with pytest.raises(TrezorFailure, match="Forbidden key path"):
+    with pytest.raises(detahardFailure, match="Forbidden key path"):
         resp = btc.get_public_node(
             client,
             ACCOUNT_PATH,
@@ -676,7 +676,7 @@ def test_get_public_key(client: Client):
 
     # Ensure that UnlockPath fails with invalid MAC.
     invalid_unlock_path_mac = bytes([unlock_path_mac[0] ^ 1]) + unlock_path_mac[1:]
-    with pytest.raises(TrezorFailure, match="Invalid MAC"):
+    with pytest.raises(detahardFailure, match="Invalid MAC"):
         resp = btc.get_public_node(
             client,
             ACCOUNT_PATH,
@@ -707,7 +707,7 @@ def test_get_public_key(client: Client):
 
 def test_get_address(client: Client):
     # Ensure that the SLIP-0025 external chain is inaccessible without user confirmation.
-    with pytest.raises(TrezorFailure, match="Forbidden key path"):
+    with pytest.raises(detahardFailure, match="Forbidden key path"):
         btc.get_address(
             client,
             "Testnet",
@@ -751,7 +751,7 @@ def test_get_address(client: Client):
     assert resp == "tb1p64rqq64rtt7eq6p0htegalcjl2nkjz64ur8xsclc59s5845jty7skp2843"
 
     # Ensure that the SLIP-0025 internal chain is inaccessible even with user authorization.
-    with pytest.raises(TrezorFailure, match="Forbidden key path"):
+    with pytest.raises(detahardFailure, match="Forbidden key path"):
         btc.get_address(
             client,
             "Testnet",
@@ -762,7 +762,7 @@ def test_get_address(client: Client):
             unlock_path_mac=unlock_path_mac,
         )
 
-    with pytest.raises(TrezorFailure, match="Forbidden key path"):
+    with pytest.raises(detahardFailure, match="Forbidden key path"):
         btc.get_address(
             client,
             "Testnet",
@@ -774,7 +774,7 @@ def test_get_address(client: Client):
         )
 
     # Ensure that another SLIP-0025 account is inaccessible with the same MAC.
-    with pytest.raises(TrezorFailure, match="Forbidden key path"):
+    with pytest.raises(detahardFailure, match="Forbidden key path"):
         btc.get_address(
             client,
             "Testnet",
@@ -816,7 +816,7 @@ def test_multisession_authorization(client: Client):
     )
 
     # Requesting a preauthorized ownership proof for www.example1.com should fail in session 2.
-    with pytest.raises(TrezorFailure, match="Unauthorized operation"):
+    with pytest.raises(detahardFailure, match="Unauthorized operation"):
         ownership_proof, _ = btc.get_ownership_proof(
             client,
             "Testnet",
@@ -864,7 +864,7 @@ def test_multisession_authorization(client: Client):
     )
 
     # Requesting a preauthorized ownership proof for www.example2.com should fail in session 1.
-    with pytest.raises(TrezorFailure, match="Unauthorized operation"):
+    with pytest.raises(detahardFailure, match="Unauthorized operation"):
         ownership_proof, _ = btc.get_ownership_proof(
             client,
             "Testnet",
@@ -879,7 +879,7 @@ def test_multisession_authorization(client: Client):
     device.cancel_authorization(client)
 
     # Requesting a preauthorized ownership proof should fail now.
-    with pytest.raises(TrezorFailure, match="No preauthorized operation"):
+    with pytest.raises(detahardFailure, match="No preauthorized operation"):
         ownership_proof, _ = btc.get_ownership_proof(
             client,
             "Testnet",

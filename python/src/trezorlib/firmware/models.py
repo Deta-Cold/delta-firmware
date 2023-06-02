@@ -1,4 +1,4 @@
-# This file is part of the Trezor project.
+# This file is part of the detahard project.
 #
 # Copyright (C) 2012-2022 SatoshiLabs and contributors
 #
@@ -38,7 +38,7 @@ class ModelKeys:
     firmware_sigs_needed: int
 
 
-TREZOR_ONE_V1V2 = ModelKeys(
+detahard_ONE_V1V2 = ModelKeys(
     production=True,
     boardloader_keys=(),
     boardloader_sigs_needed=-1,
@@ -57,7 +57,7 @@ TREZOR_ONE_V1V2 = ModelKeys(
     firmware_sigs_needed=3,
 )
 
-TREZOR_ONE_V1V2_DEV = ModelKeys(
+detahard_ONE_V1V2_DEV = ModelKeys(
     production=False,
     boardloader_keys=(),
     boardloader_sigs_needed=-1,
@@ -76,7 +76,7 @@ TREZOR_ONE_V1V2_DEV = ModelKeys(
     firmware_sigs_needed=3,
 )
 
-TREZOR_ONE_V3 = ModelKeys(
+detahard_ONE_V3 = ModelKeys(
     production=True,
     boardloader_keys=(),
     boardloader_sigs_needed=-1,
@@ -93,7 +93,7 @@ TREZOR_ONE_V3 = ModelKeys(
     firmware_sigs_needed=2,
 )
 
-TREZOR_ONE_V3_DEV = ModelKeys(
+detahard_ONE_V3_DEV = ModelKeys(
     production=False,
     boardloader_keys=(),
     boardloader_sigs_needed=-1,
@@ -110,7 +110,7 @@ TREZOR_ONE_V3_DEV = ModelKeys(
     firmware_sigs_needed=2,
 )
 
-TREZOR_T = ModelKeys(
+detahard_T = ModelKeys(
     production=True,
     boardloader_keys=[
         bytes.fromhex(key)
@@ -134,7 +134,7 @@ TREZOR_T = ModelKeys(
     firmware_sigs_needed=-1,
 )
 
-TREZOR_T_DEV = ModelKeys(
+detahard_T_DEV = ModelKeys(
     production=False,
     boardloader_keys=[
         bytes.fromhex(key)
@@ -160,11 +160,11 @@ TREZOR_T_DEV = ModelKeys(
 
 
 MODEL_MAP = {
-    Model.ONE: TREZOR_ONE_V3,
-    Model.T: TREZOR_T,
+    Model.ONE: detahard_ONE_V3,
+    Model.T: detahard_T,
 }
 
 MODEL_MAP_DEV = {
-    Model.ONE: TREZOR_ONE_V3_DEV,
-    Model.T: TREZOR_T_DEV,
+    Model.ONE: detahard_ONE_V3_DEV,
+    Model.T: detahard_T_DEV,
 }

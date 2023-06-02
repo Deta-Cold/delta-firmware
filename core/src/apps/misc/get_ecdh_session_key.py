@@ -1,22 +1,22 @@
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from trezor.messages import GetECDHSessionKey, ECDHSessionKey
-    from trezor.wire import Context
+    from detahard.messages import GetECDHSessionKey, ECDHSessionKey
+    from detahard.wire import Context
 
 # This module implements the SLIP-0017 Elliptic Curve Diffie-Hellman algorithm, using a
 # deterministic hierarchy, see https://github.com/satoshilabs/slips/blob/master/slip-0017.md.
 
 
 async def get_ecdh_session_key(ctx: Context, msg: GetECDHSessionKey) -> ECDHSessionKey:
-    from trezor.ui.layouts import confirm_address
+    from detahard.ui.layouts import confirm_address
     from .sign_identity import (
         get_identity_path,
         serialize_identity_without_proto,
         serialize_identity,
     )
-    from trezor.wire import DataError
-    from trezor.messages import ECDHSessionKey
+    from detahard.wire import DataError
+    from detahard.messages import ECDHSessionKey
     from apps.common.keychain import get_keychain
     from apps.common.paths import AlwaysMatchingSchema
 
@@ -42,15 +42,15 @@ async def get_ecdh_session_key(ctx: Context, msg: GetECDHSessionKey) -> ECDHSess
 
     # ecdh
     if curve_name == "secp256k1":
-        from trezor.crypto.curve import secp256k1
+        from detahard.crypto.curve import secp256k1
 
         session_key = secp256k1.multiply(node.private_key(), peer_public_key)
     elif curve_name == "nist256p1":
-        from trezor.crypto.curve import nist256p1
+        from detahard.crypto.curve import nist256p1
 
         session_key = nist256p1.multiply(node.private_key(), peer_public_key)
     elif curve_name == "curve25519":
-        from trezor.crypto.curve import curve25519
+        from detahard.crypto.curve import curve25519
 
         if peer_public_key[0] != 0x40:
             raise DataError("Curve25519 public key should start with 0x40")

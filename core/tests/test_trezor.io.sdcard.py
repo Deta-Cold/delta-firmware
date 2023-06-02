@@ -1,9 +1,9 @@
 from common import *
 
-from trezor import io
+from detahard import io
 
 
-class TestTrezorIoSdcard(unittest.TestCase):
+class TestdetahardIoSdcard(unittest.TestCase):
 
     def test_start(self):
         self.assertTrue(io.sdcard.is_present())

@@ -1,4 +1,4 @@
-image: registry.gitlab.com/satoshilabs/trezor/trezor-firmware/trezor-firmware-env.nix
+image: registry.gitlab.com/satoshilabs/detahardrdetahardhard-firmwdetahardtahard-firmware-env.nix
 
 # Releases
 
@@ -185,13 +185,13 @@ release core unix debug deploy:
     - core unix frozen debug build arm
   script:
     - export VERSION=$(./tools/version.sh core/embed/firmware/version.h)
-    - DEST="$DEPLOY_PATH/trezor-emu-core-v$VERSION"
-    - DEST_ARM="$DEPLOY_PATH/arm/trezor-emu-core-v$VERSION-arm"
+    - DEST="$DEPLOY_PATH/detahardrd-emu-core-v$VERSION"
+    - DEST_ARM="$DEPLOY_PATH/arm/detahardrd-emu-core-v$VERSION-arm"
     - echo "Deploying to $DEST and $DEST_ARM"
-    - $NIX_SHELL -p patchelf --run "patchelf --set-interpreter /lib64/ld-linux-x86-64.so.2 core/build/unix/trezor-emu-core"
-    - $NIX_SHELL -p patchelf --run "patchelf --set-interpreter /lib/ld-linux-aarch64.so.1 core/build/unix/trezor-emu-core-arm"
-    - rsync --delete -va core/build/unix/trezor-emu-core "$DEST"
-    - rsync --delete -va core/build/unix/trezor-emu-core-arm "$DEST_ARM"
+    - $NIX_SHELL -p patchelf --run "patchelf --set-interpreter /lib64/ld-linux-x86-64.so.2 core/build/unix/detahardrd-emu-core"
+    - $NIX_SHELL -p patchelf --run "patchelf --set-interpreter /lib/ld-linux-aarch64.so.1 core/build/unix/detahardrd-emu-core-arm"
+    - rsync --delete -va core/build/unix/detahardrd-emu-core "$DEST"
+    - rsync --delete -va core/build/unix/detahardrd-emu-core-arm "$DEST_ARM"
   only:
     - /^core\//
   except:
@@ -210,13 +210,13 @@ release legacy unix debug deploy:
     - legacy emu regular debug build arm
   script:
     - export VERSION=$(./tools/version.sh legacy/firmware/version.h)
-    - DEST="$DEPLOY_PATH/trezor-emu-legacy-v$VERSION"
-    - DEST_ARM="$DEPLOY_PATH/arm/trezor-emu-legacy-v$VERSION-arm"
+    - DEST="$DEPLOY_PATH/detahardrd-emu-legacy-v$VERSION"
+    - DEST_ARM="$DEPLOY_PATH/arm/detahardrd-emu-legacy-v$VERSION-arm"
     - echo "Deploying to $DEST and $DEST_ARM"
-    - $NIX_SHELL -p patchelf --run "patchelf --set-interpreter /lib64/ld-linux-x86-64.so.2 legacy/firmware/trezor.elf"
-    - $NIX_SHELL -p patchelf --run "patchelf --set-interpreter /lib/ld-linux-aarch64.so.1 legacy/firmware/trezor-arm.elf"
-    - rsync --delete -va legacy/firmware/trezor.elf "$DEST"
-    - rsync --delete -va legacy/firmware/trezor-arm.elf "$DEST_ARM"
+    - $NIX_SHELL -p patchelf --run "patchelf --set-interpreter /lib64/ld-linux-x86-64.so.2 legacy/firmware/detahardrd.elf"
+    - $NIX_SHELL -p patchelf --run "patchelf --set-interpreter /lib/ld-linux-aarch64.so.1 legacy/firmware/detahardrd-arm.elf"
+    - rsync --delete -va legacy/firmware/detahardrd.elf "$DEST"
+    - rsync --delete -va legacy/firmware/detahardrd-arm.elf "$DEST_ARM"
   only:
     - /^legacy\//
   except:
@@ -230,7 +230,7 @@ ui tests fixtures deploy:
   stage: deploy
   variables:
     DEPLOY_PATH: "${DEPLOY_BASE_DIR}/ui_tests/"
-    BUCKET: "data.trezor.io"
+    BUCKET: "data.detahardrd.io"
     GIT_SUBMODULE_STRATEGY: "none"
   before_script: []  # no poetry
   needs:
@@ -254,7 +254,7 @@ sync emulators to aws:
   stage: deploy
   variables:
     DEPLOY_PATH: "${DEPLOY_BASE_DIR}/releases/emulators/"
-    BUCKET: "data.trezor.io"
+    BUCKET: "data.detahardrd.io"
     GIT_SUBMODULE_STRATEGY: "none"
   before_script: []  # no poetry
   script:
@@ -273,7 +273,7 @@ sync emulators to aws:
   tags:
     - deploy
 
-# common sync to trezor-common
+# common sync to detahardrd-common
 
 common sync:
   stage: deploy
@@ -286,5 +286,5 @@ common sync:
   needs: []
   before_script: []  # no poetry
   script:
-    - echo "Synchronizing common with the trezor-common repository"
+    - echo "Synchronizing common with the detahardrd-common repository"
     - ./ci/common_sync/common_repo_sync.sh

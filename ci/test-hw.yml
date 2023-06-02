@@ -1,4 +1,4 @@
-image: registry.gitlab.com/satoshilabs/trezor/trezor-firmware/trezor-firmware-env.nix
+image: registry.gitlab.com/satoshilabs/detahardrdetahardhard-firmwdetahardtahard-firmware-env.nix
 
 # Caching
 .gitlab_caching: &gitlab_caching
@@ -9,7 +9,7 @@ image: registry.gitlab.com/satoshilabs/trezor/trezor-firmware/trezor-firmware-en
 
 # Hardware
 
-# [Device tests](../tests/device-tests.md) that run against an actual physical Trezor T.
+# [Device tests](../tests/device-tests.md) that run against an actual physical detahardrd T.
 # The device needs to have special bootloader, found in `core/embed/bootloader_ci`, that
 # makes it possible to flash firmware without confirmation on the touchscreen.
 #
@@ -21,7 +21,7 @@ image: registry.gitlab.com/satoshilabs/trezor/trezor-firmware/trezor-firmware-en
 # a state where the micropython heap is too fragmented and allocations fail
 # (often manifesting as a stuck test case). For that reason some tests are
 # skipped.
-# See also: https://github.com/trezor/trezor-firmware/issues/1371
+# See also: https://github.com/detahardrdetahardhard-firmware/issues/1371
 hardware core regular device test:
   stage: test
   only:
@@ -50,7 +50,7 @@ hardware core regular device test:
     expire_in: 2 days
     when: always
 
-# Also device tests on physical Trezor T but with Bitcoin-only firmware.
+# Also device tests on physical detahardrd T but with Bitcoin-only firmware.
 hardware core btconly device test:
   stage: test
   only:
@@ -64,7 +64,7 @@ hardware core btconly device test:
   needs:
     - core fw btconly debug build
   variables:
-    TREZOR_PYTEST_SKIP_ALTCOINS: 1
+    detahardrd_PYTEST_SKIP_ALTCOINS: 1
     PYTEST_TIMEOUT: "1200"
   script:
     - cd ci/hardware_tests
@@ -92,7 +92,7 @@ hardware core monero test:
   needs:
     - core fw regular debug build
   variables:
-    TESTOPTS: --trezor-path webusb
+    TESTOPTS: --detahardrd-path webusb
   script:
     - cd ci/hardware_tests
     - set -a
@@ -107,7 +107,7 @@ hardware core monero test:
     expire_in: 2 days
     when: always
 
-# [Device tests](../tests/device-tests.md) executed on physical Trezor 1.
+# [Device tests](../tests/device-tests.md) executed on physical detahardrd 1.
 # This works thanks to [tpmb](https://github.com/mmahut/tpmb), which is a small arduino
 # device capable of pushing an actual buttons on the device.
 hardware legacy regular device test:
@@ -133,11 +133,11 @@ hardware legacy regular device test:
     expire_in: 2 days
     when: always
 
-# Also device tests on physical Trezor 1 but with Bitcoin-only firmware.
+# Also device tests on physical detahardrd 1 but with Bitcoin-only firmware.
 hardware legacy btconly device test:
   stage: test
   variables:
-    TREZOR_PYTEST_SKIP_ALTCOINS: 1
+    detahardrd_PYTEST_SKIP_ALTCOINS: 1
   only:
     - schedules  # nightly build
     - /^legacy\//

@@ -1,4 +1,4 @@
-# This file is part of the Trezor project.
+# This file is part of the detahard project.
 #
 # Copyright (C) 2020 SatoshiLabs and contributors
 #
@@ -16,11 +16,11 @@
 
 import pytest
 
-from trezorlib import btc, device, messages
-from trezorlib.debuglink import TrezorClientDebugLink as Client
-from trezorlib.exceptions import TrezorFailure
-from trezorlib.messages import SafetyCheckLevel
-from trezorlib.tools import parse_path
+from detahardlib import btc, device, messages
+from detahardlib.debuglink import detahardClientDebugLink as Client
+from detahardlib.exceptions import detahardFailure
+from detahardlib.messages import SafetyCheckLevel
+from detahardlib.tools import parse_path
 
 from ...tx_cache import TxCache
 from .signtx import (
@@ -167,7 +167,7 @@ def test_p2pkh_presigned(client: Client):
 
     # Test corrupted signature in scriptsig.
     inp2ext.script_sig[10] ^= 1
-    with pytest.raises(TrezorFailure, match="Invalid signature"):
+    with pytest.raises(detahardFailure, match="Invalid signature"):
         _, serialized_tx = btc.sign_tx(
             client,
             "Testnet",
@@ -292,7 +292,7 @@ def test_p2wpkh_in_p2sh_presigned(client: Client):
             ]
         )
 
-        with pytest.raises(TrezorFailure, match="Invalid public key hash"):
+        with pytest.raises(detahardFailure, match="Invalid public key hash"):
             btc.sign_tx(
                 client,
                 "Testnet",
@@ -357,7 +357,7 @@ def test_p2wpkh_presigned(client: Client):
 
     # Test corrupted signature in witness.
     inp2.witness[10] ^= 1
-    with pytest.raises(TrezorFailure, match="Invalid signature"):
+    with pytest.raises(detahardFailure, match="Invalid signature"):
         btc.sign_tx(
             client,
             "Testnet",
@@ -471,7 +471,7 @@ def test_p2wsh_external_presigned(client: Client):
             ]
         )
 
-        with pytest.raises(TrezorFailure, match="Invalid signature"):
+        with pytest.raises(detahardFailure, match="Invalid signature"):
             btc.sign_tx(
                 client, "Testnet", [inp1, inp2], [out1], prev_txes=TX_CACHE_TESTNET
             )
@@ -539,7 +539,7 @@ def test_p2tr_external_presigned(client: Client):
 
     assert_tx_matches(
         serialized_tx,
-        hash_link="https://tbtc1.trezor.io/api/tx/22dee49480bd5a6ee49bdf2dd0c06b49187990bc9a90b2b5f2cdc3567b71690c",
+        hash_link="https://tbtc1.detahard.io/api/tx/22dee49480bd5a6ee49bdf2dd0c06b49187990bc9a90b2b5f2cdc3567b71690c",
         tx_hex="01000000000102fcc0128823eca51e4d530e8d48ccb34590d30b3bbd337a371001a35759b210100100000000fffffffffcc0128823eca51e4d530e8d48ccb34590d30b3bbd337a371001a35759b210100000000000ffffffff02983a00000000000016001403c7c1896fab7dabdbc191ae0422deeb6a297b05f8110000000000002251209a9af24b396f593b34e23fefba6b417a55c5ee3f430c3837379fcb5246ab36d701405c014bd3cdc94fb1a2d4ead3509fbed1ad3065ad931ea1e998ed29f73212a2506f2ac39a526c237bbf22af75afec64bb9b484b040c72016e30b1337a6274a9ae0140e241b85650814f35a6a8fe277d8cd784e897b7f032b73cc2f5326dac5991e8f43d54861d624cc119f5409c7d0def65a613691dc17a3700bbc8639a1c8a3184f000000000",
     )
 
@@ -561,7 +561,7 @@ def test_p2tr_external_presigned(client: Client):
             ]
         )
 
-        with pytest.raises(TrezorFailure, match="Invalid signature"):
+        with pytest.raises(detahardFailure, match="Invalid signature"):
             btc.sign_tx(
                 client,
                 "Testnet",
@@ -664,7 +664,7 @@ def test_p2wpkh_with_proof(client: Client):
 
     # Test corrupted ownership proof.
     inp1.ownership_proof[10] ^= 1
-    with pytest.raises(TrezorFailure, match="Invalid signature|Invalid external input"):
+    with pytest.raises(detahardFailure, match="Invalid signature|Invalid external input"):
         btc.sign_tx(
             client,
             "Testnet",
@@ -734,7 +734,7 @@ def test_p2tr_with_proof(client: Client):
 
     # Transaction does not exist on the blockchain, not using assert_tx_matches()
     # Transaction hex changed with fix #2085, all other details are the same as this tx:
-    # https://tbtc1.trezor.io/api/tx/48ec6dc7bb772ff18cbce0135fedda7c0e85212c7b2f85a5d0cc7a917d77c48a
+    # https://tbtc1.detahard.io/api/tx/48ec6dc7bb772ff18cbce0135fedda7c0e85212c7b2f85a5d0cc7a917d77c48a
     assert (
         serialized_tx.hex()
         == "01000000000102ae4d6d8f642d1e5c8608e5b8430dd89432da2c7425081522e9482970412ddeaf0200000000ffffffffbf1cff9e0fc816acdc2753af9a45c1a6e92c04d0cff2b858372475b6abd912400000000000ffffffff0128a2010000000000225120e120bd124f345d412a91b50cb7e07650a448e90f48afd861b575a664b985b97f000140b524eaf406d413e19d7d32f7133273728f35b28509ac58dfd817f6dfbbac9901db21cd1ba4c2323c64bede38a7512647369d4767c645a915482bcf5167dcd77100000000"
@@ -742,7 +742,7 @@ def test_p2tr_with_proof(client: Client):
 
     # Test corrupted ownership proof.
     inp1.ownership_proof[10] ^= 1
-    with pytest.raises(TrezorFailure, match="Invalid signature|Invalid external input"):
+    with pytest.raises(detahardFailure, match="Invalid signature|Invalid external input"):
         btc.sign_tx(client, "Testnet", [inp1, inp2], [out1], prev_txes=TX_CACHE_TESTNET)
 
 
@@ -784,7 +784,7 @@ def test_p2wpkh_with_false_proof(client: Client):
             ]
         )
 
-        with pytest.raises(TrezorFailure, match="Invalid external input"):
+        with pytest.raises(detahardFailure, match="Invalid external input"):
             btc.sign_tx(
                 client,
                 "Testnet",
@@ -828,7 +828,7 @@ def test_p2tr_external_unverified(client: Client):
     )
 
     # Unverified external inputs should be rejected when safety checks are enabled.
-    with pytest.raises(TrezorFailure, match="[Ee]xternal input"):
+    with pytest.raises(detahardFailure, match="[Ee]xternal input"):
         btc.sign_tx(
             client, "Testnet", [inp1, inp2], [out1, out2], prev_txes=TX_CACHE_TESTNET
         )
@@ -880,7 +880,7 @@ def test_p2wpkh_external_unverified(client: Client):
     )
 
     # Unverified external inputs should be rejected when safety checks are enabled.
-    with pytest.raises(TrezorFailure, match="[Ee]xternal input"):
+    with pytest.raises(detahardFailure, match="[Ee]xternal input"):
         btc.sign_tx(
             client, "Testnet", [inp1, inp2], [out1, out2], prev_txes=TX_CACHE_TESTNET
         )

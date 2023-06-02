@@ -1,11 +1,11 @@
 from typing import TYPE_CHECKING
 
-from trezor.enums import CardanoNativeScriptType
-from trezor.wire import ProcessError
+from detahard.enums import CardanoNativeScriptType
+from detahard.wire import ProcessError
 
 if TYPE_CHECKING:
     from typing import Any
-    from trezor import messages
+    from detahard import messages
 
     from apps.common.cbor import CborSequence
 
@@ -121,7 +121,7 @@ def get_native_script_hash(
     keychain: seed.Keychain, script: messages.CardanoNativeScript
 ) -> bytes:
     from .helpers import SCRIPT_HASH_SIZE
-    from trezor.crypto import hashlib
+    from detahard.crypto import hashlib
     from apps.common import cbor
 
     script_cbor = cbor.encode(cborize_native_script(keychain, script))

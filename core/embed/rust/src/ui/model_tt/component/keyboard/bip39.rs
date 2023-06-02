@@ -1,5 +1,5 @@
 use crate::{
-    trezorhal::bip39,
+    detahardhal::bip39,
     ui::{
         component::{text::common::TextBox, Component, Event, EventCtx},
         display,

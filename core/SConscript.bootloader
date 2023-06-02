@@ -3,17 +3,17 @@
 import os
 import tools
 
-TREZOR_MODEL = ARGUMENTS.get('TREZOR_MODEL', 'T')
+detahard_MODEL = ARGUMENTS.get('detahard_MODEL', 'T')
 CMAKELISTS = int(ARGUMENTS.get('CMAKELISTS', 0))
 BOOTLOADER_QA = ARGUMENTS.get('BOOTLOADER_QA', '0') == '1'
 PRODUCTION = 0 if BOOTLOADER_QA else ARGUMENTS.get('PRODUCTION', '0') == '1'
 DMA2D = False
 
-if TREZOR_MODEL in ('1', ):
+if detahard_MODEL in ('1', ):
     # skip bootloader build
     env = Environment()
     def build_bootloader(target,source,env):
-        print(f'Bootloader: nothing to build for Model {TREZOR_MODEL}')
+        print(f'Bootloader: nothing to build for Model {detahard_MODEL}')
     program_bin = env.Command(
                  target='bootloader.bin',
                  source=None,
@@ -28,47 +28,47 @@ CPPPATH_MOD = []
 CPPDEFINES_MOD = []
 SOURCE_MOD = []
 
-if TREZOR_MODEL in ('1', 'R'):
+if detahard_MODEL in ('1', 'R'):
     FONT_NORMAL='Font_PixelOperator_Regular_8'
     FONT_DEMIBOLD=None
     FONT_BOLD=None
     FONT_MONO='Font_PixelOperatorMono_Regular_8'
-if TREZOR_MODEL in ('T', ):
+if detahard_MODEL in ('T', ):
     FONT_NORMAL='Font_TTHoves_Regular_21'
     FONT_DEMIBOLD=None
     FONT_BOLD='Font_TTHoves_Bold_17'
     FONT_MONO=None
 
-# modtrezorcrypto
+# moddetahardcrypto
 CCFLAGS_MOD += '-Wno-sequence-point '
 CPPPATH_MOD += [
-    'vendor/trezor-crypto',
+    'vendor/detahard-crypto',
 ]
 CPPDEFINES_MOD += [
     'AES_128',
     'AES_192',
     'USE_KECCAK',
     'ED25519_NO_PRECOMP',
-    'TREZOR_UI2',
+    'detahard_UI2',
     'FANCY_FATAL_ERROR',
 ]
 
 SOURCE_MOD += [
-    'vendor/trezor-crypto/blake2s.c',
-    'vendor/trezor-crypto/chacha_drbg.c',
-    'vendor/trezor-crypto/chacha20poly1305/chacha_merged.c',
-    'vendor/trezor-crypto/ed25519-donna/curve25519-donna-32bit.c',
-    'vendor/trezor-crypto/ed25519-donna/curve25519-donna-helpers.c',
-    'vendor/trezor-crypto/ed25519-donna/ed25519.c',
-    'vendor/trezor-crypto/ed25519-donna/ed25519-donna-32bit-tables.c',
-    'vendor/trezor-crypto/ed25519-donna/ed25519-donna-impl-base.c',
-    'vendor/trezor-crypto/ed25519-donna/modm-donna-32bit.c',
-    'vendor/trezor-crypto/memzero.c',
-    'vendor/trezor-crypto/rand.c',
-    'vendor/trezor-crypto/sha2.c',
+    'vendor/detahard-crypto/blake2s.c',
+    'vendor/detahard-crypto/chacha_drbg.c',
+    'vendor/detahard-crypto/chacha20poly1305/chacha_merged.c',
+    'vendor/detahard-crypto/ed25519-donna/curve25519-donna-32bit.c',
+    'vendor/detahard-crypto/ed25519-donna/curve25519-donna-helpers.c',
+    'vendor/detahard-crypto/ed25519-donna/ed25519.c',
+    'vendor/detahard-crypto/ed25519-donna/ed25519-donna-32bit-tables.c',
+    'vendor/detahard-crypto/ed25519-donna/ed25519-donna-impl-base.c',
+    'vendor/detahard-crypto/ed25519-donna/modm-donna-32bit.c',
+    'vendor/detahard-crypto/memzero.c',
+    'vendor/detahard-crypto/rand.c',
+    'vendor/detahard-crypto/sha2.c',
 ]
 
-# modtrezorui
+# moddetahardui
 CPPPATH_MOD += [
         'vendor/micropython/lib/uzlib',
 ]
@@ -79,7 +79,7 @@ SOURCE_MOD += [
     'embed/lib/display.c',
     'embed/lib/fonts/fonts.c',
     'embed/lib/fonts/font_bitmap.c',
-    'embed/extmod/modtrezorcrypto/rand.c',
+    'embed/extmod/moddetahardcrypto/rand.c',
     'vendor/micropython/lib/uzlib/adler32.c',
     'vendor/micropython/lib/uzlib/crc32.c',
     'vendor/micropython/lib/uzlib/tinflate.c',
@@ -122,28 +122,28 @@ SOURCE_BOOTLOADER = [
     'embed/bootloader/protob/messages.pb.c',
 ]
 
-SOURCE_TREZORHAL = [
-    'embed/trezorhal/common.c',
-    'embed/trezorhal/image.c',
-    'embed/trezorhal/flash.c',
-    'embed/trezorhal/mini_printf.c',
-    'embed/trezorhal/mpu.c',
-    'embed/trezorhal/random_delays.c',
-    'embed/trezorhal/rng.c',
-    'embed/trezorhal/stm32.c',
-    'embed/trezorhal/systick.c',
-    'embed/trezorhal/usb.c',
-    'embed/trezorhal/usbd_conf.c',
-    'embed/trezorhal/usbd_core.c',
-    'embed/trezorhal/usbd_ctlreq.c',
-    'embed/trezorhal/usbd_ioreq.c',
-    'embed/trezorhal/util.s',
-    'embed/trezorhal/vectortable.s',
+SOURCE_detahardHAL = [
+    'embed/detahardhal/common.c',
+    'embed/detahardhal/image.c',
+    'embed/detahardhal/flash.c',
+    'embed/detahardhal/mini_printf.c',
+    'embed/detahardhal/mpu.c',
+    'embed/detahardhal/random_delays.c',
+    'embed/detahardhal/rng.c',
+    'embed/detahardhal/stm32.c',
+    'embed/detahardhal/systick.c',
+    'embed/detahardhal/usb.c',
+    'embed/detahardhal/usbd_conf.c',
+    'embed/detahardhal/usbd_core.c',
+    'embed/detahardhal/usbd_ctlreq.c',
+    'embed/detahardhal/usbd_ioreq.c',
+    'embed/detahardhal/util.s',
+    'embed/detahardhal/vectortable.s',
 ]
 
 if DMA2D:
     SOURCE_STMHAL.append('vendor/micropython/lib/stm32lib/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma2d.c')
-    SOURCE_TREZORHAL.append('embed/trezorhal/dma2d.c')
+    SOURCE_detahardHAL.append('embed/detahardhal/dma2d.c')
     CPPDEFINES_MOD += [
         'USE_DMA2D',
     ]
@@ -156,7 +156,7 @@ tools.add_font('MONO', FONT_MONO, CPPDEFINES_MOD, SOURCE_MOD)
 
 env = Environment(ENV=os.environ, CFLAGS=f"{ARGUMENTS.get('CFLAGS', '')} -DPRODUCTION={int(PRODUCTION)} -DBOOTLOADER_QA={int(BOOTLOADER_QA)}")
 
-FEATURES_AVAILABLE = tools.configure_board(TREZOR_MODEL, FEATURES_WANTED, env, CPPDEFINES_MOD, SOURCE_TREZORHAL)
+FEATURES_AVAILABLE = tools.configure_board(detahard_MODEL, FEATURES_WANTED, env, CPPDEFINES_MOD, SOURCE_detahardHAL)
 
 env.Replace(
     CP='cp',
@@ -171,20 +171,20 @@ env.Replace(
     MAKECMAKELISTS='$PYTHON tools/make_cmakelists.py', )
 
 env.Replace(
-    TREZOR_MODEL=TREZOR_MODEL, )
+    detahard_MODEL=detahard_MODEL, )
 
-if TREZOR_MODEL in ('T', 'R'):
+if detahard_MODEL in ('T', 'R'):
     CPU_ASFLAGS = '-mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16'
     CPU_CCFLAGS = '-mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -mtune=cortex-m4 '
     CPU_MODEL   = 'STM32F427xx'
     RUST_TARGET = 'thumbv7em-none-eabihf'
-elif TREZOR_MODEL in ('1',):
+elif detahard_MODEL in ('1',):
     CPU_ASFLAGS = '-mthumb -mcpu=cortex-m3 -mfloat-abi=soft'
     CPU_CCFLAGS = '-mthumb -mtune=cortex-m3 -mcpu=cortex-m3 -mfloat-abi=soft '
     CPU_MODEL   = 'STM32F405xx'
     RUST_TARGET = 'thumbv7m-none-eabi'
 else:
-    raise ValueError('Unknown Trezor model')
+    raise ValueError('Unknown detahard model')
 
 env.Replace(
     COPT=env.get('ENV').get('OPTIMIZE', '-Os'),
@@ -204,8 +204,8 @@ env.Replace(
         'embed/bootloader/nanopb',
         'embed/bootloader/protob',
         'embed/lib',
-        'embed/trezorhal',
-        'embed/extmod/modtrezorui',
+        'embed/detahardhal',
+        'embed/extmod/moddetahardui',
         'vendor/micropython/lib/stm32lib/STM32F4xx_HAL_Driver/Inc',
         'vendor/micropython/lib/stm32lib/CMSIS/STM32F4xx/Include',
         'vendor/micropython/lib/cmsis/inc',
@@ -213,7 +213,7 @@ env.Replace(
     ] + CPPPATH_MOD,
     CPPDEFINES=[
         'BOOTLOADER',
-        'TREZOR_MODEL_'+TREZOR_MODEL,
+        'detahard_MODEL_'+detahard_MODEL,
         CPU_MODEL,
         'USE_HAL_DRIVER',
         ('STM32_HAL_H', '"<stm32f4xx.h>"'),
@@ -229,7 +229,7 @@ env.Replace(
 )
 
 env.Replace(
-    ALLSOURCES=SOURCE_MOD + SOURCE_BOOTLOADER + SOURCE_NANOPB + SOURCE_STMHAL + SOURCE_TREZORHAL,
+    ALLSOURCES=SOURCE_MOD + SOURCE_BOOTLOADER + SOURCE_NANOPB + SOURCE_STMHAL + SOURCE_detahardHAL,
     ALLDEFS=tools.get_defs_for_cmake(env['CPPDEFINES'] + [f"PRODUCTION={int(PRODUCTION)}", f"BOOTLOADER_QA={int(BOOTLOADER_QA)}"]))
 
 cmake_gen = env.Command(
@@ -244,7 +244,7 @@ cmake_gen = env.Command(
 #
 
 RUST_PROFILE = 'release'
-RUST_LIB = 'trezor_lib'
+RUST_LIB = 'detahard_lib'
 RUST_LIBDIR = f'build/bootloader/rust/{RUST_TARGET}/{RUST_PROFILE}'
 RUST_LIBPATH = f'{RUST_LIBDIR}/lib{RUST_LIB}.a'
 
@@ -254,9 +254,9 @@ def cargo_build():
         profile = '--release'
     else:
         profile = ''
-    if TREZOR_MODEL in ("1",):
+    if detahard_MODEL in ("1",):
         features = ["model_t1"]
-    elif TREZOR_MODEL in ("R",):
+    elif detahard_MODEL in ("R",):
         features = ["model_tr"]
     else:
         features = ["model_tt"]
@@ -293,7 +293,7 @@ obj_program += env.Object(source=SOURCE_MOD)
 obj_program += env.Object(source=SOURCE_BOOTLOADER)
 obj_program += env.Object(source=SOURCE_NANOPB)
 obj_program += env.Object(source=SOURCE_STMHAL)
-obj_program += env.Object(source=SOURCE_TREZORHAL)
+obj_program += env.Object(source=SOURCE_detahardHAL)
 
 
 program_elf = env.Command(
@@ -307,7 +307,7 @@ env.Depends(program_elf, rust)
 
 SUFFIX = '_qa' if BOOTLOADER_QA else ''
 
-BINARY_NAME = f"build/bootloader/bootloader-{tools.get_model_identifier(TREZOR_MODEL)}{SUFFIX}"
+BINARY_NAME = f"build/bootloader/bootloader-{tools.get_model_identifier(detahard_MODEL)}{SUFFIX}"
 BINARY_NAME += "-" + tools.get_version('embed/bootloader/version.h')
 BINARY_NAME += "-" + tools.get_git_revision_short_hash()
 BINARY_NAME += "-dirty" if tools.get_git_modified() else ""

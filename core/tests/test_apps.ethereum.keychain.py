@@ -3,8 +3,8 @@ from common import *
 import unittest
 
 from storage import cache
-from trezor import wire, utils
-from trezor.crypto import bip39
+from detahard import wire, utils
+from detahard.crypto import bip39
 from apps.common.keychain import get_keychain
 from apps.common.paths import HARDENED
 
@@ -20,7 +20,7 @@ if not utils.BITCOIN_ONLY:
         with_keychain_from_chain_id,
     )
 
-    from trezor.messages import (
+    from detahard.messages import (
         EthereumGetAddress,
         EthereumSignTx,
         EthereumDefinitions,

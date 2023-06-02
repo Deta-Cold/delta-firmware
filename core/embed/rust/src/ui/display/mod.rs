@@ -10,7 +10,7 @@ use super::{
     geometry::{Offset, Point, Rect},
 };
 #[cfg(feature = "dma2d")]
-use crate::trezorhal::{
+use crate::detahardhal::{
     dma2d::{
         dma2d_setup_4bpp_over_16bpp, dma2d_setup_4bpp_over_4bpp, dma2d_start_blend,
         dma2d_wait_for_transfer,
@@ -25,7 +25,7 @@ use crate::ui::geometry::TOP_LEFT;
 
 use crate::{
     time::Duration,
-    trezorhal::{buffers, display, time, uzlib::UzlibContext},
+    detahardhal::{buffers, display, time, uzlib::UzlibContext},
     ui::lerp::Lerp,
 };
 

@@ -5,18 +5,18 @@ from apps.common.keychain import with_slip44_keychain
 from . import CURVE, PATTERNS, SLIP44_ID
 
 if TYPE_CHECKING:
-    from trezor.messages import TezosGetAddress, TezosAddress
+    from detahard.messages import TezosGetAddress, TezosAddress
     from apps.common.keychain import Keychain
-    from trezor.wire import Context
+    from detahard.wire import Context
 
 
 @with_slip44_keychain(*PATTERNS, slip44_id=SLIP44_ID, curve=CURVE)
 async def get_address(
     ctx: Context, msg: TezosGetAddress, keychain: Keychain
 ) -> TezosAddress:
-    from trezor.crypto import hashlib
-    from trezor.messages import TezosAddress
-    from trezor.ui.layouts import show_address
+    from detahard.crypto import hashlib
+    from detahard.messages import TezosAddress
+    from detahard.ui.layouts import show_address
     from apps.common import paths, seed
     from . import helpers
 

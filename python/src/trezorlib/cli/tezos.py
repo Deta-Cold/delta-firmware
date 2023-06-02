@@ -1,4 +1,4 @@
-# This file is part of the Trezor project.
+# This file is part of the detahard project.
 #
 # Copyright (C) 2012-2022 SatoshiLabs and contributors
 #
@@ -23,7 +23,7 @@ from .. import messages, protobuf, tezos, tools
 from . import with_client
 
 if TYPE_CHECKING:
-    from ..client import TrezorClient
+    from ..client import detahardClient
 
 PATH_HELP = "BIP-32 path, e.g. m/44'/1729'/0'"
 
@@ -37,7 +37,7 @@ def cli() -> None:
 @click.option("-n", "--address", required=True, help=PATH_HELP)
 @click.option("-d", "--show-display", is_flag=True)
 @with_client
-def get_address(client: "TrezorClient", address: str, show_display: bool) -> str:
+def get_address(client: "detahardClient", address: str, show_display: bool) -> str:
     """Get Tezos address for specified path."""
     address_n = tools.parse_path(address)
     return tezos.get_address(client, address_n, show_display)
@@ -47,7 +47,7 @@ def get_address(client: "TrezorClient", address: str, show_display: bool) -> str
 @click.option("-n", "--address", required=True, help=PATH_HELP)
 @click.option("-d", "--show-display", is_flag=True)
 @with_client
-def get_public_key(client: "TrezorClient", address: str, show_display: bool) -> str:
+def get_public_key(client: "detahardClient", address: str, show_display: bool) -> str:
     """Get Tezos public key."""
     address_n = tools.parse_path(address)
     return tezos.get_public_key(client, address_n, show_display)
@@ -59,7 +59,7 @@ def get_public_key(client: "TrezorClient", address: str, show_display: bool) -> 
 @click.option("-f", "--file", "_ignore", is_flag=True, hidden=True, expose_value=False)
 @with_client
 def sign_tx(
-    client: "TrezorClient", address: str, file: TextIO
+    client: "detahardClient", address: str, file: TextIO
 ) -> messages.TezosSignedTx:
     """Sign Tezos transaction."""
     address_n = tools.parse_path(address)

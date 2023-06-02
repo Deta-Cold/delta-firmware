@@ -5,7 +5,7 @@
 #define MAX_DISPLAY_RESY 64
 #define DISPLAY_RESX 128
 #define DISPLAY_RESY 64
-#define TREZOR_FONT_BPP 1
+#define detahard_FONT_BPP 1
 
 void pixeldata_dirty(void);
 #define PIXELDATA_DIRTY() pixeldata_dirty();

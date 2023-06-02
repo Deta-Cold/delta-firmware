@@ -2,15 +2,15 @@ from typing import TYPE_CHECKING
 
 import storage.cache as storage_cache
 import storage.device as storage_device
-from trezor import config, utils, wire, workflow
-from trezor.enums import HomescreenFormat, MessageType
-from trezor.messages import Success, UnlockPath
+from detahard import config, utils, wire, workflow
+from detahard.enums import HomescreenFormat, MessageType
+from detahard.messages import Success, UnlockPath
 
 from . import workflow_handlers
 
 if TYPE_CHECKING:
-    from trezor import protobuf
-    from trezor.messages import (
+    from detahard import protobuf
+    from detahard.messages import (
         Features,
         Initialize,
         EndSession,
@@ -43,14 +43,14 @@ def get_features() -> Features:
     import storage.recovery as storage_recovery
     import storage.sd_salt as storage_sd_salt
 
-    from trezor import sdcard
-    from trezor.enums import Capability
-    from trezor.messages import Features
+    from detahard import sdcard
+    from detahard.enums import Capability
+    from detahard.messages import Features
 
     from apps.common import mnemonic, safety_checks
 
     f = Features(
-        vendor="trezor.io",
+        vendor="detahard.io",
         fw_vendor=utils.firmware_vendor(),
         language="en-US",
         major_version=utils.VERSION_MAJOR,
@@ -186,8 +186,8 @@ async def handle_EndSession(ctx: wire.Context, msg: EndSession) -> Success:
 
 async def handle_Ping(ctx: wire.Context, msg: Ping) -> Success:
     if msg.button_protection:
-        from trezor.ui.layouts import confirm_action
-        from trezor.enums import ButtonRequestType as B
+        from detahard.ui.layouts import confirm_action
+        from detahard.enums import ButtonRequestType as B
 
         await confirm_action(ctx, "ping", "Confirm", "ping", br_code=B.ProtectCall)
     return Success(message=msg.message)
@@ -196,7 +196,7 @@ async def handle_Ping(ctx: wire.Context, msg: Ping) -> Success:
 async def handle_DoPreauthorized(
     ctx: wire.Context, msg: DoPreauthorized
 ) -> protobuf.MessageType:
-    from trezor.messages import PreauthorizedRequest
+    from detahard.messages import PreauthorizedRequest
     from apps.common import authorization
 
     if not authorization.is_set():
@@ -218,14 +218,14 @@ async def handle_DoPreauthorized(
 
 
 async def handle_UnlockPath(ctx: wire.Context, msg: UnlockPath) -> protobuf.MessageType:
-    from trezor.crypto import hmac
-    from trezor.messages import UnlockedPathRequest
-    from trezor.ui.layouts import confirm_action
+    from detahard.crypto import hmac
+    from detahard.messages import UnlockedPathRequest
+    from detahard.ui.layouts import confirm_action
     from apps.common.paths import SLIP25_PURPOSE
     from apps.common.seed import Slip21Node, get_seed
     from apps.common.writers import write_uint32_le
 
-    _KEYCHAIN_MAC_KEY_PATH = [b"TREZOR", b"Keychain MAC key"]
+    _KEYCHAIN_MAC_KEY_PATH = [b"detahard", b"Keychain MAC key"]
 
     # UnlockPath is relevant only for SLIP-25 paths.
     # Note: Currently we only allow unlocking the entire SLIP-25 purpose subtree instead of
@@ -356,7 +356,7 @@ def get_pinlocked_handler(
 
 # this function is also called when handling ApplySettings
 def reload_settings_from_storage() -> None:
-    from trezor import ui
+    from detahard import ui
 
     workflow.idle_timer.set(
         storage_device.get_autolock_delay_ms(), lock_device_if_unlocked

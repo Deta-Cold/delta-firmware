@@ -1,20 +1,20 @@
 from typing import TYPE_CHECKING
 
-from trezor.enums import ButtonRequestType
-from trezor.ui.layouts import confirm_action, confirm_homescreen
-from trezor.wire import DataError
+from detahard.enums import ButtonRequestType
+from detahard.ui.layouts import confirm_action, confirm_homescreen
+from detahard.wire import DataError
 
 if TYPE_CHECKING:
-    from trezor.messages import ApplySettings, Success
-    from trezor.wire import Context, GenericContext
-    from trezor.enums import SafetyCheckLevel
+    from detahard.messages import ApplySettings, Success
+    from detahard.wire import Context, GenericContext
+    from detahard.enums import SafetyCheckLevel
 
 
 BRT_PROTECT_CALL = ButtonRequestType.ProtectCall  # CACHE
 
 
 def _validate_homescreen(homescreen: bytes) -> None:
-    import trezorui2
+    import detahardui2
     import storage.device as storage_device
 
     if homescreen == b"":
@@ -26,7 +26,7 @@ def _validate_homescreen(homescreen: bytes) -> None:
         )
 
     try:
-        w, h, mcu_height = trezorui2.jpeg_info(homescreen)
+        w, h, mcu_height = detahardui2.jpeg_info(homescreen)
     except ValueError:
         raise DataError("Invalid homescreen")
     if w != 240 or h != 240:
@@ -34,7 +34,7 @@ def _validate_homescreen(homescreen: bytes) -> None:
     if mcu_height > 16:
         raise DataError("Unsupported jpeg type")
     try:
-        trezorui2.jpeg_test(homescreen)
+        detahardui2.jpeg_test(homescreen)
     except ValueError:
         raise DataError("Invalid homescreen")
 
@@ -42,8 +42,8 @@ def _validate_homescreen(homescreen: bytes) -> None:
 async def apply_settings(ctx: Context, msg: ApplySettings) -> Success:
     import storage.device as storage_device
     from apps.common import safety_checks
-    from trezor.messages import Success
-    from trezor.wire import ProcessError, NotInitialized
+    from detahard.messages import Success
+    from detahard.wire import ProcessError, NotInitialized
     from apps.base import reload_settings_from_storage
 
     if not storage_device.is_initialized():
@@ -215,7 +215,7 @@ async def _require_confirm_change_display_rotation(
 async def _require_confirm_change_autolock_delay(
     ctx: GenericContext, delay_ms: int
 ) -> None:
-    from trezor.strings import format_duration_ms
+    from detahard.strings import format_duration_ms
 
     await confirm_action(
         ctx,
@@ -230,7 +230,7 @@ async def _require_confirm_change_autolock_delay(
 async def _require_confirm_safety_checks(
     ctx: GenericContext, level: SafetyCheckLevel
 ) -> None:
-    from trezor.enums import SafetyCheckLevel
+    from detahard.enums import SafetyCheckLevel
 
     if level == SafetyCheckLevel.Strict:
         await confirm_action(
@@ -243,7 +243,7 @@ async def _require_confirm_safety_checks(
     elif level in (SafetyCheckLevel.PromptAlways, SafetyCheckLevel.PromptTemporarily):
         # Reusing most stuff for both levels
         template = (
-            "Trezor will{}allow you to approve some actions which might be unsafe."
+            "detahard will{}allow you to approve some actions which might be unsafe."
         )
         description = template.format(
             " temporarily " if level == SafetyCheckLevel.PromptTemporarily else " "

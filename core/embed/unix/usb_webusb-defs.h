@@ -1,1 +1,1 @@
-../trezorhal/usb_webusb-defs.h
+../detahardhal/usb_webusb-defs.h

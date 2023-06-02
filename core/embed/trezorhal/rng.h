@@ -1,5 +1,5 @@
 /*
- * This file is part of the Trezor project, https://trezor.io/
+ * This file is part of the detahard project, https://detahard.io/
  *
  * Copyright (c) SatoshiLabs
  *
@@ -17,8 +17,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef TREZORHAL_RNG_H
-#define TREZORHAL_RNG_H
+#ifndef detahardHAL_RNG_H
+#define detahardHAL_RNG_H
 
 #include <stdint.h>
 

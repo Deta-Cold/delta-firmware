@@ -7,7 +7,7 @@
 
 from typing import Iterator
 
-from trezor.enums import NEMMosaicLevy
+from detahard.enums import NEMMosaicLevy
 
 
 class MosaicLevy:
@@ -45,7 +45,7 @@ class Mosaic:
 
 
 def mosaics_iterator() -> Iterator[Mosaic]:
-% for m in supported_on("trezor2", nem):
+% for m in supported_on("detahard2", nem):
     yield Mosaic(
         "${m.name}",  # name
         " ${m.ticker}",  # ticker

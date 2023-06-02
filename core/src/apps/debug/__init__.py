@@ -1,5 +1,5 @@
 if not __debug__:
-    from trezor.utils import halt
+    from detahard.utils import halt
 
     halt("debug mode inactive")
 
@@ -7,12 +7,12 @@ if __debug__:
     from storage import debug as storage
     from storage.debug import debug_events
 
-    import trezorui2
+    import detahardui2
 
-    from trezor import log, loop, wire
-    from trezor.ui import display
-    from trezor.enums import MessageType
-    from trezor.messages import (
+    from detahard import log, loop, wire
+    from detahard.ui import display
+    from detahard.enums import MessageType
+    from detahard.messages import (
         DebugLinkLayout,
         Success,
     )
@@ -22,8 +22,8 @@ if __debug__:
     from typing import TYPE_CHECKING
 
     if TYPE_CHECKING:
-        from trezor.ui import Layout
-        from trezor.messages import (
+        from detahard.ui import Layout
+        from detahard.messages import (
             DebugLinkDecision,
             DebugLinkEraseSdCard,
             DebugLinkGetState,
@@ -74,15 +74,15 @@ if __debug__:
     async def _dispatch_debuglink_decision(
         event_id: int | None, msg: DebugLinkDecision
     ) -> None:
-        from trezor.enums import DebugButton
+        from detahard.enums import DebugButton
 
         if msg.button is not None:
             if msg.button == DebugButton.NO:
-                await result_chan.put((event_id, trezorui2.CANCELLED))
+                await result_chan.put((event_id, detahardui2.CANCELLED))
             elif msg.button == DebugButton.YES:
-                await result_chan.put((event_id, trezorui2.CONFIRMED))
+                await result_chan.put((event_id, detahardui2.CONFIRMED))
             elif msg.button == DebugButton.INFO:
-                await result_chan.put((event_id, trezorui2.INFO))
+                await result_chan.put((event_id, detahardui2.INFO))
             else:
                 raise RuntimeError(f"Invalid msg.button - {msg.button}")
         elif msg.input is not None:
@@ -134,7 +134,7 @@ if __debug__:
         if storage.layout_watcher is LAYOUT_WATCHER_LAYOUT:
             await DEBUG_CONTEXT.write(DebugLinkLayout(tokens=content_tokens))
         else:
-            from trezor.messages import DebugLinkState
+            from detahard.messages import DebugLinkState
 
             await DEBUG_CONTEXT.write(DebugLinkState(tokens=content_tokens))
         storage.layout_watcher = LAYOUT_WATCHER_NONE
@@ -142,7 +142,7 @@ if __debug__:
     async def dispatch_DebugLinkWatchLayout(
         ctx: wire.Context, msg: DebugLinkWatchLayout
     ) -> Success:
-        from trezor import ui
+        from detahard import ui
 
         layout_change_chan.putters.clear()
         if msg.watch:
@@ -162,7 +162,7 @@ if __debug__:
     async def dispatch_DebugLinkDecision(
         ctx: wire.Context, msg: DebugLinkDecision
     ) -> None:
-        from trezor import workflow
+        from detahard import workflow
 
         workflow.idle_timer.touch()
 
@@ -191,7 +191,7 @@ if __debug__:
     async def dispatch_DebugLinkGetState(
         ctx: wire.Context, msg: DebugLinkGetState
     ) -> DebugLinkState | None:
-        from trezor.messages import DebugLinkState
+        from detahard.messages import DebugLinkState
         from apps.common import mnemonic, passphrase
 
         m = DebugLinkState()
@@ -234,7 +234,7 @@ if __debug__:
         ctx: wire.Context, msg: DebugLinkReseedRandom
     ) -> Success:
         if msg.value is not None:
-            from trezor.crypto import random
+            from detahard.crypto import random
 
             random.reseed(msg.value)
         return Success()
@@ -242,7 +242,7 @@ if __debug__:
     async def dispatch_DebugLinkEraseSdCard(
         ctx: wire.Context, msg: DebugLinkEraseSdCard
     ) -> Success:
-        from trezor import io
+        from detahard import io
 
         sdcard = io.sdcard  # local_cache_attribute
 

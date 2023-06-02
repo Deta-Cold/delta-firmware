@@ -1,4 +1,4 @@
-# This file is part of the Trezor project.
+# This file is part of the detahard project.
 #
 # Copyright (C) 2012-2019 SatoshiLabs and contributors
 #
@@ -16,10 +16,10 @@
 
 import pytest
 
-from trezorlib import btc, messages
-from trezorlib.debuglink import TrezorClientDebugLink as Client
-from trezorlib.exceptions import TrezorFailure
-from trezorlib.tools import H_, parse_path
+from detahardlib import btc, messages
+from detahardlib.debuglink import detahardClientDebugLink as Client
+from detahardlib.exceptions import detahardFailure
+from detahardlib.tools import H_, parse_path
 
 from ...tx_cache import TxCache
 from .signtx import (
@@ -270,7 +270,7 @@ def test_send_multisig_1(client: Client):
 
     assert_tx_matches(
         serialized_tx,
-        hash_link="https://tbtc1.trezor.io/api/tx/0d5d04bffd49287d122f509bebd196b1ecba7cbc5f945c28bf8a26dea66e65de",
+        hash_link="https://tbtc1.detahard.io/api/tx/0d5d04bffd49287d122f509bebd196b1ecba7cbc5f945c28bf8a26dea66e65de",
         tx_hex="01000000000101e5af569cb6720e4a0c86b1b58de522cf4615e5045992388e84f8eae0022d8e330000000023220020cf28684ff8a6dda1a7a9704dde113ddfcf236558da5ce35ad3f8477474dbdaf7ffffffff01905f0100000000001976a914953e62552a88c235c0691ec74b362a6803a7d93e88ac040047304402203aba48b0a98194a505420633eeca5acd8244061899e0a414f1b0d2de1d721b0f022001b32486e7c443e25cdfdfb14dc183ba31f5329d0078a25f7eb74f7209f347bb014830450221009cbdf84db2585abddf79165340cc0b54037f13bbe5318ec3619d0de680ebbf5d02206a2ef69e154700202ac72330e936c073f8a86cec9443273f4d8739db1019d55a0169522103d54ab3c8b81cb7f8f8088df4c62c105e8acaa2fb53b180f6bc6f922faecf3fdc21036aa47994f3f18f0976d6073ca79997003c3fa29c4f93907998fefc1151b4529b2102a092580f2828272517c402da9461425c5032860ab40180e041fbbb88ea2a520453ae00000000",
     )
 
@@ -349,7 +349,7 @@ def test_attack_change_input_address(client: Client):
     # Now run the attack, must trigger the exception
     with client:
         client.set_filter(messages.TxAck, attack_processor)
-        with pytest.raises(TrezorFailure):
+        with pytest.raises(detahardFailure):
             btc.sign_tx(
                 client, "Testnet", [inp1], [out1, out2], prev_txes=TX_API_TESTNET
             )
@@ -438,7 +438,7 @@ def test_attack_mixed_inputs(client: Client):
             expected_responses[:4] + expected_responses[5:16] + [messages.Failure()]
         )
 
-    with pytest.raises(TrezorFailure) as e, client:
+    with pytest.raises(detahardFailure) as e, client:
         client.set_expected_responses(expected_responses)
         btc.sign_tx(
             client,

@@ -3,7 +3,7 @@
 import os
 import tools
 
-TREZOR_MODEL = ARGUMENTS.get('TREZOR_MODEL', 'T')
+detahard_MODEL = ARGUMENTS.get('detahard_MODEL', 'T')
 CMAKELISTS = int(ARGUMENTS.get('CMAKELISTS', 0))
 
 FEATURES_WANTED = ["input", "sd_card"]
@@ -13,26 +13,26 @@ CPPPATH_MOD = []
 CPPDEFINES_MOD = []
 SOURCE_MOD = []
 
-if TREZOR_MODEL in ('1', 'R'):
+if detahard_MODEL in ('1', 'R'):
     FONT_NORMAL=None
     FONT_DEMIBOLD=None
     FONT_BOLD='Font_PixelOperator_Bold_8'
     FONT_MONO=None
-if TREZOR_MODEL in ('T', ):
+if detahard_MODEL in ('T', ):
     FONT_NORMAL=None
     FONT_DEMIBOLD=None
     FONT_BOLD='Font_Roboto_Bold_20'
     FONT_MONO=None
 
-# modtrezorcrypto
+# moddetahardcrypto
 CPPPATH_MOD += [
-    'vendor/trezor-crypto',
+    'vendor/detahard-crypto',
 ]
 SOURCE_MOD += [
-    'vendor/trezor-crypto/memzero.c',
+    'vendor/detahard-crypto/memzero.c',
 ]
 
-# modtrezorui
+# moddetahardui
 CPPPATH_MOD += [
         'vendor/micropython/lib/uzlib',
 ]
@@ -74,21 +74,21 @@ SOURCE_REFLASH = [
     'embed/reflash/main.c',
 ]
 
-SOURCE_TREZORHAL = [
-    'embed/trezorhal/common.c',
-    'embed/trezorhal/dma.c',
-    'embed/trezorhal/flash.c',
-    'embed/trezorhal/mini_printf.c',
-    'embed/trezorhal/rng.c',
-    'embed/trezorhal/systick.c',
-    'embed/trezorhal/stm32.c',
-    'embed/trezorhal/usb.c',
-    'embed/trezorhal/usbd_conf.c',
-    'embed/trezorhal/usbd_core.c',
-    'embed/trezorhal/usbd_ctlreq.c',
-    'embed/trezorhal/usbd_ioreq.c',
-    'embed/trezorhal/util.s',
-    'embed/trezorhal/vectortable.s',
+SOURCE_detahardHAL = [
+    'embed/detahardhal/common.c',
+    'embed/detahardhal/dma.c',
+    'embed/detahardhal/flash.c',
+    'embed/detahardhal/mini_printf.c',
+    'embed/detahardhal/rng.c',
+    'embed/detahardhal/systick.c',
+    'embed/detahardhal/stm32.c',
+    'embed/detahardhal/usb.c',
+    'embed/detahardhal/usbd_conf.c',
+    'embed/detahardhal/usbd_core.c',
+    'embed/detahardhal/usbd_ctlreq.c',
+    'embed/detahardhal/usbd_ioreq.c',
+    'embed/detahardhal/util.s',
+    'embed/detahardhal/vectortable.s',
 ]
 
 # fonts
@@ -99,7 +99,7 @@ tools.add_font('MONO', FONT_MONO, CPPDEFINES_MOD, SOURCE_MOD)
 
 env = Environment(ENV=os.environ, CFLAGS='%s -DPRODUCTION=%s' % (ARGUMENTS.get('CFLAGS', ''), ARGUMENTS.get('PRODUCTION', '0')))
 
-FEATURES_AVAILABLE = tools.configure_board(TREZOR_MODEL, FEATURES_WANTED, env, CPPDEFINES_MOD, SOURCE_TREZORHAL)
+FEATURES_AVAILABLE = tools.configure_board(detahard_MODEL, FEATURES_WANTED, env, CPPDEFINES_MOD, SOURCE_detahardHAL)
 
 env.Replace(
     CP='cp',
@@ -114,18 +114,18 @@ env.Replace(
     MAKECMAKELISTS='$PYTHON tools/make_cmakelists.py',)
 
 env.Replace(
-    TREZOR_MODEL=TREZOR_MODEL, )
+    detahard_MODEL=detahard_MODEL, )
 
-if TREZOR_MODEL in ('T', 'R'):
+if detahard_MODEL in ('T', 'R'):
     CPU_ASFLAGS = '-mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16'
     CPU_CCFLAGS = '-mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -mtune=cortex-m4 '
     CPU_MODEL   = 'STM32F427xx'
-elif TREZOR_MODEL in ('1',):
+elif detahard_MODEL in ('1',):
     CPU_ASFLAGS = '-mthumb -mcpu=cortex-m3 -mfloat-abi=soft'
     CPU_CCFLAGS = '-mthumb -mtune=cortex-m3 -mcpu=cortex-m3 -mfloat-abi=soft '
     CPU_MODEL   = 'STM32F405xx'
 else:
-    raise ValueError('Unknown Trezor model')
+    raise ValueError('Unknown detahard model')
 
 env.Replace(
     COPT=env.get('ENV').get('OPTIMIZE', '-Os'),
@@ -142,14 +142,14 @@ env.Replace(
     CPPPATH=[
         'embed/reflash',
         'embed/lib',
-        'embed/trezorhal',
-        'embed/extmod/modtrezorui',
+        'embed/detahardhal',
+        'embed/extmod/moddetahardui',
         'vendor/micropython/lib/stm32lib/STM32F4xx_HAL_Driver/Inc',
         'vendor/micropython/lib/stm32lib/CMSIS/STM32F4xx/Include',
         'vendor/micropython/lib/cmsis/inc',
     ] + CPPPATH_MOD,
     CPPDEFINES=[
-        'TREZOR_MODEL_'+TREZOR_MODEL,
+        'detahard_MODEL_'+detahard_MODEL,
         CPU_MODEL,
         'USE_HAL_DRIVER',
         ('STM32_HAL_H', '"<stm32f4xx.h>"'),
@@ -162,7 +162,7 @@ env.Replace(
 )
 
 env.Replace(
-    ALLSOURCES=SOURCE_MOD + SOURCE_REFLASH + SOURCE_STMHAL + SOURCE_TREZORHAL,
+    ALLSOURCES=SOURCE_MOD + SOURCE_REFLASH + SOURCE_STMHAL + SOURCE_detahardHAL,
     ALLDEFS=tools.get_defs_for_cmake(env['CPPDEFINES']))
 
 cmake_gen = env.Command(
@@ -179,7 +179,7 @@ obj_program = []
 obj_program += env.Object(source=SOURCE_MOD)
 obj_program += env.Object(source=SOURCE_REFLASH)
 obj_program += env.Object(source=SOURCE_STMHAL)
-obj_program += env.Object(source=SOURCE_TREZORHAL)
+obj_program += env.Object(source=SOURCE_detahardHAL)
 
 VENDORHEADER = 'embed/vendorheader/vendorheader_' + ('unsafe_signed_dev.bin' if ARGUMENTS.get('PRODUCTION', '0') == '0' else 'satoshilabs_signed_prod.bin')
 
@@ -198,7 +198,7 @@ program_elf = env.Command(
     '$LINK -o $TARGET $CCFLAGS $CFLAGS $LINKFLAGS $SOURCES -lc_nano -lgcc',
 )
 
-BINARY_NAME = f"build/reflash/reflash-{tools.get_model_identifier(TREZOR_MODEL)}"
+BINARY_NAME = f"build/reflash/reflash-{tools.get_model_identifier(detahard_MODEL)}"
 BINARY_NAME += "-" + tools.get_version('embed/reflash/version.h')
 BINARY_NAME += "-" + tools.get_git_revision_short_hash()
 BINARY_NAME += "-dirty" if tools.get_git_modified() else ""

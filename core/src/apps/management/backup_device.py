@@ -1,14 +1,14 @@
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from trezor.messages import BackupDevice, Success
-    from trezor.wire import Context
+    from detahard.messages import BackupDevice, Success
+    from detahard.wire import Context
 
 
 async def backup_device(ctx: Context, msg: BackupDevice) -> Success:
     import storage.device as storage_device
-    from trezor import wire
-    from trezor.messages import Success
+    from detahard import wire
+    from detahard.messages import Success
 
     from apps.common import mnemonic
 

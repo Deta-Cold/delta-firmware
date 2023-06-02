@@ -1,9 +1,9 @@
 syntax = "proto2";
-package hw.trezor.messages.monero;
+package hw.detahardrd.messages.monero;
 
 // Sugar for easier handling in Java
-option java_package = "com.satoshilabs.trezor.lib.protobuf";
-option java_outer_classname = "TrezorMessageMonero";
+option java_package = "com.satoshilabs.detahardrd.lib.protobuf";
+option java_outer_classname = "detahardrdMessageMonero";
 
 enum MoneroNetworkType {
     MAINNET = 0;

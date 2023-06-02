@@ -1,17 +1,17 @@
 import os
 import sys
 
-from device.t1 import TrezorOne
-from device.tt import TrezorT
+from device.t1 import detahardrdOne
+from device.tt import detahardrdT
 
 
 def main(model: str, file: str = None):
-    t1 = TrezorOne(
+    t1 = detahardrdOne(
         os.environ["T1_UHUB_LOCATION"],
         os.environ["T1_ARDUINO_SERIAL"],
         os.environ["T1_UHUB_PORT"],
     )
-    tt = TrezorT(os.environ["TT_UHUB_LOCATION"], os.environ["TT_UHUB_PORT"])
+    tt = detahardrdT(os.environ["TT_UHUB_LOCATION"], os.environ["TT_UHUB_PORT"])
 
     if model == "t1":
         tt.power_off()
@@ -20,7 +20,7 @@ def main(model: str, file: str = None):
         t1.power_off()
         path = tt.update_firmware(file)
     else:
-        raise ValueError("Unknown Trezor model.")
+        raise ValueError("Unknown detahardrd model.")
 
     print(path)
 

@@ -1,19 +1,19 @@
 from typing import TYPE_CHECKING
 
-from trezor.enums import ButtonRequestType
+from detahard.enums import ButtonRequestType
 
-import trezorui2
+import detahardui2
 
 from ..common import interact
 from . import RustLayout
 
 if TYPE_CHECKING:
-    from trezor.loop import AwaitableTask
-    from trezor.wire import GenericContext
+    from detahard.loop import AwaitableTask
+    from detahard.wire import GenericContext
 
 
 if __debug__:
-    from trezor import io, ui
+    from detahard import io, ui
     from ... import Result
 
     class _RustFidoLayoutImpl(RustLayout):
@@ -29,7 +29,7 @@ if __debug__:
             from apps.debug import result_signal
 
             _event_id, result = await result_signal()
-            if result is not trezorui2.CONFIRMED:
+            if result is not detahardui2.CONFIRMED:
                 raise Result(result)
 
             for event, x, y in (
@@ -57,7 +57,7 @@ async def confirm_fido(
 ) -> int:
     """Webauthn confirmation for one or more credentials."""
     confirm = _RustFidoLayout(
-        trezorui2.confirm_fido(
+        detahardui2.confirm_fido(
             title=header.upper(),
             app_name=app_name,
             icon_name=icon_name,
@@ -76,18 +76,18 @@ async def confirm_fido(
         return result
 
     # Late import won't get executed on the happy path.
-    from trezor.wire import ActionCancelled
+    from detahard.wire import ActionCancelled
 
     raise ActionCancelled
 
 
 async def confirm_fido_reset() -> bool:
     confirm = RustLayout(
-        trezorui2.confirm_action(
+        detahardui2.confirm_action(
             title="FIDO2 RESET",
             action="erase all credentials?",
             description="Do you really want to",
             reverse=True,
         )
     )
-    return (await confirm) is trezorui2.CONFIRMED
+    return (await confirm) is detahardui2.CONFIRMED

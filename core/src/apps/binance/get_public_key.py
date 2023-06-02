@@ -3,8 +3,8 @@ from typing import TYPE_CHECKING
 from apps.common.keychain import auto_keychain
 
 if TYPE_CHECKING:
-    from trezor.messages import BinanceGetPublicKey, BinancePublicKey
-    from trezor.wire import Context
+    from detahard.messages import BinanceGetPublicKey, BinancePublicKey
+    from detahard.wire import Context
     from apps.common.keychain import Keychain
 
 
@@ -14,8 +14,8 @@ async def get_public_key(
 ) -> BinancePublicKey:
     from ubinascii import hexlify
 
-    from trezor.messages import BinancePublicKey
-    from trezor.ui.layouts import show_pubkey
+    from detahard.messages import BinancePublicKey
+    from detahard.ui.layouts import show_pubkey
 
     from apps.common import paths
 

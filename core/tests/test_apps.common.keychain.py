@@ -6,9 +6,9 @@ from storage import cache
 from apps.common import safety_checks
 from apps.common.paths import PATTERN_SEP5, PathSchema
 from apps.common.keychain import LRUCache, Keychain, with_slip44_keychain, get_keychain
-from trezor import wire
-from trezor.crypto import bip39
-from trezor.enums import SafetyCheckLevel
+from detahard import wire
+from detahard.crypto import bip39
+from detahard.enums import SafetyCheckLevel
 
 
 class TestKeychain(unittest.TestCase):

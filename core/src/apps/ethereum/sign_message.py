@@ -3,19 +3,19 @@ from typing import TYPE_CHECKING
 from .keychain import PATTERNS_ADDRESS, with_keychain_from_path
 
 if TYPE_CHECKING:
-    from trezor.messages import (
+    from detahard.messages import (
         EthereumSignMessage,
         EthereumMessageSignature,
     )
-    from trezor.wire import Context
+    from detahard.wire import Context
 
     from apps.common.keychain import Keychain
     from .definitions import Definitions
 
 
 def message_digest(message: bytes) -> bytes:
-    from trezor.crypto.hashlib import sha3_256
-    from trezor.utils import HashWriter
+    from detahard.crypto.hashlib import sha3_256
+    from detahard.utils import HashWriter
 
     h = HashWriter(sha3_256(keccak=True))
     signed_message_header = b"\x19Ethereum Signed Message:\n"
@@ -32,9 +32,9 @@ async def sign_message(
     keychain: Keychain,
     defs: Definitions,
 ) -> EthereumMessageSignature:
-    from trezor.crypto.curve import secp256k1
-    from trezor.messages import EthereumMessageSignature
-    from trezor.ui.layouts import confirm_signverify
+    from detahard.crypto.curve import secp256k1
+    from detahard.messages import EthereumMessageSignature
+    from detahard.ui.layouts import confirm_signverify
 
     from apps.common import paths
     from apps.common.signverify import decode_message

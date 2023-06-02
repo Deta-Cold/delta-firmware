@@ -1,8 +1,8 @@
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from trezor.messages import NEMProvisionNamespace, NEMTransactionCommon
-    from trezor.wire import Context
+    from detahard.messages import NEMProvisionNamespace, NEMTransactionCommon
+    from detahard.wire import Context
 
 
 async def ask_provision_namespace(

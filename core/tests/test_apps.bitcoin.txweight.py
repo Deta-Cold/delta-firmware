@@ -1,11 +1,11 @@
 from common import *
 
-from trezor.messages import MultisigRedeemScriptType
-from trezor.messages import TxInput
-from trezor.messages import TxOutput
-from trezor.messages import HDNodeType
-from trezor.enums import OutputScriptType
-from trezor.crypto import bip39
+from detahard.messages import MultisigRedeemScriptType
+from detahard.messages import TxInput
+from detahard.messages import TxOutput
+from detahard.messages import HDNodeType
+from detahard.enums import OutputScriptType
+from detahard.crypto import bip39
 
 from apps.common import coins
 from apps.common.keychain import Keychain

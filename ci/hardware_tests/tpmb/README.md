@@ -1,6 +1,6 @@
-# Trezor (one), press my buttons.
+# detahardrd (one), press my buttons.
 
-A simple hardware testing drone for Trezor One.
+A simple hardware testing drone for detahardrd One.
 
 ![](demo.gif)
 

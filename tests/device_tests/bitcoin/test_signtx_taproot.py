@@ -1,4 +1,4 @@
-# This file is part of the Trezor project.
+# This file is part of the detahard project.
 #
 # Copyright (C) 2012-2021 SatoshiLabs and contributors
 #
@@ -16,10 +16,10 @@
 
 import pytest
 
-from trezorlib import btc, messages
-from trezorlib.debuglink import TrezorClientDebugLink as Client
-from trezorlib.exceptions import TrezorFailure
-from trezorlib.tools import H_, parse_path
+from detahardlib import btc, messages
+from detahardlib.debuglink import detahardClientDebugLink as Client
+from detahardlib.exceptions import detahardFailure
+from detahardlib.tools import H_, parse_path
 
 from ...tx_cache import TxCache
 from .signtx import (
@@ -98,7 +98,7 @@ def test_send_p2tr(client: Client):
 
     assert_tx_matches(
         serialized_tx,
-        hash_link="https://tbtc1.trezor.io/api/tx/6dfac2f0d66e1972fea2bca80b6d6db80f6f48deacfdef42f15ff9625acdca59",
+        hash_link="https://tbtc1.detahard.io/api/tx/6dfac2f0d66e1972fea2bca80b6d6db80f6f48deacfdef42f15ff9625acdca59",
         tx_hex="010000000001012554839b5b50466d597ec674a63f879a04c5da157addfbd56b74a3be949451ec0000000000ffffffff016211000000000000225120e9af2fc69e20b0be2629cd0e9c34da9f3ef56af7beac4fb4298262bc5a45ec5d0140aacd291b886f40025e93236f69653423b0c50912fbe43aacced10f2690cfc4872fb37694a947e893389084577ffce3c214b09ff4801006b1e7542ee23719abd100000000",
     )
 
@@ -158,7 +158,7 @@ def test_send_two_with_change(client: Client):
 
     assert_tx_matches(
         serialized_tx,
-        hash_link="https://tbtc1.trezor.io/api/tx/1054eb649110534518239bca2abebebee76d50addac27d0d582cef2b9b9d80c0",
+        hash_link="https://tbtc1.detahard.io/api/tx/1054eb649110534518239bca2abebebee76d50addac27d0d582cef2b9b9d80c0",
         tx_hex="010000000001021988ca0c649b0e56428288a4daa5038503b2e29eeb4d5c50ddf76866a92166c90000000000ffffffff1988ca0c649b0e56428288a4daa5038503b2e29eeb4d5c50ddf76866a92166c90100000000ffffffff02983a000000000000160014f0ca4661a8c7f4edad7da1c864a8bd3db05d4ac4f8110000000000002251209a9af24b396f593b34e23fefba6b417a55c5ee3f430c3837379fcb5246ab36d70140aad93b4abfdc18826a60d79dc648c58810d56c24273f02dde4ac614367395feec25e809c0fdb58fb31f5631ef798a95d82864efc2b0a48b1be83196193ece05401402624067d8ef3705b908956fa824d36998a1522b3f01f38272c11ad5488fb63cb6d7c68d82e8e2d052805610bce34048335ed9c15037ef36b6e2accc0d3f5893500000000",
     )
 
@@ -373,7 +373,7 @@ def test_attack_script_type(client: Client):
                 messages.Failure(code=messages.FailureType.ProcessError),
             ]
         )
-        with pytest.raises(TrezorFailure) as exc:
+        with pytest.raises(detahardFailure) as exc:
             btc.sign_tx(client, "Testnet", [inp1, inp2], [out1], prev_txes=TX_API)
         assert exc.value.code == messages.FailureType.ProcessError
         assert exc.value.message.endswith("Transaction has changed during signing")
@@ -407,7 +407,7 @@ def test_send_invalid_address(client: Client, address: str):
         script_type=messages.OutputScriptType.PAYTOADDRESS,
     )
 
-    with client, pytest.raises(TrezorFailure):
+    with client, pytest.raises(detahardFailure):
         client.set_expected_responses(
             [
                 request_input(0),

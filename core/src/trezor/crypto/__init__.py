@@ -1,4 +1,4 @@
-from trezorcrypto import (  # noqa: F401
+from detahardcrypto import (  # noqa: F401
     aes,
     bip32,
     bip39,
@@ -9,7 +9,7 @@ from trezorcrypto import (  # noqa: F401
     random,
 )
 
-from trezor import utils
+from detahard import utils
 
 if not utils.BITCOIN_ONLY:
-    from trezorcrypto import cardano, monero, nem  # noqa: F401
+    from detahardcrypto import cardano, monero, nem  # noqa: F401

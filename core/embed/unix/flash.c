@@ -1,5 +1,5 @@
 /*
- * This file is part of the Trezor project, https://trezor.io/
+ * This file is part of the detahard project, https://detahard.io/
  *
  * Copyright (c) SatoshiLabs
  *
@@ -47,7 +47,7 @@ static const uint32_t FLASH_SECTOR_TABLE[FLASH_SECTOR_COUNT + 1] = {
     [9] = 0x080A0000,   // - 0x080BFFFF | 128 KiB
     [10] = 0x080C0000,  // - 0x080DFFFF | 128 KiB
     [11] = 0x080E0000,  // - 0x080FFFFF | 128 KiB
-#if defined TREZOR_MODEL_T || defined TREZOR_MODEL_R
+#if defined detahard_MODEL_T || defined detahard_MODEL_R
     [12] = 0x08100000,  // - 0x08103FFF |  16 KiB
     [13] = 0x08104000,  // - 0x08107FFF |  16 KiB
     [14] = 0x08108000,  // - 0x0810BFFF |  16 KiB
@@ -61,10 +61,10 @@ static const uint32_t FLASH_SECTOR_TABLE[FLASH_SECTOR_COUNT + 1] = {
     [22] = 0x081C0000,  // - 0x081DFFFF | 128 KiB
     [23] = 0x081E0000,  // - 0x081FFFFF | 128 KiB
     [24] = 0x08200000,  // last element - not a valid sector
-#elif defined TREZOR_MODEL_1
+#elif defined detahard_MODEL_1
     [12] = 0x08100000,  // last element - not a valid sector
 #else
-#error Unknown Trezor model
+#error Unknown detahard model
 #endif
 };
 

@@ -1,15 +1,15 @@
 from typing import TYPE_CHECKING
 
-from trezor.wire import DataError
+from detahard.wire import DataError
 
 if TYPE_CHECKING:
-    from trezor.messages import HDNodeType, MultisigRedeemScriptType
+    from detahard.messages import HDNodeType, MultisigRedeemScriptType
     from apps.common import paths
 
 
 def multisig_fingerprint(multisig: MultisigRedeemScriptType) -> bytes:
-    from trezor.crypto.hashlib import sha256
-    from trezor.utils import HashWriter
+    from detahard.crypto.hashlib import sha256
+    from detahard.utils import HashWriter
     from .writers import write_bytes_fixed, write_uint32
 
     if multisig.nodes:
@@ -66,7 +66,7 @@ def multisig_pubkey_index(multisig: MultisigRedeemScriptType, pubkey: bytes) -> 
 
 
 def multisig_get_pubkey(n: HDNodeType, p: paths.Bip32Path) -> bytes:
-    from trezor.crypto import bip32
+    from detahard.crypto import bip32
 
     node = bip32.HDNode(
         depth=n.depth,

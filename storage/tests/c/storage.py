@@ -3,7 +3,7 @@ import os
 
 EXTERNAL_SALT_LEN = 32
 sectrue = -1431655766  # 0xAAAAAAAAA
-fname = os.path.join(os.path.dirname(__file__), "libtrezor-storage.so")
+fname = os.path.join(os.path.dirname(__file__), "libdetahard-storage.so")
 
 
 class Storage:

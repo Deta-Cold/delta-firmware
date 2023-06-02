@@ -1,5 +1,5 @@
 /*
- * This file is part of the Trezor project, https://trezor.io/
+ * This file is part of the detahard project, https://detahard.io/
  *
  * Copyright (c) SatoshiLabs
  *
@@ -17,8 +17,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef TREZORHAL_FLASH_H
-#define TREZORHAL_FLASH_H
+#ifndef detahardHAL_FLASH_H
+#define detahardHAL_FLASH_H
 
 #include <stdint.h>
 #include <stdlib.h>
@@ -26,12 +26,12 @@
 
 // see docs/memory.md for more information
 
-#if defined TREZOR_MODEL_T || defined TREZOR_MODEL_R
+#if defined detahard_MODEL_T || defined detahard_MODEL_R
 #define FLASH_SECTOR_COUNT 24
-#elif defined TREZOR_MODEL_1
+#elif defined detahard_MODEL_1
 #define FLASH_SECTOR_COUNT 12
 #else
-#error Unknown Trezor model
+#error Unknown detahard model
 #endif
 
 #define FLASH_SECTOR_BOARDLOADER_START 0
@@ -40,14 +40,14 @@
 
 //                                           3
 
-#if defined TREZOR_MODEL_T || defined TREZOR_MODEL_R
+#if defined detahard_MODEL_T || defined detahard_MODEL_R
 #define FLASH_SECTOR_STORAGE_1 4
 #define FLASH_SECTOR_STORAGE_2 16
-#elif defined TREZOR_MODEL_1
+#elif defined detahard_MODEL_1
 #define FLASH_SECTOR_STORAGE_1 2
 #define FLASH_SECTOR_STORAGE_2 3
 #else
-#error Unknown Trezor model
+#error Unknown detahard model
 #endif
 
 #define FLASH_SECTOR_BOOTLOADER 5
@@ -120,4 +120,4 @@ secbool __wur flash_otp_write(uint8_t block, uint8_t offset,
 secbool __wur flash_otp_lock(uint8_t block);
 secbool __wur flash_otp_is_locked(uint8_t block);
 
-#endif  // TREZORHAL_FLASH_H
+#endif  // detahardHAL_FLASH_H

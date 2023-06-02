@@ -1,17 +1,17 @@
 from common import unittest, await_result, H_
 
 import storage.cache
-from trezor import wire
-from trezor.crypto import bip32
-from trezor.crypto.curve import bip340, secp256k1
-from trezor.crypto.hashlib import sha256
-from trezor.messages import AuthorizeCoinJoin
-from trezor.messages import TxInput
-from trezor.messages import TxOutput
-from trezor.messages import SignTx
-from trezor.messages import CoinJoinRequest
-from trezor.enums import InputScriptType, OutputScriptType
-from trezor.utils import HashWriter
+from detahard import wire
+from detahard.crypto import bip32
+from detahard.crypto.curve import bip340, secp256k1
+from detahard.crypto.hashlib import sha256
+from detahard.messages import AuthorizeCoinJoin
+from detahard.messages import TxInput
+from detahard.messages import TxOutput
+from detahard.messages import SignTx
+from detahard.messages import CoinJoinRequest
+from detahard.enums import InputScriptType, OutputScriptType
+from detahard.utils import HashWriter
 
 from apps.common import coins
 from apps.bitcoin.authorization import FEE_RATE_DECIMALS, CoinJoinAuthorization

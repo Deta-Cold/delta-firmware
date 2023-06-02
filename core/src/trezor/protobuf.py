@@ -1,12 +1,12 @@
 from typing import TYPE_CHECKING
 
-import trezorproto
+import detahardproto
 
-decode = trezorproto.decode
-encode = trezorproto.encode
-encoded_length = trezorproto.encoded_length
-type_for_name = trezorproto.type_for_name
-type_for_wire = trezorproto.type_for_wire
+decode = detahardproto.decode
+encode = detahardproto.encode
+encoded_length = detahardproto.encoded_length
+type_for_name = detahardproto.type_for_name
+type_for_wire = detahardproto.type_for_wire
 
 if TYPE_CHECKING:
     # XXX

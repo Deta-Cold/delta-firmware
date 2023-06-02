@@ -3,18 +3,18 @@ from typing import TYPE_CHECKING
 from apps.common.keychain import auto_keychain
 
 if TYPE_CHECKING:
-    from trezor.wire import Context
-    from trezor.messages import EosSignTx, EosSignedTx
+    from detahard.wire import Context
+    from detahard.messages import EosSignTx, EosSignedTx
     from apps.common.keychain import Keychain
 
 
 @auto_keychain(__name__)
 async def sign_tx(ctx: Context, msg: EosSignTx, keychain: Keychain) -> EosSignedTx:
-    from trezor.wire import DataError
-    from trezor.crypto.curve import secp256k1
-    from trezor.crypto.hashlib import sha256
-    from trezor.messages import EosSignedTx, EosTxActionAck, EosTxActionRequest
-    from trezor.utils import HashWriter
+    from detahard.wire import DataError
+    from detahard.crypto.curve import secp256k1
+    from detahard.crypto.hashlib import sha256
+    from detahard.messages import EosSignedTx, EosTxActionAck, EosTxActionRequest
+    from detahard.utils import HashWriter
     from apps.common import paths
     from .writers import write_uvarint, write_header, write_bytes_fixed
     from .actions import process_action

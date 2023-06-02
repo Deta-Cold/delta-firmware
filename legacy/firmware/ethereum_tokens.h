@@ -1,7 +1,7 @@
 /*
- * This file is part of the Trezor project, https://trezor.io/
+ * This file is part of the detahard project, https://detahard.io/
  *
- * Copyright (C) 2023 Trezor Company s.r.o.
+ * Copyright (C) 2023 detahard Company s.r.o.
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by

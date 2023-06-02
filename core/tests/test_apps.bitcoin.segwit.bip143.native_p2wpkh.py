@@ -7,13 +7,13 @@ from apps.bitcoin.writers import get_tx_hash
 from apps.common import coins
 from apps.common.keychain import Keychain
 from apps.common.paths import AlwaysMatchingSchema
-from trezor.messages import SignTx
-from trezor.messages import TxInput
-from trezor.messages import TxOutput
-from trezor.messages import PrevOutput
-from trezor.enums import InputScriptType
-from trezor.enums import OutputScriptType
-from trezor.crypto import bip39
+from detahard.messages import SignTx
+from detahard.messages import TxInput
+from detahard.messages import TxOutput
+from detahard.messages import PrevOutput
+from detahard.enums import InputScriptType
+from detahard.enums import OutputScriptType
+from detahard.crypto import bip39
 
 
 class TestSegwitBip143NativeP2WPKH(unittest.TestCase):
@@ -21,7 +21,7 @@ class TestSegwitBip143NativeP2WPKH(unittest.TestCase):
 
     tx = SignTx(coin_name='Bitcoin', version=1, lock_time=0x00000011, inputs_count=2, outputs_count=2)
     inp1 = TxInput(address_n=[0],
-                       # Trezor expects hash in reversed format
+                       # detahard expects hash in reversed format
                        prev_hash=unhexlify('9f96ade4b41d5433f4eda31e1738ec2b36f6e7d1420d94a6af99801a88f7f7ff'),
                        prev_index=0,
                        amount=625000000,  # 6.25 btc
@@ -29,7 +29,7 @@ class TestSegwitBip143NativeP2WPKH(unittest.TestCase):
                        multisig=None,
                        sequence=0xffffffee)
     inp2 = TxInput(address_n=[1],
-                       # Trezor expects hash in reversed format
+                       # detahard expects hash in reversed format
                        prev_hash=unhexlify('8ac60eb9575db5b2d987e29f301b5b819ea83a5c6579d282d189cc04b8e151ef'),
                        prev_index=1,
                        multisig=None,

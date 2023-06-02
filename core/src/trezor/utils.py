@@ -1,6 +1,6 @@
 import gc
 import sys
-from trezorutils import (  # noqa: F401
+from detahardutils import (  # noqa: F401
     BITCOIN_ONLY,
     EMULATOR,
     MODEL,
@@ -24,8 +24,8 @@ if __debug__:
     if EMULATOR:
         import uos
 
-        DISABLE_ANIMATION = int(uos.getenv("TREZOR_DISABLE_ANIMATION") or "0")
-        LOG_MEMORY = int(uos.getenv("TREZOR_LOG_MEMORY") or "0")
+        DISABLE_ANIMATION = int(uos.getenv("detahard_DISABLE_ANIMATION") or "0")
+        LOG_MEMORY = int(uos.getenv("detahard_LOG_MEMORY") or "0")
     else:
         LOG_MEMORY = 0
 
@@ -38,7 +38,7 @@ if TYPE_CHECKING:
         Sequence,
     )
 
-    from trezor.protobuf import MessageType
+    from detahard.protobuf import MessageType
 
 
 def unimport_begin() -> set[str]:
@@ -90,7 +90,7 @@ class unimport:
 def presize_module(modname: str, size: int) -> None:
     """Ensure the module's dict is preallocated to an expected size.
 
-    This is used in modules like `trezor`, whose dict size depends not only on the
+    This is used in modules like `detahard`, whose dict size depends not only on the
     symbols defined in the file itself, but also on the number of submodules that will
     be inserted into the module's namespace.
     """
@@ -110,7 +110,7 @@ if __debug__:
         for mod in sys.modules:
             print("*", mod)
         if EMULATOR:
-            from trezorutils import meminfo
+            from detahardutils import meminfo
 
             print("### dumping to", filename)
             meminfo(filename)
@@ -181,7 +181,7 @@ if False:  # noqa
             self.data += hexlify(data).decode() + " "
 
         def digest(self) -> bytes:
-            from trezor import log
+            from detahard import log
             from ubinascii import hexlify
 
             digest = self.ctx.digest()

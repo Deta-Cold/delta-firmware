@@ -21,11 +21,11 @@ OBJS += util.o
 OBJS += webusb.o
 OBJS += winusb.o
 
-libtrezor.a: $(OBJS)
+libdetahard.a: $(OBJS)
 
 include Makefile.include
 
-libtrezor.a:
+libdetahard.a:
 	@printf "  AR      $@\n"
 	$(Q)$(AR) rcs $@ $^
 

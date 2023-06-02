@@ -1,4 +1,4 @@
-# This file is part of the Trezor project.
+# This file is part of the detahard project.
 #
 # Copyright (C) 2012-2019 SatoshiLabs and contributors
 #
@@ -17,10 +17,10 @@
 import pytest
 from shamir_mnemonic import shamir
 
-from trezorlib import device
-from trezorlib.debuglink import TrezorClientDebugLink as Client
-from trezorlib.exceptions import TrezorFailure
-from trezorlib.messages import BackupType
+from detahardlib import device
+from detahardlib.debuglink import detahardClientDebugLink as Client
+from detahardlib.exceptions import detahardFailure
+from detahardlib.messages import BackupType
 
 from ...common import EXTERNAL_ENTROPY, WITH_MOCK_URANDOM, generate_entropy
 from ...input_flows import InputFlowSlip39AdvancedResetRecovery
@@ -65,7 +65,7 @@ def test_reset_device_slip39_advanced(client: Client):
     assert client.features.backup_type is BackupType.Slip39_Advanced
 
     # backup attempt fails because backup was done in reset
-    with pytest.raises(TrezorFailure, match="ProcessError: Seed already backed up"):
+    with pytest.raises(detahardFailure, match="ProcessError: Seed already backed up"):
         device.backup(client)
 
 

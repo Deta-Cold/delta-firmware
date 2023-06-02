@@ -1,15 +1,15 @@
 from typing import TYPE_CHECKING
 
-from trezor.wire import ProcessError
+from detahard.wire import ProcessError
 
 if TYPE_CHECKING:
-    from trezor.messages import NEMSignTx, NEMTransactionCommon
+    from detahard.messages import NEMSignTx, NEMTransactionCommon
 
 
 def validate(msg: NEMSignTx) -> None:
-    from trezor.crypto import nem
-    from trezor.enums import NEMModificationType
-    from trezor.wire import ProcessError  # local_cache_global
+    from detahard.crypto import nem
+    from detahard.enums import NEMModificationType
+    from detahard.wire import ProcessError  # local_cache_global
     from .helpers import (
         NEM_MAX_ENCRYPTED_PAYLOAD_SIZE,
         NEM_MAX_PLAIN_PAYLOAD_SIZE,

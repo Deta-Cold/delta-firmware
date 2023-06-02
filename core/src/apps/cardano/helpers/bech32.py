@@ -1,4 +1,4 @@
-from trezor.crypto import bech32
+from detahard.crypto import bech32
 
 HRP_SEPARATOR = "1"
 

@@ -1,15 +1,15 @@
 from typing import TYPE_CHECKING
 
-from trezor import ui
-from trezor.enums import (
+from detahard import ui
+from detahard.enums import (
     ButtonRequestType,
     CardanoAddressType,
     CardanoCertificateType,
     CardanoNativeScriptType,
 )
-from trezor.strings import format_amount
-from trezor.ui import layouts
-from trezor.ui.layouts import confirm_metadata, confirm_properties
+from detahard.strings import format_amount
+from detahard.ui import layouts
+from detahard.ui.layouts import confirm_metadata, confirm_properties
 
 from apps.common.paths import address_n_to_str
 
@@ -25,10 +25,10 @@ from .helpers.utils import (
 if TYPE_CHECKING:
     from typing import Literal
 
-    from trezor.wire import Context
-    from trezor import messages
-    from trezor.enums import CardanoNativeScriptHashDisplayFormat
-    from trezor.ui.layouts import PropertyType
+    from detahard.wire import Context
+    from detahard import messages
+    from detahard.enums import CardanoNativeScriptHashDisplayFormat
+    from detahard.ui.layouts import PropertyType
 
     from .helpers.credential import Credential
     from .seed import Keychain
@@ -156,7 +156,7 @@ async def show_script_hash(
     script_hash: bytes,
     display_format: CardanoNativeScriptHashDisplayFormat,
 ) -> None:
-    from trezor.enums import CardanoNativeScriptHashDisplayFormat
+    from detahard.enums import CardanoNativeScriptHashDisplayFormat
 
     assert display_format in (
         CardanoNativeScriptHashDisplayFormat.BECH32,
@@ -632,7 +632,7 @@ async def confirm_stake_pool_owner(
     protocol_magic: int,
     network_id: int,
 ) -> None:
-    from trezor import messages
+    from detahard import messages
 
     props: list[tuple[str, str | None]] = []
     if owner.staking_key_path:

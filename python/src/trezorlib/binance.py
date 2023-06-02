@@ -1,4 +1,4 @@
-# This file is part of the Trezor project.
+# This file is part of the detahard project.
 #
 # Copyright (C) 2012-2022 SatoshiLabs and contributors
 #
@@ -21,14 +21,14 @@ from .protobuf import dict_to_proto
 from .tools import expect, session
 
 if TYPE_CHECKING:
-    from .client import TrezorClient
+    from .client import detahardClient
     from .tools import Address
     from .protobuf import MessageType
 
 
 @expect(messages.BinanceAddress, field="address", ret_type=str)
 def get_address(
-    client: "TrezorClient", address_n: "Address", show_display: bool = False
+    client: "detahardClient", address_n: "Address", show_display: bool = False
 ) -> "MessageType":
     return client.call(
         messages.BinanceGetAddress(address_n=address_n, show_display=show_display)
@@ -37,7 +37,7 @@ def get_address(
 
 @expect(messages.BinancePublicKey, field="public_key", ret_type=bytes)
 def get_public_key(
-    client: "TrezorClient", address_n: "Address", show_display: bool = False
+    client: "detahardClient", address_n: "Address", show_display: bool = False
 ) -> "MessageType":
     return client.call(
         messages.BinanceGetPublicKey(address_n=address_n, show_display=show_display)
@@ -46,7 +46,7 @@ def get_public_key(
 
 @session
 def sign_tx(
-    client: "TrezorClient", address_n: "Address", tx_json: dict
+    client: "detahardClient", address_n: "Address", tx_json: dict
 ) -> messages.BinanceSignedTx:
     msg = tx_json["msgs"][0]
     tx_msg = tx_json.copy()

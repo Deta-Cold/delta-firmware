@@ -2,8 +2,8 @@ from common import *
 
 from apps.common.keychain import Keychain
 from apps.common.seed import Slip21Node
-from trezor import wire
-from trezor.crypto import bip39
+from detahard import wire
+from detahard.crypto import bip39
 
 class TestSeed(unittest.TestCase):
     def test_slip21(self):

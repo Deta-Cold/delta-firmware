@@ -1,16 +1,16 @@
 from typing import TYPE_CHECKING
 
-import trezor.ui.layouts as layouts
-from trezor import strings
-from trezor.enums import ButtonRequestType
+import detahard.ui.layouts as layouts
+from detahard import strings
+from detahard.enums import ButtonRequestType
 
 from . import consts
 
 if TYPE_CHECKING:
-    from trezor.wire import Context
-    from trezor.enums import StellarMemoType
+    from detahard.wire import Context
+    from detahard.enums import StellarMemoType
 
-    from trezor.messages import StellarAsset
+    from detahard.messages import StellarAsset
 
 
 async def require_confirm_init(
@@ -68,7 +68,7 @@ async def require_confirm_timebounds(ctx: Context, start: int, end: int) -> None
 async def require_confirm_memo(
     ctx: Context, memo_type: StellarMemoType, memo_text: str
 ) -> None:
-    from trezor.enums import StellarMemoType
+    from detahard.enums import StellarMemoType
 
     if memo_type == StellarMemoType.TEXT:
         description = "Memo (TEXT)"
@@ -110,8 +110,8 @@ async def require_confirm_final(ctx: Context, fee: int, num_operations: int) -> 
 
 
 def format_asset(asset: StellarAsset | None) -> str:
-    from trezor.enums import StellarAssetType
-    from trezor.wire import DataError
+    from detahard.enums import StellarAssetType
+    from detahard.wire import DataError
 
     if asset is None or asset.type == StellarAssetType.NATIVE:
         return "XLM"

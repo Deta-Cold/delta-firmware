@@ -1589,9 +1589,9 @@ docs = ["pygments-github-lexers (>=0.0.5)", "sphinx (>=2.0.0)", "sphinxcontrib-a
 testing = ["flaky (>=3.4.0)", "freezegun (>=0.3.11)", "pathlib2 (>=2.3.3)", "psutil (>=5.6.1)", "pytest (>=4.0.0)", "pytest-cov (>=2.5.1)", "pytest-mock (>=1.10.0)", "pytest-randomly (>=1.0.0)"]
 
 [[package]]
-name = "trezor"
+name = "detahard"
 version = "0.13.6"
-description = "Python library for communicating with Trezor Hardware Wallet"
+description = "Python library for communicating with detahard Hardware Wallet"
 category = "main"
 optional = false
 python-versions = ">=3.6"

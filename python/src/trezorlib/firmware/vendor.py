@@ -1,4 +1,4 @@
-# This file is part of the Trezor project.
+# This file is part of the detahard project.
 #
 # Copyright (C) 2012-2022 SatoshiLabs and contributors
 #
@@ -25,7 +25,7 @@ from .. import cosi
 from ..toif import ToifStruct
 from ..tools import TupleAdapter
 from . import util
-from .models import TREZOR_T, TREZOR_T_DEV
+from .models import detahard_T, detahard_T_DEV
 
 __all__ = [
     "VendorTrust",
@@ -129,11 +129,11 @@ class VendorHeader(Struct):
     def verify(self, dev_keys: bool = False) -> None:
         digest = self.digest()
         if not dev_keys:
-            public_keys = TREZOR_T.bootloader_keys
-            sigs_needed = TREZOR_T.bootloader_sigs_needed
+            public_keys = detahard_T.bootloader_keys
+            sigs_needed = detahard_T.bootloader_sigs_needed
         else:
-            public_keys = TREZOR_T_DEV.bootloader_keys
-            sigs_needed = TREZOR_T_DEV.bootloader_sigs_needed
+            public_keys = detahard_T_DEV.bootloader_keys
+            sigs_needed = detahard_T_DEV.bootloader_sigs_needed
         # TODO: add model awareness
         try:
             cosi.verify(

@@ -1,28 +1,28 @@
 from common import *
 
-from trezor.utils import chunks
-from trezor.crypto import bip39
-from trezor.messages import SignTx
-from trezor.messages import TxAckInput
-from trezor.messages import TxAckInputWrapper
-from trezor.messages import TxInput
-from trezor.messages import TxAckOutput
-from trezor.messages import TxAckOutputWrapper
-from trezor.messages import TxOutput
-from trezor.messages import TxAckPrevMeta
-from trezor.messages import PrevTx
-from trezor.messages import TxAckPrevInput
-from trezor.messages import TxAckPrevInputWrapper
-from trezor.messages import PrevInput
-from trezor.messages import TxAckPrevOutput
-from trezor.messages import TxAckPrevOutputWrapper
-from trezor.messages import PrevOutput
-from trezor.messages import TxRequest
-from trezor.enums.RequestType import TXINPUT, TXOUTPUT, TXMETA, TXFINISHED
-from trezor.messages import TxRequestDetailsType
-from trezor.messages import TxRequestSerializedType
-from trezor.enums import AmountUnit
-from trezor.enums import OutputScriptType
+from detahard.utils import chunks
+from detahard.crypto import bip39
+from detahard.messages import SignTx
+from detahard.messages import TxAckInput
+from detahard.messages import TxAckInputWrapper
+from detahard.messages import TxInput
+from detahard.messages import TxAckOutput
+from detahard.messages import TxAckOutputWrapper
+from detahard.messages import TxOutput
+from detahard.messages import TxAckPrevMeta
+from detahard.messages import PrevTx
+from detahard.messages import TxAckPrevInput
+from detahard.messages import TxAckPrevInputWrapper
+from detahard.messages import PrevInput
+from detahard.messages import TxAckPrevOutput
+from detahard.messages import TxAckPrevOutputWrapper
+from detahard.messages import PrevOutput
+from detahard.messages import TxRequest
+from detahard.enums.RequestType import TXINPUT, TXOUTPUT, TXMETA, TXFINISHED
+from detahard.messages import TxRequestDetailsType
+from detahard.messages import TxRequestSerializedType
+from detahard.enums import AmountUnit
+from detahard.enums import OutputScriptType
 
 from apps.common import coins
 from apps.common.keychain import Keychain
@@ -40,7 +40,7 @@ class TestSignTx(unittest.TestCase):
         # input tx: 1f326f65768d55ef146efbb345bd87abe84ac7185726d0457a026fc347a26ef3
         # input 0: 0.03801747 BTC
 
-        # output tx: https://btc1.trezor.io/tx/e590d5d76867e9f14466f715e26438845afff0ae082cda1f2f55aa8bf7f98140
+        # output tx: https://btc1.detahard.io/tx/e590d5d76867e9f14466f715e26438845afff0ae082cda1f2f55aa8bf7f98140
 
         coin_bitcoin = coins.by_name("Bitcoin")
 

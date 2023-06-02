@@ -1,4 +1,4 @@
-# This file is part of the Trezor project.
+# This file is part of the detahard project.
 #
 # Copyright (C) 2012-2022 SatoshiLabs and contributors
 #
@@ -25,7 +25,7 @@ from .. import btc, messages, protobuf, tools
 from . import ChoiceType, with_client
 
 if TYPE_CHECKING:
-    from ..client import TrezorClient
+    from ..client import detahardClient
 
 PURPOSE_BIP44 = 44
 PURPOSE_BIP48 = 48
@@ -169,7 +169,7 @@ def cli() -> None:
 )
 @with_client
 def get_address(
-    client: "TrezorClient",
+    client: "detahardClient",
     coin: str,
     address: str,
     script_type: Optional[messages.InputScriptType],
@@ -188,9 +188,9 @@ def get_address(
     For BIP-45 multisig:
 
     \b
-    $ trezorctl btc get-public-node -n m/45h/0
+    $ detahardctl btc get-public-node -n m/45h/0
     xpub0101
-    $ trezorctl btc get-address -n m/45h/0/0/7 -m 3 -x xpub0101 -x xpub0202 -x xpub0303
+    $ detahardctl btc get-address -n m/45h/0/0/7 -m 3 -x xpub0101 -x xpub0202 -x xpub0303
 
     This assumes that the other signers also created xpubs at address "m/45h/i".
     For all the signers, the final keys will be derived with the "/0/7" suffix.
@@ -236,7 +236,7 @@ def get_address(
 @click.option("-d", "--show-display", is_flag=True)
 @with_client
 def get_public_node(
-    client: "TrezorClient",
+    client: "detahardClient",
     coin: str,
     address: str,
     curve: Optional[str],
@@ -274,7 +274,7 @@ def _append_descriptor_checksum(desc: str) -> str:
 
 
 def _get_descriptor(
-    client: "TrezorClient",
+    client: "detahardClient",
     coin: Optional[str],
     account: int,
     purpose: Optional[int],
@@ -343,7 +343,7 @@ def _get_descriptor(
 @click.option("-d", "--show-display", is_flag=True)
 @with_client
 def get_descriptor(
-    client: "TrezorClient",
+    client: "detahardClient",
     coin: Optional[str],
     account: int,
     account_type: Optional[int],
@@ -368,14 +368,14 @@ def get_descriptor(
 @click.option("-c", "--coin", is_flag=True, hidden=True, expose_value=False)
 @click.argument("json_file", type=click.File())
 @with_client
-def sign_tx(client: "TrezorClient", json_file: TextIO) -> None:
+def sign_tx(client: "detahardClient", json_file: TextIO) -> None:
     """Sign transaction.
 
     Transaction data must be provided in a JSON file. See `transaction-format.md` for
     description. You can use `tools/build_tx.py` from the source distribution to build
     the required JSON file interactively:
 
-    $ python3 tools/build_tx.py | trezorctl btc sign-tx -
+    $ python3 tools/build_tx.py | detahardctl btc sign-tx -
     """
     data = json.load(json_file)
     coin = data.get("coin_name", DEFAULT_COIN)
@@ -424,7 +424,7 @@ def sign_tx(client: "TrezorClient", json_file: TextIO) -> None:
 @click.argument("message")
 @with_client
 def sign_message(
-    client: "TrezorClient",
+    client: "detahardClient",
     coin: str,
     address: str,
     message: str,
@@ -452,7 +452,7 @@ def sign_message(
 @click.argument("message")
 @with_client
 def verify_message(
-    client: "TrezorClient", coin: str, address: str, signature: str, message: str
+    client: "detahardClient", coin: str, address: str, signature: str, message: str
 ) -> bool:
     """Verify message."""
     signature_bytes = base64.b64decode(signature)

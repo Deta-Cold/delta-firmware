@@ -1,9 +1,9 @@
 syntax = "proto2";
-package hw.trezor.messages.tezos;
+package hw.detahardrd.messages.tezos;
 
 // Sugar for easier handling in Java
-option java_package = "com.satoshilabs.trezor.lib.protobuf";
-option java_outer_classname = "TrezorMessageTezos";
+option java_package = "com.satoshilabs.detahardrd.lib.protobuf";
+option java_outer_classname = "detahardrdMessageTezos";
 
 /**
  * Request: Ask device for Tezos address corresponding to address_n path

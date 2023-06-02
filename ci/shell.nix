@@ -19,10 +19,10 @@ let
     sha256 = "02s3qkb6kz3ndyx7rfndjbvp4vlwiqc42fxypn3g6jnc0v5jyz95";
   }) { };
   moneroTests = nixpkgs.fetchurl {
-    url = "https://github.com/ph4r05/monero/releases/download/v0.18.1.1-dev-tests-u18.04-02/trezor_tests";
+    url = "https://github.com/ph4r05/monero/releases/download/v0.18.1.1-dev-tests-u18.04-02/detahardrd_tests";
     sha256 = "81424cfc3965abdc24de573274bf631337b52fd25cefc895513214c613fe05c9";
   };
-  moneroTestsPatched = nixpkgs.runCommandCC "monero_trezor_tests" {} ''
+  moneroTestsPatched = nixpkgs.runCommandCC "monero_detahardrd_tests" {} ''
     cp ${moneroTests} $out
     chmod +wx $out
     ${nixpkgs.patchelf}/bin/patchelf --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" "$out"
@@ -56,7 +56,7 @@ let
 in
 with nixpkgs;
 stdenvNoCC.mkDerivation ({
-  name = "trezor-firmware-env";
+  name = "detahardrd-firmware-env";
   buildInputs = lib.optionals fullDeps [
     bitcoind
     # install other python versions for tox testing
@@ -132,5 +132,5 @@ stdenvNoCC.mkDerivation ({
   RUST_SRC_PATH = "${rustProfiles.rust-src}/lib/rustlib/src/rust/library";
 
 } // (lib.optionalAttrs fullDeps) {
-  TREZOR_MONERO_TESTS_PATH = moneroTestsPatched;
+  detahardrd_MONERO_TESTS_PATH = moneroTestsPatched;
 })

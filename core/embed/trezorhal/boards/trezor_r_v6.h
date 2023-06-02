@@ -1,5 +1,5 @@
-#ifndef _TREZOR_R_V6_H
-#define _TREZOR_R_V6_H
+#ifndef _detahard_R_V6_H
+#define _detahard_R_V6_H
 
 #define USE_BUTTON 1
 #define USE_SBU 1
@@ -33,4 +33,4 @@
 #define OLED_SPI_MOSI_PIN GPIO_PIN_6  // PE6 | SPI MOSI
 #define OLED_SPI_MOSI_CLK_ENA __HAL_RCC_GPIOE_CLK_ENABLE
 
-#endif  //_TREZOR_R_V6_H
+#endif  //_detahard_R_V6_H

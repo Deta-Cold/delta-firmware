@@ -1,14 +1,14 @@
 from typing import TYPE_CHECKING
 
-from trezor.enums import ButtonRequestType
-from trezor.messages import CosiCommitment, CosiSign, CosiSignature
-from trezor.wire import DataError
+from detahard.enums import ButtonRequestType
+from detahard.messages import CosiCommitment, CosiSign, CosiSignature
+from detahard.wire import DataError
 
 from apps.common.paths import PathSchema, unharden
 
 if TYPE_CHECKING:
-    from trezor.messages import CosiCommit
-    from trezor.wire import Context
+    from detahard.messages import CosiCommit
+    from detahard.wire import Context
 
 # This module implements the cosigner part of the CoSi collective signatures
 # as described in https://dedis.cs.yale.edu/dissent/papers/witness.pdf
@@ -57,9 +57,9 @@ def _decode_path(address_n: list[int]) -> str | None:
 
 async def cosi_commit(ctx: Context, msg: CosiCommit) -> CosiSignature:
     import storage.cache as storage_cache
-    from trezor.crypto import cosi
-    from trezor.crypto.curve import ed25519
-    from trezor.ui.layouts import confirm_blob, confirm_text
+    from detahard.crypto import cosi
+    from detahard.crypto.curve import ed25519
+    from detahard.ui.layouts import confirm_blob, confirm_text
     from apps.common import paths
     from apps.common.keychain import get_keychain
 

@@ -1,5 +1,5 @@
 /*
- * This file is part of the Trezor project, https://trezor.io/
+ * This file is part of the detahard project, https://detahard.io/
  *
  * Copyright (c) SatoshiLabs
  *
@@ -17,8 +17,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __TREZORHAL_COMMON_H__
-#define __TREZORHAL_COMMON_H__
+#ifndef __detahardHAL_COMMON_H__
+#define __detahardHAL_COMMON_H__
 
 #include "secbool.h"
 

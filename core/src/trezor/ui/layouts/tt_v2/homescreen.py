@@ -1,14 +1,14 @@
 from typing import TYPE_CHECKING
 
 import storage.cache as storage_cache
-from trezor import ui
+from detahard import ui
 
-import trezorui2
+import detahardui2
 
 from . import RustLayout
 
 if TYPE_CHECKING:
-    from trezor import loop
+    from detahard import loop
     from typing import Any, Tuple
 
 
@@ -61,8 +61,8 @@ class Homescreen(HomescreenBase):
 
         skip = storage_cache.homescreen_shown is self.RENDER_INDICATOR
         super().__init__(
-            layout=trezorui2.show_homescreen(
-                label=label or "My Trezor",
+            layout=detahardui2.show_homescreen(
+                label=label or "My detahard",
                 notification=notification,
                 notification_level=level,
                 hold=hold_to_lock,
@@ -71,7 +71,7 @@ class Homescreen(HomescreenBase):
         )
 
     async def usb_checker_task(self) -> None:
-        from trezor import io, loop
+        from detahard import io, loop
 
         usbcheck = loop.wait(io.USB_CHECK)
         while True:
@@ -101,8 +101,8 @@ class Lockscreen(HomescreenBase):
             not bootscreen and storage_cache.homescreen_shown is self.RENDER_INDICATOR
         )
         super().__init__(
-            layout=trezorui2.show_lockscreen(
-                label=label or "My Trezor",
+            layout=detahardui2.show_lockscreen(
+                label=label or "My detahard",
                 bootscreen=bootscreen,
                 skip_first_paint=skip,
             ),
@@ -121,7 +121,7 @@ class Busyscreen(HomescreenBase):
     def __init__(self, delay_ms: int) -> None:
         skip = storage_cache.homescreen_shown is self.RENDER_INDICATOR
         super().__init__(
-            layout=trezorui2.show_progress_coinjoin(
+            layout=detahardui2.show_progress_coinjoin(
                 title="Waiting for others",
                 indeterminate=True,
                 time_ms=delay_ms,
@@ -134,7 +134,7 @@ class Busyscreen(HomescreenBase):
 
         # Handle timeout.
         result = await super().__iter__()
-        assert result == trezorui2.CANCELLED
+        assert result == detahardui2.CANCELLED
         storage_cache.delete(storage_cache.APP_COMMON_BUSY_DEADLINE_MS)
         set_homescreen()
         return result

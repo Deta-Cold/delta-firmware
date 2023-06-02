@@ -1,6 +1,6 @@
 from typing import TYPE_CHECKING
 
-from trezor.wire import DataError
+from detahard.wire import DataError
 
 if TYPE_CHECKING:
     from typing import Sequence
@@ -16,9 +16,9 @@ class SignatureVerifier:
         witness: bytes | None,
         coin: CoinInfo,
     ):
-        from trezor import utils
-        from trezor.wire import DataError  # local_cache_global
-        from trezor.crypto.hashlib import sha256
+        from detahard import utils
+        from detahard.wire import DataError  # local_cache_global
+        from detahard.crypto.hashlib import sha256
 
         from .common import OP_0, OP_1, SigHashType, ecdsa_hash_pubkey
         from .scripts import (
@@ -127,13 +127,13 @@ class SignatureVerifier:
             self.verify_ecdsa(digest)
 
     def verify_bip340(self, digest: bytes) -> None:
-        from trezor.crypto.curve import bip340
+        from detahard.crypto.curve import bip340
 
         if not bip340.verify(self.public_keys[0], self.signatures[0][0], digest):
             raise DataError("Invalid signature")
 
     def verify_ecdsa(self, digest: bytes) -> None:
-        from trezor.crypto.curve import secp256k1
+        from detahard.crypto.curve import secp256k1
 
         try:
             i = 0
@@ -146,7 +146,7 @@ class SignatureVerifier:
 
 
 def _decode_der_signature(der_signature: memoryview) -> bytearray:
-    from trezor.crypto import der
+    from detahard.crypto import der
 
     seq = der.decode_seq(der_signature)
     if len(seq) != 2 or any(len(i) > 32 for i in seq):

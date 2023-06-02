@@ -1,4 +1,4 @@
-# This file is part of the Trezor project.
+# This file is part of the detahard project.
 #
 # Copyright (C) 2012-2019 SatoshiLabs and contributors
 #
@@ -14,8 +14,8 @@
 # You should have received a copy of the License along with this library.
 # If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.
 
-from trezorlib import device
-from trezorlib.debuglink import DebugLink
+from detahardlib import device
+from detahardlib.debuglink import DebugLink
 
 from .. import buttons
 from ..click_tests import recovery

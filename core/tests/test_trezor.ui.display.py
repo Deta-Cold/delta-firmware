@@ -1,6 +1,6 @@
 from common import *
 
-from trezor.ui import display
+from detahard.ui import display
 
 
 class TestDisplay(unittest.TestCase):

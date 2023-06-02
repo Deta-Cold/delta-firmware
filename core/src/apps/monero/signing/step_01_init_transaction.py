@@ -9,7 +9,7 @@ from apps.monero import signing
 from apps.monero.xmr import crypto, crypto_helpers, monero
 
 if TYPE_CHECKING:
-    from trezor.messages import (
+    from detahard.messages import (
         MoneroAccountPublicAddress,
         MoneroTransactionData,
         MoneroTransactionDestinationEntry,
@@ -117,7 +117,7 @@ async def init_transaction(
 
     # HMACs all outputs to disallow tampering.
     # Each HMAC is then sent alongside the output
-    # and trezor validates it.
+    # and detahard validates it.
     hmacs = []
     for idx in range(state.output_count):
         c_hmac = offloading_keys.gen_hmac_tsxdest(state.key_hmac, outputs[idx], idx)
@@ -126,7 +126,7 @@ async def init_transaction(
 
     mem_trace(6)
 
-    from trezor.messages import (
+    from detahard.messages import (
         MoneroTransactionInitAck,
         MoneroTransactionRsigData,
     )
@@ -189,7 +189,7 @@ def _get_primary_change_address(state: State) -> MoneroAccountPublicAddress:
     """
     Computes primary change address for the current account index
     """
-    from trezor.messages import MoneroAccountPublicAddress
+    from detahard.messages import MoneroAccountPublicAddress
 
     D, C = monero.generate_sub_address_keys(
         state.creds.view_key_private, state.creds.spend_key_public, state.account_idx, 0
@@ -293,7 +293,7 @@ def _compute_sec_keys(state: State, tsx_data: MoneroTransactionData) -> None:
     """
     Generate master key H( H(TsxData || tx_priv) || rand )
     """
-    from trezor import protobuf
+    from detahard import protobuf
     from apps.monero.xmr.keccak_hasher import get_keccak_writer
 
     writer = get_keccak_writer()
@@ -374,7 +374,7 @@ def _get_key_for_payment_id_encryption(
     dummy payment ID is set for better transaction uniformity if possible.
     """
     from apps.monero.xmr.addresses import addr_eq
-    from trezor.messages import MoneroAccountPublicAddress
+    from detahard.messages import MoneroAccountPublicAddress
 
     addr = MoneroAccountPublicAddress(
         spend_public_key=crypto_helpers.NULL_KEY_ENC,

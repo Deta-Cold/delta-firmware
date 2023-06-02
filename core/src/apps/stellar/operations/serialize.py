@@ -1,7 +1,7 @@
 from typing import TYPE_CHECKING
 
-from trezor.enums import StellarAssetType
-from trezor.wire import DataError, ProcessError
+from detahard.enums import StellarAssetType
+from detahard.wire import DataError, ProcessError
 
 from ..writers import (
     write_bool,
@@ -13,9 +13,9 @@ from ..writers import (
 )
 
 if TYPE_CHECKING:
-    from trezor.utils import Writer
+    from detahard.utils import Writer
 
-    from trezor.messages import (
+    from detahard.messages import (
         StellarAccountMergeOp,
         StellarAllowTrustOp,
         StellarAsset,

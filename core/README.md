@@ -1,4 +1,4 @@
-# Trezor Core
+# detahard Core
 
 Firmware currently running on Model T.
 

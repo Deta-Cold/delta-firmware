@@ -1,4 +1,4 @@
-# This file is part of the Trezor project.
+# This file is part of the detahard project.
 #
 # Copyright (C) 2012-2022 SatoshiLabs and contributors
 #
@@ -29,7 +29,7 @@ try:
 except ImportError:
     pytest.skip("stellar_sdk not installed", allow_module_level=True)
 
-from trezorlib import messages, stellar
+from detahardlib import messages, stellar
 
 TX_SOURCE = "GCSJ7MFIIGIRMAS4R3VT5FIFIAOXNMGDI5HPYTWS5X7HH74FSJ6STSGF"
 SEQUENCE = 123456
@@ -50,7 +50,7 @@ def make_default_tx(default_op: bool = False, **kwargs) -> TransactionBuilder:
     builder.add_time_bounds(TIMEBOUNDS_START, TIMEBOUNDS_END)
 
     if default_op:
-        builder.append_manage_data_op(data_name="Trezor", data_value=b"Hello, Stellar")
+        builder.append_manage_data_op(data_name="detahard", data_value=b"Hello, Stellar")
 
     return builder
 
@@ -134,7 +134,7 @@ def test_time_bounds_missing():
 
 def test_multiple_operations():
     tx = make_default_tx()
-    data_name = "Trezor"
+    data_name = "detahard"
     data_value = b"Hello, Stellar"
     operation1_source = "GAEB4MRKRCONK4J7MVQXAHTNDPAECUCCCNE7YC5CKM34U3OJ673A4D6V"
     destination = "GDNSSYSCSSJ76FER5WEEXME5G4MTCUBKDRQSKOYP36KUKVDB2VCMERS6"
@@ -610,7 +610,7 @@ def test_account_merge():
 
 def test_manage_data():
     tx = make_default_tx()
-    data_name = "Trezor"
+    data_name = "detahard"
     data_value = b"Hello, Stellar"
     operation_source = "GAEB4MRKRCONK4J7MVQXAHTNDPAECUCCCNE7YC5CKM34U3OJ673A4D6V"
 
@@ -628,7 +628,7 @@ def test_manage_data():
 
 def test_manage_data_remove_data_entity():
     tx = make_default_tx()
-    data_name = "Trezor"
+    data_name = "detahard"
     data_value = None  # remove data entity
     operation_source = "GAEB4MRKRCONK4J7MVQXAHTNDPAECUCCCNE7YC5CKM34U3OJ673A4D6V"
 

@@ -1,1 +1,1 @@
-../trezorhal/usb_vcp-defs.h
+../detahardhal/usb_vcp-defs.h

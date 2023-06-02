@@ -1,4 +1,4 @@
-# This file is part of the Trezor project.
+# This file is part of the detahard project.
 #
 # Copyright (C) 2012-2022 SatoshiLabs and contributors
 #
@@ -21,18 +21,18 @@ from .tools import expect
 
 if TYPE_CHECKING:
     from .tools import Address
-    from .client import TrezorClient
+    from .client import detahardClient
     from .protobuf import MessageType
 
 
 @expect(messages.Entropy, field="entropy", ret_type=bytes)
-def get_entropy(client: "TrezorClient", size: int) -> "MessageType":
+def get_entropy(client: "detahardClient", size: int) -> "MessageType":
     return client.call(messages.GetEntropy(size=size))
 
 
 @expect(messages.SignedIdentity)
 def sign_identity(
-    client: "TrezorClient",
+    client: "detahardClient",
     identity: messages.IdentityType,
     challenge_hidden: bytes,
     challenge_visual: str,
@@ -50,7 +50,7 @@ def sign_identity(
 
 @expect(messages.ECDHSessionKey)
 def get_ecdh_session_key(
-    client: "TrezorClient",
+    client: "detahardClient",
     identity: messages.IdentityType,
     peer_public_key: bytes,
     ecdsa_curve_name: Optional[str] = None,
@@ -66,7 +66,7 @@ def get_ecdh_session_key(
 
 @expect(messages.CipheredKeyValue, field="value", ret_type=bytes)
 def encrypt_keyvalue(
-    client: "TrezorClient",
+    client: "detahardClient",
     n: "Address",
     key: str,
     value: bytes,
@@ -89,7 +89,7 @@ def encrypt_keyvalue(
 
 @expect(messages.CipheredKeyValue, field="value", ret_type=bytes)
 def decrypt_keyvalue(
-    client: "TrezorClient",
+    client: "detahardClient",
     n: "Address",
     key: str,
     value: bytes,
@@ -111,5 +111,5 @@ def decrypt_keyvalue(
 
 
 @expect(messages.Nonce, field="nonce", ret_type=bytes)
-def get_nonce(client: "TrezorClient"):
+def get_nonce(client: "detahardClient"):
     return client.call(messages.GetNonce())

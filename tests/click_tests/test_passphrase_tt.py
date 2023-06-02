@@ -1,4 +1,4 @@
-# This file is part of the Trezor project.
+# This file is part of the detahard project.
 #
 # Copyright (C) 2012-2023 SatoshiLabs and contributors
 #
@@ -26,7 +26,7 @@ from .common import CommonPass, PassphraseCategory, get_char_category
 
 if TYPE_CHECKING:
     from ..device_handler import BackgroundDeviceHandler
-    from trezorlib.debuglink import DebugLink
+    from detahardlib.debuglink import DebugLink
 
 
 pytestmark = pytest.mark.skip_t1
@@ -195,7 +195,7 @@ def test_passphrase_delete_all(
     device_handler: "BackgroundDeviceHandler",
 ):
     with prepare_passphrase_dialogue(device_handler, CommonPass.EMPTY_ADDRESS) as debug:
-        passphrase = "trezor"
+        passphrase = "detahard"
         input_passphrase(debug, passphrase)
 
         for _ in range(len(passphrase)):

@@ -1,4 +1,4 @@
-# This file is part of the Trezor project.
+# This file is part of the detahard project.
 #
 # Copyright (C) 2012-2019 SatoshiLabs and contributors
 #
@@ -16,9 +16,9 @@
 
 import pytest
 
-from trezorlib import fido
-from trezorlib.debuglink import TrezorClientDebugLink as Client
-from trezorlib.exceptions import Cancelled, TrezorFailure
+from detahardlib import fido
+from detahardlib.debuglink import detahardClientDebugLink as Client
+from detahardlib.exceptions import Cancelled, detahardFailure
 
 from ...common import MNEMONIC12
 from .data_webauthn import CRED1, CRED2, CRED3, CREDS
@@ -31,7 +31,7 @@ RK_CAPACITY = 100
 @pytest.mark.setup_client(mnemonic=MNEMONIC12)
 def test_add_remove(client: Client):
     # Remove index 0 should fail.
-    with pytest.raises(TrezorFailure):
+    with pytest.raises(detahardFailure):
         fido.remove_credential(client, 0)
 
     # List should be empty.
@@ -89,11 +89,11 @@ def test_add_remove(client: Client):
         fido.add_credential(client, cred)
 
     # Adding one more valid credential to full storage should fail.
-    with pytest.raises(TrezorFailure):
+    with pytest.raises(detahardFailure):
         fido.add_credential(client, CREDS[-1])
 
     # Removing the index, which is one past the end, should fail.
-    with pytest.raises(TrezorFailure):
+    with pytest.raises(detahardFailure):
         fido.remove_credential(client, RK_CAPACITY)
 
     # Remove index 2.

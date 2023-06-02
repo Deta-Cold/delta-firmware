@@ -1,18 +1,18 @@
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from trezor.messages import WebAuthnAddResidentCredential, Success
-    from trezor.wire import Context
+    from detahard.messages import WebAuthnAddResidentCredential, Success
+    from detahard.wire import Context
 
 
 async def add_resident_credential(
     ctx: Context, msg: WebAuthnAddResidentCredential
 ) -> Success:
     import storage.device as storage_device
-    from trezor import wire
-    from trezor.ui.layouts import show_error_and_raise
-    from trezor.ui.layouts.fido import confirm_fido
-    from trezor.messages import Success
+    from detahard import wire
+    from detahard.ui.layouts import show_error_and_raise
+    from detahard.ui.layouts.fido import confirm_fido
+    from detahard.messages import Success
     from .credential import Fido2Credential
     from .resident_credentials import store_resident_credential
 

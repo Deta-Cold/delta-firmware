@@ -1,13 +1,13 @@
 from typing import TYPE_CHECKING
 
-from trezor.enums import ButtonRequestType
-from trezor.strings import format_amount
-from trezor.ui.layouts import confirm_metadata, confirm_total
+from detahard.enums import ButtonRequestType
+from detahard.strings import format_amount
+from detahard.ui.layouts import confirm_metadata, confirm_total
 
 from .helpers import DECIMALS
 
 if TYPE_CHECKING:
-    from trezor.wire import Context
+    from detahard.wire import Context
 
 
 async def require_confirm_total(ctx: Context, total: int, fee: int) -> None:
@@ -30,6 +30,6 @@ async def require_confirm_destination_tag(ctx: Context, tag: int) -> None:
 
 
 async def require_confirm_tx(ctx: Context, to: str, value: int) -> None:
-    from trezor.ui.layouts import confirm_output
+    from detahard.ui.layouts import confirm_output
 
     await confirm_output(ctx, to, format_amount(value, DECIMALS) + " XRP")

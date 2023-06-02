@@ -1,7 +1,7 @@
-trezor-crypto tools
+detahard-crypto tools
 ===================
 
-Set of small utilities using the trezor-crypto library.
+Set of small utilities using the detahard-crypto library.
 
 xpubaddrgen
 -----------

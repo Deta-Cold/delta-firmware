@@ -1,9 +1,9 @@
 from common import *
-from trezor import wire
-from trezor.crypto import cardano, slip39
-from trezor.enums import CardanoAddressType
-from trezor.messages import CardanoAddressParametersType
-from trezor.messages import CardanoBlockchainPointerType
+from detahard import wire
+from detahard.crypto import cardano, slip39
+from detahard.enums import CardanoAddressType
+from detahard.messages import CardanoAddressParametersType
+from detahard.messages import CardanoBlockchainPointerType
 
 from apps.common import seed
 from apps.common.paths import HARDENED
@@ -152,7 +152,7 @@ class TestCardanoAddress(unittest.TestCase):
             "extra extend academic arcade born dive legal hush gross briefing "
                 "talent drug much home firefly toxic analysis idea umbrella slice"
         ]
-        passphrase = b"TREZOR"
+        passphrase = b"detahard"
         identifier, exponent, ems = slip39.recover_ems(mnemonics)
         master_secret = slip39.decrypt(ems, passphrase, exponent, identifier)
 
@@ -219,7 +219,7 @@ class TestCardanoAddress(unittest.TestCase):
                 "profile numb paid headset airport daisy flame express scene usual welcome "
                 "quick silent downtown oral critical step remove says rhythm venture aunt"
         ]
-        passphrase = b"TREZOR"
+        passphrase = b"detahard"
         identifier, exponent, ems = slip39.recover_ems(mnemonics)
         master_secret = slip39.decrypt(ems, passphrase, exponent, identifier)
 

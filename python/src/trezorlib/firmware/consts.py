@@ -1,4 +1,4 @@
-# This file is part of the Trezor project.
+# This file is part of the detahard project.
 #
 # Copyright (C) 2012-2022 SatoshiLabs and contributors
 #
@@ -23,12 +23,12 @@ V2_CHUNK_SIZE = 1024 * 128
 
 
 # === KEYS KEPT FOR COMPATIBILITY ===
-# use `trezorlib.firmware.models` directly
+# use `detahardlib.firmware.models` directly
 
-V1_BOOTLOADER_KEYS = models.TREZOR_ONE_V1V2.firmware_keys
-V2_BOARDLOADER_KEYS = models.TREZOR_T.boardloader_keys
-V2_BOARDLOADER_DEV_KEYS = models.TREZOR_T_DEV.boardloader_keys
-V2_BOOTLOADER_KEYS = models.TREZOR_T.bootloader_keys
-V2_BOOTLOADER_DEV_KEYS = models.TREZOR_T_DEV.bootloader_keys
+V1_BOOTLOADER_KEYS = models.detahard_ONE_V1V2.firmware_keys
+V2_BOARDLOADER_KEYS = models.detahard_T.boardloader_keys
+V2_BOARDLOADER_DEV_KEYS = models.detahard_T_DEV.boardloader_keys
+V2_BOOTLOADER_KEYS = models.detahard_T.bootloader_keys
+V2_BOOTLOADER_DEV_KEYS = models.detahard_T_DEV.bootloader_keys
 
-V2_SIGS_REQUIRED = models.TREZOR_T.boardloader_sigs_needed
+V2_SIGS_REQUIRED = models.detahard_T.boardloader_sigs_needed

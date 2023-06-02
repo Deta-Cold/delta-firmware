@@ -1,5 +1,5 @@
 /*
- * This file is part of the Trezor project, https://trezor.io/
+ * This file is part of the detahard project, https://detahard.io/
  *
  * Copyright (c) SatoshiLabs
  *
@@ -18,7 +18,7 @@
  */
 
 #include <stdint.h>
-#include TREZOR_BOARD
+#include detahard_BOARD
 #include "display_interface.h"
 #include "memzero.h"
 #include "st7789v.h"

@@ -1,4 +1,4 @@
-# This file is part of the Trezor project.
+# This file is part of the detahard project.
 #
 # Copyright (C) 2012-2022 SatoshiLabs and contributors
 #
@@ -36,7 +36,7 @@ from typing import (
 import construct
 
 if TYPE_CHECKING:
-    from .client import TrezorClient
+    from .client import detahardClient
     from .protobuf import MessageType
 
     # Needed to enforce a return value from decorators
@@ -295,12 +295,12 @@ def expect(
 
 
 def session(
-    f: "Callable[Concatenate[TrezorClient, P], R]",
-) -> "Callable[Concatenate[TrezorClient, P], R]":
+    f: "Callable[Concatenate[detahardClient, P], R]",
+) -> "Callable[Concatenate[detahardClient, P], R]":
     # Decorator wraps a BaseClient method
     # with session activation / deactivation
     @functools.wraps(f)
-    def wrapped_f(client: "TrezorClient", *args: "P.args", **kwargs: "P.kwargs") -> "R":
+    def wrapped_f(client: "detahardClient", *args: "P.args", **kwargs: "P.kwargs") -> "R":
         __tracebackhide__ = True  # for pytest # pylint: disable=W0612
         client.open()
         try:

@@ -1,8 +1,8 @@
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from trezor.messages import MoneroAccountPublicAddress
-    from trezor.messages import MoneroTransactionDestinationEntry
+    from detahard.messages import MoneroAccountPublicAddress
+    from detahard.messages import MoneroTransactionDestinationEntry
 
 
 def encode_addr(
@@ -11,7 +11,7 @@ def encode_addr(
     """
     Builds Monero address from public keys
     """
-    from trezor.crypto import monero as tcry
+    from detahard.crypto import monero as tcry
 
     buf = spend_pub + view_pub
     if payment_id:

@@ -2,11 +2,11 @@
 import sys
 
 from fill_t1_fw_signatures import Signatures
-from trezorlib.btc import get_public_node, sign_message
-from trezorlib.client import get_default_client
-from trezorlib.tools import parse_path
+from detahardlib.btc import get_public_node, sign_message
+from detahardlib.client import get_default_client
+from detahardlib.tools import parse_path
 
-# arg1 is input trezor.bin filename to be signed
+# arg1 is input detahard.bin filename to be signed
 # arg2 is output filename, if omitted, will use input file + ".signed"
 client = get_default_client()
 in_fw_fname = sys.argv[1]
@@ -19,8 +19,8 @@ except IndexError:
 # each index can be >= 1 and <= 3
 sig_indices = [1, 2]
 
-print(f"Input trezor.bin file: {in_fw_fname}")
-print(f"Output signed trezor.bin file: {out_fw_fname}")
+print(f"Input detahard.bin file: {in_fw_fname}")
+print(f"Output signed detahard.bin file: {out_fw_fname}")
 
 signatures = Signatures(in_fw_fname)
 digest = signatures.header_hash

@@ -15,8 +15,8 @@ from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from apps.monero.layout import MoneroTransactionProgress
-    from trezor.messages import MoneroTransactionSourceEntry
-    from trezor.messages import MoneroTransactionSignInputAck
+    from detahard.messages import MoneroTransactionSourceEntry
+    from detahard.messages import MoneroTransactionSignInputAck
     from .state import State
 
 
@@ -36,7 +36,7 @@ def sign_input(
     :param state: transaction state
     :param src_entr: Source entry
     :param vini_bin: tx.vin[i] for the transaction. Contains key image, offsets, amount (usually zero)
-    :param vini_hmac: HMAC for the tx.vin[i] as returned from Trezor
+    :param vini_hmac: HMAC for the tx.vin[i] as returned from detahard
     :param pseudo_out: Pedersen commitment for the current input, uses pseudo_out_alpha
                        as a mask. Only applicable for RCTTypeSimple.
     :param pseudo_out_hmac: HMAC for pseudo_out
@@ -45,7 +45,7 @@ def sign_input(
     :param orig_idx: original index of the src_entr before sorting (HMAC check)
     :return: Generated signature MGs[i]
     """
-    from trezor import utils
+    from detahard import utils
     from apps.monero.xmr import crypto_helpers
     from apps.monero.xmr import crypto
 
@@ -196,7 +196,7 @@ def sign_input(
     del (CtKey, input_secret_key, pseudo_out_alpha, clsag, ring_pubkeys)
     mem_trace(6, True)
 
-    from trezor.messages import MoneroTransactionSignInputAck
+    from detahard.messages import MoneroTransactionSignInputAck
 
     # Encrypt signature, reveal once protocol finishes OK
     utils.unimport_end(mods)
@@ -216,8 +216,8 @@ def _protect_signature(state: State, mg_buffer: list[bytes]) -> list[bytes]:
     After protocol finishes without error, opening_key is sent to the
     host.
     """
-    from trezor.crypto import random
-    from trezor.crypto import chacha20poly1305
+    from detahard.crypto import random
+    from detahard.crypto import chacha20poly1305
     from apps.monero.signing import offloading_keys
 
     if state.last_step != state.STEP_SIGN:

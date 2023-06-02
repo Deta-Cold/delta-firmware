@@ -2,7 +2,7 @@
 set -e
 
 CWD=`dirname "$0"`
-RENDER="$CWD/../vendor/trezor-common/tools/cointool.py render"
+RENDER="$CWD/../vendor/detahard-common/tools/cointool.py render"
 
 # Search both in `core/src` and `core/embed`
 FIND_TEMPLATES="find $CWD/.. -name *.mako -not -name _proto*"

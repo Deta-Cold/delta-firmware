@@ -1,4 +1,4 @@
-# This file is part of the Trezor project.
+# This file is part of the detahard project.
 #
 # Copyright (C) 2012-2019 SatoshiLabs and contributors
 #
@@ -16,10 +16,10 @@
 
 import pytest
 
-from trezorlib import btc, device, messages, misc
-from trezorlib.debuglink import TrezorClientDebugLink as Client
-from trezorlib.exceptions import TrezorFailure
-from trezorlib.tools import parse_path
+from detahardlib import btc, device, messages, misc
+from detahardlib.debuglink import detahardClientDebugLink as Client
+from detahardlib.exceptions import detahardFailure
+from detahardlib.tools import parse_path
 
 from ..common import MNEMONIC12, WITH_MOCK_URANDOM, get_test_address
 from ..tx_cache import TxCache
@@ -106,7 +106,7 @@ def test_apply_settings(client: Client):
                 messages.Success,
                 messages.Features,
             ]
-        )  # TrezorClient reinitializes device
+        )  # detahardClient reinitializes device
         device.apply_settings(client, label="nazdar")
 
 
@@ -221,7 +221,7 @@ def test_reset_device(client: Client):
         )
         device.reset(client, False, 128, True, False, "label", "en-US")
 
-    with pytest.raises(TrezorFailure):
+    with pytest.raises(detahardFailure):
         # This must fail, because device is already initialized
         # Using direct call because `device.reset` has its own check
         client.call(
@@ -259,7 +259,7 @@ def test_recovery_device(client: Client):
             client.mnemonic_callback,
         )
 
-    with pytest.raises(TrezorFailure):
+    with pytest.raises(detahardFailure):
         # This must fail, because device is already initialized
         # Using direct call because `device.recover` has its own check
         client.call(

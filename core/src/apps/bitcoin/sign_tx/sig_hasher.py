@@ -11,7 +11,7 @@ from ..writers import (
 if TYPE_CHECKING:
     from typing import Protocol, Sequence
     from ..common import SigHashType
-    from trezor.messages import PrevTx, SignTx, TxInput, TxOutput
+    from detahard.messages import PrevTx, SignTx, TxInput, TxOutput
     from apps.common import coininfo
 
     class SigHasher(Protocol):
@@ -51,8 +51,8 @@ if TYPE_CHECKING:
 # BIP-0143 hash
 class BitcoinSigHasher:
     def __init__(self) -> None:
-        from trezor.crypto.hashlib import sha256
-        from trezor.utils import HashWriter
+        from detahard.crypto.hashlib import sha256
+        from detahard.utils import HashWriter
 
         self.h_prevouts = HashWriter(sha256())
         self.h_amounts = HashWriter(sha256())
@@ -83,8 +83,8 @@ class BitcoinSigHasher:
         coin: coininfo.CoinInfo,
         hash_type: int,
     ) -> bytes:
-        from trezor.crypto.hashlib import sha256
-        from trezor.utils import HashWriter
+        from detahard.crypto.hashlib import sha256
+        from detahard.utils import HashWriter
         from .. import scripts
         from ..writers import get_tx_hash
 

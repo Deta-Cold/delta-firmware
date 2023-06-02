@@ -1,6 +1,6 @@
 {
     "include": [
-        "src/trezorlib",
+        "src/detahardlib",
         "tools",
         "helper-scripts"
     ],

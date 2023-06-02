@@ -1,7 +1,7 @@
 from micropython import const
 from typing import TYPE_CHECKING
 
-from trezor.utils import ensure
+from detahard.utils import ensure
 
 from apps.common.writers import (  # noqa: F401
     write_bytes_fixed,
@@ -15,13 +15,13 @@ from apps.common.writers import (  # noqa: F401
 )
 
 if TYPE_CHECKING:
-    from trezor.messages import (
+    from detahard.messages import (
         PrevInput,
         PrevOutput,
         TxInput,
         TxOutput,
     )
-    from trezor.utils import HashWriter
+    from detahard.utils import HashWriter
 
     from apps.common.writers import Writer
 
@@ -104,7 +104,7 @@ def op_push_length(n: int) -> int:
 
 
 def get_tx_hash(w: HashWriter, double: bool = False, reverse: bool = False) -> bytes:
-    from trezor.crypto.hashlib import sha256
+    from detahard.crypto.hashlib import sha256
 
     d = w.get_digest()
     if double:

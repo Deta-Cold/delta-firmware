@@ -6,9 +6,9 @@
 
 from typing import Any
 
-from trezor import utils
-from trezor.crypto.base58 import blake256d_32, groestl512d_32, keccak_32, sha256d_32
-from trezor.crypto.scripts import blake256_ripemd160, sha256_ripemd160
+from detahard import utils
+from detahard.crypto.base58 import blake256d_32, groestl512d_32, keccak_32, sha256d_32
+from detahard.crypto.scripts import blake256_ripemd160, sha256_ripemd160
 
 # flake8: noqa
 

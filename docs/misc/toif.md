@@ -1,4 +1,4 @@
-# Trezor Optimized Image Format (TOIF)
+# detahard Optimized Image Format (TOIF)
 
 All multibyte integer values are little endian!
 
@@ -66,4 +66,4 @@ zdata = z.compress(pixeldata) + z.flush()
 
 ## Tools
 
-* [toif_convert](https://github.com/trezor/trezor-firmware/blob/master/core/tools/toif_convert.py) - tool for converting PNGs into TOI format and back
+* [toif_convert](https://github.com/detahard/detahard-firmware/blob/master/core/tools/toif_convert.py) - tool for converting PNGs into TOI format and back

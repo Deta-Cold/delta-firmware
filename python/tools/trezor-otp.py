@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-# This file is part of the Trezor project.
+# This file is part of the detahard project.
 #
 # Copyright (C) 2012-2022 SatoshiLabs and contributors
 #
@@ -22,18 +22,18 @@ import re
 import sys
 
 import pyotp
-from trezorlib.client import TrezorClient
-from trezorlib.misc import decrypt_keyvalue, encrypt_keyvalue
-from trezorlib.tools import parse_path
-from trezorlib.transport import get_transport
-from trezorlib.ui import ClickUI
+from detahardlib.client import detahardClient
+from detahardlib.misc import decrypt_keyvalue, encrypt_keyvalue
+from detahardlib.tools import parse_path
+from detahardlib.transport import get_transport
+from detahardlib.ui import ClickUI
 
 BIP32_PATH = parse_path("10016h/0")
 
 
 def encrypt(type: str, domain: str, secret: str) -> str:
     transport = get_transport()
-    client = TrezorClient(transport, ClickUI())
+    client = detahardClient(transport, ClickUI())
     dom = type.upper() + ": " + domain
     enc = encrypt_keyvalue(client, BIP32_PATH, dom, secret.encode(), False, True)
     client.close()
@@ -42,7 +42,7 @@ def encrypt(type: str, domain: str, secret: str) -> str:
 
 def decrypt(type: str, domain: str, secret: bytes) -> bytes:
     transport = get_transport()
-    client = TrezorClient(transport, ClickUI())
+    client = detahardClient(transport, ClickUI())
     dom = type.upper() + ": " + domain
     dec = decrypt_keyvalue(client, BIP32_PATH, dom, secret, False, True)
     client.close()
@@ -53,7 +53,7 @@ class Config:
     def __init__(self) -> None:
         XDG_CONFIG_HOME = os.getenv("XDG_CONFIG_HOME", os.path.expanduser("~/.config"))
         os.makedirs(XDG_CONFIG_HOME, exist_ok=True)
-        self.filename = XDG_CONFIG_HOME + "/trezor-otp.ini"
+        self.filename = XDG_CONFIG_HOME + "/detahard-otp.ini"
         self.config = configparser.ConfigParser()
         self.config.read(self.filename)
 
@@ -106,7 +106,7 @@ def get(domain: str) -> None:
 
 def main() -> None:
     if len(sys.argv) < 2:
-        print("Usage: trezor-otp.py [add|domain]")
+        print("Usage: detahard-otp.py [add|domain]")
         sys.exit(1)
     if sys.argv[1] == "add":
         add()

@@ -1,5 +1,5 @@
 /*
- * This file is part of the Trezor project, https://trezor.io/
+ * This file is part of the detahard project, https://detahard.io/
  *
  * Copyright (c) SatoshiLabs
  *
@@ -17,8 +17,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __TREZORHAL_COMMON_H__
-#define __TREZORHAL_COMMON_H__
+#ifndef __detahardHAL_COMMON_H__
+#define __detahardHAL_COMMON_H__
 
 #include <stddef.h>
 #include <stdint.h>
@@ -51,7 +51,7 @@
 
 #define STAY_IN_BOOTLOADER_FLAG 0x0FC35A96
 
-void __attribute__((noreturn)) trezor_shutdown(void);
+void __attribute__((noreturn)) detahard_shutdown(void);
 
 void __attribute__((noreturn))
 __fatal_error(const char *expr, const char *msg, const char *file, int line,

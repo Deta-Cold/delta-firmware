@@ -39,15 +39,15 @@ class SupportItemVersion(TypedDict):
 class SupportData(TypedDict):
     connect: SupportItemBool
     suite: SupportItemBool
-    trezor1: SupportItemVersion
-    trezor2: SupportItemVersion
+    detahard1: SupportItemVersion
+    detahard2: SupportItemVersion
 
 
 class SupportInfoItem(TypedDict):
     connect: bool
     suite: bool
-    trezor1: Literal[False] | str
-    trezor2: Literal[False] | str
+    detahard1: Literal[False] | str
+    detahard2: Literal[False] | str
 
 
 SupportInfo = Dict[str, SupportInfoItem]
@@ -450,9 +450,9 @@ def _load_fido_apps() -> FidoApps:
 
 # ====== support info ======
 
-RELEASES_URL = "https://data.trezor.io/firmware/{}/releases.json"
+RELEASES_URL = "https://data.detahard.io/firmware/{}/releases.json"
 MISSING_SUPPORT_MEANS_NO = ("connect", "suite")
-VERSIONED_SUPPORT_INFO = ("trezor1", "trezor2")
+VERSIONED_SUPPORT_INFO = ("detahard1", "detahard2")
 
 
 def get_support_data() -> SupportData:
@@ -461,14 +461,14 @@ def get_support_data() -> SupportData:
 
 
 def latest_releases() -> dict[str, Any]:
-    """Get latest released firmware versions for Trezor 1 and 2"""
+    """Get latest released firmware versions for detahard 1 and 2"""
     if not requests:
         raise RuntimeError("requests library is required for getting release info")
 
     latest: dict[str, Any] = {}
     for v in ("1", "2"):
         releases = requests.get(RELEASES_URL.format(v)).json()
-        latest["trezor" + v] = max(tuple(r["version"]) for r in releases)
+        latest["detahard" + v] = max(tuple(r["version"]) for r in releases)
     return latest
 
 
@@ -501,11 +501,11 @@ def support_info_single(support_data: SupportData, coin: Coin) -> SupportInfoIte
 
 
 def support_info(coins: Iterable[Coin] | CoinsInfo | dict[str, Coin]) -> SupportInfo:
-    """Generate Trezor support information.
+    """Generate detahard support information.
 
     Takes a collection of coins and generates a support-info entry for each.
     The support-info is a dict with keys based on `support.json` keys.
-    These are usually: "trezor1", "trezor2", "connect" and "suite".
+    These are usually: "detahard1", "detahard2", "connect" and "suite".
 
     The `coins` argument can be a `CoinsInfo` object, a list or a dict of
     coin items.
@@ -527,7 +527,7 @@ def support_info(coins: Iterable[Coin] | CoinsInfo | dict[str, Coin]) -> Support
 
 # ====== wallet info ======
 
-WALLET_SUITE = {"Trezor Suite": "https://suite.trezor.io"}
+WALLET_SUITE = {"detahard Suite": "https://suite.detahard.io"}
 WALLET_NEM = {"Nano Wallet": "https://nemplatform.com/wallets/#desktop"}
 
 
@@ -538,14 +538,14 @@ def get_wallet_data() -> WalletInfo:
 
 def _suite_support(coin: Coin, support: SupportInfoItem) -> bool:
     """Check the "suite" support property.
-    If set, check that at least one of the backends run on trezor.io.
+    If set, check that at least one of the backends run on detahard.io.
     If yes, assume we support the coin in our wallet.
     Otherwise it's probably working with a custom backend, which means don't
     link to our wallet.
     """
     if not support["suite"]:
         return False
-    return any(".trezor.io" in url for url in coin["blockbook"])
+    return any(".detahard.io" in url for url in coin["blockbook"])
 
 
 def wallet_info_single(
@@ -575,7 +575,7 @@ def wallet_info_single(
 
     # Add wallets from `wallets.json`
     # This must come last as it offers the ability to override existing wallets
-    # (for example with `"Trezor Suite": null` we delete the "Trezor Suite" from the coin)
+    # (for example with `"detahard Suite": null` we delete the "detahard Suite" from the coin)
     wallets.update(wallet_data.get(key, {}))
 
     # Removing potentially disabled wallets from the last step
@@ -585,7 +585,7 @@ def wallet_info_single(
 
 
 def wallet_info(coins: Iterable[Coin] | CoinsInfo | dict[str, Coin]) -> WalletInfo:
-    """Generate Trezor wallet information.
+    """Generate detahard wallet information.
 
     Takes a collection of coins and generates a WalletItems entry for each.
     The WalletItems is a dict with keys being the names of the wallets and

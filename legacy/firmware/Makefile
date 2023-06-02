@@ -1,6 +1,6 @@
 APPVER = 1.8.0
 
-NAME  = trezor
+NAME  = detahard
 
 SECP256K1_ZKP ?= 1
 
@@ -28,9 +28,9 @@ ZKP_CFLAGS = \
 OBJS += secp256k1-zkp.o
 OBJS += precomputed_ecmult.o
 OBJS += precomputed_ecmult_gen.o
-OBJS += ../vendor/trezor-crypto/zkp_bip340.o
-OBJS += ../vendor/trezor-crypto/zkp_context.o
-OBJS += ../vendor/trezor-crypto/zkp_ecdsa.o
+OBJS += ../vendor/detahard-crypto/zkp_bip340.o
+OBJS += ../vendor/detahard-crypto/zkp_context.o
+OBJS += ../vendor/detahard-crypto/zkp_ecdsa.o
 endif
 
 ifeq ($(EMULATOR),1)
@@ -45,7 +45,7 @@ endif
 
 OBJS += messages.o
 OBJS += config.o
-OBJS += trezor.o
+OBJS += detahard.o
 OBJS += pinmatrix.o
 OBJS += fsm.o
 OBJS += coins.o
@@ -71,62 +71,62 @@ endif
 
 OBJS += debug.o
 
-OBJS += ../vendor/trezor-crypto/address.o
-OBJS += ../vendor/trezor-crypto/bignum.o
-OBJS += ../vendor/trezor-crypto/ecdsa.o
-OBJS += ../vendor/trezor-crypto/curves.o
-OBJS += ../vendor/trezor-crypto/secp256k1.o
-OBJS += ../vendor/trezor-crypto/nist256p1.o
-OBJS += ../vendor/trezor-crypto/hmac_drbg.o
-OBJS += ../vendor/trezor-crypto/rfc6979.o
-OBJS += ../vendor/trezor-crypto/rand.o
-OBJS += ../vendor/trezor-crypto/memzero.o
+OBJS += ../vendor/detahard-crypto/address.o
+OBJS += ../vendor/detahard-crypto/bignum.o
+OBJS += ../vendor/detahard-crypto/ecdsa.o
+OBJS += ../vendor/detahard-crypto/curves.o
+OBJS += ../vendor/detahard-crypto/secp256k1.o
+OBJS += ../vendor/detahard-crypto/nist256p1.o
+OBJS += ../vendor/detahard-crypto/hmac_drbg.o
+OBJS += ../vendor/detahard-crypto/rfc6979.o
+OBJS += ../vendor/detahard-crypto/rand.o
+OBJS += ../vendor/detahard-crypto/memzero.o
 
-OBJS += ../vendor/trezor-crypto/ed25519-donna/curve25519-donna-32bit.o
-OBJS += ../vendor/trezor-crypto/ed25519-donna/curve25519-donna-helpers.o
-OBJS += ../vendor/trezor-crypto/ed25519-donna/modm-donna-32bit.o
-OBJS += ../vendor/trezor-crypto/ed25519-donna/ed25519-donna-basepoint-table.o
-OBJS += ../vendor/trezor-crypto/ed25519-donna/ed25519-donna-32bit-tables.o
-OBJS += ../vendor/trezor-crypto/ed25519-donna/ed25519-donna-impl-base.o
-OBJS += ../vendor/trezor-crypto/ed25519-donna/ed25519.o
-OBJS += ../vendor/trezor-crypto/ed25519-donna/curve25519-donna-scalarmult-base.o
-OBJS += ../vendor/trezor-crypto/ed25519-donna/ed25519-sha3.o
-OBJS += ../vendor/trezor-crypto/ed25519-donna/ed25519-keccak.o
+OBJS += ../vendor/detahard-crypto/ed25519-donna/curve25519-donna-32bit.o
+OBJS += ../vendor/detahard-crypto/ed25519-donna/curve25519-donna-helpers.o
+OBJS += ../vendor/detahard-crypto/ed25519-donna/modm-donna-32bit.o
+OBJS += ../vendor/detahard-crypto/ed25519-donna/ed25519-donna-basepoint-table.o
+OBJS += ../vendor/detahard-crypto/ed25519-donna/ed25519-donna-32bit-tables.o
+OBJS += ../vendor/detahard-crypto/ed25519-donna/ed25519-donna-impl-base.o
+OBJS += ../vendor/detahard-crypto/ed25519-donna/ed25519.o
+OBJS += ../vendor/detahard-crypto/ed25519-donna/curve25519-donna-scalarmult-base.o
+OBJS += ../vendor/detahard-crypto/ed25519-donna/ed25519-sha3.o
+OBJS += ../vendor/detahard-crypto/ed25519-donna/ed25519-keccak.o
 
-OBJS += ../vendor/trezor-crypto/hmac.o
-OBJS += ../vendor/trezor-crypto/bip32.o
-OBJS += ../vendor/trezor-crypto/bip39.o
-OBJS += ../vendor/trezor-crypto/bip39_english.o
-OBJS += ../vendor/trezor-crypto/pbkdf2.o
-OBJS += ../vendor/trezor-crypto/base32.o
-OBJS += ../vendor/trezor-crypto/base58.o
-OBJS += ../vendor/trezor-crypto/segwit_addr.o
+OBJS += ../vendor/detahard-crypto/hmac.o
+OBJS += ../vendor/detahard-crypto/bip32.o
+OBJS += ../vendor/detahard-crypto/bip39.o
+OBJS += ../vendor/detahard-crypto/bip39_english.o
+OBJS += ../vendor/detahard-crypto/pbkdf2.o
+OBJS += ../vendor/detahard-crypto/base32.o
+OBJS += ../vendor/detahard-crypto/base58.o
+OBJS += ../vendor/detahard-crypto/segwit_addr.o
 
-OBJS += ../vendor/trezor-crypto/ripemd160.o
-OBJS += ../vendor/trezor-crypto/sha2.o
-OBJS += ../vendor/trezor-crypto/sha3.o
-OBJS += ../vendor/trezor-crypto/blake256.o
-OBJS += ../vendor/trezor-crypto/blake2b.o
-OBJS += ../vendor/trezor-crypto/blake2s.o
-OBJS += ../vendor/trezor-crypto/groestl.o
-OBJS += ../vendor/trezor-crypto/hasher.o
+OBJS += ../vendor/detahard-crypto/ripemd160.o
+OBJS += ../vendor/detahard-crypto/sha2.o
+OBJS += ../vendor/detahard-crypto/sha3.o
+OBJS += ../vendor/detahard-crypto/blake256.o
+OBJS += ../vendor/detahard-crypto/blake2b.o
+OBJS += ../vendor/detahard-crypto/blake2s.o
+OBJS += ../vendor/detahard-crypto/groestl.o
+OBJS += ../vendor/detahard-crypto/hasher.o
 
-OBJS += ../vendor/trezor-crypto/aes/aescrypt.o
-OBJS += ../vendor/trezor-crypto/aes/aeskey.o
-OBJS += ../vendor/trezor-crypto/aes/aestab.o
-OBJS += ../vendor/trezor-crypto/aes/aes_modes.o
+OBJS += ../vendor/detahard-crypto/aes/aescrypt.o
+OBJS += ../vendor/detahard-crypto/aes/aeskey.o
+OBJS += ../vendor/detahard-crypto/aes/aestab.o
+OBJS += ../vendor/detahard-crypto/aes/aes_modes.o
 
-OBJS += ../vendor/trezor-crypto/chacha20poly1305/chacha20poly1305.o
-OBJS += ../vendor/trezor-crypto/chacha20poly1305/chacha_merged.o
-OBJS += ../vendor/trezor-crypto/chacha20poly1305/poly1305-donna.o
-OBJS += ../vendor/trezor-crypto/chacha20poly1305/rfc7539.o
+OBJS += ../vendor/detahard-crypto/chacha20poly1305/chacha20poly1305.o
+OBJS += ../vendor/detahard-crypto/chacha20poly1305/chacha_merged.o
+OBJS += ../vendor/detahard-crypto/chacha20poly1305/poly1305-donna.o
+OBJS += ../vendor/detahard-crypto/chacha20poly1305/rfc7539.o
 
-OBJS += ../vendor/trezor-crypto/nem.o
+OBJS += ../vendor/detahard-crypto/nem.o
 
 OBJS += ../vendor/QR-Code-generator/c/qrcodegen.o
 
-OBJS += ../vendor/trezor-storage/storage.o
-OBJS += ../vendor/trezor-storage/norcow.o
+OBJS += ../vendor/detahard-storage/storage.o
+OBJS += ../vendor/detahard-storage/norcow.o
 
 OBJS += ../vendor/nanopb/pb_common.o
 OBJS += ../vendor/nanopb/pb_decode.o
@@ -140,7 +140,7 @@ OBJS += protob/messages-debug.pb.o
 OBJS += protob/messages-management.pb.o
 
 ifneq ($(BITCOIN_ONLY),1)
-OBJS += ../vendor/trezor-crypto/cash_addr.o
+OBJS += ../vendor/detahard-crypto/cash_addr.o
 OBJS += protob/messages-ethereum.pb.o
 OBJS += protob/messages-ethereum-definitions.pb.o
 OBJS += protob/messages-nem.pb.o
@@ -149,11 +149,11 @@ endif
 
 OPTFLAGS ?= -Os
 
-../vendor/trezor-crypto/bip32.o: OPTFLAGS = -O3
-../vendor/trezor-crypto/bip39.o: OPTFLAGS = -O3
-../vendor/trezor-crypto/ecdsa.o: OPTFLAGS = -O3
-../vendor/trezor-crypto/sha2.o: OPTFLAGS = -O3
-../vendor/trezor-crypto/secp256k1.o: OPTFLAGS = -O3
+../vendor/detahard-crypto/bip32.o: OPTFLAGS = -O3
+../vendor/detahard-crypto/bip39.o: OPTFLAGS = -O3
+../vendor/detahard-crypto/ecdsa.o: OPTFLAGS = -O3
+../vendor/detahard-crypto/sha2.o: OPTFLAGS = -O3
+../vendor/detahard-crypto/secp256k1.o: OPTFLAGS = -O3
 
 include ../Makefile.include
 
@@ -174,7 +174,7 @@ endif
 
 %:: %.mako defs
 	@printf "  MAKO    $@\n"
-	$(Q)$(PYTHON) ../vendor/trezor-common/tools/cointool.py render $(MAKO_RENDER_FLAG) $@.mako
+	$(Q)$(PYTHON) ../vendor/detahard-common/tools/cointool.py render $(MAKO_RENDER_FLAG) $@.mako
 
 ifeq ($(BOOTLOADER_QA), 0)
 bl_data.h: bl_data.py bootloader.dat

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-# This file is part of the Trezor project.
+# This file is part of the detahard project.
 #
 # Copyright (C) 2012-2022 SatoshiLabs and contributors
 #
@@ -37,7 +37,7 @@ extras_require["full"] = sum(extras_require.values(), [])
 
 
 def find_version():
-    version_file = (CWD / "src" / "trezorlib" / "__init__.py").read_text()
+    version_file = (CWD / "src" / "detahardlib" / "__init__.py").read_text()
     version_match = re.search(r"^__version__ = \"(.*)\"$", version_file, re.M)
     if version_match:
         return version_match.group(1)
@@ -46,21 +46,21 @@ def find_version():
 
 
 setup(
-    name="trezor",
+    name="detahard",
     version=find_version(),
-    author="Trezor",
-    author_email="info@trezor.io",
+    author="detahard",
+    author_email="info@detahard.io",
     license="LGPLv3",
-    description="Python library for communicating with Trezor Hardware Wallet",
+    description="Python library for communicating with detahard Hardware Wallet",
     long_description=(CWD / "README.md").read_text()
     + "\n\n"
     + (CWD / "CHANGELOG.md").read_text(),
     long_description_content_type="text/markdown",
-    url="https://github.com/trezor/trezor-firmware/tree/master/python",
-    package_data={"trezorlib": ["py.typed"]},
+    url="https://github.com/detahard/detahard-firmware/tree/master/python",
+    package_data={"detahardlib": ["py.typed"]},
     packages=find_packages("src"),
     package_dir={"": "src"},
-    entry_points={"console_scripts": ["trezorctl=trezorlib.cli.trezorctl:cli"]},
+    entry_points={"console_scripts": ["detahardctl=detahardlib.cli.detahardctl:cli"]},
     install_requires=install_requires,
     extras_require=extras_require,
     python_requires=">=3.6",

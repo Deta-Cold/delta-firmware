@@ -11,7 +11,7 @@ import utime
 import utimeq
 from typing import TYPE_CHECKING
 
-from trezor import io, log
+from detahard import io, log
 
 if TYPE_CHECKING:
     from typing import (

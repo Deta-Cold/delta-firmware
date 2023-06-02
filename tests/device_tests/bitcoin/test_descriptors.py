@@ -1,4 +1,4 @@
-# This file is part of the Trezor project.
+# This file is part of the detahard project.
 #
 # Copyright (C) 2012-2019 SatoshiLabs and contributors
 #
@@ -16,9 +16,9 @@
 
 import pytest
 
-from trezorlib import messages
-from trezorlib.cli import btc
-from trezorlib.debuglink import TrezorClientDebugLink as Client
+from detahardlib import messages
+from detahardlib.cli import btc
+from detahardlib.debuglink import detahardClientDebugLink as Client
 
 VECTORS_DESCRIPTORS = (  # coin, account, script_type, descriptors
     (

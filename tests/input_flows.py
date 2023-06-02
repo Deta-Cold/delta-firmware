@@ -12,11 +12,11 @@ input flow details.
 import time
 from typing import Callable, Generator, Optional
 
-from trezorlib import messages
-from trezorlib.debuglink import (
+from detahardlib import messages
+from detahardlib.debuglink import (
     DebugLink,
     LayoutContent,
-    TrezorClientDebugLink as Client,
+    detahardClientDebugLink as Client,
     multipage_content,
 )
 

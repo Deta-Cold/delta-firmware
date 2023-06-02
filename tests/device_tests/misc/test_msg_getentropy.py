@@ -1,4 +1,4 @@
-# This file is part of the Trezor project.
+# This file is part of the detahard project.
 #
 # Copyright (C) 2012-2019 SatoshiLabs and contributors
 #
@@ -18,8 +18,8 @@ import math
 
 import pytest
 
-from trezorlib import messages as m, misc
-from trezorlib.debuglink import TrezorClientDebugLink as Client
+from detahardlib import messages as m, misc
+from detahardlib.debuglink import detahardClientDebugLink as Client
 
 ENTROPY_LENGTHS_POW2 = [2**l for l in range(10)]
 ENTROPY_LENGTHS_POW2_1 = [2**l + 1 for l in range(10)]

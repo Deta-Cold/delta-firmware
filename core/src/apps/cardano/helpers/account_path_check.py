@@ -1,11 +1,11 @@
 from typing import TYPE_CHECKING
 
-from trezor.wire import ProcessError
+from detahard.wire import ProcessError
 
 from .. import seed
 
 if TYPE_CHECKING:
-    from trezor.messages import (
+    from detahard.messages import (
         CardanoPoolOwner,
         CardanoTxCertificate,
         CardanoTxOutput,

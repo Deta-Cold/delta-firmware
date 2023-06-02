@@ -1,5 +1,5 @@
 /*
- * This file is part of the Trezor project, https://trezor.io/
+ * This file is part of the detahard project, https://detahard.io/
  *
  * Copyright (c) SatoshiLabs
  *
@@ -22,7 +22,7 @@
 
 #include <stdint.h>
 #include "common.h"
-#include TREZOR_BOARD
+#include detahard_BOARD
 
 #ifndef PIXELDATA
 #define PIXELDATA(c) display_pixeldata(c)

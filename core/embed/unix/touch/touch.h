@@ -1,1 +1,1 @@
-../../trezorhal/touch/touch.h
+../../detahardhal/touch/touch.h

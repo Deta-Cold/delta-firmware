@@ -12,9 +12,9 @@
 extern crate num_derive;
 
 mod error;
-// use trezorhal for its macros early
+// use detahardhal for its macros early
 #[macro_use]
-mod trezorhal;
+mod detahardhal;
 mod maybe_trace;
 #[cfg(feature = "micropython")]
 #[macro_use]
@@ -45,9 +45,9 @@ fn panic_debug(panic_info: &core::panic::PanicInfo) -> ! {
         print!(file);
         print!(":");
         println!(inttostr!(location.line()));
-        trezorhal::fatal_error::__fatal_error("", "rs", file, location.line(), "");
+        detahardhal::fatal_error::__fatal_error("", "rs", file, location.line(), "");
     } else {
-        trezorhal::fatal_error::__fatal_error("", "rs", "", 0, "");
+        detahardhal::fatal_error::__fatal_error("", "rs", "", 0, "");
     }
 }
 
@@ -64,7 +64,7 @@ fn panic(_info: &core::panic::PanicInfo) -> ! {
     // Doing that will compile every panic!() to a single udf instruction which
     // raises a Hard Fault on hardware.
     //
-    // Otherwise, use `unwrap!` macro from trezorhal.
+    // Otherwise, use `unwrap!` macro from detahardhal.
     fatal_error!("", "rs");
 }
 

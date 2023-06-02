@@ -1,5 +1,5 @@
 from common import *
-from trezor import config
+from detahard import config
 from storage import device
 
 

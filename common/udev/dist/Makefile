@@ -1,14 +1,14 @@
 VOL_MOUNT = -v $(shell pwd):/release
-IMAGETAG  = trezor-udev-build-env
+IMAGETAG  = detahard-udev-build-env
 
 all: .package
 
-.package: .docker-image trezor.rules
+.package: .docker-image detahard.rules
 	$(info Packaging ...)
 	docker run -t $(VOL_MOUNT) $(IMAGETAG) /release/release.sh
 
-trezor.rules:
-	cp ../51-trezor.rules trezor.rules
+detahard.rules:
+	cp ../51-detahard.rules detahard.rules
 
 .docker-image:
 	$(info Preparing docker image ...)

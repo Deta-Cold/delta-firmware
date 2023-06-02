@@ -1,4 +1,4 @@
-# This file is part of the Trezor project.
+# This file is part of the detahard project.
 #
 # Copyright (C) 2012-2019 SatoshiLabs and contributors
 #
@@ -20,9 +20,9 @@ from typing import TYPE_CHECKING
 
 import pytest
 
-from trezorlib import btc, device, exceptions, messages
-from trezorlib.protobuf import MessageType
-from trezorlib.tools import parse_path
+from detahardlib import btc, device, exceptions, messages
+from detahardlib.protobuf import MessageType
+from detahardlib.tools import parse_path
 
 from .. import buttons, common
 from ..device_tests.bitcoin.payment_req import make_coinjoin_request
@@ -31,7 +31,7 @@ from . import recovery
 
 if TYPE_CHECKING:
     from ..device_handler import BackgroundDeviceHandler
-    from trezorlib.debuglink import DebugLink, LayoutContent
+    from detahardlib.debuglink import DebugLink, LayoutContent
 
 TX_CACHE_MAINNET = TxCache("Bitcoin")
 TX_CACHE_TESTNET = TxCache("Testnet")

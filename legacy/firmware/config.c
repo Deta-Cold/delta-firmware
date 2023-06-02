@@ -1,5 +1,5 @@
 /*
- * This file is part of the Trezor project, https://trezor.io/
+ * This file is part of the detahard project, https://detahard.io/
  *
  * Copyright (C) 2014 Pavol Rusnak <stick@satoshilabs.com>
  *
@@ -43,7 +43,7 @@
 #include "sha2.h"
 #include "storage.h"
 #include "supervise.h"
-#include "trezor.h"
+#include "detahard.h"
 #include "u2f.h"
 #include "usb.h"
 #include "util.h"

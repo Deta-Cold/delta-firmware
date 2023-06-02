@@ -1,7 +1,7 @@
 import utime
 
-import trezorio as io
-import trezorui as ui
+import detahardio as io
+import detahardui as ui
 
 usb_vcp = io.VCP(
     iface_num=0x00,
@@ -16,7 +16,7 @@ usb = io.USB(
     product_id=0x53C1,
     release_num=0x0200,
     manufacturer="SatoshiLabs",
-    product="TREZOR",
+    product="detahard",
     serial_number="000000000000000000000000",
     usb21_landing=False,
 )

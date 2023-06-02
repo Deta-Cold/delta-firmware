@@ -8,10 +8,10 @@ import subprocess
 import click
 
 LINK_RE = re.compile(r"\[#(\d+)\]")
-ISSUE_URL = "https://github.com/trezor/trezor-firmware/pull/{issue}"
+ISSUE_URL = "https://github.com/detahard/detahard-firmware/pull/{issue}"
 
 VERSION_HEADER_RE = re.compile(r"## \[([.0-9]+)\]")
-DIFF_LINK = "[{new}]: https://github.com/trezor/trezor-firmware/compare/{tag_prefix}{old}...{tag_prefix}{new}\n"
+DIFF_LINK = "[{new}]: https://github.com/detahard/detahard-firmware/compare/{tag_prefix}{old}...{tag_prefix}{new}\n"
 
 
 def linkify_changelog(changelog_file, only_check=False):

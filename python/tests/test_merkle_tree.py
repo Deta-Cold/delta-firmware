@@ -1,4 +1,4 @@
-# This file is part of the Trezor project.
+# This file is part of the detahard project.
 #
 # Copyright (C) 2012-2022 SatoshiLabs and contributors
 #
@@ -18,7 +18,7 @@ import pytest
 
 import typing as t
 
-from trezorlib.merkle_tree import (
+from detahardlib.merkle_tree import (
     MerkleTree,
     Leaf,
     Node,

@@ -1,9 +1,9 @@
 from typing import TYPE_CHECKING
 
-from trezor import utils
-from trezor.enums import InputScriptType
-from trezor.utils import BufferReader, empty_bytearray
-from trezor.wire import DataError
+from detahard import utils
+from detahard.enums import InputScriptType
+from detahard.utils import BufferReader, empty_bytearray
+from detahard.wire import DataError
 
 from apps.common.readers import read_compact_size
 from apps.common.writers import write_compact_size
@@ -22,7 +22,7 @@ from .writers import (
 if TYPE_CHECKING:
     from typing import Sequence
 
-    from trezor.messages import MultisigRedeemScriptType, TxInput
+    from detahard.messages import MultisigRedeemScriptType, TxInput
 
     from apps.common.coininfo import CoinInfo
 
@@ -38,8 +38,8 @@ def write_input_script_prefixed(
     pubkey: bytes,
     signature: bytes,
 ) -> None:
-    from trezor.crypto.hashlib import sha256
-    from trezor import wire
+    from detahard.crypto.hashlib import sha256
+    from detahard import wire
 
     IST = InputScriptType  # local_cache_global
 
@@ -78,7 +78,7 @@ def write_input_script_prefixed(
 
 
 def output_derive_script(address: str, coin: CoinInfo) -> bytes:
-    from trezor.crypto import base58, cashaddr
+    from detahard.crypto import base58, cashaddr
     from apps.common import address_type
 
     if coin.bech32_prefix and address.startswith(coin.bech32_prefix):

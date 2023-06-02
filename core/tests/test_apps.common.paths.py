@@ -1,5 +1,5 @@
 from common import *
-from trezor.utils import ensure
+from detahard.utils import ensure
 from apps.common.paths import *
 
 # NOTE: moved into tests not to occupy flash space

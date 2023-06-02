@@ -3,7 +3,7 @@ import json
 
 import click
 
-from trezorlib import firmware, toif
+from detahardlib import firmware, toif
 
 
 def minimum_header_len(spec):

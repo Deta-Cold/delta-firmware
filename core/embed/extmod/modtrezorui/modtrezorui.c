@@ -1,5 +1,5 @@
 /*
- * This file is part of the Trezor project, https://trezor.io/
+ * This file is part of the detahard project, https://detahard.io/
  *
  * Copyright (c) SatoshiLabs
  *
@@ -23,24 +23,24 @@
 
 #include "py/runtime.h"
 
-#if MICROPY_PY_TREZORUI
+#if MICROPY_PY_detahardUI
 
-#include "embed/extmod/trezorobj.h"
-#include "modtrezorui-display.h"
+#include "embed/extmod/detahardobj.h"
+#include "moddetahardui-display.h"
 
-STATIC const mp_rom_map_elem_t mp_module_trezorui_globals_table[] = {
-    {MP_ROM_QSTR(MP_QSTR___name__), MP_ROM_QSTR(MP_QSTR_trezorui)},
-    {MP_ROM_QSTR(MP_QSTR_Display), MP_ROM_PTR(&mod_trezorui_Display_type)},
+STATIC const mp_rom_map_elem_t mp_module_detahardui_globals_table[] = {
+    {MP_ROM_QSTR(MP_QSTR___name__), MP_ROM_QSTR(MP_QSTR_detahardui)},
+    {MP_ROM_QSTR(MP_QSTR_Display), MP_ROM_PTR(&mod_detahardui_Display_type)},
 };
 
-STATIC MP_DEFINE_CONST_DICT(mp_module_trezorui_globals,
-                            mp_module_trezorui_globals_table);
+STATIC MP_DEFINE_CONST_DICT(mp_module_detahardui_globals,
+                            mp_module_detahardui_globals_table);
 
-const mp_obj_module_t mp_module_trezorui = {
+const mp_obj_module_t mp_module_detahardui = {
     .base = {&mp_type_module},
-    .globals = (mp_obj_dict_t*)&mp_module_trezorui_globals,
+    .globals = (mp_obj_dict_t*)&mp_module_detahardui_globals,
 };
 
-MP_REGISTER_MODULE(MP_QSTR_trezorui, mp_module_trezorui);
+MP_REGISTER_MODULE(MP_QSTR_detahardui, mp_module_detahardui);
 
-#endif  // MICROPY_PY_TREZORUI
+#endif  // MICROPY_PY_detahardUI

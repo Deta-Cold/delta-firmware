@@ -1,10 +1,10 @@
 from typing import TYPE_CHECKING, Sequence
 
-from trezor import io, log, loop, ui, wire, workflow
-from trezor.enums import ButtonRequestType
-from trezor.utils import DISABLE_ANIMATION
+from detahard import io, log, loop, ui, wire, workflow
+from detahard.enums import ButtonRequestType
+from detahard.utils import DISABLE_ANIMATION
 
-import trezorui2
+import detahardui2
 
 from ..common import button_request, interact
 
@@ -15,11 +15,11 @@ if TYPE_CHECKING:
 
 
 if __debug__:
-    trezorui2.disable_animation(bool(DISABLE_ANIMATION))
+    detahardui2.disable_animation(bool(DISABLE_ANIMATION))
 
 
 def is_confirmed(x: Any) -> bool:
-    return x is trezorui2.CONFIRMED
+    return x is detahardui2.CONFIRMED
 
 
 class RustLayout(ui.Layout):
@@ -89,7 +89,7 @@ async def confirm_action(
     result = await interact(
         ctx,
         RustLayout(
-            trezorui2.confirm_action(
+            detahardui2.confirm_action(
                 title=title.upper(),
                 action=action,
                 description=description,
@@ -117,7 +117,7 @@ async def confirm_text(
     result = await interact(
         ctx,
         RustLayout(
-            trezorui2.confirm_text(
+            detahardui2.confirm_text(
                 title=title.upper(),
                 data=data,
                 description=description,
@@ -138,7 +138,7 @@ async def show_success(
     result = await interact(
         ctx,
         RustLayout(
-            trezorui2.confirm_text(
+            detahardui2.confirm_text(
                 title="Success",
                 data=content,
                 description="",
@@ -165,7 +165,7 @@ async def show_address(
     result = await interact(
         ctx,
         RustLayout(
-            trezorui2.confirm_text(
+            detahardui2.confirm_text(
                 title="ADDRESS",
                 data=address,
                 description="Confirm address",
@@ -190,7 +190,7 @@ async def confirm_output(
     result = await interact(
         ctx,
         RustLayout(
-            trezorui2.confirm_text(
+            detahardui2.confirm_text(
                 title=title,
                 data=f"Send {amount} to {address}{label}?",
                 description="Confirm Output",
@@ -218,7 +218,7 @@ async def confirm_total(
     result = await interact(
         ctx,
         RustLayout(
-            trezorui2.confirm_text(
+            detahardui2.confirm_text(
                 title=title,
                 data=f"{total_label}{total_amount}\n{fee_label}{fee_amount}",
                 description="Confirm Output",
@@ -244,7 +244,7 @@ async def confirm_blob(
     result = await interact(
         ctx,
         RustLayout(
-            trezorui2.confirm_text(
+            detahardui2.confirm_text(
                 title=title,
                 data=str(data),
                 description=description,

@@ -1,12 +1,12 @@
 from typing import TYPE_CHECKING
 
-from trezor.crypto.hashlib import sha256
+from detahard.crypto.hashlib import sha256
 
 from apps.common import coininfo
 
 if TYPE_CHECKING:
-    from trezor.messages import IdentityType, SignIdentity, SignedIdentity
-    from trezor.wire import Context
+    from detahard.messages import IdentityType, SignIdentity, SignedIdentity
+    from detahard.wire import Context
     from apps.common.paths import Bip32Path
 
 # This module implements the SLIP-0013 authentication using a deterministic hierarchy, see
@@ -14,8 +14,8 @@ if TYPE_CHECKING:
 
 
 async def sign_identity(ctx: Context, msg: SignIdentity) -> SignedIdentity:
-    from trezor.messages import SignedIdentity
-    from trezor.ui.layouts import confirm_sign_identity
+    from detahard.messages import SignedIdentity
+    from detahard.ui.layouts import confirm_sign_identity
     from apps.common.keychain import get_keychain
     from apps.common.paths import AlwaysMatchingSchema
 
@@ -105,7 +105,7 @@ def sign_challenge(
     curve: str,
 ) -> bytes:
     from apps.common.signverify import message_digest
-    from trezor.wire import DataError
+    from detahard.wire import DataError
 
     if sigtype == "gpg":
         data = challenge_hidden
@@ -129,15 +129,15 @@ def sign_challenge(
         raise DataError("Unsupported sigtype")
 
     if curve == "secp256k1":
-        from trezor.crypto.curve import secp256k1
+        from detahard.crypto.curve import secp256k1
 
         signature = secp256k1.sign(seckey, data)
     elif curve == "nist256p1":
-        from trezor.crypto.curve import nist256p1
+        from detahard.crypto.curve import nist256p1
 
         signature = nist256p1.sign(seckey, data)
     elif curve == "ed25519":
-        from trezor.crypto.curve import ed25519
+        from detahard.crypto.curve import ed25519
 
         signature = ed25519.sign(seckey, data)
     else:

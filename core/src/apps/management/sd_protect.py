@@ -2,23 +2,23 @@ from typing import TYPE_CHECKING
 
 import storage.device as storage_device
 import storage.sd_salt as storage_sd_salt
-from trezor import config
-from trezor.enums import SdProtectOperationType
-from trezor.messages import Success
-from trezor.ui.layouts import show_success
-from trezor.wire import ProcessError
+from detahard import config
+from detahard.enums import SdProtectOperationType
+from detahard.messages import Success
+from detahard.ui.layouts import show_success
+from detahard.wire import ProcessError
 
 from apps.common.request_pin import error_pin_invalid, request_pin_and_sd_salt
 from apps.common.sdcard import ensure_sdcard
 
 if TYPE_CHECKING:
     from typing import Awaitable
-    from trezor.messages import SdProtect
-    from trezor.wire import Context
+    from detahard.messages import SdProtect
+    from detahard.wire import Context
 
 
 def _make_salt() -> tuple[bytes, bytes, bytes]:
-    from trezor.crypto import random
+    from detahard.crypto import random
 
     salt = random.bytes(storage_sd_salt.SD_SALT_LEN_BYTES)
     auth_key = random.bytes(storage_device.SD_SALT_AUTH_KEY_LEN_BYTES)
@@ -40,7 +40,7 @@ async def _set_salt(
 
 
 async def sd_protect(ctx: Context, msg: SdProtect) -> Success:
-    from trezor.wire import NotInitialized
+    from detahard.wire import NotInitialized
 
     if not storage_device.is_initialized():
         raise NotInitialized("Device is not initialized")
@@ -168,7 +168,7 @@ async def _sd_protect_refresh(ctx: Context, msg: SdProtect) -> Success:
 
 
 def require_confirm_sd_protect(ctx: Context, msg: SdProtect) -> Awaitable[None]:
-    from trezor.ui.layouts import confirm_action
+    from detahard.ui.layouts import confirm_action
 
     if msg.operation == SdProtectOperationType.ENABLE:
         text = "Do you really want to secure your device with SD card protection?"

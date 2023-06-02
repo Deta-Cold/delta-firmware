@@ -1,6 +1,6 @@
 from typing import TYPE_CHECKING
 
-from trezor import utils
+from detahard import utils
 
 from ..keychain import with_keychain
 
@@ -11,8 +11,8 @@ if not utils.BITCOIN_ONLY:
 if TYPE_CHECKING:
     from typing import Protocol
 
-    from trezor.wire import Context
-    from trezor.messages import (
+    from detahard.wire import Context
+    from detahard.messages import (
         SignTx,
         TxAckInput,
         TxAckOutput,
@@ -60,8 +60,8 @@ async def sign_tx(
     coin: CoinInfo,
     authorization: CoinJoinAuthorization | None = None,
 ) -> TxRequest:
-    from trezor.enums import RequestType
-    from trezor.messages import TxRequest
+    from detahard.enums import RequestType
+    from detahard.messages import TxRequest
 
     from ..common import BITCOIN_NAMES
     from . import approvers, bitcoin, helpers, progress

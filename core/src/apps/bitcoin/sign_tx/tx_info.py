@@ -5,13 +5,13 @@ from .. import common, writers
 
 if TYPE_CHECKING:
     from typing import Protocol
-    from trezor.messages import (
+    from detahard.messages import (
         PrevTx,
         SignTx,
         TxInput,
         TxOutput,
     )
-    from trezor.utils import HashWriter
+    from detahard.utils import HashWriter
     from .sig_hasher import SigHasher
 
     from apps.common.coininfo import CoinInfo
@@ -56,8 +56,8 @@ _MAX_BIP125_RBF_SEQUENCE = const(0xFFFF_FFFD)
 
 class TxInfoBase:
     def __init__(self, signer: Signer, tx: SignTx | PrevTx) -> None:
-        from trezor.crypto.hashlib import sha256
-        from trezor.utils import HashWriter
+        from detahard.crypto.hashlib import sha256
+        from detahard.utils import HashWriter
         from .matchcheck import (
             MultisigFingerprintChecker,
             WalletPathChecker,
@@ -180,7 +180,7 @@ class OriginalTxInfo(TxInfoBase):
         writers.write_tx_output(self.h_tx, txo, script_pubkey)
 
     async def finalize_tx_hash(self) -> None:
-        from trezor import wire
+        from detahard import wire
 
         await self.signer.write_prev_tx_footer(self.h_tx, self.tx, self.orig_hash)
         if self.orig_hash != writers.get_tx_hash(

@@ -1,5 +1,5 @@
 /*
- * This file is part of the Trezor project, https://trezor.io/
+ * This file is part of the detahard project, https://detahard.io/
  *
  * Copyright (c) SatoshiLabs
  *
@@ -84,8 +84,8 @@ int main(void) {
   rdi_start();
 #endif
 
-  // reinitialize HAL for Trezor One
-#if defined TREZOR_MODEL_1
+  // reinitialize HAL for detahard One
+#if defined detahard_MODEL_1
   HAL_Init();
 #endif
 
@@ -97,7 +97,7 @@ int main(void) {
 
   display_reinit();
 
-#if !defined TREZOR_MODEL_1
+#if !defined detahard_MODEL_1
   parse_boardloader_capabilities();
 
 #if PRODUCTION || BOOTLOADER_QA
@@ -119,7 +119,7 @@ int main(void) {
   SCB->SHCSR |= (SCB_SHCSR_USGFAULTENA_Msk | SCB_SHCSR_BUSFAULTENA_Msk);
 #endif
 
-#if defined TREZOR_MODEL_T
+#if defined detahard_MODEL_T
   set_core_clock(CLOCK_180_MHZ);
 #endif
 
@@ -143,7 +143,7 @@ int main(void) {
   sdcard_init();
 #endif
 
-#if !defined TREZOR_MODEL_1
+#if !defined detahard_MODEL_1
   // jump to unprivileged mode
   // http://infocenter.arm.com/help/topic/com.arm.doc.dui0552a/CHDBIBGJ.html
   __asm__ volatile("msr control, %0" ::"r"(0x1));

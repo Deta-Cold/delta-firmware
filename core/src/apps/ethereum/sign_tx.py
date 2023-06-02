@@ -1,16 +1,16 @@
 from typing import TYPE_CHECKING
 
-from trezor.crypto import rlp
-from trezor.messages import EthereumTxRequest
-from trezor.wire import DataError
+from detahard.crypto import rlp
+from detahard.messages import EthereumTxRequest
+from detahard.wire import DataError
 
 from .helpers import bytes_from_address
 from .keychain import with_keychain_from_chain_id
 
 if TYPE_CHECKING:
     from apps.common.keychain import Keychain
-    from trezor.messages import EthereumSignTx, EthereumTxAck, EthereumTokenInfo
-    from trezor.wire import Context
+    from detahard.messages import EthereumSignTx, EthereumTxAck, EthereumTokenInfo
+    from detahard.wire import Context
 
     from .definitions import Definitions
     from .keychain import MsgInSignTx
@@ -29,8 +29,8 @@ async def sign_tx(
     keychain: Keychain,
     defs: Definitions,
 ) -> EthereumTxRequest:
-    from trezor.utils import HashWriter
-    from trezor.crypto.hashlib import sha3_256
+    from detahard.utils import HashWriter
+    from detahard.crypto.hashlib import sha3_256
     from apps.common import paths
     from .layout import (
         require_confirm_data,
@@ -158,7 +158,7 @@ def _get_total_length(msg: EthereumSignTx, data_total: int) -> int:
 
 
 async def send_request_chunk(ctx: Context, data_left: int) -> EthereumTxAck:
-    from trezor.messages import EthereumTxAck
+    from detahard.messages import EthereumTxAck
 
     # TODO: layoutProgress ?
     req = EthereumTxRequest()
@@ -169,7 +169,7 @@ async def send_request_chunk(ctx: Context, data_left: int) -> EthereumTxAck:
 def _sign_digest(
     msg: EthereumSignTx, keychain: Keychain, digest: bytes
 ) -> EthereumTxRequest:
-    from trezor.crypto.curve import secp256k1
+    from detahard.crypto.curve import secp256k1
 
     node = keychain.derive(msg.address_n)
     signature = secp256k1.sign(

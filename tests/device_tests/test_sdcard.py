@@ -1,4 +1,4 @@
-# This file is part of the Trezor project.
+# This file is part of the detahard project.
 #
 # Copyright (C) 2012-2019 SatoshiLabs and contributors
 #
@@ -16,10 +16,10 @@
 
 import pytest
 
-from trezorlib import device, messages
-from trezorlib.debuglink import TrezorClientDebugLink as Client
-from trezorlib.exceptions import TrezorFailure
-from trezorlib.messages import SdProtectOperationType as Op
+from detahardlib import device, messages
+from detahardlib.debuglink import detahardClientDebugLink as Client
+from detahardlib.exceptions import detahardFailure
+from detahardlib.messages import SdProtectOperationType as Op
 
 pytestmark = pytest.mark.skip_t1
 
@@ -39,7 +39,7 @@ def test_sd_no_format(client: Client):
         yield  # format SD card
         client.debug.press_no()
 
-    with pytest.raises(TrezorFailure) as e, client:
+    with pytest.raises(detahardFailure) as e, client:
         client.set_input_flow(input_flow)
         device.sd_protect(client, Op.ENABLE)
 
@@ -114,7 +114,7 @@ def test_sd_protect_unlock(client: Client):
         assert "Wrong SD card" in layout().text_content()
         client.debug.press_no()  # close
 
-    with client, pytest.raises(TrezorFailure) as e:
+    with client, pytest.raises(detahardFailure) as e:
         client.watch_layout()
         client.set_input_flow(input_flow_change_pin_format)
         device.change_pin(client)

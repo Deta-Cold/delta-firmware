@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "trezor-firmware"
+name = "detahard-firmware"
 version = "0.0.0"
 description = ""
 authors = ["SatoshiLabs <info@satoshilabs.com>"]
@@ -7,7 +7,7 @@ authors = ["SatoshiLabs <info@satoshilabs.com>"]
 [tool.poetry.dependencies]
 # all
 python = "^3.7"
-trezor = {path = "./python", develop = true}
+detahard = {path = "./python", develop = true}
 scons = "*"
 protobuf = "*"
 pyblake2 = "*"

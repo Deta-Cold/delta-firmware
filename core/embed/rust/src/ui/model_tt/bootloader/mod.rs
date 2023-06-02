@@ -1,6 +1,6 @@
 use crate::{
     strutil::hexlify,
-    trezorhal::io::io_touch_read,
+    detahardhal::io::io_touch_read,
     ui::{
         component::{Component, Event, EventCtx, Label, Never},
         constant::screen,
@@ -300,7 +300,7 @@ extern "C" fn screen_install_progress(progress: u16, initialize: bool, initial_s
 #[no_mangle]
 extern "C" fn screen_wipe_progress(progress: u16, initialize: bool) {
     screen_progress(
-        "Resetting Trezor",
+        "Resetting detahard",
         progress,
         initialize,
         theme::BLD_FG,
@@ -320,7 +320,7 @@ extern "C" fn screen_wipe_success() {
     let mut frame = ResultScreen::new(
         &RESULT_WIPE,
         Icon::new(CHECK40),
-        "Trezor reset\nsuccessfully",
+        "detahard reset\nsuccessfully",
         RECONNECT_MESSAGE,
         true,
     );
@@ -332,7 +332,7 @@ extern "C" fn screen_wipe_fail() {
     let mut frame = ResultScreen::new(
         &RESULT_WIPE,
         Icon::new(WARNING40),
-        "Trezor reset was\nnot successful",
+        "detahard reset was\nnot successful",
         RECONNECT_MESSAGE,
         true,
     );

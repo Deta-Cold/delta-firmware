@@ -21,7 +21,7 @@
 - [Legacy](legacy/index.md)
     - [Firmware format](legacy/firmware-format.md)
 - [Python](python/index.md)
-  - [trezorlib](python/trezorlib.md)
+  - [detahardlib](python/detahardlib.md)
 - [Common](common/index.md)
   - [Communication](common/communication/index.md)
     - [Sessions](common/communication/sessions.md)

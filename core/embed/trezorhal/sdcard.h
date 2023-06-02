@@ -1,5 +1,5 @@
 /*
- * This file is part of the Trezor project, https://trezor.io/
+ * This file is part of the detahard project, https://detahard.io/
  *
  * Copyright (c) SatoshiLabs
  *
@@ -43,8 +43,8 @@
  * THE SOFTWARE.
  */
 
-#ifndef __TREZORHAL_SDCARD_H__
-#define __TREZORHAL_SDCARD_H__
+#ifndef __detahardHAL_SDCARD_H__
+#define __detahardHAL_SDCARD_H__
 
 #include "secbool.h"
 

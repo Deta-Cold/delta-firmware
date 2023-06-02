@@ -7,8 +7,8 @@ from pathlib import Path
 import click
 import ecdsa
 
-from trezorlib.firmware.legacy import LegacyV2Firmware
-from trezorlib.firmware.models import TREZOR_ONE_V3_DEV
+from detahardlib.firmware.legacy import LegacyV2Firmware
+from detahardlib.firmware.models import detahard_ONE_V3_DEV
 
 SECRET_KEYS = [
     ecdsa.SigningKey.from_string(bytes.fromhex(sk), curve=ecdsa.SECP256k1)
@@ -24,7 +24,7 @@ PUBLIC_KEYS: list[ecdsa.VerifyingKey] = [sk.get_verifying_key() for sk in SECRET
 # Should be these public keys
 assert [
     pk.to_string("compressed") for pk in PUBLIC_KEYS
-] == TREZOR_ONE_V3_DEV.firmware_keys
+] == detahard_ONE_V3_DEV.firmware_keys
 
 
 def signmessage(digest: bytes, key: ecdsa.SigningKey) -> bytes:

@@ -1,7 +1,7 @@
 import pytest
 
-from trezorlib import debuglink, device
-from trezorlib.messages import SafetyCheckLevel
+from detahardlib import debuglink, device
+from detahardlib.messages import SafetyCheckLevel
 
 from ..common import MNEMONIC12
 from ..emulators import Emulator

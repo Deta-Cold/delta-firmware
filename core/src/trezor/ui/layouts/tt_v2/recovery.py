@@ -1,19 +1,19 @@
 from typing import TYPE_CHECKING
 
-from trezor.enums import ButtonRequestType
+from detahard.enums import ButtonRequestType
 
-import trezorui2
+import detahardui2
 
 from ..common import interact
 from . import RustLayout, raise_if_not_confirmed
 
 if TYPE_CHECKING:
     from typing import Iterable, Callable
-    from trezor.wire import GenericContext
+    from detahard.wire import GenericContext
 
 
-CONFIRMED = trezorui2.CONFIRMED  # global_import_cache
-INFO = trezorui2.INFO  # global_import_cache
+CONFIRMED = detahardui2.CONFIRMED  # global_import_cache
+INFO = detahardui2.INFO  # global_import_cache
 
 
 async def _is_confirmed_info(
@@ -24,14 +24,14 @@ async def _is_confirmed_info(
     while True:
         result = await ctx.wait(dialog)
 
-        if result is trezorui2.INFO:
+        if result is detahardui2.INFO:
             await info_func(ctx)
         else:
             return result is CONFIRMED
 
 
 async def request_word_count(ctx: GenericContext, dry_run: bool) -> int:
-    selector = RustLayout(trezorui2.select_word_count(dry_run=dry_run))
+    selector = RustLayout(detahardui2.select_word_count(dry_run=dry_run))
     count = await interact(
         ctx, selector, "word_count", ButtonRequestType.MnemonicWordCount
     )
@@ -43,9 +43,9 @@ async def request_word(
 ) -> str:
     prompt = f"Type word {word_index + 1} of {word_count}"
     if is_slip39:
-        keyboard = RustLayout(trezorui2.request_slip39(prompt=prompt))
+        keyboard = RustLayout(detahardui2.request_slip39(prompt=prompt))
     else:
-        keyboard = RustLayout(trezorui2.request_bip39(prompt=prompt))
+        keyboard = RustLayout(detahardui2.request_bip39(prompt=prompt))
 
     word: str = await ctx.wait(keyboard)
     return word
@@ -57,8 +57,8 @@ async def show_remaining_shares(
     shares_remaining: list[int],
     group_threshold: int,
 ) -> None:
-    from trezor import strings
-    from trezor.crypto.slip39 import MAX_SHARE_COUNT
+    from detahard import strings
+    from detahard.crypto.slip39 import MAX_SHARE_COUNT
 
     pages: list[tuple[str, str]] = []
     for remaining, group in groups:
@@ -81,7 +81,7 @@ async def show_remaining_shares(
     await raise_if_not_confirmed(
         interact(
             ctx,
-            RustLayout(trezorui2.show_remaining_shares(pages=pages)),
+            RustLayout(detahardui2.show_remaining_shares(pages=pages)),
             "show_shares",
             ButtonRequestType.Other,
         )
@@ -95,7 +95,7 @@ async def show_group_share_success(
         interact(
             ctx,
             RustLayout(
-                trezorui2.show_group_share_success(
+                detahardui2.show_group_share_success(
                     lines=[
                         "You have entered",
                         f"Share {share_index + 1}",
@@ -125,11 +125,11 @@ async def continue_recovery(
         title += "\n"
         title += subtext
 
-    description = "It is safe to eject Trezor\nand continue later"
+    description = "It is safe to eject detahard\nand continue later"
 
     if info_func is not None:
         homepage = RustLayout(
-            trezorui2.confirm_recovery(
+            detahardui2.confirm_recovery(
                 title=title,
                 description=description,
                 button=button_label.upper(),
@@ -141,7 +141,7 @@ async def continue_recovery(
         return await _is_confirmed_info(ctx, homepage, info_func)
     else:
         homepage = RustLayout(
-            trezorui2.confirm_recovery(
+            detahardui2.confirm_recovery(
                 title=text,
                 description=description,
                 button=button_label.upper(),
@@ -170,7 +170,7 @@ async def show_recovery_warning(
         interact(
             ctx,
             RustLayout(
-                trezorui2.show_warning(
+                detahardui2.show_warning(
                     title=content,
                     description=subheader or "",
                     button=button.upper(),

@@ -1,8 +1,8 @@
 import io
 import sys
 from pathlib import Path
-from trezorlib._internal import firmware_headers
-from trezorlib.firmware.core import FirmwareHeader, HeaderType
+from detahardlib._internal import firmware_headers
+from detahardlib.firmware.core import FirmwareHeader, HeaderType
 
 INFILE = Path(sys.argv[1])
 DATA = INFILE.read_bytes()

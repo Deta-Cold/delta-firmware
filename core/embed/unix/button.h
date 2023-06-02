@@ -1,1 +1,1 @@
-../trezorhal/button.h
+../detahardhal/button.h

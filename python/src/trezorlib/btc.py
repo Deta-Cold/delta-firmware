@@ -1,4 +1,4 @@
-# This file is part of the Trezor project.
+# This file is part of the detahard project.
 #
 # Copyright (C) 2012-2022 SatoshiLabs and contributors
 #
@@ -26,7 +26,7 @@ from . import exceptions, messages
 from .tools import expect, prepare_message_bytes, session
 
 if TYPE_CHECKING:
-    from .client import TrezorClient
+    from .client import detahardClient
     from .tools import Address
     from .protobuf import MessageType
 
@@ -107,7 +107,7 @@ def from_json(json_dict: "Transaction") -> messages.TransactionType:
 
 @expect(messages.PublicKey)
 def get_public_node(
-    client: "TrezorClient",
+    client: "detahardClient",
     n: "Address",
     ecdsa_curve_name: Optional[str] = None,
     show_display: bool = False,
@@ -122,7 +122,7 @@ def get_public_node(
             messages.UnlockPath(address_n=unlock_path, mac=unlock_path_mac)
         )
         if not isinstance(res, messages.UnlockedPathRequest):
-            raise exceptions.TrezorException("Unexpected message")
+            raise exceptions.detahardException("Unexpected message")
 
     return client.call(
         messages.GetPublicKey(
@@ -143,7 +143,7 @@ def get_address(*args: Any, **kwargs: Any):
 
 @expect(messages.Address)
 def get_authenticated_address(
-    client: "TrezorClient",
+    client: "detahardClient",
     coin_name: str,
     n: "Address",
     show_display: bool = False,
@@ -158,7 +158,7 @@ def get_authenticated_address(
             messages.UnlockPath(address_n=unlock_path, mac=unlock_path_mac)
         )
         if not isinstance(res, messages.UnlockedPathRequest):
-            raise exceptions.TrezorException("Unexpected message")
+            raise exceptions.detahardException("Unexpected message")
 
     return client.call(
         messages.GetAddress(
@@ -174,7 +174,7 @@ def get_authenticated_address(
 
 @expect(messages.OwnershipId, field="ownership_id", ret_type=bytes)
 def get_ownership_id(
-    client: "TrezorClient",
+    client: "detahardClient",
     coin_name: str,
     n: "Address",
     multisig: Optional[messages.MultisigRedeemScriptType] = None,
@@ -191,7 +191,7 @@ def get_ownership_id(
 
 
 def get_ownership_proof(
-    client: "TrezorClient",
+    client: "detahardClient",
     coin_name: str,
     n: "Address",
     multisig: Optional[messages.MultisigRedeemScriptType] = None,
@@ -204,7 +204,7 @@ def get_ownership_proof(
     if preauthorized:
         res = client.call(messages.DoPreauthorized())
         if not isinstance(res, messages.PreauthorizedRequest):
-            raise exceptions.TrezorException("Unexpected message")
+            raise exceptions.detahardException("Unexpected message")
 
     res = client.call(
         messages.GetOwnershipProof(
@@ -219,14 +219,14 @@ def get_ownership_proof(
     )
 
     if not isinstance(res, messages.OwnershipProof):
-        raise exceptions.TrezorException("Unexpected message")
+        raise exceptions.detahardException("Unexpected message")
 
     return res.ownership_proof, res.signature
 
 
 @expect(messages.MessageSignature)
 def sign_message(
-    client: "TrezorClient",
+    client: "detahardClient",
     coin_name: str,
     n: "Address",
     message: AnyStr,
@@ -245,7 +245,7 @@ def sign_message(
 
 
 def verify_message(
-    client: "TrezorClient",
+    client: "detahardClient",
     coin_name: str,
     address: str,
     signature: bytes,
@@ -260,14 +260,14 @@ def verify_message(
                 coin_name=coin_name,
             )
         )
-    except exceptions.TrezorFailure:
+    except exceptions.detahardFailure:
         return False
     return isinstance(resp, messages.Success)
 
 
 @session
 def sign_tx(
-    client: "TrezorClient",
+    client: "detahardClient",
     coin_name: str,
     inputs: Sequence[messages.TxInputType],
     outputs: Sequence[messages.TxOutputType],
@@ -319,11 +319,11 @@ def sign_tx(
             messages.UnlockPath(address_n=unlock_path, mac=unlock_path_mac)
         )
         if not isinstance(res, messages.UnlockedPathRequest):
-            raise exceptions.TrezorException("Unexpected message")
+            raise exceptions.detahardException("Unexpected message")
     elif preauthorized:
         res = client.call(messages.DoPreauthorized())
         if not isinstance(res, messages.PreauthorizedRequest):
-            raise exceptions.TrezorException("Unexpected message")
+            raise exceptions.detahardException("Unexpected message")
 
     res = client.call(signtx)
 
@@ -410,25 +410,25 @@ def sign_tx(
                 o, l = res.details.extra_data_offset, res.details.extra_data_len
                 msg.extra_data = current_tx.extra_data[o : o + l]
             else:
-                raise exceptions.TrezorException(
+                raise exceptions.detahardException(
                     f"Unknown request type - {res.request_type}."
                 )
 
             res = client.call(messages.TxAck(tx=msg))
 
     if not isinstance(res, messages.TxRequest):
-        raise exceptions.TrezorException("Unexpected message")
+        raise exceptions.detahardException("Unexpected message")
 
     for i, sig in zip(inputs, signatures):
         if i.script_type != messages.InputScriptType.EXTERNAL and sig is None:
-            raise exceptions.TrezorException("Some signatures are missing!")
+            raise exceptions.detahardException("Some signatures are missing!")
 
     return signatures, serialized_tx
 
 
 @expect(messages.Success, field="message", ret_type=str)
 def authorize_coinjoin(
-    client: "TrezorClient",
+    client: "detahardClient",
     coordinator: str,
     max_rounds: int,
     max_coordinator_fee_rate: int,

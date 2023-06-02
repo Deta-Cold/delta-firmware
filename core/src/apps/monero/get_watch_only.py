@@ -3,8 +3,8 @@ from typing import TYPE_CHECKING
 from apps.common.keychain import auto_keychain
 
 if TYPE_CHECKING:
-    from trezor.wire import Context
-    from trezor.messages import MoneroGetWatchKey, MoneroWatchKey
+    from detahard.wire import Context
+    from detahard.messages import MoneroGetWatchKey, MoneroWatchKey
 
     from apps.common.keychain import Keychain
 
@@ -16,7 +16,7 @@ async def get_watch_only(
     from apps.common import paths
     from apps.monero import layout, misc
     from apps.monero.xmr import crypto_helpers
-    from trezor.messages import MoneroWatchKey
+    from detahard.messages import MoneroWatchKey
 
     await paths.validate_path(ctx, keychain, msg.address_n)
 

@@ -1,7 +1,7 @@
 from common import *
 
-from trezor.messages import TxInput
-from trezor.enums import InputScriptType
+from detahard.messages import TxInput
+from detahard.enums import InputScriptType
 
 from apps.bitcoin import writers
 

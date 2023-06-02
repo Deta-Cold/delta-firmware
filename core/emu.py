@@ -13,9 +13,9 @@ from typing import Optional, TextIO
 
 import click
 
-import trezorlib.debuglink
-import trezorlib.device
-from trezorlib._internal.emulator import CoreEmulator
+import detahardlib.debuglink
+import detahardlib.device
+from detahardlib._internal.emulator import CoreEmulator
 
 try:
     import inotify.adapters
@@ -24,16 +24,16 @@ except Exception:
 
 
 HERE = Path(__file__).resolve().parent
-MICROPYTHON = HERE / "build" / "unix" / "trezor-emu-core"
+MICROPYTHON = HERE / "build" / "unix" / "detahard-emu-core"
 SRC_DIR = HERE / "src"
 
 PROFILING_WRAPPER = HERE / "prof" / "prof.py"
 
-PROFILE_BASE = Path.home() / ".trezoremu"
+PROFILE_BASE = Path.home() / ".detahardemu"
 
-TREZOR_STORAGE_FILES = (
-    "trezor.flash",
-    "trezor.sdcard",
+detahard_STORAGE_FILES = (
+    "detahard.flash",
+    "detahard.sdcard",
 )
 
 
@@ -98,22 +98,22 @@ def _from_env(name: str) -> bool:
     context_settings=dict(ignore_unknown_options=True, allow_interspersed_args=False)
 )
 # fmt: off
-@click.option("-a", "--disable-animation/--enable-animation", default=_from_env("TREZOR_DISABLE_ANIMATION"), help="Disable animation")
+@click.option("-a", "--disable-animation/--enable-animation", default=_from_env("detahard_DISABLE_ANIMATION"), help="Disable animation")
 @click.option("-c", "--command", "run_command", is_flag=True, help="Run command while emulator is running")
 @click.option("-d", "--production/--no-production", default=_from_env("PYOPT"), help="Production mode (debuglink disabled)")
 @click.option("-D", "--debugger", is_flag=True, help="Run emulator in debugger (gdb/lldb)")
 @click.option("-e", "--erase", is_flag=True, help="Erase profile before running")
 @click.option("--executable", type=click.Path(exists=True, dir_okay=False), default=os.environ.get("MICROPYTHON"), help="Alternate emulator executable")
-@click.option("-g", "--profiling/--no-profiling", default=_from_env("TREZOR_PROFILING"), help="Run with profiler wrapper")
-@click.option("-G", "--alloc-profiling/--no-alloc-profiling", default=_from_env("TREZOR_MEMPERF"), help="Profile memory allocation (requires special micropython build)")
+@click.option("-g", "--profiling/--no-profiling", default=_from_env("detahard_PROFILING"), help="Run with profiler wrapper")
+@click.option("-G", "--alloc-profiling/--no-alloc-profiling", default=_from_env("detahard_MEMPERF"), help="Profile memory allocation (requires special micropython build)")
 @click.option("-h", "--headless", is_flag=True, help="Headless mode (no display, disables animation)")
 @click.option("--heap-size", metavar="SIZE", default="20M", help="Configure heap size")
 @click.option("--main", help="Path to python main file")
 @click.option("--mnemonic", "mnemonics", multiple=True, help="Initialize device with given mnemonic. Specify multiple times for Shamir shares.")
-@click.option("--log-memory/--no-log-memory", default=_from_env("TREZOR_LOG_MEMORY"), help="Print memory usage after workflows")
+@click.option("--log-memory/--no-log-memory", default=_from_env("detahard_LOG_MEMORY"), help="Print memory usage after workflows")
 @click.option("-o", "--output", type=click.File("w"), default="-", help="Redirect emulator output to file")
 @click.option("-p", "--profile", metavar="NAME", help="Profile name or path")
-@click.option("-P", "--port", metavar="PORT", type=int, default=int(os.environ.get("TREZOR_UDP_PORT", 0)) or None, help="UDP port number")
+@click.option("-P", "--port", metavar="PORT", type=int, default=int(os.environ.get("detahard_UDP_PORT", 0)) or None, help="UDP port number")
 @click.option("-q", "--quiet", is_flag=True, help="Silence emulator output")
 @click.option("-r", "--record-dir", help="Directory where to record screen changes")
 @click.option("-s", "--slip0014", is_flag=True, help="Initialize device with SLIP-14 seed (all all all...)")
@@ -149,19 +149,19 @@ def cli(
     extra_args: list[str],
     command: list[str],
 ):
-    """Run the trezor-core emulator.
+    """Run the detahard-core emulator.
 
     If -c is specified, extra arguments are treated as a command that is executed with
     the running emulator. This command can access the following environment variables:
 
     \b
-    TREZOR_PROFILE_DIR - path to storage directory
-    TREZOR_PATH - trezorlib connection string
-    TREZOR_UDP_PORT - UDP port on which the emulator listens
-    TREZOR_FIDO2_UDP_PORT - UDP port for FIDO2
+    detahard_PROFILE_DIR - path to storage directory
+    detahard_PATH - detahardlib connection string
+    detahard_UDP_PORT - UDP port on which the emulator listens
+    detahard_FIDO2_UDP_PORT - UDP port for FIDO2
 
     By default, emulator output goes to stdout. If silenced with -q, it is redirected
-    to $TREZOR_PROFILE_DIR/trezor.log. You can also specify a custom path with -o.
+    to $detahard_PROFILE_DIR/detahard.log. You can also specify a custom path with -o.
     """
     if executable:
         executable = Path(executable)
@@ -210,23 +210,23 @@ def cli(
             profile_dir = PROFILE_BASE / profile
 
     elif temporary_profile:
-        tempdir = tempfile.TemporaryDirectory(prefix="trezor-emulator-")
+        tempdir = tempfile.TemporaryDirectory(prefix="detahard-emulator-")
         profile_dir = Path(tempdir.name)
 
-    elif "TREZOR_PROFILE_DIR" in os.environ:
-        profile_dir = Path(os.environ["TREZOR_PROFILE_DIR"])
+    elif "detahard_PROFILE_DIR" in os.environ:
+        profile_dir = Path(os.environ["detahard_PROFILE_DIR"])
 
     else:
         profile_dir = Path("/var/tmp")
 
     if erase:
-        for entry in TREZOR_STORAGE_FILES:
+        for entry in detahard_STORAGE_FILES:
             (profile_dir / entry).unlink(missing_ok=True)
 
     if quiet:
         output = None
 
-    logger = logging.getLogger("trezorlib._internal.emulator")
+    logger = logging.getLogger("detahardlib._internal.emulator")
     logger.setLevel(logging.INFO)
     logger.addHandler(logging.StreamHandler())
 
@@ -245,21 +245,21 @@ def cli(
     )
 
     emulator_env = dict(
-        TREZOR_PATH=f"udp:127.0.0.1:{emulator.port}",
-        TREZOR_PROFILE_DIR=str(profile_dir.resolve()),
-        TREZOR_UDP_PORT=str(emulator.port),
-        TREZOR_FIDO2_UDP_PORT=str(emulator.port + 2),
-        TREZOR_SRC=str(SRC_DIR),
+        detahard_PATH=f"udp:127.0.0.1:{emulator.port}",
+        detahard_PROFILE_DIR=str(profile_dir.resolve()),
+        detahard_UDP_PORT=str(emulator.port),
+        detahard_FIDO2_UDP_PORT=str(emulator.port + 2),
+        detahard_SRC=str(SRC_DIR),
     )
     os.environ.update(emulator_env)
     for k, v in emulator_env.items():
         click.echo(f"{k}={v}")
 
     if log_memory:
-        os.environ["TREZOR_LOG_MEMORY"] = "1"
+        os.environ["detahard_LOG_MEMORY"] = "1"
 
     if alloc_profiling:
-        os.environ["TREZOR_MEMPERF"] = "1"
+        os.environ["detahard_MEMPERF"] = "1"
 
     if debugger:
         run_debugger(emulator, script_gdb_file)
@@ -276,8 +276,8 @@ def cli(
             label = "Emulator"
 
         assert emulator.client is not None
-        trezorlib.device.wipe(emulator.client)
-        trezorlib.debuglink.load_device(
+        detahardlib.device.wipe(emulator.client)
+        detahardlib.debuglink.load_device(
             emulator.client,
             mnemonics,
             pin=None,
@@ -287,7 +287,7 @@ def cli(
 
     if record_dir:
         assert emulator.client is not None
-        trezorlib.debuglink.record_screen(
+        detahardlib.debuglink.record_screen(
             emulator.client, record_dir, report_func=print
         )
 

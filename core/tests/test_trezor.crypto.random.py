@@ -1,6 +1,6 @@
 from common import *
 
-from trezor.crypto import random
+from detahard.crypto import random
 
 
 class TestCryptoRandom(unittest.TestCase):

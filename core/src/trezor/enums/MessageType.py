@@ -2,7 +2,7 @@
 # fmt: off
 # isort:skip_file
 
-from trezor import utils
+from detahard import utils
 
 Initialize = 0
 Ping = 1

@@ -1,11 +1,11 @@
 from micropython import const
 from typing import TYPE_CHECKING
 
-from trezor import workflow
-from trezor.crypto.hashlib import sha256
-from trezor.enums import InputScriptType
-from trezor.utils import HashWriter, empty_bytearray
-from trezor.wire import DataError, ProcessError
+from detahard import workflow
+from detahard.crypto.hashlib import sha256
+from detahard.enums import InputScriptType
+from detahard.utils import HashWriter, empty_bytearray
+from detahard.wire import DataError, ProcessError
 
 from apps.common.writers import write_compact_size
 
@@ -22,9 +22,9 @@ from .tx_info import OriginalTxInfo
 if TYPE_CHECKING:
     from typing import Sequence
 
-    from trezor.crypto import bip32
+    from detahard.crypto import bip32
 
-    from trezor.messages import (
+    from detahard.messages import (
         PrevInput,
         PrevOutput,
         PrevTx,
@@ -105,7 +105,7 @@ class Bitcoin:
         coin: CoinInfo,
         approver: approvers.Approver | None,
     ) -> None:
-        from trezor.messages import (
+        from detahard.messages import (
             TxRequest,
             TxRequestDetailsType,
             TxRequestSerializedType,
@@ -912,7 +912,7 @@ class Bitcoin:
         self.write_tx_footer(w, tx)
 
     def set_serialized_signature(self, index: int, signature: bytes) -> None:
-        from trezor.utils import ensure
+        from detahard.utils import ensure
 
         serialized = self.tx_req.serialized  # local_cache_attribute
 
@@ -940,7 +940,7 @@ class Bitcoin:
         return scripts.output_derive_script(address, self.coin)
 
     def output_derive_script(self, txo: TxOutput) -> bytes:
-        from trezor.enums import OutputScriptType
+        from detahard.enums import OutputScriptType
 
         if txo.script_type == OutputScriptType.PAYTOOPRETURN:
             assert txo.op_return_data is not None  # checked in _sanitize_tx_output

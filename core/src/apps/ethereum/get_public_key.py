@@ -1,14 +1,14 @@
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from trezor.messages import EthereumGetPublicKey, EthereumPublicKey
-    from trezor.wire import Context
+    from detahard.messages import EthereumGetPublicKey, EthereumPublicKey
+    from detahard.wire import Context
 
 
 async def get_public_key(ctx: Context, msg: EthereumGetPublicKey) -> EthereumPublicKey:
     from ubinascii import hexlify
-    from trezor.messages import EthereumPublicKey, GetPublicKey
-    from trezor.ui.layouts import show_pubkey
+    from detahard.messages import EthereumPublicKey, GetPublicKey
+    from detahard.ui.layouts import show_pubkey
     from apps.bitcoin import get_public_key as bitcoin_get_public_key
 
     # we use the Bitcoin format for Ethereum xpubs

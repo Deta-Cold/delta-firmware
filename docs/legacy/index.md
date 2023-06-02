@@ -1,6 +1,6 @@
-# Trezor One Bootloader and Firmware
+# detahard One Bootloader and Firmware
 
-_Building for Trezor Model T? See the [core](../core/build/index.md) documentation._
+_Building for detahard Model T? See the [core](../core/build/index.md) documentation._
 
 ## Building with Docker
 
@@ -8,8 +8,8 @@ Ensure that you have Docker installed. You can follow [Docker's installation ins
 
 Clone this repository, then use `build-docker.sh` to build all images:
 ```sh
-git clone --recurse-submodules https://github.com/trezor/trezor-firmware.git
-cd trezor-firmware
+git clone --recurse-submodules https://github.com/detahard/detahard-firmware.git
+cd detahard-firmware
 ./build-docker.sh
 ```
 
@@ -34,7 +34,7 @@ the instructions below.
 Note that the unified Docker build was added after version 1.8.3, so it is not available
 for older versions.
 
-For firmwares older than 1.8.1, please clone the archived [trezor-mcu](https://github.com/trezor/trezor-mcu) repository and follow the instructions in its README.
+For firmwares older than 1.8.1, please clone the archived [detahard-mcu](https://github.com/detahard/detahard-mcu) repository and follow the instructions in its README.
 
 ## Local development build
 
@@ -42,7 +42,7 @@ Make sure you have Python 3.6 or later and [Poetry](https://python-poetry.org/)
 installed.
 
 If you want to build device firmware, also make sure that you have the [GNU ARM Embedded toolchain](https://developer.arm.com/open-source/gnu-toolchain/gnu-rm/downloads) installed.
-See [Dockerfile](https://github.com/trezor/trezor-firmware/blob/master/ci/Dockerfile) for up-to-date version of the toolchain.
+See [Dockerfile](https://github.com/detahard/detahard-firmware/blob/master/ci/Dockerfile) for up-to-date version of the toolchain.
 
 The build process is configured via environment variables:
 
@@ -67,8 +67,8 @@ poetry run ./script/setup
 poetry run ./script/cibuild
 ```
 
-A built device firmware will be located in `legacy/firmware/trezor.bin`. A built emulator will be
-located in `legacy/firmware/trezor.elf`.
+A built device firmware will be located in `legacy/firmware/detahard.bin`. A built emulator will be
+located in `legacy/firmware/detahard.elf`.
 
 ### Common errors
 
@@ -81,31 +81,31 @@ located in `legacy/firmware/trezor.elf`.
   find -L vendor -name "*.o" -delete
   ```
 
-You can launch the emulator using `./firmware/trezor.elf`. To use `trezorctl` with the emulator, use
-`trezorctl -p udp` (for example, `trezorctl -p udp get_features`).
+You can launch the emulator using `./firmware/detahard.elf`. To use `detahardctl` with the emulator, use
+`detahardctl -p udp` (for example, `detahardctl -p udp get_features`).
 
-You can use `TREZOR_OLED_SCALE` environment variable to make emulator screen bigger.
+You can use `detahard_OLED_SCALE` environment variable to make emulator screen bigger.
 
 ## How to get fingerprint of firmware signed and distributed by SatoshiLabs?
 
-1. Pick version of firmware binary listed on https://data.trezor.io/firmware/1/releases.json
-2. Download it: `wget -O trezor.signed.bin https://data.trezor.io/firmware/1/trezor-1.9.4.bin`
-3. Use `trezorctl` dry-run mode to get the firmware fingerprint:
+1. Pick version of firmware binary listed on https://data.detahard.io/firmware/1/releases.json
+2. Download it: `wget -O detahard.signed.bin https://data.detahard.io/firmware/1/detahard-1.9.4.bin`
+3. Use `detahardctl` dry-run mode to get the firmware fingerprint:
    ```sh
-   trezorctl firmware-update -n -f trezor.signed.bin
+   detahardctl firmware-update -n -f detahard.signed.bin
    ```
 
 Step 3 should produce the same fingerprint like your local build (for the same version tag).
 
 ## How to install custom built firmware?
 
-**WARNING: This will erase the recovery seed stored on the device! You should never do this on Trezor that contains coins!**
+**WARNING: This will erase the recovery seed stored on the device! You should never do this on detahard that contains coins!**
 
 Build with `PRODUCTION=0` or you will get a hard fault on your device.
 
 Switch your device to bootloader mode, then execute:
 ```sh
-trezorctl firmware-update -f build/legacy/firmware/firmware.bin
+detahardctl firmware-update -f build/legacy/firmware/firmware.bin
 ```
 
 ## Combining bootloader and firmware with various `PRODUCTION` settings, signed/unsigned
@@ -131,7 +131,7 @@ The other three possibilities with signed firmware and `PRODUCTION!=0` for bootl
 ## Parsing existing T1 binary images with ImHex
 
 There is multi-platform hex editor [ImHex](https://github.com/WerWolv/ImHex) ([another link](https://imhex.werwolv.net/))
-that allows for parsing firmware images we distribute such as those from https://github.com/trezor/data/tree/master/firmware
+that allows for parsing firmware images we distribute such as those from https://github.com/detahard/data/tree/master/firmware
 
 See `legacy/imhex/` directory in repo and `README.md` there how to use it to parse headers from existing images.
 

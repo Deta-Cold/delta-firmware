@@ -6,7 +6,7 @@ after the sorting on tx.vin[i].ki. The sorting order was received in the previou
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from trezor.messages import (
+    from detahard.messages import (
         MoneroTransactionInputViniAck,
         MoneroTransactionSourceEntry,
     )
@@ -25,7 +25,7 @@ def input_vini(
     from apps.monero.signing import offloading_keys
     from apps.monero.xmr import crypto
 
-    from trezor.messages import MoneroTransactionInputViniAck
+    from detahard.messages import MoneroTransactionInputViniAck
 
     STEP_VINI = state.STEP_VINI  # local_cache_attribute
 

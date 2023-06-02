@@ -4,7 +4,7 @@ import io
 import typing as t
 from hashlib import sha256
 
-from trezorlib import cosi, definitions, messages, protobuf
+from detahardlib import cosi, definitions, messages, protobuf
 
 PRIVATE_KEYS_DEV = [byte * 32 for byte in (b"\xdd", b"\xde", b"\xdf")]
 

@@ -1,8 +1,8 @@
 from typing import TYPE_CHECKING
 
-from trezor import utils
-from trezor.enums import RequestType
-from trezor.wire import DataError
+from detahard import utils
+from detahard.enums import RequestType
+from detahard.wire import DataError
 
 from .. import common
 from ..writers import TX_HASH_SIZE
@@ -10,10 +10,10 @@ from . import layout
 
 if TYPE_CHECKING:
     from typing import Any, Awaitable
-    from trezor.enums import AmountUnit
-    from trezor.wire import Context
+    from detahard.enums import AmountUnit
+    from detahard.wire import Context
 
-    from trezor.messages import (
+    from detahard.messages import (
         PrevInput,
         PrevOutput,
         PrevTx,
@@ -292,7 +292,7 @@ def confirm_nondefault_locktime(lock_time: int, lock_time_disabled: bool) -> Awa
 
 
 def request_tx_meta(tx_req: TxRequest, coin: CoinInfo, tx_hash: bytes | None = None) -> Awaitable[PrevTx]:  # type: ignore [awaitable-is-generator]
-    from trezor.messages import TxAckPrevMeta
+    from detahard.messages import TxAckPrevMeta
 
     assert tx_req.details is not None
     tx_req.request_type = RequestType.TXMETA
@@ -305,7 +305,7 @@ def request_tx_meta(tx_req: TxRequest, coin: CoinInfo, tx_hash: bytes | None = N
 def request_tx_extra_data(
     tx_req: TxRequest, offset: int, size: int, tx_hash: bytes | None = None
 ) -> Awaitable[bytearray]:  # type: ignore [awaitable-is-generator]
-    from trezor.messages import TxAckPrevExtraData
+    from detahard.messages import TxAckPrevExtraData
 
     details = tx_req.details  # local_cache_attribute
 
@@ -320,7 +320,7 @@ def request_tx_extra_data(
 
 
 def request_tx_input(tx_req: TxRequest, i: int, coin: CoinInfo, tx_hash: bytes | None = None) -> Awaitable[TxInput]:  # type: ignore [awaitable-is-generator]
-    from trezor.messages import TxAckInput
+    from detahard.messages import TxAckInput
 
     assert tx_req.details is not None
     if tx_hash:
@@ -335,7 +335,7 @@ def request_tx_input(tx_req: TxRequest, i: int, coin: CoinInfo, tx_hash: bytes |
 
 
 def request_tx_prev_input(tx_req: TxRequest, i: int, coin: CoinInfo, tx_hash: bytes | None = None) -> Awaitable[PrevInput]:  # type: ignore [awaitable-is-generator]
-    from trezor.messages import TxAckPrevInput
+    from detahard.messages import TxAckPrevInput
 
     assert tx_req.details is not None
     tx_req.request_type = RequestType.TXINPUT
@@ -347,7 +347,7 @@ def request_tx_prev_input(tx_req: TxRequest, i: int, coin: CoinInfo, tx_hash: by
 
 
 def request_tx_output(tx_req: TxRequest, i: int, coin: CoinInfo, tx_hash: bytes | None = None) -> Awaitable[TxOutput]:  # type: ignore [awaitable-is-generator]
-    from trezor.messages import TxAckOutput
+    from detahard.messages import TxAckOutput
 
     assert tx_req.details is not None
     if tx_hash:
@@ -362,7 +362,7 @@ def request_tx_output(tx_req: TxRequest, i: int, coin: CoinInfo, tx_hash: bytes 
 
 
 def request_tx_prev_output(tx_req: TxRequest, i: int, coin: CoinInfo, tx_hash: bytes | None = None) -> Awaitable[PrevOutput]:  # type: ignore [awaitable-is-generator]
-    from trezor.messages import TxAckPrevOutput
+    from detahard.messages import TxAckPrevOutput
 
     assert tx_req.details is not None
     tx_req.request_type = RequestType.TXOUTPUT
@@ -375,7 +375,7 @@ def request_tx_prev_output(tx_req: TxRequest, i: int, coin: CoinInfo, tx_hash: b
 
 
 def request_payment_req(tx_req: TxRequest, i: int) -> Awaitable[TxAckPaymentRequest]:  # type: ignore [awaitable-is-generator]
-    from trezor.messages import TxAckPaymentRequest
+    from detahard.messages import TxAckPaymentRequest
 
     assert tx_req.details is not None
     tx_req.request_type = RequestType.TXPAYMENTREQ
@@ -462,8 +462,8 @@ def _sanitize_tx_meta(tx: PrevTx, coin: CoinInfo) -> PrevTx:
 
 
 def _sanitize_tx_input(txi: TxInput, coin: CoinInfo) -> TxInput:
-    from trezor.enums import InputScriptType
-    from trezor.wire import DataError  # local_cache_global
+    from detahard.enums import InputScriptType
+    from detahard.wire import DataError  # local_cache_global
 
     script_type = txi.script_type  # local_cache_attribute
 
@@ -519,8 +519,8 @@ def _sanitize_tx_prev_input(txi: PrevInput, coin: CoinInfo) -> PrevInput:
 
 
 def _sanitize_tx_output(txo: TxOutput, coin: CoinInfo) -> TxOutput:
-    from trezor.enums import OutputScriptType
-    from trezor.wire import DataError  # local_cache_global
+    from detahard.enums import OutputScriptType
+    from detahard.wire import DataError  # local_cache_global
 
     script_type = txo.script_type  # local_cache_attribute
     address_n = txo.address_n  # local_cache_attribute

@@ -1,5 +1,5 @@
 /*
- * This file is part of the Trezor project, https://trezor.io/
+ * This file is part of the detahard project, https://detahard.io/
  *
  * Copyright (c) SatoshiLabs
  *
@@ -25,12 +25,12 @@
 #define NORCOW_HEADER_LEN 0
 #define NORCOW_SECTOR_COUNT 2
 
-#if defined TREZOR_MODEL_T || defined TREZOR_MODEL_R
+#if defined detahard_MODEL_T || defined detahard_MODEL_R
 #define NORCOW_SECTOR_SIZE (64 * 1024)
-#elif defined TREZOR_MODEL_1
+#elif defined detahard_MODEL_1
 #define NORCOW_SECTOR_SIZE (16 * 1024)
 #else
-#error Unknown Trezor model
+#error Unknown detahard model
 #endif
 
 #define NORCOW_SECTORS \

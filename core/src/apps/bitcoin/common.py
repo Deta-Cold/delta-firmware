@@ -1,17 +1,17 @@
 from micropython import const
 from typing import TYPE_CHECKING
 
-from trezor import wire
-from trezor.crypto import bech32
-from trezor.crypto.curve import bip340
-from trezor.enums import InputScriptType, OutputScriptType
+from detahard import wire
+from detahard.crypto import bech32
+from detahard.crypto.curve import bip340
+from detahard.enums import InputScriptType, OutputScriptType
 
 if TYPE_CHECKING:
     from enum import IntEnum
     from apps.common.coininfo import CoinInfo
-    from trezor.messages import TxInput
-    from trezor.utils import HashWriter
-    from trezor.crypto import bip32
+    from detahard.messages import TxInput
+    from detahard.utils import HashWriter
+    from detahard.crypto import bip32
 else:
     IntEnum = object
 
@@ -101,8 +101,8 @@ NONSEGWIT_INPUT_SCRIPT_TYPES = (
 
 
 def ecdsa_sign(node: bip32.HDNode, digest: bytes) -> bytes:
-    from trezor.crypto import der
-    from trezor.crypto.curve import secp256k1
+    from detahard.crypto import der
+    from detahard.crypto.curve import secp256k1
 
     sig = secp256k1.sign(node.private_key(), digest)
     sigder = der.encode_seq((sig[1:33], sig[33:65]))
@@ -116,7 +116,7 @@ def bip340_sign(node: bip32.HDNode, digest: bytes) -> bytes:
 
 
 def ecdsa_hash_pubkey(pubkey: bytes, coin: CoinInfo) -> bytes:
-    from trezor.utils import ensure
+    from detahard.utils import ensure
 
     if pubkey[0] == 0x04:
         ensure(len(pubkey) == 65)  # uncompressed format
@@ -184,8 +184,8 @@ def input_is_external_unverified(txi: TxInput) -> bool:
 
 
 def tagged_hashwriter(tag: bytes) -> HashWriter:
-    from trezor.crypto.hashlib import sha256
-    from trezor.utils import HashWriter
+    from detahard.crypto.hashlib import sha256
+    from detahard.utils import HashWriter
 
     tag_digest = sha256(tag).digest()
     ctx = sha256(tag_digest)
@@ -196,7 +196,7 @@ def tagged_hashwriter(tag: bytes) -> HashWriter:
 def format_fee_rate(
     fee_rate: float, coin: CoinInfo, include_shortcut: bool = False
 ) -> str:
-    from trezor.strings import format_amount
+    from detahard.strings import format_amount
 
     # Use format_amount to get correct thousands separator -- micropython's built-in
     # formatting doesn't add thousands sep to floating point numbers.

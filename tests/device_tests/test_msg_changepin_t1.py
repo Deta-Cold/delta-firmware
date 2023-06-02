@@ -1,4 +1,4 @@
-# This file is part of the Trezor project.
+# This file is part of the detahard project.
 #
 # Copyright (C) 2012-2019 SatoshiLabs and contributors
 #
@@ -16,10 +16,10 @@
 
 import pytest
 
-from trezorlib import device, messages
-from trezorlib.client import MAX_PIN_LENGTH
-from trezorlib.debuglink import TrezorClientDebugLink as Client
-from trezorlib.exceptions import TrezorFailure
+from detahardlib import device, messages
+from detahardlib.client import MAX_PIN_LENGTH
+from detahardlib.debuglink import detahardClientDebugLink as Client
+from detahardlib.exceptions import detahardFailure
 
 from ..common import get_test_address
 
@@ -129,7 +129,7 @@ def test_set_mismatch(client: Client):
     _check_no_pin(client)
 
     # Let's set new PIN
-    with pytest.raises(TrezorFailure, match="PIN mismatch"), client:
+    with pytest.raises(detahardFailure, match="PIN mismatch"), client:
         # use different PINs for first and second attempt. This will fail.
         client.use_pin_sequence([PIN4, PIN_MAX])
         client.set_expected_responses(
@@ -153,7 +153,7 @@ def test_change_mismatch(client: Client):
     assert client.features.pin_protection is True
 
     # Let's set new PIN
-    with pytest.raises(TrezorFailure, match="PIN mismatch"), client:
+    with pytest.raises(detahardFailure, match="PIN mismatch"), client:
         client.use_pin_sequence([PIN4, PIN6, PIN6 + "3"])
         client.set_expected_responses(
             [

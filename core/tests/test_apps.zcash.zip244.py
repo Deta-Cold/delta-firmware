@@ -1,7 +1,7 @@
 from common import *
-from trezor.messages import TxInput, SignTx, PrevOutput
-from trezor.enums import InputScriptType
-from trezor.utils import HashWriter
+from detahard.messages import TxInput, SignTx, PrevOutput
+from detahard.enums import InputScriptType
+from detahard.utils import HashWriter
 from apps.zcash.hasher import ZcashHasher, blake2b, write_hash
 from apps.common.coininfo import by_name
 

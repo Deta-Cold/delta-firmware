@@ -1,4 +1,4 @@
-# This file is part of the Trezor project.
+# This file is part of the detahard project.
 #
 # Copyright (C) 2012-2022 SatoshiLabs and contributors
 #
@@ -21,7 +21,7 @@ from .protobuf import dict_to_proto
 from .tools import dict_from_camelcase, expect
 
 if TYPE_CHECKING:
-    from .client import TrezorClient
+    from .client import detahardClient
     from .tools import Address
     from .protobuf import MessageType
 
@@ -31,7 +31,7 @@ REQUIRED_PAYMENT_FIELDS = ("Amount", "Destination")
 
 @expect(messages.RippleAddress, field="address", ret_type=str)
 def get_address(
-    client: "TrezorClient", address_n: "Address", show_display: bool = False
+    client: "detahardClient", address_n: "Address", show_display: bool = False
 ) -> "MessageType":
     return client.call(
         messages.RippleGetAddress(address_n=address_n, show_display=show_display)
@@ -40,7 +40,7 @@ def get_address(
 
 @expect(messages.RippleSignedTx)
 def sign_tx(
-    client: "TrezorClient", address_n: "Address", msg: messages.RippleSignTx
+    client: "detahardClient", address_n: "Address", msg: messages.RippleSignTx
 ) -> "MessageType":
     msg.address_n = address_n
     return client.call(msg)

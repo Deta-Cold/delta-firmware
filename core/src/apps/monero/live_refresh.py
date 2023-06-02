@@ -4,15 +4,15 @@ from apps.common.keychain import auto_keychain
 from apps.monero import layout, misc
 
 if TYPE_CHECKING:
-    from trezor.messages import (
+    from detahard.messages import (
         MoneroLiveRefreshStepAck,
         MoneroLiveRefreshStepRequest,
         MoneroLiveRefreshStartRequest,
         MoneroLiveRefreshFinalAck,
         MoneroLiveRefreshStartAck,
     )
-    from trezor.ui.layouts.common import ProgressLayout
-    from trezor.wire import Context
+    from detahard.ui.layouts.common import ProgressLayout
+    from detahard.wire import Context
     from apps.common.keychain import Keychain
 
     from .xmr.credentials import AccountCreds
@@ -23,8 +23,8 @@ async def live_refresh(
     ctx: Context, msg: MoneroLiveRefreshStartRequest, keychain: Keychain
 ) -> MoneroLiveRefreshFinalAck:
     import gc
-    from trezor.enums import MessageType
-    from trezor.messages import MoneroLiveRefreshFinalAck, MoneroLiveRefreshStepRequest
+    from detahard.enums import MessageType
+    from detahard.messages import MoneroLiveRefreshFinalAck, MoneroLiveRefreshStepRequest
 
     state = LiveRefreshState()
 
@@ -58,7 +58,7 @@ async def _init_step(
 ) -> MoneroLiveRefreshStartAck:
     import storage.cache as storage_cache
     from apps.common import paths
-    from trezor.messages import MoneroLiveRefreshStartAck
+    from detahard.messages import MoneroLiveRefreshStartAck
 
     await paths.validate_path(ctx, keychain, msg.address_n)
 
@@ -77,8 +77,8 @@ def _refresh_step(
     msg: MoneroLiveRefreshStepRequest,
     progress: ProgressLayout,
 ) -> MoneroLiveRefreshStepAck:
-    from trezor.messages import MoneroLiveRefreshStepAck
-    from trezor import log
+    from detahard.messages import MoneroLiveRefreshStepAck
+    from detahard import log
     from apps.monero.xmr import chacha_poly, crypto, crypto_helpers, key_image, monero
 
     assert s.creds is not None

@@ -2,10 +2,10 @@ from common import *
 from ubinascii import unhexlify
 import ustruct
 
-from trezor import io
-from trezor.loop import wait
-from trezor.utils import chunks
-from trezor.wire import codec_v1
+from detahard import io
+from detahard.loop import wait
+from detahard.utils import chunks
+from detahard.wire import codec_v1
 
 
 class MockHID:

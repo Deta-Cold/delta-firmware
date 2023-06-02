@@ -1,4 +1,4 @@
-# This file is part of the Trezor project.
+# This file is part of the detahard project.
 #
 # Copyright (C) 2012-2019 SatoshiLabs and contributors
 #
@@ -18,11 +18,11 @@ import random
 
 import pytest
 
-from trezorlib import device, exceptions, messages
-from trezorlib.debuglink import TrezorClientDebugLink as Client
-from trezorlib.exceptions import TrezorFailure
-from trezorlib.messages import FailureType, SafetyCheckLevel
-from trezorlib.tools import parse_path
+from detahardlib import device, exceptions, messages
+from detahardlib.debuglink import detahardClientDebugLink as Client
+from detahardlib.exceptions import detahardFailure
+from detahardlib.messages import FailureType, SafetyCheckLevel
+from detahardlib.tools import parse_path
 
 XPUB_PASSPHRASES = {
     "A": "xpub6CekxGcnqnJ6osfY4Rrq7W5ogFtR54KUvz4H16XzaQuukMFZCGebEpVznfq4yFcKEmYyShwj2UKjL7CazuNSuhdkofF4mHabHkLxCMVvsqG",
@@ -81,18 +81,18 @@ def test_session_with_passphrase(client: Client):
     session_id = _init_session(client)
 
     # GetPublicKey requires passphrase and since it is not cached,
-    # Trezor will prompt for it.
+    # detahard will prompt for it.
     assert _get_xpub(client, passphrase="A") == XPUB_PASSPHRASES["A"]
 
     # Call Initialize again, this time with the received session id and then call
-    # GetPublicKey. The passphrase should be cached now so Trezor must
+    # GetPublicKey. The passphrase should be cached now so detahard must
     # not ask for it again, whilst returning the same xpub.
     new_session_id = _init_session(client, session_id=session_id)
     assert new_session_id == session_id
     assert _get_xpub(client, passphrase=None) == XPUB_PASSPHRASES["A"]
 
     # If we set session id in Initialize to None, the cache will be cleared
-    # and Trezor will ask for the passphrase again.
+    # and detahard will ask for the passphrase again.
     new_session_id = _init_session(client)
     assert new_session_id != session_id
     assert _get_xpub(client, passphrase="A") == XPUB_PASSPHRASES["A"]
@@ -220,7 +220,7 @@ def test_session_enable_passphrase(client: Client):
     # Let's start the communication by calling Initialize.
     session_id = _init_session(client)
 
-    # Trezor will not prompt for passphrase because it is turned off.
+    # detahard will not prompt for passphrase because it is turned off.
     assert _get_xpub(client, passphrase=None) == XPUB_PASSPHRASE_NONE
 
     # Turn on passphrase.
@@ -284,11 +284,11 @@ def test_passphrase_always_on_device(client: Client):
     # Let's start the communication by calling Initialize.
     session_id = _init_session(client)
 
-    # Force passphrase entry on Trezor.
+    # Force passphrase entry on detahard.
     response = client.call(messages.ApplySettings(passphrase_always_on_device=True))
     assert isinstance(response, messages.Success)
 
-    # Since we enabled the always_on_device setting, Trezor will send ButtonRequests and ask for it on the device.
+    # Since we enabled the always_on_device setting, detahard will send ButtonRequests and ask for it on the device.
     response = client.call_raw(XPUB_REQUEST)
     assert isinstance(response, messages.ButtonRequest)
     client.debug.input("")  # Input empty passphrase.
@@ -362,7 +362,7 @@ def test_passphrase_length(client: Client):
             response = client.call(messages.PassphraseAck(passphrase=passphrase))
             assert expected_result is True, "Call should have failed"
             assert isinstance(response, messages.PublicKey)
-        except exceptions.TrezorFailure as e:
+        except exceptions.detahardFailure as e:
             assert expected_result is False, "Call should have succeeded"
             assert e.code == FailureType.DataError
 
@@ -380,7 +380,7 @@ def test_passphrase_length(client: Client):
 @pytest.mark.setup_client(passphrase=True)
 def test_hide_passphrase_from_host(client: Client):
     # Without safety checks, turning it on fails
-    with pytest.raises(TrezorFailure, match="Safety checks are strict"), client:
+    with pytest.raises(detahardFailure, match="Safety checks are strict"), client:
         device.apply_settings(client, hide_passphrase_from_host=True)
 
     device.apply_settings(client, safety_checks=SafetyCheckLevel.PromptTemporarily)
@@ -478,7 +478,7 @@ def test_cardano_passphrase(client: Client):
     session_id = _init_session(client, derive_cardano=True)
 
     # GetPublicKey requires passphrase and since it is not cached,
-    # Trezor will prompt for it.
+    # detahard will prompt for it.
     assert _get_xpub(client, passphrase="B") == XPUB_PASSPHRASES["B"]
 
     # The passphrase is now cached for non-Cardano coins.

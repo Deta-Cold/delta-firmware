@@ -664,11 +664,11 @@ extern "C" fn new_confirm_reset_device(n_args: usize, args: *const Obj, kwargs: 
             Paragraph::new(
                 &theme::TEXT_NORMAL,
                 StrBuffer::from(
-                    "By continuing you agree\nto Trezor Company's\nterms and conditions.\r",
+                    "By continuing you agree\nto detahard Company's\nterms and conditions.\r",
                 ),
             ),
             Paragraph::new(&theme::TEXT_NORMAL, StrBuffer::from("More info at")),
-            Paragraph::new(&theme::TEXT_DEMIBOLD, StrBuffer::from("trezor.io/tos")),
+            Paragraph::new(&theme::TEXT_DEMIBOLD, StrBuffer::from("detahard.io/tos")),
         ]);
         let buttons = Button::cancel_confirm(
             Button::with_icon(Icon::new(theme::ICON_CANCEL)),
@@ -1019,8 +1019,8 @@ extern "C" fn new_show_info(n_args: usize, args: *const Obj, kwargs: *mut Map) -
 extern "C" fn new_show_mismatch() -> Obj {
     let block = move || {
         let title: StrBuffer = "Address mismatch?".into();
-        let description: StrBuffer = "Please contact Trezor support at".into();
-        let url: StrBuffer = "trezor.io/support".into();
+        let description: StrBuffer = "Please contact detahard support at".into();
+        let url: StrBuffer = "detahard.io/support".into();
         let button = "QUIT";
 
         let icon = BlendedImage::new(
@@ -1550,8 +1550,8 @@ extern "C" fn draw_welcome_screen() -> Obj {
 }
 
 #[no_mangle]
-pub static mp_module_trezorui2: Module = obj_module! {
-    Qstr::MP_QSTR___name__ => Qstr::MP_QSTR_trezorui2.to_obj(),
+pub static mp_module_detahardui2: Module = obj_module! {
+    Qstr::MP_QSTR___name__ => Qstr::MP_QSTR_detahardui2.to_obj(),
 
     /// CONFIRMED: object
     Qstr::MP_QSTR_CONFIRMED => CONFIRMED.as_obj(),

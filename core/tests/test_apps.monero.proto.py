@@ -1,7 +1,7 @@
 from common import *
 
 if not utils.BITCOIN_ONLY:
-    from trezor.crypto import chacha20poly1305
+    from detahard.crypto import chacha20poly1305
     from apps.monero.signing import offloading_keys
     from apps.monero.signing import step_09_sign_input
     from apps.monero.signing.state import State

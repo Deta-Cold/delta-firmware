@@ -1,7 +1,7 @@
 from pathlib import Path
 
 import subprocess
-from boards import trezor_1, trezor_r_v3, trezor_r_v4, trezor_t, trezor_r_v6
+from boards import detahard_1, detahard_r_v3, detahard_r_v4, detahard_t, detahard_r_v6
 
 HERE = Path(__file__).parent.resolve()
 
@@ -12,8 +12,8 @@ PROJECT_ROOT = HERE.parent.resolve()
 def add_font(font_name, font, defines, sources):
     if font is not None:
         defines += [
-            'TREZOR_FONT_' + font_name + '_ENABLE=' + font,
-            'TREZOR_FONT_' + font_name + '_INCLUDE=\\"' + font.lower() + '.h\\"',
+            'detahard_FONT_' + font_name + '_ENABLE=' + font,
+            'detahard_FONT_' + font_name + '_INCLUDE=\\"' + font.lower() + '.h\\"',
         ]
         sourcefile = 'embed/lib/fonts/' + font.lower() + '.c'
         if sourcefile not in sources:
@@ -24,16 +24,16 @@ def configure_board(model, features_wanted, env, defines, sources):
     model_r_version = 6
 
     if model in ('1',):
-        return trezor_1.configure(env, features_wanted, defines, sources)
+        return detahard_1.configure(env, features_wanted, defines, sources)
     elif model in ('T',):
-        return trezor_t.configure(env, features_wanted, defines, sources)
+        return detahard_t.configure(env, features_wanted, defines, sources)
     elif model in ('R',):
         if model_r_version == 3:
-            return trezor_r_v3.configure(env, features_wanted, defines, sources)
+            return detahard_r_v3.configure(env, features_wanted, defines, sources)
         elif model_r_version == 4:
-            return trezor_r_v4.configure(env, features_wanted, defines, sources)
+            return detahard_r_v4.configure(env, features_wanted, defines, sources)
         else:
-            return trezor_r_v6.configure(env, features_wanted, defines, sources)
+            return detahard_r_v6.configure(env, features_wanted, defines, sources)
     else:
         raise Exception("Unknown model")
 

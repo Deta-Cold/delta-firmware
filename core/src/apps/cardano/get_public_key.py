@@ -4,16 +4,16 @@ from ubinascii import hexlify
 from . import seed
 
 if TYPE_CHECKING:
-    from trezor.wire import Context
-    from trezor.messages import CardanoGetPublicKey, CardanoPublicKey
+    from detahard.wire import Context
+    from detahard.messages import CardanoGetPublicKey, CardanoPublicKey
 
 
 @seed.with_keychain
 async def get_public_key(
     ctx: Context, msg: CardanoGetPublicKey, keychain: seed.Keychain
 ) -> CardanoPublicKey:
-    from trezor import log, wire
-    from trezor.ui.layouts import show_pubkey
+    from detahard import log, wire
+    from detahard.ui.layouts import show_pubkey
     from apps.common import paths
     from .helpers.paths import SCHEMA_MINT, SCHEMA_PUBKEY
 
@@ -43,7 +43,7 @@ def _get_public_key(
     keychain: seed.Keychain, derivation_path: list[int]
 ) -> CardanoPublicKey:
     from .helpers.utils import derive_public_key
-    from trezor.messages import HDNodeType, CardanoPublicKey
+    from detahard.messages import HDNodeType, CardanoPublicKey
 
     node = keychain.derive(derivation_path)
 

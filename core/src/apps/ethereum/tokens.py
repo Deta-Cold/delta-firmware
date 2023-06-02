@@ -16,7 +16,7 @@
 
 from typing import Iterator
 
-from trezor.messages import EthereumTokenInfo
+from detahard.messages import EthereumTokenInfo
 
 UNKNOWN_TOKEN = EthereumTokenInfo(
     symbol="Wei UNKN",

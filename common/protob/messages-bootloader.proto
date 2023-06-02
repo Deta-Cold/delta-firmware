@@ -1,9 +1,9 @@
 syntax = "proto2";
-package hw.trezor.messages.bootloader;
+package hw.detahardrd.messages.bootloader;
 
 // Sugar for easier handling in Java
-option java_package = "com.satoshilabs.trezor.lib.protobuf";
-option java_outer_classname = "TrezorMessageBootloader";
+option java_package = "com.satoshilabs.detahardrd.lib.protobuf";
+option java_outer_classname = "detahardrdMessageBootloader";
 
 import "messages.proto";
 

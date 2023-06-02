@@ -1,19 +1,19 @@
 from typing import TYPE_CHECKING, Sequence
 
-from trezor.enums import ButtonRequestType
-from trezor.strings import format_amount
-from trezor.ui.layouts import confirm_properties
+from detahard.enums import ButtonRequestType
+from detahard.strings import format_amount
+from detahard.ui.layouts import confirm_properties
 
 from .helpers import DECIMALS
 
 if TYPE_CHECKING:
-    from trezor.messages import (
+    from detahard.messages import (
         BinanceCancelMsg,
         BinanceInputOutput,
         BinanceOrderMsg,
         BinanceTransferMsg,
     )
-    from trezor.wire import Context
+    from detahard.wire import Context
 
 
 async def require_confirm_transfer(ctx: Context, msg: BinanceTransferMsg) -> None:
@@ -41,7 +41,7 @@ async def require_confirm_transfer(ctx: Context, msg: BinanceTransferMsg) -> Non
 async def _confirm_transfer(
     ctx: Context, inputs_outputs: Sequence[tuple[str, str, str]]
 ) -> None:
-    from trezor.ui.layouts import confirm_output
+    from detahard.ui.layouts import confirm_output
 
     for index, (title, amount, address) in enumerate(inputs_outputs):
         # Having hold=True on the last item
@@ -71,7 +71,7 @@ async def require_confirm_cancel(ctx: Context, msg: BinanceCancelMsg) -> None:
 
 
 async def require_confirm_order(ctx: Context, msg: BinanceOrderMsg) -> None:
-    from trezor.enums import BinanceOrderSide
+    from detahard.enums import BinanceOrderSide
 
     if msg.side == BinanceOrderSide.BUY:
         side = "Buy"

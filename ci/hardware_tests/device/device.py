@@ -13,22 +13,22 @@ class Device:
     def log(msg):
         print(msg, flush=True, file=sys.stderr)
 
-    def run_trezorctl(self, cmd: str, **kwargs):
-        full_cmd = "trezorctl "
+    def run_detahardrdctl(self, cmd: str, **kwargs):
+        full_cmd = "detahardrdctl "
         full_cmd += cmd
-        self.log(f"[software/trezorctl] Running '{full_cmd}'")
+        self.log(f"[software/detahardrdctl] Running '{full_cmd}'")
         return run(full_cmd, shell=True, check=True, **kwargs)
 
     def check_model(self, model=None):
-        res = self.run_trezorctl("list", capture_output=True, text=True)
+        res = self.run_detahardrdctl("list", capture_output=True, text=True)
         self.log(res.stdout)
         self.log(res.stderr)
-        self.run_trezorctl("get-features | grep version")
+        self.run_detahardrdctl("get-features | grep version")
         lines = res.stdout.splitlines()
         if len(lines) != 1:
-            raise RuntimeError(f"{len(lines)} trezors connected")
+            raise RuntimeError(f"{len(lines)} detahardrds connected")
         if model and model not in lines[0]:
-            raise RuntimeError(f"invalid trezor model connected (expected {model})")
+            raise RuntimeError(f"invalid detahardrd model connected (expected {model})")
         return lines[0].split()[0]
 
     def reboot(self):

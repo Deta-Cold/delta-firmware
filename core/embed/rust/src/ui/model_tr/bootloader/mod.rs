@@ -1,5 +1,5 @@
 use crate::{
-    trezorhal::io::io_button_read,
+    detahardhal::io::io_button_read,
     ui::{
         component::{Component, Never},
         display::{self, Font},
@@ -401,8 +401,8 @@ extern "C" fn screen_install_success(
 extern "C" fn screen_welcome() {
     let mut messages = ParagraphVecShort::new();
     messages.add(Paragraph::new(&theme::TEXT_BOLD, "Get started with").centered());
-    messages.add(Paragraph::new(&theme::TEXT_BOLD, "your trezor at").centered());
-    messages.add(Paragraph::new(&theme::TEXT_BOLD, "trezor.io/start").centered());
+    messages.add(Paragraph::new(&theme::TEXT_BOLD, "your detahard at").centered());
+    messages.add(Paragraph::new(&theme::TEXT_BOLD, "detahard.io/start").centered());
     let mut frame =
         Paragraphs::new(messages).with_placement(LinearPlacement::vertical().align_at_center());
     show(&mut frame);

@@ -1,5 +1,5 @@
 /*
- * This file is part of the Trezor project, https://trezor.io/
+ * This file is part of the detahard project, https://detahard.io/
  *
  * Copyright (c) SatoshiLabs
  *
@@ -50,7 +50,7 @@
 
 void ui_screen_welcome_third(void) {
   display_bar(0, 0, DISPLAY_RESX, DISPLAY_RESY, COLOR_WELCOME_BG);
-  display_text_center(120, 220, "Go to trezor.io/start", -1, FONT_NORMAL,
+  display_text_center(120, 220, "Go to detahard.io/start", -1, FONT_NORMAL,
                       COLOR_WELCOME_FG, COLOR_WELCOME_BG);
 }
 

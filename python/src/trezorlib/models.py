@@ -1,4 +1,4 @@
-# This file is part of the Trezor project.
+# This file is part of the detahard project.
 #
 # Copyright (C) 2012-2022 SatoshiLabs and contributors
 #
@@ -21,11 +21,11 @@ from . import mapping
 
 UsbId = Tuple[int, int]
 
-VENDORS = ("bitcointrezor.com", "trezor.io")
+VENDORS = ("bitcoindetahard.com", "detahard.io")
 
 
 @dataclass(eq=True, frozen=True)
-class TrezorModel:
+class detahardModel:
     name: str
     minimum_version: Tuple[int, int, int]
     vendors: Collection[str]
@@ -33,7 +33,7 @@ class TrezorModel:
     default_mapping: mapping.ProtobufMapping
 
 
-TREZOR_ONE = TrezorModel(
+detahard_ONE = detahardModel(
     name="1",
     minimum_version=(1, 8, 0),
     vendors=VENDORS,
@@ -41,7 +41,7 @@ TREZOR_ONE = TrezorModel(
     default_mapping=mapping.DEFAULT_MAPPING,
 )
 
-TREZOR_T = TrezorModel(
+detahard_T = detahardModel(
     name="T",
     minimum_version=(2, 1, 0),
     vendors=VENDORS,
@@ -49,7 +49,7 @@ TREZOR_T = TrezorModel(
     default_mapping=mapping.DEFAULT_MAPPING,
 )
 
-TREZOR_R = TrezorModel(
+detahard_R = detahardModel(
     name="R",
     minimum_version=(2, 1, 0),
     vendors=VENDORS,
@@ -57,13 +57,13 @@ TREZOR_R = TrezorModel(
     default_mapping=mapping.DEFAULT_MAPPING,
 )
 
-TREZORS = {TREZOR_ONE, TREZOR_T, TREZOR_R}
+detahardS = {detahard_ONE, detahard_T, detahard_R}
 
 
-def by_name(name: Optional[str]) -> Optional[TrezorModel]:
+def by_name(name: Optional[str]) -> Optional[detahardModel]:
     if name is None:
-        return TREZOR_ONE
-    for model in TREZORS:
+        return detahard_ONE
+    for model in detahardS:
         if model.name == name:
             return model
     return None

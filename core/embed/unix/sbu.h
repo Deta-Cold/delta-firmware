@@ -1,1 +1,1 @@
-../trezorhal/sbu.h
+../detahardhal/sbu.h

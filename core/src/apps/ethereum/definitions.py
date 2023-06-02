@@ -1,7 +1,7 @@
 from typing import TYPE_CHECKING
 
-from trezor.messages import EthereumNetworkInfo, EthereumTokenInfo
-from trezor.wire import DataError
+from detahard.messages import EthereumNetworkInfo, EthereumTokenInfo
+from detahard.wire import DataError
 
 if TYPE_CHECKING:
     from typing import TypeVar
@@ -11,11 +11,11 @@ if TYPE_CHECKING:
 
 
 def decode_definition(definition: bytes, expected_type: type[DefType]) -> DefType:
-    from trezor.crypto.cosi import verify as cosi_verify
-    from trezor.crypto.hashlib import sha256
-    from trezor.enums import EthereumDefinitionType
-    from trezor.protobuf import decode as protobuf_decode
-    from trezor.utils import BufferReader
+    from detahard.crypto.cosi import verify as cosi_verify
+    from detahard.crypto.hashlib import sha256
+    from detahard.enums import EthereumDefinitionType
+    from detahard.protobuf import decode as protobuf_decode
+    from detahard.utils import BufferReader
 
     from apps.common import readers
     from . import definitions_constants as consts

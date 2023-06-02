@@ -1,4 +1,4 @@
-# This file is part of the Trezor project.
+# This file is part of the detahard project.
 #
 # Copyright (C) 2012-2019 SatoshiLabs and contributors
 #
@@ -16,9 +16,9 @@
 
 import pytest
 
-from trezorlib import debuglink, device
-from trezorlib.debuglink import TrezorClientDebugLink as Client
-from trezorlib.messages import BackupType
+from detahardlib import debuglink, device
+from detahardlib.debuglink import detahardClientDebugLink as Client
+from detahardlib.messages import BackupType
 
 from ..common import (
     MNEMONIC12,

@@ -1,6 +1,6 @@
 from common import *
 
-from trezor.crypto import bip39
+from detahard.crypto import bip39
 
 
 class TestCryptoBip39(unittest.TestCase):
@@ -34,7 +34,7 @@ class TestCryptoBip39(unittest.TestCase):
         ]
         for d, m, s in v:
             self.assertEqual(bip39.from_data(unhexlify(d)), m)
-            self.assertEqual(bip39.seed(m, 'TREZOR'), unhexlify(s))
+            self.assertEqual(bip39.seed(m, 'detahard'), unhexlify(s))
 
     def test_check_ok(self):
         v = [

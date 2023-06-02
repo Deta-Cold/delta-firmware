@@ -163,7 +163,7 @@ impl TryFrom<Obj> for i64 {
         //  - `ll` is a mutable variable of the right type.
         //  - `obj` can be anything uPy understands.
         // EXCEPTION: Does not raise.
-        if unsafe { ffi::trezor_obj_get_ll_checked(obj, &mut ll) } {
+        if unsafe { ffi::detahard_obj_get_ll_checked(obj, &mut ll) } {
             Ok(ll)
         } else {
             Err(Error::TypeError)
@@ -277,7 +277,7 @@ impl TryFrom<&'static CStr> for Obj {
         // SAFETY:
         //  - `CStr` is guaranteed to be null-terminated UTF-8.
         //  - the argument is static so it will remain valid for the lifetime of result.
-        let obj = unsafe { ffi::trezor_obj_str_from_rom_text(val.as_ptr()) };
+        let obj = unsafe { ffi::detahard_obj_str_from_rom_text(val.as_ptr()) };
         if obj.is_null() {
             Err(Error::AllocationFailed)
         } else {

@@ -4,9 +4,9 @@ from typing import TYPE_CHECKING
 from ubinascii import hexlify
 
 import storage.device as storage_device
-from trezor import utils
-from trezor.crypto import chacha20poly1305, der, hashlib, hmac, random
-from trezor.crypto.curve import ed25519, nist256p1
+from detahard import utils
+from detahard.crypto import chacha20poly1305, der, hashlib, hmac, random
+from detahard.crypto.curve import ed25519, nist256p1
 
 from apps.common import cbor, seed
 from apps.common.paths import HARDENED
@@ -15,7 +15,7 @@ from .common import COSE_ALG_EDDSA, COSE_ALG_ES256, COSE_CURVE_ED25519, COSE_CUR
 
 if TYPE_CHECKING:
     from typing import Iterable
-    from trezor.crypto import bip32
+    from detahard.crypto import bip32
 
 
 # Credential ID values
@@ -440,7 +440,7 @@ class U2fCredential(Credential):
         node = U2fCredential._node_from_key_handle(rp_id_hash, key_handle, "<8L")
         if node is None:
             # prior to firmware version 2.0.8, keypath was serialized in a
-            # big-endian manner, instead of little endian, like in trezor-mcu.
+            # big-endian manner, instead of little endian, like in detahard-mcu.
             # try to parse it as big-endian now and check the HMAC.
             node = U2fCredential._node_from_key_handle(rp_id_hash, key_handle, ">8L")
         if node is None:
@@ -457,7 +457,7 @@ class U2fCredential(Credential):
     def _node_from_key_handle(
         rp_id_hash: bytes, keyhandle: bytes, pathformat: str
     ) -> bip32.HDNode | None:
-        from trezor import log
+        from detahard import log
 
         # unpack the keypath from the first half of keyhandle
         keypath = keyhandle[:32]

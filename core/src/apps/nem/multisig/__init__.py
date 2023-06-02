@@ -3,12 +3,12 @@ from typing import TYPE_CHECKING
 from . import layout, serialize
 
 if TYPE_CHECKING:
-    from trezor.messages import (
+    from detahard.messages import (
         NEMAggregateModification,
         NEMSignTx,
         NEMTransactionCommon,
     )
-    from trezor.wire import Context
+    from detahard.wire import Context
 
 
 async def ask(ctx: Context, msg: NEMSignTx) -> None:

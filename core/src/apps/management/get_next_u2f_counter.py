@@ -1,16 +1,16 @@
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from trezor.messages import GetNextU2FCounter, NextU2FCounter
-    from trezor.wire import Context
+    from detahard.messages import GetNextU2FCounter, NextU2FCounter
+    from detahard.wire import Context
 
 
 async def get_next_u2f_counter(ctx: Context, msg: GetNextU2FCounter) -> NextU2FCounter:
     import storage.device as storage_device
-    from trezor.wire import NotInitialized
-    from trezor.enums import ButtonRequestType
-    from trezor.messages import NextU2FCounter
-    from trezor.ui.layouts import confirm_action
+    from detahard.wire import NotInitialized
+    from detahard.enums import ButtonRequestType
+    from detahard.messages import NextU2FCounter
+    from detahard.ui.layouts import confirm_action
 
     if not storage_device.is_initialized():
         raise NotInitialized("Device is not initialized")

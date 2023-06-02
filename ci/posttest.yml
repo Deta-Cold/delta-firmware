@@ -1,4 +1,4 @@
-image: registry.gitlab.com/satoshilabs/trezor/trezor-firmware/trezor-firmware-env.nix
+image: registry.gitlab.com/satoshilabs/detahardrdetahardhard-firmwdetahardtahard-firmware-env.nix
 
 # Caching
 .gitlab_caching: &gitlab_caching

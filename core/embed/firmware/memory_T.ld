@@ -1,4 +1,4 @@
-/* TREZORv2 firmware linker script */
+/* detahardv2 firmware linker script */
 
 ENTRY(reset_handler)
 
@@ -48,11 +48,11 @@ SECTIONS {
     build/firmware/vendor/secp256k1-zkp/src/secp256k1.o(.rodata*);
     build/firmware/vendor/secp256k1-zkp/src/precomputed_ecmult.o(.rodata*);
     build/firmware/vendor/secp256k1-zkp/src/precomputed_ecmult_gen.o(.rodata*);
-    build/firmware/vendor/trezor-crypto/aes/aestab.o(.rodata*);
+    build/firmware/vendor/detahard-crypto/aes/aestab.o(.rodata*);
     . = ALIGN(4);
-    */libtrezor_lib.a:(.text*);
+    */libdetahard_lib.a:(.text*);
     . = ALIGN(4);
-    */libtrezor_lib.a:(.rodata*);
+    */libdetahard_lib.a:(.rodata*);
     . = ALIGN(512);
   } >FLASH2 AT>FLASH2
 

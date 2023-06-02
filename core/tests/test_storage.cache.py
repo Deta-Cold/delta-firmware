@@ -2,9 +2,9 @@ from common import *
 from mock_storage import mock_storage
 
 from storage import cache
-from trezor.messages import Initialize
-from trezor.messages import EndSession
-from trezor.wire import DUMMY_CONTEXT
+from detahard.messages import Initialize
+from detahard.messages import EndSession
+from detahard.wire import DUMMY_CONTEXT
 
 from apps.base import handle_Initialize, handle_EndSession
 

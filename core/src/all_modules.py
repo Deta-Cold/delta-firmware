@@ -4,7 +4,7 @@
 # flake8: noqa
 # fmt: off
 # isort:skip_file
-from trezor.utils import halt
+from detahard.utils import halt
 
 # this module should not be part of the build, its purpose is only to add missed Qstrings
 halt("Tried to import excluded module.")
@@ -29,7 +29,7 @@ halt("Tried to import excluded module.")
 # interned, and some operation somewhere (rendering?) is reading strings character by
 # character.
 
-from trezor import utils
+from detahard import utils
 
 all_modules
 import all_modules
@@ -63,128 +63,128 @@ storage.resident_credentials
 import storage.resident_credentials
 storage.sd_salt
 import storage.sd_salt
-trezor
-import trezor
-trezor.crypto
-import trezor.crypto
-trezor.crypto.base32
-import trezor.crypto.base32
-trezor.crypto.base58
-import trezor.crypto.base58
-trezor.crypto.bech32
-import trezor.crypto.bech32
-trezor.crypto.cashaddr
-import trezor.crypto.cashaddr
-trezor.crypto.cosi
-import trezor.crypto.cosi
-trezor.crypto.curve
-import trezor.crypto.curve
-trezor.crypto.der
-import trezor.crypto.der
-trezor.crypto.hashlib
-import trezor.crypto.hashlib
-trezor.crypto.rlp
-import trezor.crypto.rlp
-trezor.crypto.scripts
-import trezor.crypto.scripts
-trezor.crypto.slip39
-import trezor.crypto.slip39
-trezor.enums.AmountUnit
-import trezor.enums.AmountUnit
-trezor.enums.BackupType
-import trezor.enums.BackupType
-trezor.enums.ButtonRequestType
-import trezor.enums.ButtonRequestType
-trezor.enums.Capability
-import trezor.enums.Capability
-trezor.enums.DebugButton
-import trezor.enums.DebugButton
-trezor.enums.DebugSwipeDirection
-import trezor.enums.DebugSwipeDirection
-trezor.enums.DecredStakingSpendType
-import trezor.enums.DecredStakingSpendType
-trezor.enums.FailureType
-import trezor.enums.FailureType
-trezor.enums.HomescreenFormat
-import trezor.enums.HomescreenFormat
-trezor.enums.InputScriptType
-import trezor.enums.InputScriptType
-trezor.enums.MessageType
-import trezor.enums.MessageType
-trezor.enums.OutputScriptType
-import trezor.enums.OutputScriptType
-trezor.enums.PinMatrixRequestType
-import trezor.enums.PinMatrixRequestType
-trezor.enums.RecoveryDeviceType
-import trezor.enums.RecoveryDeviceType
-trezor.enums.RequestType
-import trezor.enums.RequestType
-trezor.enums.SafetyCheckLevel
-import trezor.enums.SafetyCheckLevel
-trezor.enums.SdProtectOperationType
-import trezor.enums.SdProtectOperationType
-trezor.enums.WordRequestType
-import trezor.enums.WordRequestType
-trezor.enums
-import trezor.enums
-trezor.errors
-import trezor.errors
-trezor.log
-import trezor.log
-trezor.loop
-import trezor.loop
-trezor.messages
-import trezor.messages
-trezor.pin
-import trezor.pin
-trezor.protobuf
-import trezor.protobuf
-trezor.sdcard
-import trezor.sdcard
-trezor.strings
-import trezor.strings
-trezor.ui
-import trezor.ui
-trezor.ui.layouts
-import trezor.ui.layouts
-trezor.ui.layouts.common
-import trezor.ui.layouts.common
-trezor.ui.layouts.fido
-import trezor.ui.layouts.fido
-trezor.ui.layouts.homescreen
-import trezor.ui.layouts.homescreen
-trezor.ui.layouts.progress
-import trezor.ui.layouts.progress
-trezor.ui.layouts.recovery
-import trezor.ui.layouts.recovery
-trezor.ui.layouts.reset
-import trezor.ui.layouts.reset
-trezor.ui.layouts.tr
-import trezor.ui.layouts.tr
-trezor.ui.layouts.tt_v2
-import trezor.ui.layouts.tt_v2
-trezor.ui.layouts.tt_v2.fido
-import trezor.ui.layouts.tt_v2.fido
-trezor.ui.layouts.tt_v2.homescreen
-import trezor.ui.layouts.tt_v2.homescreen
-trezor.ui.layouts.tt_v2.progress
-import trezor.ui.layouts.tt_v2.progress
-trezor.ui.layouts.tt_v2.recovery
-import trezor.ui.layouts.tt_v2.recovery
-trezor.ui.layouts.tt_v2.reset
-import trezor.ui.layouts.tt_v2.reset
-trezor.ui.style
-import trezor.ui.style
-trezor.utils
-import trezor.utils
-trezor.wire
-import trezor.wire
-trezor.wire.codec_v1
-import trezor.wire.codec_v1
-trezor.wire.errors
-import trezor.wire.errors
-trezor.workflow
-import trezor.workflow
+detahard
+import detahard
+detahard.crypto
+import detahard.crypto
+detahard.crypto.base32
+import detahard.crypto.base32
+detahard.crypto.base58
+import detahard.crypto.base58
+detahard.crypto.bech32
+import detahard.crypto.bech32
+detahard.crypto.cashaddr
+import detahard.crypto.cashaddr
+detahard.crypto.cosi
+import detahard.crypto.cosi
+detahard.crypto.curve
+import detahard.crypto.curve
+detahard.crypto.der
+import detahard.crypto.der
+detahard.crypto.hashlib
+import detahard.crypto.hashlib
+detahard.crypto.rlp
+import detahard.crypto.rlp
+detahard.crypto.scripts
+import detahard.crypto.scripts
+detahard.crypto.slip39
+import detahard.crypto.slip39
+detahard.enums.AmountUnit
+import detahard.enums.AmountUnit
+detahard.enums.BackupType
+import detahard.enums.BackupType
+detahard.enums.ButtonRequestType
+import detahard.enums.ButtonRequestType
+detahard.enums.Capability
+import detahard.enums.Capability
+detahard.enums.DebugButton
+import detahard.enums.DebugButton
+detahard.enums.DebugSwipeDirection
+import detahard.enums.DebugSwipeDirection
+detahard.enums.DecredStakingSpendType
+import detahard.enums.DecredStakingSpendType
+detahard.enums.FailureType
+import detahard.enums.FailureType
+detahard.enums.HomescreenFormat
+import detahard.enums.HomescreenFormat
+detahard.enums.InputScriptType
+import detahard.enums.InputScriptType
+detahard.enums.MessageType
+import detahard.enums.MessageType
+detahard.enums.OutputScriptType
+import detahard.enums.OutputScriptType
+detahard.enums.PinMatrixRequestType
+import detahard.enums.PinMatrixRequestType
+detahard.enums.RecoveryDeviceType
+import detahard.enums.RecoveryDeviceType
+detahard.enums.RequestType
+import detahard.enums.RequestType
+detahard.enums.SafetyCheckLevel
+import detahard.enums.SafetyCheckLevel
+detahard.enums.SdProtectOperationType
+import detahard.enums.SdProtectOperationType
+detahard.enums.WordRequestType
+import detahard.enums.WordRequestType
+detahard.enums
+import detahard.enums
+detahard.errors
+import detahard.errors
+detahard.log
+import detahard.log
+detahard.loop
+import detahard.loop
+detahard.messages
+import detahard.messages
+detahard.pin
+import detahard.pin
+detahard.protobuf
+import detahard.protobuf
+detahard.sdcard
+import detahard.sdcard
+detahard.strings
+import detahard.strings
+detahard.ui
+import detahard.ui
+detahard.ui.layouts
+import detahard.ui.layouts
+detahard.ui.layouts.common
+import detahard.ui.layouts.common
+detahard.ui.layouts.fido
+import detahard.ui.layouts.fido
+detahard.ui.layouts.homescreen
+import detahard.ui.layouts.homescreen
+detahard.ui.layouts.progress
+import detahard.ui.layouts.progress
+detahard.ui.layouts.recovery
+import detahard.ui.layouts.recovery
+detahard.ui.layouts.reset
+import detahard.ui.layouts.reset
+detahard.ui.layouts.tr
+import detahard.ui.layouts.tr
+detahard.ui.layouts.tt_v2
+import detahard.ui.layouts.tt_v2
+detahard.ui.layouts.tt_v2.fido
+import detahard.ui.layouts.tt_v2.fido
+detahard.ui.layouts.tt_v2.homescreen
+import detahard.ui.layouts.tt_v2.homescreen
+detahard.ui.layouts.tt_v2.progress
+import detahard.ui.layouts.tt_v2.progress
+detahard.ui.layouts.tt_v2.recovery
+import detahard.ui.layouts.tt_v2.recovery
+detahard.ui.layouts.tt_v2.reset
+import detahard.ui.layouts.tt_v2.reset
+detahard.ui.style
+import detahard.ui.style
+detahard.utils
+import detahard.utils
+detahard.wire
+import detahard.wire
+detahard.wire.codec_v1
+import detahard.wire.codec_v1
+detahard.wire.errors
+import detahard.wire.errors
+detahard.workflow
+import detahard.workflow
 apps
 import apps
 apps.base
@@ -351,58 +351,58 @@ apps.workflow_handlers
 import apps.workflow_handlers
 
 if not utils.BITCOIN_ONLY:
-    trezor.enums.BinanceOrderSide
-    import trezor.enums.BinanceOrderSide
-    trezor.enums.BinanceOrderType
-    import trezor.enums.BinanceOrderType
-    trezor.enums.BinanceTimeInForce
-    import trezor.enums.BinanceTimeInForce
-    trezor.enums.CardanoAddressType
-    import trezor.enums.CardanoAddressType
-    trezor.enums.CardanoCVoteRegistrationFormat
-    import trezor.enums.CardanoCVoteRegistrationFormat
-    trezor.enums.CardanoCertificateType
-    import trezor.enums.CardanoCertificateType
-    trezor.enums.CardanoDerivationType
-    import trezor.enums.CardanoDerivationType
-    trezor.enums.CardanoNativeScriptHashDisplayFormat
-    import trezor.enums.CardanoNativeScriptHashDisplayFormat
-    trezor.enums.CardanoNativeScriptType
-    import trezor.enums.CardanoNativeScriptType
-    trezor.enums.CardanoPoolRelayType
-    import trezor.enums.CardanoPoolRelayType
-    trezor.enums.CardanoTxAuxiliaryDataSupplementType
-    import trezor.enums.CardanoTxAuxiliaryDataSupplementType
-    trezor.enums.CardanoTxOutputSerializationFormat
-    import trezor.enums.CardanoTxOutputSerializationFormat
-    trezor.enums.CardanoTxSigningMode
-    import trezor.enums.CardanoTxSigningMode
-    trezor.enums.CardanoTxWitnessType
-    import trezor.enums.CardanoTxWitnessType
-    trezor.enums.EthereumDataType
-    import trezor.enums.EthereumDataType
-    trezor.enums.EthereumDefinitionType
-    import trezor.enums.EthereumDefinitionType
-    trezor.enums.MoneroNetworkType
-    import trezor.enums.MoneroNetworkType
-    trezor.enums.NEMImportanceTransferMode
-    import trezor.enums.NEMImportanceTransferMode
-    trezor.enums.NEMModificationType
-    import trezor.enums.NEMModificationType
-    trezor.enums.NEMMosaicLevy
-    import trezor.enums.NEMMosaicLevy
-    trezor.enums.NEMSupplyChangeType
-    import trezor.enums.NEMSupplyChangeType
-    trezor.enums.StellarAssetType
-    import trezor.enums.StellarAssetType
-    trezor.enums.StellarMemoType
-    import trezor.enums.StellarMemoType
-    trezor.enums.StellarSignerType
-    import trezor.enums.StellarSignerType
-    trezor.enums.TezosBallotType
-    import trezor.enums.TezosBallotType
-    trezor.enums.TezosContractType
-    import trezor.enums.TezosContractType
+    detahard.enums.BinanceOrderSide
+    import detahard.enums.BinanceOrderSide
+    detahard.enums.BinanceOrderType
+    import detahard.enums.BinanceOrderType
+    detahard.enums.BinanceTimeInForce
+    import detahard.enums.BinanceTimeInForce
+    detahard.enums.CardanoAddressType
+    import detahard.enums.CardanoAddressType
+    detahard.enums.CardanoCVoteRegistrationFormat
+    import detahard.enums.CardanoCVoteRegistrationFormat
+    detahard.enums.CardanoCertificateType
+    import detahard.enums.CardanoCertificateType
+    detahard.enums.CardanoDerivationType
+    import detahard.enums.CardanoDerivationType
+    detahard.enums.CardanoNativeScriptHashDisplayFormat
+    import detahard.enums.CardanoNativeScriptHashDisplayFormat
+    detahard.enums.CardanoNativeScriptType
+    import detahard.enums.CardanoNativeScriptType
+    detahard.enums.CardanoPoolRelayType
+    import detahard.enums.CardanoPoolRelayType
+    detahard.enums.CardanoTxAuxiliaryDataSupplementType
+    import detahard.enums.CardanoTxAuxiliaryDataSupplementType
+    detahard.enums.CardanoTxOutputSerializationFormat
+    import detahard.enums.CardanoTxOutputSerializationFormat
+    detahard.enums.CardanoTxSigningMode
+    import detahard.enums.CardanoTxSigningMode
+    detahard.enums.CardanoTxWitnessType
+    import detahard.enums.CardanoTxWitnessType
+    detahard.enums.EthereumDataType
+    import detahard.enums.EthereumDataType
+    detahard.enums.EthereumDefinitionType
+    import detahard.enums.EthereumDefinitionType
+    detahard.enums.MoneroNetworkType
+    import detahard.enums.MoneroNetworkType
+    detahard.enums.NEMImportanceTransferMode
+    import detahard.enums.NEMImportanceTransferMode
+    detahard.enums.NEMModificationType
+    import detahard.enums.NEMModificationType
+    detahard.enums.NEMMosaicLevy
+    import detahard.enums.NEMMosaicLevy
+    detahard.enums.NEMSupplyChangeType
+    import detahard.enums.NEMSupplyChangeType
+    detahard.enums.StellarAssetType
+    import detahard.enums.StellarAssetType
+    detahard.enums.StellarMemoType
+    import detahard.enums.StellarMemoType
+    detahard.enums.StellarSignerType
+    import detahard.enums.StellarSignerType
+    detahard.enums.TezosBallotType
+    import detahard.enums.TezosBallotType
+    detahard.enums.TezosContractType
+    import detahard.enums.TezosContractType
     apps.binance
     import apps.binance
     apps.binance.get_address

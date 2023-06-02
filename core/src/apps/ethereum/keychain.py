@@ -1,6 +1,6 @@
 from typing import TYPE_CHECKING
 
-from trezor.messages import EthereumNetworkInfo
+from detahard.messages import EthereumNetworkInfo
 
 from apps.common import paths
 from apps.common.keychain import get_keychain
@@ -12,9 +12,9 @@ if TYPE_CHECKING:
 
     from apps.common.keychain import Keychain
 
-    from trezor.wire import Context
+    from detahard.wire import Context
 
-    from trezor.messages import (
+    from detahard.messages import (
         EthereumGetAddress,
         EthereumSignMessage,
         EthereumSignTx,

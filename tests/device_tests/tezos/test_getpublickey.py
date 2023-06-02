@@ -1,4 +1,4 @@
-# This file is part of the Trezor project.
+# This file is part of the detahard project.
 #
 # Copyright (C) 2012-2019 SatoshiLabs and contributors
 #
@@ -16,9 +16,9 @@
 
 import pytest
 
-from trezorlib.debuglink import TrezorClientDebugLink as Client
-from trezorlib.tezos import get_public_key
-from trezorlib.tools import parse_path
+from detahardlib.debuglink import detahardClientDebugLink as Client
+from detahardlib.tezos import get_public_key
+from detahardlib.tools import parse_path
 
 
 @pytest.mark.altcoin

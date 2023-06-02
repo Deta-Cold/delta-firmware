@@ -1,7 +1,7 @@
 from typing import TYPE_CHECKING
 
-from trezor.crypto import bip32
-from trezor.wire import DataError
+from detahard.crypto import bip32
+from detahard.wire import DataError
 
 from . import paths, safety_checks
 
@@ -15,8 +15,8 @@ if TYPE_CHECKING:
     )
     from typing_extensions import Protocol
 
-    from trezor.protobuf import MessageType
-    from trezor.wire import Context
+    from detahard.protobuf import MessageType
+    from detahard.wire import Context
     from .seed import Slip21Node
 
     T = TypeVar("T")

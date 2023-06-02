@@ -1,14 +1,14 @@
 from typing import TYPE_CHECKING
 
-from trezor.enums import ButtonRequestType
-from trezor.ui.layouts import confirm_properties
+from detahard.enums import ButtonRequestType
+from detahard.ui.layouts import confirm_properties
 
 from ..helpers import eos_asset_to_string, eos_name_to_string
 
 if TYPE_CHECKING:
     from typing import Iterable
-    from trezor.wire import Context
-    from trezor.messages import (
+    from detahard.wire import Context
+    from detahard.messages import (
         EosActionBuyRam,
         EosActionBuyRamBytes,
         EosActionCommon,
@@ -25,7 +25,7 @@ if TYPE_CHECKING:
         EosActionVoteProducer,
         EosAuthorization,
     )
-    from trezor.ui.layouts import PropertyType
+    from detahard.ui.layouts import PropertyType
 
 
 # Whether action is last - and should be HoldToConfirm
@@ -276,7 +276,7 @@ async def confirm_action_unknown(
 
 
 def authorization_fields(auth: EosAuthorization) -> list[PropertyType]:
-    from trezor.wire import DataError
+    from detahard.wire import DataError
     from ..helpers import public_key_to_wif
 
     fields: list[PropertyType] = []

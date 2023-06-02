@@ -2,19 +2,19 @@ from typing import TYPE_CHECKING
 
 import storage.device as storage_device
 import storage.recovery as storage_recovery
-from trezor import wire
-from trezor.messages import Success
+from detahard import wire
+from detahard.messages import Success
 
 from .. import backup_types
 from . import layout, recover
 
 if TYPE_CHECKING:
-    from trezor.wire import GenericContext
-    from trezor.enums import BackupType
+    from detahard.wire import GenericContext
+    from detahard.enums import BackupType
 
 
 async def recovery_homescreen() -> None:
-    from trezor import workflow
+    from detahard import workflow
     from apps.homescreen import homescreen
 
     if not storage_recovery.is_in_progress():
@@ -27,7 +27,7 @@ async def recovery_homescreen() -> None:
 
 
 async def recovery_process(ctx: GenericContext) -> Success:
-    from trezor.enums import MessageType
+    from detahard.enums import MessageType
     import storage
 
     wire.AVOID_RESTARTING_FOR = (MessageType.Initialize, MessageType.GetFeatures)
@@ -43,7 +43,7 @@ async def recovery_process(ctx: GenericContext) -> Success:
 
 
 async def _continue_recovery_process(ctx: GenericContext) -> Success:
-    from trezor.errors import MnemonicError
+    from detahard.errors import MnemonicError
 
     # gather the current recovery state from storage
     dry_run = storage_recovery.is_dry_run()
@@ -100,8 +100,8 @@ async def _continue_recovery_process(ctx: GenericContext) -> Success:
 async def _finish_recovery_dry_run(
     ctx: GenericContext, secret: bytes, backup_type: BackupType
 ) -> Success:
-    from trezor.crypto.hashlib import sha256
-    from trezor import utils
+    from detahard.crypto.hashlib import sha256
+    from detahard import utils
     from apps.common import mnemonic
 
     if backup_type is None:
@@ -137,8 +137,8 @@ async def _finish_recovery_dry_run(
 async def _finish_recovery(
     ctx: GenericContext, secret: bytes, backup_type: BackupType
 ) -> Success:
-    from trezor.ui.layouts import show_success
-    from trezor.enums import BackupType
+    from detahard.ui.layouts import show_success
+    from detahard.enums import BackupType
 
     if backup_type is None:
         raise RuntimeError
@@ -201,7 +201,7 @@ async def _request_share_first_screen(ctx: GenericContext, word_count: int) -> N
 
 
 async def _request_share_next_screen(ctx: GenericContext) -> None:
-    from trezor import strings
+    from detahard import strings
 
     remaining = storage_recovery.fetch_slip39_remaining_shares()
     group_count = storage_recovery.get_slip39_group_count()
@@ -225,7 +225,7 @@ async def _show_remaining_groups_and_shares(ctx: GenericContext) -> None:
     """
     Show info dialog for Slip39 Advanced - what shares are to be entered.
     """
-    from trezor.crypto import slip39
+    from detahard.crypto import slip39
     import storage.recovery_shares as storage_recovery_shares
 
     shares_remaining = storage_recovery.fetch_slip39_remaining_shares()

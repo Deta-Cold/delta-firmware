@@ -1,4 +1,4 @@
-# This file is part of the Trezor project.
+# This file is part of the detahard project.
 #
 # Copyright (C) 2012-2019 SatoshiLabs and contributors
 #
@@ -18,9 +18,9 @@ from typing import Any
 
 import pytest
 
-from trezorlib import btc, messages
-from trezorlib.debuglink import TrezorClientDebugLink as Client, message_filters
-from trezorlib.tools import parse_path
+from detahardlib import btc, messages
+from detahardlib.debuglink import detahardClientDebugLink as Client, message_filters
+from detahardlib.tools import parse_path
 
 from ...input_flows import InputFlowSignMessagePagination
 
@@ -316,7 +316,7 @@ def test_signmessage_pagination(client: Client, message: str):
             message=message,
         )
 
-    # We cannot differentiate between a newline and space in the message read from Trezor.
+    # We cannot differentiate between a newline and space in the message read from detahard.
     expected_message = (
         ("Confirm message: " + message).replace("\n", "").replace(" ", "")
     )

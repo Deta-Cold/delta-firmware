@@ -1,5 +1,5 @@
 /*
- * This file is part of the Trezor project, https://trezor.io/
+ * This file is part of the detahard project, https://detahard.io/
  *
  * Copyright (c) SatoshiLabs
  *
@@ -43,7 +43,7 @@
 // from util.s
 extern void shutdown_privileged(void);
 
-void __attribute__((noreturn)) trezor_shutdown(void) {
+void __attribute__((noreturn)) detahard_shutdown(void) {
 #ifdef USE_SVC_SHUTDOWN
   svc_shutdown();
 #else
@@ -61,7 +61,7 @@ error_uni(const char *label, const char *msg, const char *footer) {
 
 #ifdef FANCY_FATAL_ERROR
 
-  screen_fatal_error_rust(label, msg, "PLEASE VISIT\nTREZOR.IO/RSOD");
+  screen_fatal_error_rust(label, msg, "PLEASE VISIT\ndetahard.IO/RSOD");
   display_refresh();
 #else
   display_print_color(COLOR_WHITE, COLOR_FATAL_ERROR);
@@ -77,7 +77,7 @@ error_uni(const char *label, const char *msg, const char *footer) {
 #endif
   display_backlight(255);
   display_refresh();
-  trezor_shutdown();
+  detahard_shutdown();
 }
 
 void __attribute__((noreturn))
@@ -90,7 +90,7 @@ __fatal_error(const char *expr, const char *msg, const char *file, int line,
   char buf[256] = {0};
   mini_snprintf(buf, sizeof(buf), "%s: %d", file, line);
   screen_fatal_error_rust("INTERNAL ERROR", msg != NULL ? msg : buf,
-                          "PLEASE VISIT\nTREZOR.IO/RSOD");
+                          "PLEASE VISIT\ndetahard.IO/RSOD");
   display_refresh();
 #else
   display_print_color(COLOR_WHITE, COLOR_FATAL_ERROR);
@@ -112,9 +112,9 @@ __fatal_error(const char *expr, const char *msg, const char *file, int line,
   display_printf("rev : %02x%02x%02x%02x%02x\n", rev[0], rev[1], rev[2], rev[3],
                  rev[4]);
 #endif
-  display_printf("\nPlease contact Trezor support.\n");
+  display_printf("\nPlease contact detahard support.\n");
 #endif
-  trezor_shutdown();
+  detahard_shutdown();
 }
 
 void __attribute__((noreturn))
@@ -123,7 +123,7 @@ error_shutdown(const char *label, const char *msg) {
 
 #ifdef FANCY_FATAL_ERROR
 
-  screen_fatal_error_rust(label, msg, "PLEASE VISIT\nTREZOR.IO/RSOD");
+  screen_fatal_error_rust(label, msg, "PLEASE VISIT\ndetahard.IO/RSOD");
   display_refresh();
 #else
   display_print_color(COLOR_WHITE, COLOR_FATAL_ERROR);
@@ -133,10 +133,10 @@ error_shutdown(const char *label, const char *msg) {
   if (msg) {
     display_printf("%s\n", msg);
   }
-  display_printf("\nPLEASE VISIT TREZOR.IO/RSOD\n");
+  display_printf("\nPLEASE VISIT detahard.IO/RSOD\n");
 #endif
   display_backlight(255);
-  trezor_shutdown();
+  detahard_shutdown();
 }
 
 #ifndef NDEBUG
@@ -202,7 +202,7 @@ void collect_hw_entropy(void) {
 // which might be incompatible with the other layers older versions,
 // where this setting might be unknown
 void ensure_compatible_settings(void) {
-#ifdef TREZOR_MODEL_T
+#ifdef detahard_MODEL_T
   display_set_big_endian();
   display_orientation(0);
   set_core_clock(CLOCK_168_MHZ);

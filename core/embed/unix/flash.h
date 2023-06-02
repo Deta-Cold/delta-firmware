@@ -1,1 +1,1 @@
-../trezorhal/flash.h
+../detahardhal/flash.h
